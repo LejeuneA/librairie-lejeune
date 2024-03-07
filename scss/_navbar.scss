@@ -5,7 +5,9 @@
   }
 }
 
-// Navbar upper section
+/* -------------------------------------------------------
+                 Navbar upper section
+---------------------------------------------------------*/
 .navbar {
   background-color: $light-blue;
   padding: 1rem 1rem 0;
@@ -44,6 +46,7 @@
 
     .social-link {
       @include hover('color', $primary-red);
+      transition: background-color 0.4s ease; 
 
       &.fa-square-facebook,
       &.fa-x-twitter,
@@ -53,8 +56,6 @@
     }
   }
 }
-
-// Social icons end
 
 // Search bar
 .search-group {
@@ -71,7 +72,9 @@
     flex: 1;
 
     &:focus {
-      box-shadow: 0 0 5px $secondary-blue;
+      box-shadow: 0 0 10px $secondary-blue;
+      outline: none;
+      border: 1px solid $secondary-blue;
     }
   }
 
@@ -80,44 +83,29 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     color: $light-blue;
-    padding: 0.3rem;
+    padding: 0.3rem 0.5rem;
 
     @include hover('background-color', $primary-red);
+    transition: background-color 0.4s ease; 
   }
 }
 
-
-// Search bar end
-
-// Login Button
-.btn-login {
+// Login button
+.btn-login{
   background-color: $primary-red;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  color: $light-blue;
 
   @include hover('background-color', $primary-blue);
+  transition: background-color 0.4s ease; 
 }
-
 // Login button end
 
-// Navbar lower section
+/* -------------------------------------------------------
+               Navbar lower section
+---------------------------------------------------------*/
 // Navbar Menu
-.navbar-menu {
-  background-color: $primary-blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3em;
-}
-
-// Navbar Nav
-.navbar-menu {
-  background-color: $primary-blue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 3em;
-}
-
-// Navbar Nav
 .navbar-menu {
   background-color: $primary-blue;
   display: flex;
@@ -135,13 +123,13 @@
 
   .nav-item {
     margin-right: 2em;
-
+  
     .nav-link {
-      @include hover('background-color', $primary-red);
       color: $light-blue;
       padding: 0.8em;
+  
+      @include hover('background-color', $primary-red);
+      transition: background-color 0.4s ease; 
     }
   }
 }
-
-// Navbar menu end
