@@ -40,25 +40,19 @@ body{
     }
 
     &::before {
-        // content: '';
-        // position: absolute;
-        // top: 0;
-        // right: 0;
-        // width: 80%;
-        // height: 100%;
-        // clip-path: polygon(25% 0, 100% 0, 100% 38%, 39% 61%, 0 30%);
-        // z-index: 1;
-        // background: linear-gradient(
-        //     to bottom,
-        //     rgba(240, 84, 85, 0.5),
-        //     rgba(132, 192, 225, 0.5),
-        //     rgba(48, 71, 94, 0.5)
-        // );
-
-        @media screen and (min-width: 320px) and (max-width: 640px) {
-            background: none;
-        }
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 80%;
+        height: 100%;
+        clip-path: polygon(25% 0, 100% 0, 100% 38%, 39% 61%, 0 30%);
+        z-index: 1;
+        background: linear-gradient(
+            to bottom,
+            rgba(240, 84, 85, 0.5),
+            rgba(132, 192, 225, 0.5),
+            rgba(48, 71, 94, 0.5)
+        );
     }
-
-    
 }
