@@ -21,76 +21,73 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // Navbar container end
+}
 
-  // Logo
-  .navbar-brand-img {
-    height: 3em;
-  }
+// Logo
+.navbar-brand-img {
+  height: 3em;
+}
 
-  .d-flex {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
+.d-flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-  // Social Icons
-  .navbar-nav {
-    display: flex;
-    flex-direction: row;
+// Social Icons
+.social-nav {
+  display: flex;
+  flex-direction: row;
 
-    .nav-item {
-      margin-right: 1rem;
+  .social-item {
+    margin-right: 1rem;
 
-      .nav-link {
-        @include hover('color', $primary-red);
+    .social-link {
+      @include hover('color', $primary-red);
 
-        &.fa-square-facebook,
-        &.fa-x-twitter,
-        &.fa-instagram {
-          font-size: 1.5rem;
-
-        }
-      }
-    }
-  }
-
-  // Social icons end
-
-  // Search Form
-  .form-search {
-    display: flex;
-    margin-right: 2rem;
-
-    .input-group {
-      position: relative;
-
-      input[type="search"] {
-        border: 1px solid $primary-blue;
-        border-radius: 5px;
-        font-size: smaller;
-        font-style: italic;
-
-        &:focus {
-          border-color: $primary-blue;
-          box-shadow: 0 0 5px $secondary-blue;
-          z-index: 1;
-          border-radius: 5px;
-        }
-      }
-
-      .btn-search {
-        background-color: $primary-blue;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-
-        @include hover('background-color', $primary-red);
+      &.fa-square-facebook,
+      &.fa-x-twitter,
+      &.fa-instagram {
+        font-size: 1.5rem;
       }
     }
   }
 }
 
-// Search form end
+// Social icons end
+
+// Search bar
+.search-group {
+  display: flex;
+  align-items: stretch;
+
+  input[type="search"] {
+    border: 1px solid $primary-blue;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: smaller;
+    font-style: italic;
+    padding: 0.3rem;
+    flex: 1;
+
+    &:focus {
+      box-shadow: 0 0 5px $secondary-blue;
+    }
+  }
+
+  .btn-search {
+    background-color: $primary-blue;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: $light-blue;
+    padding: 0.3rem;
+
+    @include hover('background-color', $primary-red);
+  }
+}
+
+
+// Search bar end
 
 // Login Button
 .btn-login {
@@ -101,18 +98,50 @@
 
 // Login button end
 
-
 // Navbar lower section
 // Navbar Menu
 .navbar-menu {
   background-color: $primary-blue;
-  height: 2em;
-  margin-top: -1rem;
-}
-
-.navbar-nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 3em;
 }
-// Navbar Menu end
+
+// Navbar Nav
+.navbar-menu {
+  background-color: $primary-blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+}
+
+// Navbar Nav
+.navbar-menu {
+  background-color: $primary-blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+}
+
+// Navbar Nav
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .nav-item {
+    margin-right: 2em;
+
+    .nav-link {
+      @include hover('background-color', $primary-red);
+      color: $light-blue;
+      padding: 0.8em;
+    }
+  }
+}
+
+// Navbar menu end
