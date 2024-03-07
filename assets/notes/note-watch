@@ -1,0 +1,61 @@
+
+
+// npm run scss
+
+
+
+
+// /project-root
+// |   |-- /assets
+// |   |   |-- /images
+// |   |-- |--|--textbook.jpg
+// |   |   |-- /fonts
+// |   |   |-- /icons
+// |   |   |-- /logo
+// |   |   |-- /notes
+// |   |-- /components
+// |   |   |-- navigation.html
+// |   |   |-- footer.html
+// |   |-- /css
+// |   |   |-- styles.css
+// |   |-- /js
+// |   |   |-- functions.js
+// |-- /node_modules
+// |-- /public
+// |   |-- about-us.html
+// |   |-- books.html
+// |   |-- conditions.html
+// |   |-- contact.html
+// |   |-- gifts.html
+// |   |-- index.html
+// |   |-- stationary.html
+// |   |-- work-with-us.html
+// |-- /scss
+// |   |-- _bs-customized.scss
+// |   |-- _custom.scss
+// |   |-- _navbar.scss
+// |   |-- _responsive.scss
+// |   |-- styles.scss
+// |-- package-lock.json
+// |-- package.json
+
+
+
+// |-- package.json
+// {
+//     "name": "librairie-lejeune",
+//     "version": "1.0.0",
+//     "description": "",
+//     "main": "index.js",
+//     "scripts": {
+//       "scss": "node-sass --watch scss/ -o css/ --output-style compressed"
+//     },
+//     "keywords": [],
+//     "author": "",
+//     "license": "ISC",
+//     "dependencies": {
+//       "bootstrap": "^5.3.3",
+//       "node-sass": "^9.0.0"
+//     }
+//   }
+  

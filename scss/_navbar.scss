@@ -1,0 +1,104 @@
+// Define a mixin for hover
+@mixin hover($property, $value) {
+  &:hover {
+    #{$property}: $value;
+  }
+}
+
+// Navbar upper section
+
+// Logo
+.navbar-brand-img {
+  height: 3em;
+}
+// Logo end
+
+// Social icons
+.fa-brands {
+  @include hover('color', $primary-red);
+}
+// Social icons end
+
+// Search form
+.d-flex {
+  display: flex; // Use flex display
+  position: relative;
+
+  input[type="search"] {
+    border: 1px solid $primary-blue;
+    border-radius: 5px;
+    flex: 1;
+    font-size: smaller;
+    font-style: italic;
+
+    &:focus {
+      border-color: $primary-blue;
+      box-shadow: 0 0 5px $secondary-blue;
+      z-index: 1;
+      border-radius: 5px;
+    }
+  }
+
+  .input-group {
+    position: relative;
+
+    .btn-search {
+      background-color: $primary-blue;
+      z-index: 2;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+      @include hover('background-color', $primary-red);
+    }
+  }
+}
+
+// Search form end
+
+// Login button
+.btn-login {
+  background-color: $primary-red;
+
+  @include hover('background-color', $primary-blue);
+}
+// Login button end
+
+// Navbar lower section
+.navbar-menu {
+  background-color: $primary-blue;
+
+  .nav-item {
+    margin-right: 25px;
+  }
+
+  .nav-link {
+    &.text-white {
+      @include hover('background-color', $primary-red);
+      border-radius: 5px;
+    }
+  }
+}
+
+// Navbar-toggler button hover effect
+.btn-navbar-toggler {
+  outline: none !important;
+  margin: 0 auto 15px auto;
+  border: none;
+  border-radius: 5px;
+  background-color: $primary-blue;
+  i.fa-bars {
+    color: white;
+  }
+
+  @include hover('background-color', $primary-red);
+  i.fa-bars {
+    color: $primary-blue;
+  }
+}
+// Navbar-toggler button hover effect end
+
+.offcanvas {
+  background-color: $primary-blue;
+}
+
+// Navbar lower section end

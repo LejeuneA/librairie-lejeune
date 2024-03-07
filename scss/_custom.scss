@@ -1,0 +1,59 @@
+.header-image {
+    position: relative;
+    height: 720px;
+    width: 100%;
+    background-image: url(../assets/images/textbook.jpg);
+    background-size: cover;
+    background-position: center bottom; 
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        position: absolute;
+        top: 20%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white; 
+        font-family: "Chelsea Market", system-ui;
+        font-weight: bold;
+        font-size: 2.5rem; 
+        z-index: 2;
+    } 
+
+    p {
+        position: absolute;
+        top: 30%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white; 
+        font-size: 1.2rem; 
+        z-index: 2;
+    }
+
+    &::before {
+        // content: '';
+        // position: absolute;
+        // top: 0;
+        // right: 0;
+        // width: 80%;
+        // height: 100%;
+        // clip-path: polygon(25% 0, 100% 0, 100% 38%, 39% 61%, 0 30%);
+        // z-index: 1;
+        // background: linear-gradient(
+        //     to bottom,
+        //     rgba(240, 84, 85, 0.5),
+        //     rgba(132, 192, 225, 0.5),
+        //     rgba(48, 71, 94, 0.5)
+        // );
+
+        @media screen and (min-width: 320px) and (max-width: 640px) {
+            background: none;
+        }
+    }
+
+    
+}

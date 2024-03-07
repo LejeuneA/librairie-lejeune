@@ -1,0 +1,32 @@
+// Responsive font-size adjustments
+@media (max-width: 767px) {
+    .header-text {
+      h2 {
+        font-size: 2.5rem; // Adjust font-size for smaller screens
+      }
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .header-text {
+      h2 {
+        font-size: 3rem; // Adjust font-size for medium-sized screens
+      }
+    }
+  }
+  
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .header-text {
+      h2 {
+        font-size: 3.2rem; // Adjust font-size for larger screens
+      }
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .header-text {
+      h2 {
+        font-size: 3.5rem; // Default font-size for extra-large screens
+      }
+    }
+  }

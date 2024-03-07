@@ -1,0 +1,67 @@
+// Define a mixin for hover
+@mixin hover($property, $value) {
+    &:hover {
+        #{$property}: $value;
+    }
+}
+
+// Upper footer
+.upper-footer {
+    background-color: $primary-blue;
+    color: $light-blue;
+
+    a {
+        @include hover('color', $primary-red);
+    }
+}
+
+// Logo
+.footer-brand {
+    img {
+        height: 2.5em;
+    }
+}
+// Logo end
+
+// Contact us, About us
+.footer-links {
+    li {
+        list-style: none;
+        font-size: smaller;
+    }
+    a {
+        color: $light-blue;
+        text-decoration: none;
+        @include hover('color', $primary-red);
+        
+    }
+}
+// Contact us, About us end
+
+// Follow us
+.footer-address {
+    font-size: smaller;
+}
+
+.social-icons {
+    a {
+        color: $secondary-blue;
+        margin-right: 1rem;
+    }
+}
+// Follow us end
+
+// Upper footer end
+
+// Bottom footer
+.bottom-footer {
+    background-color: $light-blue;
+    font-size: small;
+
+    a {
+        color: $primary-blue;
+        @include hover('color', $primary-red);
+        
+    }
+}
+// Bottom footer end
