@@ -1,10 +1,4 @@
 
-
-// npm run scss
-
-
-
-
 // /project-root
 // |   |-- /assets
 // |   |   |-- /images
@@ -31,7 +25,7 @@
 // |   |-- stationary.html
 // |   |-- work-with-us.html
 // |-- /scss
-// |   |-- _bs-customized.scss
+// |   |-- _sass-customized.scss
 // |   |-- _custom.scss
 // |   |-- _navbar.scss
 // |   |-- _responsive.scss
@@ -54,8 +48,10 @@
 //     "author": "",
 //     "license": "ISC",
 //     "dependencies": {
-//       "bootstrap": "^5.3.3",
 //       "node-sass": "^9.0.0"
 //     }
 //   }
   
+
+
+// npm run scss

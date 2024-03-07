@@ -1,0 +1,87 @@
+/* Reset CSS */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+code,
+em,
+img,
+small,
+strong,
+sub,
+sup,
+button,
+input,
+select,
+textarea {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block;
+}
+
+/* Links remove text decoration */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Lists remove list styling */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Block Elements */
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+/* Tables remove border spacing */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Box-sizing border-box for all elements */
+* {
+    box-sizing: border-box;
+}
+
+/* Optional: Add your own styles below this line */

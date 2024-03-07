@@ -6,99 +6,113 @@
 }
 
 // Navbar upper section
-
-// Logo
-.navbar-brand-img {
-  height: 3em;
+.navbar {
+  background-color: $light-blue;
+  padding: 1rem 1rem 0;
 }
-// Logo end
 
-// Social icons
-.fa-brands {
-  @include hover('color', $primary-red);
-}
-// Social icons end
+// Navbar container
+.navbar-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // Navbar container end
 
-// Search form
-.d-flex {
-  display: flex; // Use flex display
-  position: relative;
+  // Logo
+  .navbar-brand-img {
+    height: 3em;
+  }
 
-  input[type="search"] {
-    border: 1px solid $primary-blue;
-    border-radius: 5px;
-    flex: 1;
-    font-size: smaller;
-    font-style: italic;
+  .d-flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-    &:focus {
-      border-color: $primary-blue;
-      box-shadow: 0 0 5px $secondary-blue;
-      z-index: 1;
-      border-radius: 5px;
+  // Social Icons
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+
+    .nav-item {
+      margin-right: 1rem;
+
+      .nav-link {
+        @include hover('color', $primary-red);
+
+        &.fa-square-facebook,
+        &.fa-x-twitter,
+        &.fa-instagram {
+          font-size: 1.5rem;
+
+        }
+      }
     }
   }
 
-  .input-group {
-    position: relative;
+  // Social icons end
 
-    .btn-search {
-      background-color: $primary-blue;
-      z-index: 2;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+  // Search Form
+  .form-search {
+    display: flex;
+    margin-right: 2rem;
 
-      @include hover('background-color', $primary-red);
+    .input-group {
+      position: relative;
+
+      input[type="search"] {
+        border: 1px solid $primary-blue;
+        border-radius: 5px;
+        font-size: smaller;
+        font-style: italic;
+
+        &:focus {
+          border-color: $primary-blue;
+          box-shadow: 0 0 5px $secondary-blue;
+          z-index: 1;
+          border-radius: 5px;
+        }
+      }
+
+      .btn-search {
+        background-color: $primary-blue;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        @include hover('background-color', $primary-red);
+      }
     }
   }
 }
 
 // Search form end
 
-// Login button
+// Login Button
 .btn-login {
   background-color: $primary-red;
 
   @include hover('background-color', $primary-blue);
 }
+
 // Login button end
 
+
 // Navbar lower section
+// Navbar Menu
 .navbar-menu {
   background-color: $primary-blue;
-
-  .nav-item {
-    margin-right: 25px;
-  }
-
-  .nav-link {
-    &.text-white {
-      @include hover('background-color', $primary-red);
-      border-radius: 5px;
-    }
-  }
+  height: 2em;
+  margin-top: -1rem;
 }
 
-// Navbar-toggler button hover effect
-.btn-navbar-toggler {
-  outline: none !important;
-  margin: 0 auto 15px auto;
-  border: none;
-  border-radius: 5px;
-  background-color: $primary-blue;
-  i.fa-bars {
-    color: white;
-  }
-
-  @include hover('background-color', $primary-red);
-  i.fa-bars {
-    color: $primary-blue;
-  }
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-// Navbar-toggler button hover effect end
-
-.offcanvas {
-  background-color: $primary-blue;
-}
-
-// Navbar lower section end
+// Navbar Menu end

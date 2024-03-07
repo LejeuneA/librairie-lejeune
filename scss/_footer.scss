@@ -8,7 +8,7 @@
 // Upper footer
 .upper-footer {
     background-color: $primary-blue;
-    color: $light-blue;
+    color: $light-blue; 
 
     a {
         @include hover('color', $primary-red);
