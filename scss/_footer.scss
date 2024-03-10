@@ -1,8 +1,9 @@
 // Define a mixin for hover
-@mixin hover($property, $value) {
+@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
   &:hover {
-    #{$property}: $value;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    #{$bgProperty}: $bgValue;
+    #{$colorProperty}: $colorValue;
+    transition: background-color 0.5s ease, color 0.5s ease; 
   }
 }
 
@@ -14,7 +15,7 @@
 .upper-footer {
   background-color: $primary-blue;
   color: $light-blue;
-  padding: 1rem;
+  padding: 2.5em;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -23,7 +24,7 @@
   position: relative;
 
   a {
-    @include hover("color", $primary-red);
+    @include hover("background-color", $primary-blue, "color", $primary-red);
   }
 
   h3 {
@@ -58,7 +59,7 @@
 }
 
 .footer-brand img {
-  height: 2.5em;
+  height: 3em;
 }
 // Logo end
 
@@ -112,9 +113,10 @@
   background-color: $light-blue;
   color: $primary-blue;
   padding: 1rem;
+  font-size: small;
 
   a {
-    @include hover("color", $primary-red);
+    @include hover("background-color", $primary-blue, "color", $primary-red);
   }
 }
 // Bottom footer end
