@@ -22,8 +22,10 @@
 </head>
 
 <body>
-    <!-- Navigation -->
 
+    <!---------------------------------------------------------------
+                         Navigation
+<--------------------------------------------------------------->
     <nav class="navbar">
         <div class="navbar-container">
             <!-- Logo -->
@@ -56,58 +58,96 @@
                 <!-- Social icons end -->
 
                 <!-- Search -->
-                <form class="d-flex" role="search">
+                <form class="search" role="search">
                     <div class="search-group">
                         <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
                         <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
-
                 <!-- Search end -->
 
                 <!-- Login button -->
-
                 <a href="../public/login.html" class="btn-login">Se connecter</a>
-
                 <!-- Login button end -->
             </div>
             <!-- Right-side content end -->
         </div>
     </nav>
 
+    <!---------------------------------------------------------------
+                    Menu for larger screens
+<--------------------------------------------------------------->
+    <div class="navbar-menu">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../public/index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/books.html">Livres</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/stationery.html">Papeterie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/gifts.html">Cadeaux</a>
+            </li>
+        </ul>
+    </div>
 
-    
 
-<!-- Navbar menu for larger screens -->
-<div class="navbar-menu">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="../public/index.html">Accueil</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../public/books.html">Livres</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../public/stationery.html">Papeterie</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../public/gifts.html">Cadeaux</a>
-        </li>
-    </ul>
-</div>
-
-<!-- Offcanvas menu -->
+<!---------------------------------------------------------------
+                        Offcanvas menu
+<--------------------------------------------------------------->
     <div id="mySidenav" class="sidenav">
+
+        <!-- Search bar -->
+        <form class="search" role="search">
+            <div class="search-group">
+                <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+        <!-- Search bar end -->
+
+        <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a class="nav-link" href="../public/index.html">Accueil</a>
         <a class="nav-link" href="../public/books.html">Livres</a>
         <a class="nav-link" href="../public/stationery.html">Papeterie</a>
         <a class="nav-link" href="../public/gifts.html">Cadeaux</a>
+        <!-- Menu end -->
+
+        <!-- Login button -->
+        <a href="../public/login.html" class="btn-login">Se connecter</a>
+        <!-- Login button end -->
+
+        <!-- Social icons -->
+        <ul class="social-nav">
+            <!-- Icons -->
+            <li class="social-item">
+                <a class="social-link" href="https://www.facebook.com/">
+                    <i class="fa-brands fa-square-facebook fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://twitter.com/">
+                    <i class="fa-brands fa-x-twitter fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://www.instagram.com">
+                    <i class="fa-brands fa-instagram fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Social icons end -->
+
     </div>
-    
+
     <!-- Hamburger icon for smaller screens -->
-    <div id="hamburger" onclick="openNav()">&#9776;</div>
-    
+    <div class="navbar-hamburger">
+        <div id="hamburger" onclick="openNav()"><i class="fa-solid fa-bars"></i></div>
+    </div>
     <!-- Offcanvas menu end -->
 
     <!-- Navigation end -->
