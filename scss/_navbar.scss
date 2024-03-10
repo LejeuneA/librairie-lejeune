@@ -2,6 +2,7 @@
 @mixin hover($property, $value) {
   &:hover {
     #{$property}: $value;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
 
@@ -10,24 +11,15 @@
 ---------------------------------------------------------*/
 .navbar {
   background-color: $light-blue;
-  padding: 1rem 1rem 0;
+  padding: 1rem 1.5rem;
 }
 
 // Navbar container
 .navbar-container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-// Logo
-.navbar-brand-img {
-  height: 3em;
 }
 
 .d-flex {
@@ -36,6 +28,12 @@
   gap: 1rem;
 }
 
+// Logo
+.navbar-brand-img {
+  height: 3.5em;
+}
+// Logo end
+
 // Social Icons
 .social-nav {
   display: flex;
@@ -43,19 +41,15 @@
 
   .social-item {
     margin-right: 1rem;
+    font-size: 1.1em;
+    color: $primary-blue;
 
     .social-link {
-      @include hover('color', $primary-red);
-      transition: background-color 0.4s ease; 
-
-      &.fa-square-facebook,
-      &.fa-x-twitter,
-      &.fa-instagram {
-        font-size: 1.5rem;
-      }
+      @include hover("color", $primary-red);
     }
   }
 }
+// Social Icons end
 
 // Search bar
 .search-group {
@@ -85,25 +79,24 @@
     color: $light-blue;
     padding: 0.3rem 0.5rem;
 
-    @include hover('background-color', $primary-red);
-    transition: background-color 0.4s ease; 
+    @include hover("background-color", $primary-red);
   }
 }
+// Search bar end
 
 // Login button
-.btn-login{
+.btn-login {
   background-color: $primary-red;
   border-radius: 5px;
   padding: 0.4rem 1rem;
   color: $light-blue;
 
-  @include hover('background-color', $primary-blue);
-  transition: background-color 0.4s ease; 
+  @include hover("background-color", $primary-blue);
 }
 // Login button end
 
 /* -------------------------------------------------------
-               Navbar lower section
+               Navbar bottom section
 ---------------------------------------------------------*/
 // Navbar Menu
 .navbar-menu {
@@ -123,13 +116,133 @@
 
   .nav-item {
     margin-right: 2em;
-  
+
     .nav-link {
       color: $light-blue;
       padding: 0.8em;
-  
-      @include hover('background-color', $primary-red);
-      transition: background-color 0.4s ease; 
+
+      @include hover("background-color", $primary-red);
     }
+  }
+}
+
+/* -------------------------------------------------------
+                 Navbar responsive
+---------------------------------------------------------*/
+
+/* Media queries for xs, sm, and md screens */
+@media (min-width: 320px) and (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-container,
+  .d-flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Logo styles for small screens */
+  .navbar-brand-img {
+    height: 3.5em;
+    margin-bottom: 0;
+  }
+
+  /* Social Icons styles for small screens */
+  .social-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+  }
+
+  .social-item {
+    margin-right: 0.5rem;
+
+    .social-link {
+      font-size: 1em;
+      @include hover("color", $primary-red);
+    }
+
+    /* Search bar styles for small screens */
+    .search-group {
+      margin: 0;
+    }
+
+    /* Login button styles for small screens */
+    .btn-login {
+      padding: 0.5rem 2rem;
+    }
+  }
+
+  /* -------------------------------------------------------
+                 Offcanvas menu styles
+---------------------------------------------------------*/
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: $primary-blue;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+    a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 1em;
+      color: $light-blue;
+      display: block;
+      transition: 0.3s;
+
+      @include hover("background-color", $primary-red);
+    }
+
+    .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 2em;
+      background-color: transparent;
+      color: $light-blue; 
+      transition: color 0.3s ease; 
+  
+      &:hover {
+        background-color: transparent;
+        color: $primary-red; 
+      }
+    }
+
+    #hamburger {
+      display: none;
+      font-size: 2em;
+      cursor: pointer;
+    }
+
+    /* Styles for smaller screens */
+    @media (min-width: 320px) and (max-width: 768px) {
+      #hamburger {
+        display: block;
+      }
+
+      .navbar-menu {
+        display: none;
+      }
+    }
+  }
+}
+
+/* Styles for larger screens */
+@media (min-width: 769px){
+  #hamburger,
+  .sidenav,
+  .closebtn {
+    display: none;
   }
 }
