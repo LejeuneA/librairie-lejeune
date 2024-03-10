@@ -2,8 +2,13 @@
 @mixin hover($property, $value) {
   &:hover {
     #{$property}: $value;
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
+
+/* -------------------------------------------------------
+                 Footer upper section
+---------------------------------------------------------*/
 
 // Upper footer
 .upper-footer {
@@ -11,8 +16,9 @@
   color: $light-blue;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
+  flex-direction: row;
   gap: 2em;
   position: relative;
 
@@ -84,13 +90,67 @@
   }
 }
 
-.social-icons{
-    margin: 1em 0;
-    color: $secondary-blue;
-    font-size: 1.2em;
+.social-icons {
+  margin: 1em 0;
+  color: $secondary-blue;
+  font-size: 1.2em;
 
-    a{
-        padding-right: 1em;
-    }
+  a {
+    padding-right: 1em;
+  }
 }
 //Follow us end
+
+/* -------------------------------------------------------
+                Footer bottom section
+---------------------------------------------------------*/
+.bottom-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: $light-blue;
+  color: $primary-blue;
+  padding: 1rem;
+
+  a {
+    @include hover("color", $primary-red);
+  }
+}
+// Bottom footer end
+
+/* -------------------------------------------------------
+                 Footer responsive
+---------------------------------------------------------*/
+
+// Media queries for xs, sm, and md screens
+@media (min-width: 320px) and (max-width: 768px) {
+  .upper-footer {
+    padding: 2em;
+  }
+  .footer-brand {
+    margin: 0;
+  }
+
+  .footer-brand img {
+    height: 3.5em;
+  }
+
+  .upper-footer {
+    flex-direction: column;
+    align-items: stretch;
+
+    > div {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .bottom-footer {
+    flex-direction: column;
+    text-align: center;
+    font-size: small;
+  }
+}
+
+
