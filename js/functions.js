@@ -1,3 +1,6 @@
+/* -------------------------------------------------------
+                 Adding components in Html
+---------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
     var includes = document.querySelectorAll('[data-include]');
     
@@ -14,3 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Error fetching ' + file, error));
     });
 });
+
+
+
+/* -------------------------------------------------------
+                 Offcanvas menu
+---------------------------------------------------------*/
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
