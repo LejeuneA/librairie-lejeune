@@ -1,67 +1,96 @@
 // Define a mixin for hover
 @mixin hover($property, $value) {
-    &:hover {
-        #{$property}: $value;
-    }
+  &:hover {
+    #{$property}: $value;
+  }
 }
 
 // Upper footer
 .upper-footer {
-    background-color: $primary-blue;
-    color: $light-blue; 
+  background-color: $primary-blue;
+  color: $light-blue;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2em;
+  position: relative;
 
-    a {
-        @include hover('color', $primary-red);
-    }
+  a {
+    @include hover("color", $primary-red);
+  }
+
+  h3 {
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  ul,
+  .footer-follow-us {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+    font-size: medium;
+  }
+
+  ul li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.upper-footer > div {
+  flex: 1;
+  max-width: 25%;
 }
 
 // Logo
 .footer-brand {
-    img {
-        height: 2.5em;
-    }
+  display: flex;
+  align-items: center;
+  margin: auto 1em;
+}
+
+.footer-brand img {
+  height: 2.5em;
 }
 // Logo end
 
-// Contact us, About us
-.footer-links {
+// Contact us
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  ul {
     li {
-        list-style: none;
-        font-size: smaller;
+      &:last-child {
+        font-size: small;
+      }
     }
-    a {
-        color: $light-blue;
-        text-decoration: none;
-        @include hover('color', $primary-red);
-        
-    }
+  }
 }
-// Contact us, About us end
+// Contact us end
 
-// Follow us
-.footer-address {
-    font-size: smaller;
-}
-
-.social-icons {
-    a {
-        color: $secondary-blue;
-        margin-right: 1rem;
-    }
-}
-// Follow us end
-
-// Upper footer end
-
-// Bottom footer
-.bottom-footer {
-    background-color: $light-blue;
+//Follow us
+.footer-follow-us {
+  font-size: medium;
+  p {
     font-size: small;
 
-    a {
-        color: $primary-blue;
-        @include hover('color', $primary-red);
-        
+    &:last-child {
+      font-size: medium;
+    }
+  }
+}
+
+.social-icons{
+    margin: 1em 0;
+    color: $secondary-blue;
+    font-size: 1.2em;
+
+    a{
+        padding-right: 1em;
     }
 }
-// Bottom footer end
+//Follow us end
