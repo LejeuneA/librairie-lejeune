@@ -1,7 +1,8 @@
 // Define a mixin for hover
-@mixin hover($property, $value) {
+@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
   &:hover {
-    #{$property}: $value;
+    #{$bgProperty}: $bgValue;
+    #{$colorProperty}: $colorValue;
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
@@ -32,6 +33,7 @@
 .navbar-brand-img {
   height: 3.5em;
 }
+
 // Logo end
 
 // Social Icons
@@ -45,10 +47,11 @@
     color: $primary-blue;
 
     .social-link {
-      @include hover("color", $primary-red);
+        @include hover("background-color", $light-blue, "color", $primary-red);
     }
   }
 }
+
 // Social Icons end
 
 // Search bar
@@ -78,10 +81,12 @@
     border-bottom-right-radius: 5px;
     color: $light-blue;
     padding: 0.3rem 0.5rem;
+    cursor: pointer;
 
-    @include hover("background-color", $primary-red);
+    @include hover("background-color", $primary-red, "color", $light-blue);
   }
 }
+
 // Search bar end
 
 // Login button
@@ -91,7 +96,7 @@
   padding: 0.4rem 1rem;
   color: $light-blue;
 
-  @include hover("background-color", $primary-blue);
+  @include hover("background-color", $primary-blue, "color", $light-blue);
 }
 // Login button end
 
@@ -105,6 +110,11 @@
   justify-content: center;
   align-items: center;
   height: 3em;
+  z-index: 1000;
+  
+  box-shadow: $box-shadow-menu;
+  -webkit-box-shadow: $box-shadow-menu;
+  -moz-box-shadow: $box-shadow-menu;
 }
 
 // Navbar Nav
@@ -121,7 +131,7 @@
       color: $light-blue;
       padding: 0.8em;
 
-      @include hover("background-color", $primary-red);
+      @include hover("background-color", $primary-red, "color", $light-blue);
     }
   }
 }
@@ -136,51 +146,37 @@
     display: none;
   }
 
-  .navbar-container,
-  .d-flex {
-    flex-direction: column;
+  .navbar-container {
+    justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+  }
+
+  .d-flex {
+    display: none;
   }
 
   /* Logo styles for small screens */
   .navbar-brand-img {
     height: 3.5em;
-    margin-bottom: 0;
   }
 
-  /* Social Icons styles for small screens */
-  .social-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 0;
-    list-style: none;
-    margin: 0;
-  }
-
-  .social-item {
-    margin-right: 0.5rem;
-
-    .social-link {
-      font-size: 1em;
-      @include hover("color", $primary-red);
-    }
-
-    /* Search bar styles for small screens */
-    .search-group {
-      margin: 0;
-    }
-
-    /* Login button styles for small screens */
-    .btn-login {
-      padding: 0.5rem 2rem;
-    }
-  }
-
-  /* -------------------------------------------------------
-                 Offcanvas menu styles
+/* -------------------------------------------------------
+                   Offcanvas menu
 ---------------------------------------------------------*/
+  .navbar-hamburger {
+    display: flex;
+    justify-content: center;
+    background-color: $primary-blue;
+    color: $light-blue;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    i {
+      font-size: 1.5em;
+      @include hover("background-color", $primary-blue, "color", $primary-red);
+    }
+  }
+
   .sidenav {
     height: 100%;
     width: 0;
@@ -191,55 +187,89 @@
     background-color: $primary-blue;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
-
-    a {
-      padding: 8px 8px 8px 32px;
-      text-decoration: none;
-      font-size: 1em;
-      color: $light-blue;
-      display: block;
-      transition: 0.3s;
-
-      @include hover("background-color", $primary-red);
-    }
+    padding-top: 5em;
+    z-index: 1000;
 
     .closebtn {
       position: absolute;
       top: 0;
-      right: 25px;
-      font-size: 2em;
-      background-color: transparent;
-      color: $light-blue; 
-      transition: color 0.3s ease; 
-  
-      &:hover {
-        background-color: transparent;
-        color: $primary-red; 
+      right: 1em;
+      font-size: 1.5em;
+      color: $light-blue;
+
+      @include hover("background-color",$primary-blue, "color", $primary-red);
+    }
+
+    .search-group{
+      margin: 2em 1em;
+
+      .btn-search{
+        background-color: $secondary-blue;
+        @include hover("background-color", $primary-red, "color", $light-blue);
+
       }
     }
 
+    a {
+      padding: 1em;
+      text-decoration: none;
+      font-size: 1em;
+      color: $light-blue;
+      display: block;
+
+      @include hover("background-color", $primary-red, "color", $light-blue);
+    }
+
+    .btn-login{
+      background-color: $primary-red;
+      margin: 2em 1em;
+      text-align: center;
+      padding: 0.5em 1em;
+
+      @include hover("background-color", $secondary-blue, "color", $primary-blue);
+    }
+
+    /* Social Icons styles for small screens */
+    .social-nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+    }
+
+    .social-item {
+      font-size: 1.2em;
+      margin: 0;
+
+      .social-link {
+        color: $secondary-blue;
+
+        @include hover("color", $primary-red, "background-color", $primary-blue);
+      }
+    }
+  }
+
+/* -------------------------------------------------------
+           Offcanvas styles for smaller screens
+---------------------------------------------------------*/
+  @media (min-width: 320px) and (max-width: 768px) {
     #hamburger {
-      display: none;
-      font-size: 2em;
-      cursor: pointer;
+      display: block;
     }
 
-    /* Styles for smaller screens */
-    @media (min-width: 320px) and (max-width: 768px) {
-      #hamburger {
-        display: block;
-      }
-
-      .navbar-menu {
-        display: none;
-      }
+    .navbar-menu {
+      display: none;
     }
   }
 }
 
-/* Styles for larger screens */
-@media (min-width: 769px){
+/* -------------------------------------------------------
+           Offcanvas styles for larger screens
+---------------------------------------------------------*/
+@media (min-width: 769px) {
+
   #hamburger,
   .sidenav,
   .closebtn {
