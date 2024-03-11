@@ -1,11 +1,4 @@
-// Define a mixin for hover
-@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
-  &:hover {
-    #{$bgProperty}: $bgValue;
-    #{$colorProperty}: $colorValue;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-}
+
 
 /* -------------------------------------------------------
                  Navbar upper section
@@ -89,16 +82,7 @@
 
 // Search bar end
 
-// Login button
-.btn-login {
-  background-color: $primary-red;
-  border-radius: 5px;
-  padding: 0.4rem 1rem;
-  color: $light-blue;
 
-  @include hover("background-color", $primary-blue, "color", $light-blue);
-}
-// Login button end
 
 /* -------------------------------------------------------
                Navbar bottom section
@@ -112,9 +96,9 @@
   height: 3em;
   z-index: 1000;
   
-  box-shadow: $box-shadow-menu;
-  -webkit-box-shadow: $box-shadow-menu;
-  -moz-box-shadow: $box-shadow-menu;
+  box-shadow: $box-shadow-primary;
+  -webkit-box-shadow: $box-shadow-primary;
+  -moz-box-shadow: $box-shadow-primary;
 }
 
 // Navbar Nav
@@ -225,7 +209,8 @@
       margin: 2em 1em;
       text-align: center;
       padding: 0.5em 1em;
-
+      border-radius: 5px;
+  
       @include hover("background-color", $secondary-blue, "color", $primary-blue);
     }
 
