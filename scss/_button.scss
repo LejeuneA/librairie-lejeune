@@ -1,4 +1,11 @@
-
+@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
+    &:hover {
+      #{$bgProperty}: $bgValue;
+      #{$colorProperty}: $colorValue;
+      transition: background-color 0.5s ease, color 0.5s ease;
+    }
+  }
+  
 .btn-primary {
     background-color: $primary-red;
     border-radius: 5px;
@@ -8,3 +15,12 @@
     @include hover("background-color", $primary-blue, "color", $light-blue);
   }
 
+
+.btn-secondary{
+  background-color: $primary-blue;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  color: $light-blue;
+
+  @include hover("background-color", $primary-red, "color", $light-blue);
+}
