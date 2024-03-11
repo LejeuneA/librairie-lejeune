@@ -29,7 +29,7 @@ body {
         color: $light-blue;
         font-family: "Chelsea Market", system-ui;
         font-weight: bold;
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         z-index: 2;
     }
 
@@ -44,6 +44,13 @@ body {
         z-index: 3;
     }
 
+    .btn-primary {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     &::before {
         content: '';
         position: absolute;
@@ -51,8 +58,8 @@ body {
         right: 0;
         width: 80%;
         height: 100%;
-        clip-path: polygon(14% 0, 100% 0, 100% 33%, 29% 55%, 0 28%);
-        z-index: 2;
+        clip-path: polygon(14% 0, 100% 0, 100% 38%, 34% 53%, 0 24%);
+        z-index: 1;
 
         box-shadow: $box-shadow-primary;
         -webkit-box-shadow: $box-shadow-primary;
@@ -72,39 +79,65 @@ body {
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
     .header-image {
-        
-        h1{
-            top: 10%;
-            font-size: 2rem;
+        background-position: top;
+        background-size: contain;
+
+        h1 {
+            top: 3%;
+            font-size: 1.4rem;
             width: 100%;
         }
 
-        p{
-            top: 20%;
-            font-size: 1rem;
+        p {
+            top: 10%;
+            font-size: 0.7rem;
             width: 90%;
         }
 
+        .btn-primary {
+            top: 17%;
+            text-align: center;
+            font-size: small;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         &::before {
-            clip-path: polygon(0 0, 100% 0, 100% 28%, 50% 54%, 0 26%);
+            clip-path: polygon(0 0, 100% 0, 100% 16%, 50% 25%, 5% 16%);
             width: 100%;
+            padding: 1em;
+
+            background: linear-gradient(to top,
+                rgba(240, 84, 85, 0.5),
+                rgba(132, 192, 225, 0.5),
+                rgba(48, 71, 94, 0.5));
         }
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .header-image {
-        
-        h1{
+
+        h1 {
             top: 12%;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             width: 100%;
         }
 
-        p{
+        p {
             top: 25%;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             width: 80%;
+        }
+
+        .btn-primary {
+            top: 38%;
+            text-align: center;
+            font-size: larger;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         &::before {
