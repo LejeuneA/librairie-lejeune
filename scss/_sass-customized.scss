@@ -50,14 +50,14 @@ $box-shadow-primary: 0px 3px 5px 0px rgba(71,71,71,0.66);
 // Additional Fonts
 @font-face {
   font-family: 'Chelsea Market';
-  src: url('fonts/chelsea-market.ttf') format('truetype');
+  src: url('../assets/fonts/ChelseaMarket-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal; 
 }
 
 @font-face {
   font-family: 'Great Vibes';
-  src: url('fonts/great-vibes.ttf') format('truetype');
+  src: url('../assets/fonts/GreatVibes-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
