@@ -6,21 +6,19 @@
     }
   }
   
-.btn-primary {
+  .btn-primary {
     background-color: $primary-red;
     border-radius: 5px;
     padding: 0.4rem 1rem;
     color: $light-blue;
-  
     @include hover("background-color", $primary-blue, "color", $light-blue);
   }
-
-
-.btn-secondary{
-  background-color: $primary-blue;
-  border-radius: 5px;
-  padding: 0.4rem 1rem;
-  color: $light-blue;
-
-  @include hover("background-color", $primary-red, "color", $light-blue);
-}
+  
+  .btn-secondary {
+    background-color: $primary-blue;
+    border-radius: 5px;
+    padding: 0.4rem 1rem;
+    color: $light-blue;
+    @include hover("background-color", $primary-red, "color", $light-blue);
+  }
+  
