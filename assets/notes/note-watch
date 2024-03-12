@@ -8,6 +8,7 @@
 // |   |   |-- /logo
 // |   |   |-- /notes
 // |   |-- /components
+// |   |   |-- button.html
 // |   |   |-- navigation.html
 // |   |   |-- footer.html
 // |   |-- /css
@@ -26,6 +27,7 @@
 // |   |-- stationary.html
 // |   |-- work-with-us.html
 // |-- /scss
+// |   |-- _button.scss
 // |   |-- _sass-customized.scss
 // |   |-- _custom.scss
 // |   |-- _navbar.scss
@@ -56,3 +58,5 @@
 
 
 // npm run scss
+
+// npm rebuild node-sass
