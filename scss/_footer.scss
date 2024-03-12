@@ -127,13 +127,13 @@
   flex-direction: row;
   color: $primary-blue;
   font-size: small;
-  max-width: 1400px;
+  max-width: 1400px; 
   width: 100%;
   margin: 0 auto;
   padding: 1em;
 
   a {
-    @include hover("background-color", $primary-blue, "color", $primary-red);
+    @include hover("background-color", $light-blue, "color", $primary-red);
   }
 }
 
