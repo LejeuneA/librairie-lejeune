@@ -5,10 +5,29 @@
                         Qui sommes-nous header
  ----------------------------------------------------------------- */
 
- .about-us{
-    background-image: url(../assets/images/stack-books.jpg);
+.about-us {
+  background-image: url(../assets/images/stack-books.jpg);
+  background-size: cover;
 
-    &::before{
-        display: none;
-    }
- }
+  &::before {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------
+                   About us responsive
+---------------------------------------------------------*/
+
+@media (min-width: 320px) and (max-width: 1200px) {
+  .about-us {
+    height: 20em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+  
+  .introduction {
+    padding: 2em 3em;
+  }
+}
