@@ -3,7 +3,7 @@
   &:hover {
     #{$bgProperty}: $bgValue;
     #{$colorProperty}: $colorValue;
-    transition: background-color 0.5s ease, color 0.5s ease; 
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
 
@@ -12,16 +12,23 @@
 ---------------------------------------------------------*/
 
 // Upper footer
-.upper-footer {
+
+.upper-footer-container {
   background-color: $primary-blue;
+}
+
+.upper-footer {
   color: $light-blue;
-  padding: 2.5em;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: row;
   gap: 2em;
   position: relative;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
 
   a {
     @include hover("background-color", $primary-blue, "color", $primary-red);
@@ -46,7 +53,7 @@
   }
 }
 
-.upper-footer > div {
+.upper-footer>div {
   flex: 1;
   max-width: 25%;
 }
@@ -61,6 +68,7 @@
 .footer-brand img {
   height: 3em;
 }
+
 // Logo end
 
 // Contact us
@@ -77,11 +85,13 @@
     }
   }
 }
+
 // Contact us end
 
 //Follow us
 .footer-follow-us {
   font-size: medium;
+
   p {
     font-size: small;
 
@@ -100,25 +110,33 @@
     padding-right: 1em;
   }
 }
+
 //Follow us end
 
 /* -------------------------------------------------------
                 Footer bottom section
 ---------------------------------------------------------*/
+.bottom-footer-container {
+  background-color: $light-blue;
+}
+
 .bottom-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  background-color: $light-blue;
   color: $primary-blue;
-  padding: 1rem;
   font-size: small;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
 
   a {
     @include hover("background-color", $primary-blue, "color", $primary-red);
   }
 }
+
 // Bottom footer end
 
 /* -------------------------------------------------------
@@ -130,6 +148,7 @@
   .upper-footer {
     padding: 2em;
   }
+
   .footer-brand {
     margin: 0;
   }
@@ -142,7 +161,7 @@
     flex-direction: column;
     align-items: stretch;
 
-    > div {
+    >div {
       width: 100%;
       max-width: 100%;
     }
@@ -154,5 +173,3 @@
     font-size: small;
   }
 }
-
-
