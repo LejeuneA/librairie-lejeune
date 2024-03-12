@@ -24,6 +24,43 @@ $box-shadow-primary: 0px 3px 5px 0px rgba(71,71,71,0.66);
   }
 }
 
+/* -------------------------------------------------------
+                    Define h1 styles
+---------------------------------------------------------*/
+$h1-font-family: "Poppins", sans-serif;
+$h1-font-size: 3em;
+$h1-font-weight: lighter;
+$h1-text-align: center;
+$h1-color: $secondary-blue;
+
+// Apply styles to h1 element
+h1 {
+  font-family: $h1-font-family;
+  font-size: $h1-font-size;
+  font-weight: $h1-font-weight;
+  text-align: $h1-text-align;
+  color: $h1-color;
+}
+
+/* -------------------------------------------------------
+                Introduction section
+---------------------------------------------------------*/
+
+$introduction-section: (
+  padding: 4em 20em,
+);
+
+.introduction {
+  padding: map-get($introduction-section, padding);
+
+  p {
+    font-weight: 300;
+    line-height: 1.8em;
+    text-align: justify;
+    padding-right: map-get($introduction-section, padding);
+    padding-left: map-get($introduction-section, padding);
+  }
+}
 
 /* -------------------------------------------------------
                     Google fonts
