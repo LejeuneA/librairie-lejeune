@@ -1,0 +1,14 @@
+@import "_reset";
+@import "_sass-customized";
+@import "_custom";
+/* -----------------------------------------------------------------
+                        Qui sommes-nous header
+ ----------------------------------------------------------------- */
+
+ .about-us{
+    background-image: url(../assets/images/stack-books.jpg);
+
+    &::before{
+        display: none;
+    }
+ }
