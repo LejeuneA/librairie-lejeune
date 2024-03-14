@@ -28,7 +28,7 @@
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  padding: 1em;
+  padding: 2.5em;
 
   a {
     @include hover("background-color", $primary-blue, "color", $primary-red);
