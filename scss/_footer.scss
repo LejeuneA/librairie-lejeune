@@ -1,12 +1,3 @@
-// Define a mixin for hover
-@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
-  &:hover {
-    #{$bgProperty}: $bgValue;
-    #{$colorProperty}: $colorValue;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-}
-
 /* -------------------------------------------------------
                  Footer upper section
 ---------------------------------------------------------*/
@@ -28,7 +19,7 @@
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.5em;
+  padding: 2.5em 0;
 
   a {
     @include hover("background-color", $primary-blue, "color", $primary-red);
@@ -62,7 +53,7 @@
 .footer-brand {
   display: flex;
   align-items: center;
-  margin: auto 1em;
+  margin: auto;
 }
 
 .footer-brand img {
@@ -130,7 +121,7 @@
   max-width: 1400px; 
   width: 100%;
   margin: 0 auto;
-  padding: 1em;
+  padding: 1em 0;
 
   a {
     @include hover("background-color", $light-blue, "color", $primary-red);
@@ -146,7 +137,7 @@
 // Media queries for xs, sm, and md screens
 @media (min-width: 320px) and (max-width: 768px) {
   .upper-footer {
-    padding: 2em;
+    padding: 3em;
   }
 
   .footer-brand {
