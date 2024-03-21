@@ -19,7 +19,7 @@
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.5em 0;
+  padding: 2.5em 0 ;
 
   a {
     @include hover("background-color", $primary-blue, "color", $primary-red);
@@ -41,6 +41,10 @@
 
   ul li {
     margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
