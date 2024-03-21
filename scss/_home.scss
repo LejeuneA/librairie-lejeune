@@ -78,31 +78,32 @@
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
   .header-image {
-    background-position: top;
-    background-size: contain;
+    background-size: cover;
+    height: 25em;
 
     h1 {
-      top: 4%;
-      font-size: 1.6rem;
+      top: 8%;
+      font-size: 1.4rem;
       width: 100%;
     }
 
     p {
-      top: 13%;
-      font-size: 1rem;
+      top: 25%;
+      font-size: 0.9rem;
       width: 90%;
       line-height: 1.2em;
     }
 
     .btn-primary {
-      top: 22%;
+      top: 43%;
       text-align: center;
       font-size: small;
     }
 
     &::before {
-      clip-path: polygon(0 0, 100% 0, 100% 16%, 50% 30%, 0% 16%);
+      clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
       width: 100%;
+      padding: 0;
 
       background: linear-gradient(
         to bottom,
@@ -116,20 +117,22 @@
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .header-image {
+    background-size: cover;
+
     h1 {
-      top: 12%;
+      top: 15%;
       font-size: 2.6rem;
       width: 100%;
     }
 
     p {
-      top: 25%;
+      top: 28%;
       font-size: 1.3rem;
       width: 80%;
     }
 
     .btn-primary {
-      top: 38%;
+      top: 40%;
       text-align: center;
       font-size: larger;
       display: flex;
@@ -154,19 +157,63 @@
 .article-preview {
   display: flex;
   justify-content: start;
-  align-items: center;
-  flex-direction: row;
-  gap: 2em;
+  flex-direction: column;
+  align-items: start;
+  padding: 4em 0;
 
   h2 {
     text-align: left;
     font-weight: 200;
     font-size: 2em;
-    margin: 2em 0;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    padding: 0;
 
     span {
       font-weight: 600;
       color: $primary-red;
+    }
+  }
+
+  .article-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 3em;
+
+    article {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      img {
+        height: 20em;
+        width: 12em;
+      }
+
+      h3 {
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.2em;
+        margin-top: 1em;
+      }
+
+      p {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        font-weight: 400;
+        font-size: 1em;
+
+        span {
+          font-weight: 200;
+          font-size: 0.9em;
+          display: block;
+          line-height: 1.2em;
+        }
+      }
     }
   }
 }
@@ -178,15 +225,15 @@
 /* -----------------------------------------------------------
                 Accueil sections responsive
 ------------------------------------------------------------*/
-@media (min-width: 769px) and (max-width: 1332px) {
+@media (min-width: 320px) and (max-width: 768px) {
   .article-preview {
     flex-direction: column;
     justify-content: center;
 
     h2 {
       text-align: center;
-      font-size: 0;
-      top: 0;
+      font-size: 1.6em;
+      margin: 1em 0;
     }
   }
 }
