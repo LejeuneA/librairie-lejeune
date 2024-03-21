@@ -3,7 +3,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-article{
+section{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@ article{
 ---------------------------------------------------------*/
 
 @media (min-width: 320px) and (max-width: 1200px) {
-  article{  
+  section{  
     p{
       padding: 2em;
     }
