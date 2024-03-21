@@ -233,10 +233,29 @@
     h2 {
       text-align: center;
       font-size: 1.6em;
-      margin: 1em 0;
+      margin: 1em auto;
+    }
+
+    .article-preview-container {
+      flex-wrap: wrap;
     }
   }
 }
+
+@media (min-width: 769px) and (max-width: 1332px) {
+  .article-preview {
+    h2 {
+      text-align: center;
+      font-size: 1.6em;
+      margin: 1em auto;
+    }
+
+    .article-preview-container {
+      flex-wrap: wrap;
+    }
+  }
+}
+
 /* ----------------------------------------------------------
             Accueil sections responsive end
 ------------------------------------------------------------*/
