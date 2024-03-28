@@ -152,7 +152,7 @@
  ---------------------------------------------------------- */
 
 /* ----------------------------------------------------------
-                   Accueil sections
+                   Article preview - Livres
 ------------------------------------------------------------*/
 .article-preview {
   display: flex;
@@ -219,11 +219,10 @@
 }
 
 /* ----------------------------------------------------------
-                  Accueil sections end
+                  Article preview - Livres end
 ------------------------------------------------------------*/
-
 /* -----------------------------------------------------------
-                Accueil sections responsive
+              Article preview - Livres responsive
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .article-preview {
@@ -255,7 +254,78 @@
     }
   }
 }
-
 /* ----------------------------------------------------------
-            Accueil sections responsive end
+          Article preview - Livres responsive end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+                  Best-sellers paragraph
+------------------------------------------------------------*/
+.best-sellers {
+  width: 100%;
+  height: 25em;
+  background-color: $primary-blue;
+}
+/* -----------------------------------------------------------
+                Best-sellers paragraph end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+              Best-sellers paragraph responsive
+------------------------------------------------------------*/
+@media (min-width: 320px) and (max-width: 768px) {
+}
+
+@media (min-width: 769px) and (max-width: 1332px) {
+}
+/* -----------------------------------------------------------
+            Best-sellers paragraph responsive end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+                  Edition special paragraph
+------------------------------------------------------------*/
+.edition-special {
+  width: 100%;
+  height: 25em;
+  background-image: url(../assets/images/sign-banner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* -----------------------------------------------------------
+                Edition special paragraph end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+              Edition special paragraph responsive
+------------------------------------------------------------*/
+@media (min-width: 320px) and (max-width: 768px) {
+}
+
+@media (min-width: 769px) and (max-width: 1332px) {
+}
+/* -----------------------------------------------------------
+          Edition special paragraph responsive end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+                      Advantage icons
+------------------------------------------------------------*/
+.advantage-icons {
+  width: 100%;
+  height: 25em;
+  background-color: $tertiary-blue;
+}
+/* -----------------------------------------------------------
+                   Advantage icons end
+------------------------------------------------------------*/
+/* -----------------------------------------------------------
+              Advantage icons responsive
+------------------------------------------------------------*/
+@media (min-width: 320px) and (max-width: 768px) {
+}
+
+@media (min-width: 769px) and (max-width: 1332px) {
+}
+/* -----------------------------------------------------------
+              Advantage icons responsive end
 ------------------------------------------------------------*/
