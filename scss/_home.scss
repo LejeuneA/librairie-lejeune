@@ -296,9 +296,9 @@
 
   p {
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     text-align: center;
     color: $light-blue;
     font-size: 1.3rem;
@@ -306,7 +306,15 @@
     margin: 0;
     width: 100%;
   }
+
+  .btn-secondary {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
 }
+
 /* -----------------------------------------------------------
                 Edition special paragraph end
 ------------------------------------------------------------*/
@@ -315,8 +323,11 @@
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .edition-special {
+    height: 20em;
+    
     p {
-      font-size: 1.1em;
+      font-size: 1em;
+      line-height: 1.5em;
     }
   }
 }
