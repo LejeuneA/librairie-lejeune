@@ -2,7 +2,9 @@
   &:hover {
     #{$bgProperty}: $bgValue;
     #{$colorProperty}: $colorValue;
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition:
+      background-color 0.5s ease,
+      color 0.5s ease;
   }
 }
 
@@ -12,8 +14,10 @@
   border-radius: 5px;
   padding: 0.4rem 1rem;
   color: $light-blue;
-  @include hover("background-color", $primary-blue, "color", $light-blue);
   z-index: 1000;
+  cursor: pointer;
+
+  @include hover("background-color", $primary-blue, "color", $light-blue);
 }
 
 .btn-secondary {
@@ -22,6 +26,8 @@
   border-radius: 5px;
   padding: 0.4rem 1rem;
   color: $light-blue;
-  @include hover("background-color", $primary-red, "color", $light-blue);
   z-index: 1000;
+  cursor: pointer;
+
+  @include hover("background-color", $primary-red, "color", $light-blue);
 }
