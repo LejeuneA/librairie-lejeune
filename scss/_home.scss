@@ -178,7 +178,7 @@
   .article-preview-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: row;
     gap: 3em;
 
@@ -346,6 +346,7 @@
   background-color: $tertiary-blue;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 3em 0;
 
@@ -353,6 +354,7 @@
     flex: 0 0 auto;
     width: 14em;
     height: auto;
+    // border: 1px solid red;
 
     img {
       width: 100%;
