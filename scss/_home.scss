@@ -161,7 +161,7 @@
   align-items: start;
   padding: 4em 0;
 
-  .container{
+  .container {
     flex-direction: column;
   }
 
@@ -266,40 +266,58 @@
 ------------------------------------------------------------*/
 .best-sellers {
   width: 100%;
-  height: 25em;
   background-color: $primary-blue;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  gap: 1em;
+  overflow: visible;
+  position: relative;
+  height: auto;
 
-  .best-sellers-left {
-    position: relative;
-    width: 50%;
-    background-image: url(../assets/images/space-library.jpg);
-    background-size: cover;
-    background-position: center;
-  }
-
-  .best-sellers-right {
-    width: 50%;
+  .container {
     display: flex;
-    flex-direction: column;
+    align-items:center;
     justify-content: flex-end;
-    align-items: flex-start;
-    padding: 2rem;
+    flex-direction: row;
+    gap: 2em;
+    overflow: visible;
+    padding: 3em 0;
 
-    h2 {
-      font-family: "Chelsea Market";
-      color: $light-blue;
-      margin:0;
-      padding: 0;
+    .best-sellers-left {
+      position: absolute;
+      width: 50%;
+      height: 25em;
+      background-image: url(../assets/images/space-library.jpg);
+      background-size: cover;
+      background-position: center;
+      clip-path: polygon(0% 0%, 84% 0%, 100% 30%, 45% 100%, 0% 40%);
+      z-index: 1000;
+      left: 0;
+      top: 0;
     }
 
-    p {
-      color: $light-blue;
-      font-weight: 200;
+    .best-sellers-right {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 1rem;
+
+      h2 {
+        font-family: "Chelsea Market";
+        color: $light-blue;
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        color: $light-blue;
+        font-weight: 200;
+      }
+
+      .btn-primary {
+        &:hover {
+          background-color: $secondary-blue;
+        }
+      }
     }
   }
 }
@@ -308,25 +326,70 @@
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .best-sellers {
-    flex-direction: column;
-  }
+    height: auto;
 
-  .best-sellers-left,
-  .best-sellers-right {
-    width: 100%;
+    .container {
+      flex-direction: column;
+      padding: 1.5em;
+      gap: 1em;
+
+      .best-sellers-left {
+        width: 100%;
+        height: 20em;
+
+        clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
+      }
+
+      .best-sellers-right {
+        width: 100%;
+        height: auto;
+        align-items: center;
+        padding: 0;
+      }
+
+      p {
+        font-size: 1em;
+        padding: 1.2em 0;
+        line-height: 1.5em;
+        text-align: center;
+      }
+    }
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .best-sellers {
-    flex-direction: column; // Adjust layout for medium-sized screens
-  }
+    height: auto;
 
-  .best-sellers-left,
-  .best-sellers-right {
-    width: 100%;
+    .container {
+      flex-direction: column;
+      padding: 1.5em;
+      gap: 1em;
+
+      .best-sellers-left {
+        width: 100%;
+        height: 20em;
+
+        clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
+      }
+
+      .best-sellers-right {
+        width: 100%;
+        height: auto;
+        align-items: center;
+        padding: 0;
+      }
+
+      p {
+        font-size: 1em;
+        padding: 1.2em 0;
+        line-height: 1.5em;
+        text-align: center;
+      }
+    }
   }
 }
+
 /* -----------------------------------------------------------
             Best-sellers paragraph responsive end
 ------------------------------------------------------------*/
