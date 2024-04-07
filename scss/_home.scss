@@ -83,25 +83,26 @@
 
     h1 {
       top: 8%;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       width: 100%;
     }
 
     p {
-      top: 25%;
-      font-size: 0.9rem;
+      top: 27%;
+      font-size: 1em;
       width: 90%;
       line-height: 1.2em;
     }
 
     .btn-primary {
-      top: 43%;
+      top: 48%;
       text-align: center;
-      font-size: small;
+      font-size: 1em;
+      width: 65%;
     }
 
     &::before {
-      clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 65%, 0% 50%);
       width: 100%;
       padding: 0;
 
@@ -266,14 +267,14 @@
 ------------------------------------------------------------*/
 .best-sellers {
   width: 100%;
+  height: auto;
   background-color: $primary-blue;
   overflow: visible;
   position: relative;
-  height: auto;
 
   .container {
     display: flex;
-    align-items:center;
+    align-items: center;
     justify-content: flex-end;
     flex-direction: row;
     gap: 2em;
@@ -287,23 +288,25 @@
       background-image: url(../assets/images/space-library.jpg);
       background-size: cover;
       background-position: center;
-      clip-path: polygon(0% 0%, 84% 0%, 100% 30%, 45% 100%, 0% 40%);
-      z-index: 1000;
+      z-index: 1;
       left: 0;
       top: 0;
+
+      clip-path: polygon(0% 0%, 84% 0%, 100% 30%, 45% 100%, 0% 40%);
     }
 
     .best-sellers-right {
       width: 50%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: flex-start;
       padding: 1rem;
 
       h2 {
         font-family: "Chelsea Market";
         color: $light-blue;
+        font-size: 2em;
         margin: 0;
         padding: 0;
       }
@@ -322,22 +325,26 @@
   }
 }
 /* -----------------------------------------------------------
-            Best-sellers paragraph responsive
+              Best-sellers paragraph responsive
 ------------------------------------------------------------*/
-@media (min-width: 320px) and (max-width: 768px) {
+@media (min-width: 320px) and (max-width: 1332px) {
   .best-sellers {
-    height: auto;
+    overflow: hidden;
+    height: 50em;
 
     .container {
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       padding: 1.5em;
       gap: 1em;
+      overflow: hidden;
 
       .best-sellers-left {
         width: 100%;
-        height: 20em;
+        height: 30em;
 
-        clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
+        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0% 80%);
       }
 
       .best-sellers-right {
@@ -345,13 +352,22 @@
         height: auto;
         align-items: center;
         padding: 0;
-      }
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
 
-      p {
-        font-size: 1em;
-        padding: 1.2em 0;
-        line-height: 1.5em;
-        text-align: center;
+        h2 {
+          font-size: 1.3em;
+          padding: 0 1em;
+        }
+
+        p {
+          font-size: 1em;
+          padding: 1.5em 1em;
+          line-height: 1.5em;
+          text-align: center;
+        }
       }
     }
   }
@@ -359,32 +375,15 @@
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .best-sellers {
-    height: auto;
-
     .container {
-      flex-direction: column;
-      padding: 1.5em;
-      gap: 1em;
-
-      .best-sellers-left {
-        width: 100%;
-        height: 20em;
-
-        clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 60%, 0% 40%);
-      }
-
       .best-sellers-right {
-        width: 100%;
-        height: auto;
-        align-items: center;
-        padding: 0;
-      }
+        h2 {
+          font-size: 1.7em;
+        }
 
-      p {
-        font-size: 1em;
-        padding: 1.2em 0;
-        line-height: 1.5em;
-        text-align: center;
+        p {
+          padding: 2em;
+        }
       }
     }
   }
@@ -437,7 +436,7 @@
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .edition-special {
-    height: 20em;
+    height: 17em;
 
     p {
       font-size: 1em;
