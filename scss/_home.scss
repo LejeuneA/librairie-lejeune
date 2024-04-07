@@ -425,6 +425,9 @@
     bottom: 10%;
     left: 50%;
     transform: translate(-50%, 0);
+    color: $yellow;
+
+    @include hover("background-color", $yellow, "color", $primary-blue);
   }
 }
 
@@ -439,8 +442,13 @@
     height: 17em;
 
     p {
-      font-size: 1em;
+      font-size: 0.9em;
       line-height: 1.5em;
+    }
+
+    .btn-secondary {
+      width: 70%;
+      bottom:8%;
     }
   }
 }
