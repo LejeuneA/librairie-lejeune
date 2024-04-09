@@ -21,33 +21,72 @@
     <!-- Favicon -->
 
     <!-- Title -->
-    <title>Librairie Lejeune</title>
+    <title>Les livres</title>
 </head>
 
 <body>
-    <!-- Header -->
+    <!-----------------------------------------------------------------
+                               Navigation
+    ------------------------------------------------------------------>
+    <div data-include="navigation"></div>
+    <!-----------------------------------------------------------------
+                            Navigation end
+    ------------------------------------------------------------------>
+    <!-----------------------------------------------------------------
+                               Header
+    ------------------------------------------------------------------>
     <header>
-        <div data-include="navigation"></div>
+        <div class="books header-image ">
+            <h1>Lire, rêver, s’évader</h1>
+            <p>
+                Ouvrez un livre, explorez un univers infini.
+            </p>
+        </div>
     </header>
-
+    <!-----------------------------------------------------------------
+                            Header end
+    ------------------------------------------------------------------>
     <!-- Main -->
     <main>
-        <div>
-            <h1>Livres</h1>
+
+        <!-----------------------------------------------------------------
+                               Introduction
+        ------------------------------------------------------------------>
+        <div class="square-right">
+            <img src="../assets/components/square-right.png" alt="square">
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <div data-include="footer"></div>
-    </footer>
+        <section class="introduction">
 
+            <h1>Livres</h1>
+            <p>
+                Explorez notre collection exceptionnelle de livres allant des best-sellers incontournables aux perles
+                littéraires cachées. Plongez-vous dans des mondes imaginaires, découvrez des histoires captivantes et
+                trouvez le livre parfait pour chaque passion.
+            </p>
+        </section>
+        <div class="square-left">
+            <img src="../assets/components/square-left.png" alt="square">
+        </div>
+        <!-----------------------------------------------------------------
+                               Introduction end
+        ------------------------------------------------------------------>
 
-    <!-- Font Awesome JS -->
-    <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
+        <!-----------------------------------------------------------------
+                                Footer
+        ------------------------------------------------------------------>
+        <footer>
+            <div data-include="footer"></div>
+        </footer>
+        <!-----------------------------------------------------------------
+                            Footer end
+        ------------------------------------------------------------------>
 
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
+        <!-- Font Awesome JS -->
+        <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
+
+        <!-- Include functions.js -->
+        <script src="../js/functions.js"></script>
 
 </body>
 

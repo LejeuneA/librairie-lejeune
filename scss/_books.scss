@@ -1,0 +1,34 @@
+/* -----------------------------------------------------------------
+                        Books header
+ ----------------------------------------------------------------- */
+
+.books {
+    background-image: url(../assets/images/book-magic.jpg);
+    background-size: cover;
+    height: 100vh;
+
+}
+
+/* -------------------------------------------------------
+                Books header responsive
+---------------------------------------------------------*/
+
+/* Media queries for xs, sm, and md screens */
+@media (min-width: 320px) and (max-width: 768px) {
+    .header-image {
+        background-size: cover;
+        height: 25em;
+
+        h1 {
+            top: 20%;
+        }
+
+        p {
+            top: 27%;
+        }
+    }
+}
+
+/* -------------------------------------------------------
+                    Books header end
+---------------------------------------------------------*/
