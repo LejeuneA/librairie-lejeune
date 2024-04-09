@@ -1,5 +1,5 @@
 /* -------------------------------------------------------
-                    Accueil header
+					Accueil header
 ---------------------------------------------------------*/
 
 .header-image {
@@ -16,144 +16,144 @@
   z-index: 1;
 
   h1 {
-    position: absolute;
-    top: 13%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: $light-blue;
-    font-family: "Chelsea Market", system-ui;
-    font-weight: bold;
-    font-size: 3rem;
-    z-index: 2;
+	position: absolute;
+	top: 13%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: $light-blue;
+	font-family: "Chelsea Market", system-ui;
+	font-weight: bold;
+	font-size: 3rem;
+	z-index: 2;
   }
 
   p {
-    position: absolute;
-    top: 26%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: $light-blue;
-    font-size: 1.3rem;
-    font-weight: 300;
-    z-index: 3;
+	position: absolute;
+	top: 26%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: $light-blue;
+	font-size: 1.3rem;
+	font-weight: 300;
+	z-index: 3;
   }
 
   .btn-primary {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
   }
 
   &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80%;
-    height: 100%;
-    clip-path: polygon(14% 0, 100% 0, 100% 38%, 34% 53%, 0 24%);
-    z-index: 1;
-    padding: 2em;
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 80%;
+	height: 100%;
+	clip-path: polygon(14% 0, 100% 0, 100% 38%, 34% 53%, 0 24%);
+	z-index: 1;
+	padding: 2em;
 
-    box-shadow: $box-shadow-primary;
-    -webkit-box-shadow: $box-shadow-primary;
-    -moz-box-shadow: $box-shadow-primary;
+	box-shadow: $box-shadow-primary;
+	-webkit-box-shadow: $box-shadow-primary;
+	-moz-box-shadow: $box-shadow-primary;
 
-    background: linear-gradient(
-      to bottom,
-      rgba(240, 84, 85, 0.5) 10%,
-      rgba(132, 192, 225, 0.3) 20%,
-      rgba(48, 71, 94, 0.3) 100%
-    );
+	background: linear-gradient(
+	  to bottom,
+	  rgba(240, 84, 85, 0.5) 10%,
+	  rgba(132, 192, 225, 0.3) 20%,
+	  rgba(48, 71, 94, 0.3) 100%
+	);
   }
 }
 
 /* -------------------------------------------------------
-                Accueil header responsive
+				Accueil header responsive
 ---------------------------------------------------------*/
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
   .header-image {
-    background-size: cover;
-    height: 25em;
+	background-size: cover;
+	height: 25em;
 
-    h1 {
-      top: 8%;
-      font-size: 1.3rem;
-      width: 100%;
-    }
+	h1 {
+	  top: 8%;
+	  font-size: 1.3rem;
+	  width: 100%;
+	}
 
-    p {
-      top: 27%;
-      font-size: 1em;
-      width: 90%;
-      line-height: 1.2em;
-    }
+	p {
+	  top: 27%;
+	  font-size: 1em;
+	  width: 90%;
+	  line-height: 1.2em;
+	}
 
-    .btn-primary {
-      top: 48%;
-      text-align: center;
-      font-size: 1em;
-      width: 65%;
-    }
+	.btn-primary {
+	  top: 48%;
+	  text-align: center;
+	  font-size: 1em;
+	  width: 65%;
+	}
 
-    &::before {
-      clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 65%, 0% 50%);
-      width: 100%;
-      padding: 0;
+	&::before {
+	  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 65%, 0% 50%);
+	  width: 100%;
+	  padding: 0;
 
-      background: linear-gradient(
-        to bottom,
-        rgba(240, 84, 85, 0.5) 0,
-        rgba(132, 192, 225, 0.3) 20%,
-        rgba(48, 71, 94, 0.3) 100%
-      );
-    }
+	  background: linear-gradient(
+		to bottom,
+		rgba(240, 84, 85, 0.5) 0,
+		rgba(132, 192, 225, 0.3) 20%,
+		rgba(48, 71, 94, 0.3) 100%
+	  );
+	}
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .header-image {
-    background-size: cover;
+	background-size: cover;
 
-    h1 {
-      top: 15%;
-      font-size: 2.6rem;
-      width: 100%;
-    }
+	h1 {
+	  top: 15%;
+	  font-size: 2.6rem;
+	  width: 100%;
+	}
 
-    p {
-      top: 28%;
-      font-size: 1.3rem;
-      width: 80%;
-    }
+	p {
+	  top: 28%;
+	  font-size: 1.3rem;
+	  width: 80%;
+	}
 
-    .btn-primary {
-      top: 40%;
-      text-align: center;
-      font-size: larger;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+	.btn-primary {
+	  top: 40%;
+	  text-align: center;
+	  font-size: larger;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	}
 
-    &::before {
-      width: 95%;
-      padding: 1em;
-    }
+	&::before {
+	  width: 95%;
+	  padding: 1em;
+	}
   }
 }
 
 /* ----------------------------------------------------------
-                        Accueil header end
+						Accueil header end
  ---------------------------------------------------------- */
 
 /* ----------------------------------------------------------
-                   Article preview - Livres
+				   Article preview - Livres
 ------------------------------------------------------------*/
 .article-preview {
   display: flex;
@@ -163,107 +163,107 @@
   padding: 4em 0;
 
   .container {
-    flex-direction: column;
+	flex-direction: column;
   }
 
   h2 {
-    text-align: left;
-    font-weight: 200;
-    font-size: 2em;
-    margin-top: 0;
-    margin-bottom: 1.5em;
-    padding: 0;
+	text-align: left;
+	font-weight: 200;
+	font-size: 2em;
+	margin-top: 0;
+	margin-bottom: 1.5em;
+	padding: 0;
 
-    span {
-      font-weight: 600;
-      color: $primary-red;
-    }
+	span {
+	  font-weight: 600;
+	  color: $primary-red;
+	}
   }
 
   .article-preview-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: row;
-    gap: 3em;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: row;
+	gap: 3em;
 
-    article {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+	article {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
 
-      img {
-        height: auto;
-        width: 12em;
-      }
+	  img {
+		height: auto;
+		width: 12em;
+	  }
 
-      h3 {
-        text-align: center;
-        font-weight: 600;
-        font-size: 1.2em;
-        margin-top: 1em;
-      }
+	  h3 {
+		text-align: center;
+		font-weight: 600;
+		font-size: 1.2em;
+		margin-top: 1em;
+	  }
 
-      p {
-        text-align: center;
-        padding: 0;
-        margin: 0;
-        font-weight: 400;
-        font-size: 1em;
+	  p {
+		text-align: center;
+		padding: 0;
+		margin: 0;
+		font-weight: 400;
+		font-size: 1em;
 
-        span {
-          font-weight: 200;
-          font-size: 0.9em;
-          display: block;
-          line-height: 1.2em;
-        }
-      }
-    }
+		span {
+		  font-weight: 200;
+		  font-size: 0.9em;
+		  display: block;
+		  line-height: 1.2em;
+		}
+	  }
+	}
   }
 }
 
 /* ----------------------------------------------------------
-                  Article preview - Livres end
+				  Article preview - Livres end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-              Article preview - Livres responsive
+			  Article preview - Livres responsive
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .article-preview {
-    flex-direction: column;
-    justify-content: center;
+	flex-direction: column;
+	justify-content: center;
 
-    h2 {
-      text-align: center;
-      font-size: 1.6em;
-      margin: 1em auto;
-    }
+	h2 {
+	  text-align: center;
+	  font-size: 1.6em;
+	  margin: 1em auto;
+	}
 
-    .article-preview-container {
-      flex-wrap: wrap;
-    }
+	.article-preview-container {
+	  flex-wrap: wrap;
+	}
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .article-preview {
-    h2 {
-      text-align: center;
-      font-size: 1.6em;
-      margin: 1em auto;
-    }
+	h2 {
+	  text-align: center;
+	  font-size: 1.6em;
+	  margin: 1em auto;
+	}
 
-    .article-preview-container {
-      flex-wrap: wrap;
-    }
+	.article-preview-container {
+	  flex-wrap: wrap;
+	}
   }
 }
 /* ----------------------------------------------------------
-          Article preview - Livres responsive end
+		  Article preview - Livres responsive end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-                  Best-sellers paragraph
+				  Best-sellers paragraph
 ------------------------------------------------------------*/
 .best-sellers {
   width: 100%;
@@ -273,127 +273,127 @@
   position: relative;
 
   .container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-direction: row;
-    gap: 2em;
-    overflow: visible;
-    padding: 3em 0;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row;
+	gap: 2em;
+	overflow: visible;
+	padding: 3em 0;
 
-    .best-sellers-left {
-      position: absolute;
-      width: 50%;
-      height: 25em;
-      background-image: url(../assets/images/space-library.jpg);
-      background-size: cover;
-      background-position: center;
-      z-index: 1;
-      left: 0;
-      top: 0;
+	.best-sellers-left {
+	  position: absolute;
+	  width: 50%;
+	  height: 25em;
+	  background-image: url(../assets/images/space-library.jpg);
+	  background-size: cover;
+	  background-position: center;
+	  z-index: 1;
+	  left: 0;
+	  top: 0;
 
-      clip-path: polygon(0% 0%, 84% 0%, 100% 30%, 45% 100%, 0% 40%);
-    }
+	  clip-path: polygon(0% 0%, 84% 0%, 100% 30%, 45% 100%, 0% 40%);
+	}
 
-    .best-sellers-right {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 1rem;
+	.best-sellers-right {
+	  width: 50%;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: flex-start;
+	  padding: 1rem;
 
-      h2 {
-        font-family: "Chelsea Market";
-        color: $light-blue;
-        font-size: 2em;
-        margin: 0;
-        padding: 0;
-      }
+	  h2 {
+		font-family: "Chelsea Market";
+		color: $light-blue;
+		font-size: 2em;
+		margin: 0;
+		padding: 0;
+	  }
 
-      p {
-        color: $light-blue;
-        font-weight: 200;
-      }
+	  p {
+		color: $light-blue;
+		font-weight: 200;
+	  }
 
-      .btn-primary {
-        &:hover {
-          background-color: $secondary-blue;
-        }
-      }
-    }
+	  .btn-primary {
+		&:hover {
+		  background-color: $secondary-blue;
+		}
+	  }
+	}
   }
 }
 /* -----------------------------------------------------------
-              Best-sellers paragraph responsive
+			  Best-sellers paragraph responsive
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 1332px) {
   .best-sellers {
-    overflow: hidden;
-    height: 50em;
+	overflow: hidden;
+	height: 50em;
 
-    .container {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5em;
-      gap: 1em;
-      overflow: hidden;
+	.container {
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  padding: 1.5em;
+	  gap: 1em;
+	  overflow: hidden;
 
-      .best-sellers-left {
-        width: 100%;
-        height: 30em;
+	  .best-sellers-left {
+		width: 100%;
+		height: 30em;
 
-        clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0% 80%);
-      }
+		clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0% 80%);
+	  }
 
-      .best-sellers-right {
-        width: 100%;
-        height: auto;
-        align-items: center;
-        padding: 0;
-        position: absolute;
-        top: 80%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+	  .best-sellers-right {
+		width: 100%;
+		height: auto;
+		align-items: center;
+		padding: 0;
+		position: absolute;
+		top: 80%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 
-        h2 {
-          font-size: 1.3em;
-          padding: 0 1em;
-        }
+		h2 {
+		  font-size: 1.3em;
+		  padding: 0 1em;
+		}
 
-        p {
-          font-size: 1em;
-          padding: 1.5em 1em;
-          line-height: 1.5em;
-          text-align: center;
-        }
-      }
-    }
+		p {
+		  font-size: 1em;
+		  padding: 1.5em 1em;
+		  line-height: 1.5em;
+		  text-align: center;
+		}
+	  }
+	}
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
   .best-sellers {
-    .container {
-      .best-sellers-right {
-        h2 {
-          font-size: 1.7em;
-        }
+	.container {
+	  .best-sellers-right {
+		h2 {
+		  font-size: 1.7em;
+		}
 
-        p {
-          padding: 2em;
-        }
-      }
-    }
+		p {
+		  padding: 2em;
+		}
+	  }
+	}
   }
 }
 
 /* -----------------------------------------------------------
-            Best-sellers paragraph responsive end
+			Best-sellers paragraph responsive end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-                  Edition special paragraph
+				  Edition special paragraph
 ------------------------------------------------------------*/
 .edition-special {
   position: relative;
@@ -408,58 +408,58 @@
   align-items: center;
 
   p {
-    position: absolute;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: $light-blue;
-    font-size: 1.3rem;
-    font-weight: 200;
-    margin: 0;
-    width: 100%;
+	position: absolute;
+	top: 65%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: $light-blue;
+	font-size: 1.3rem;
+	font-weight: 200;
+	margin: 0;
+	width: 100%;
   }
 
   .btn-secondary {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    color: $yellow;
+	position: absolute;
+	bottom: 10%;
+	left: 50%;
+	transform: translate(-50%, 0);
+	color: $yellow;
 
-    @include hover("background-color", $yellow, "color", $primary-blue);
+	@include hover("background-color", $yellow, "color", $primary-blue);
   }
 }
 
 /* -----------------------------------------------------------
-                Edition special paragraph end
+				Edition special paragraph end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-              Edition special paragraph responsive
+			  Edition special paragraph responsive
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
   .edition-special {
-    height: 17em;
+	height: 17em;
 
-    p {
-      font-size: 0.9em;
-      line-height: 1.5em;
-    }
+	p {
+	  font-size: 0.9em;
+	  line-height: 1.5em;
+	}
 
-    .btn-secondary {
-      width: 70%;
-      bottom:8%;
-    }
+	.btn-secondary {
+	  width: 70%;
+	  bottom:8%;
+	}
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
 }
 /* -----------------------------------------------------------
-          Edition special paragraph responsive end
+		  Edition special paragraph responsive end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-                      Advantage icons
+					  Advantage icons
 ------------------------------------------------------------*/
 .advantage-icons {
   width: 100%;
@@ -472,29 +472,29 @@
   padding: 3em 0;
 
   article {
-    flex: 0 0 auto;
-    width: 14em;
-    height: auto;
-    // border: 1px solid red;
+	flex: 0 0 auto;
+	width: 14em;
+	height: auto;
+	// border: 1px solid red;
 
-    img {
-      width: 100%;
-      max-width: 100px;
-      height: auto;
-    }
+	img {
+	  width: 100%;
+	  max-width: 100px;
+	  height: auto;
+	}
 
-    h3,
-    p {
-      text-align: center;
-    }
+	h3,
+	p {
+	  text-align: center;
+	}
   }
 }
 
 /* -----------------------------------------------------------
-                   Advantage icons end
+				   Advantage icons end
 ------------------------------------------------------------*/
 /* -----------------------------------------------------------
-              Advantage icons responsive
+			  Advantage icons responsive
 ------------------------------------------------------------*/
 @media (min-width: 320px) and (max-width: 768px) {
 }
@@ -502,5 +502,5 @@
 @media (min-width: 769px) and (max-width: 1332px) {
 }
 /* -----------------------------------------------------------
-              Advantage icons responsive end
+			  Advantage icons responsive end
 ------------------------------------------------------------*/
