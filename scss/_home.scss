@@ -426,6 +426,8 @@
     left: 50%;
     transform: translate(-50%, 0);
     color: $yellow;
+    width: 13em;
+    text-align: center;
 
     @include hover("background-color", $yellow, "color", $primary-blue);
   }
@@ -447,14 +449,22 @@
     }
 
     .btn-secondary {
-      width: 70%;
       bottom:8%;
     }
   }
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
+  .edition-special {
+    height: 17em;
+
+    p {
+      font-size: 1.2em;
+      line-height: 1.5em;
+    }
+  }
 }
+
 /* -----------------------------------------------------------
           Edition special paragraph responsive end
 ------------------------------------------------------------*/
