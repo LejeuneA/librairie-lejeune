@@ -46,11 +46,12 @@
         }
     }
 }
+
 /* -------------------------------------------------------
                     Books header end
 ---------------------------------------------------------*/
 /* -------------------------------------------------------
-                        Les livres
+                        Livres
 ---------------------------------------------------------*/
 .books-container {
     display: flex;
@@ -173,36 +174,16 @@
                     margin-right: 0.5em;
                 }
 
-                @include hover("background-color", $secondary-blue,"color", $primary-blue);
+                @include hover("background-color", $secondary-blue, "color", $primary-blue);
             }
         }
     }
-
-    .pagination {
-        display: inline-block;
-        margin-bottom: 4em;
-      
-        a {
-          color: $dark-blue;
-          float: left;
-          padding: 8px 16px;
-          text-decoration: none;
-      
-          &.active {
-            background-color: $primary-blue;
-            color: $light-blue;
-            border-radius: 5px;
-          }
-      
-          &:hover:not(.active) {
-            background-color: $secondary-blue;
-            border-radius: 5px;
-          }
-        }
-      }      
 }
+
+@include pagination;
+
 /* -------------------------------------------------------
-                Les livres responsive
+                    Livres responsive
 ---------------------------------------------------------*/
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
@@ -282,7 +263,7 @@
     .pagination {
         font-size: 0.8em;
 
-        a{
+        a {
             padding: 6px 12px;
         }
     }
@@ -365,5 +346,5 @@
 }
 
 /* -------------------------------------------------------
-                    Les livres end
+                    Livres end
 ---------------------------------------------------------*/
