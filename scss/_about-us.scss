@@ -16,6 +16,10 @@
 
 .information-top {
   background-color: $tertiary-blue;
+
+  .container{
+    flex-direction: column;
+  }
 }
 
 .information-bottom {
