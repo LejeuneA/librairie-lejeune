@@ -60,8 +60,16 @@ $introduction-section: (
     text-align: justify;
     padding-right: map-get($introduction-section, padding);
     padding-left: map-get($introduction-section, padding);
+
+    @media (min-width: 320px) and (max-width: 768px) {
+      margin-top: 1em;
+      text-align: center;
+      padding-right: 0; 
+      padding-left: 0; 
+    }
   }
 }
+
 
 /* -------------------------------------------------------
                 Define pagination styles
