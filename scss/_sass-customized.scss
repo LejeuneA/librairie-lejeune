@@ -9,7 +9,7 @@ $dark-blue: rgb(34, 40, 49);
 $light-blue: rgb(234, 245, 250);
 $yellow: rgb(245, 240, 142);
 
-$box-shadow-primary: 0px 3px 5px 0px rgba(71,71,71,0.66);
+$box-shadow-primary: 0px 3px 5px 0px rgba(71, 71, 71, 0.66);
 
 
 
@@ -44,7 +44,7 @@ h1 {
 }
 
 /* -------------------------------------------------------
-                Introduction section
+               Define introduction section
 ---------------------------------------------------------*/
 
 $introduction-section: (
@@ -64,6 +64,48 @@ $introduction-section: (
 }
 
 /* -------------------------------------------------------
+                Define pagination styles
+---------------------------------------------------------*/
+
+@mixin pagination {
+  .pagination {
+    display: inline-block;
+    margin-bottom: 4em;
+
+    a {
+      color: $primary-blue;
+      float: left;
+      padding: 0.5em 1em;
+      text-decoration: none;
+
+      &.active {
+        background-color: $secondary-blue;
+        color: $light-blue;
+        border-radius: 5px;
+      }
+
+      &:hover:not(.active) {
+        background-color: $light-blue;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  // Define pagination styles for responsive design
+  @media (min-width: 320px) and (max-width: 768px) {
+    .pagination {
+      margin-top: 1em;
+      text-align: center;
+
+      a {
+        display: inline-block;
+        float: none;
+      }
+    }
+  }
+}
+
+/* -------------------------------------------------------
                     Google fonts
 ---------------------------------------------------------*/
 
@@ -71,7 +113,7 @@ $introduction-section: (
 
 @each $weight in 100, 200, 300, 400, 500, 600, 700, 800, 900 {
   $font-weight: unquote('#{$weight}');
-  
+
   .poppins-#{$font-weight} {
     font-family: "Poppins", sans-serif;
     font-weight: $font-weight;
@@ -90,7 +132,7 @@ $introduction-section: (
   font-family: 'Chelsea Market';
   src: url('../assets/fonts/ChelseaMarket-Regular.ttf') format('truetype');
   font-weight: 400;
-  font-style: normal; 
+  font-style: normal;
 }
 
 @font-face {
@@ -123,5 +165,3 @@ $introduction-section: (
   background-color: $light-blue;
   // Add more styles as needed
 }
-
-
