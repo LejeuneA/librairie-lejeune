@@ -28,7 +28,7 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-    .header-image {
+    .stationery.header-image {
         background-size: cover;
         height: 25em;
 
@@ -38,14 +38,6 @@
 
         p {
             top: 60%;
-        }
-    }
-
-    .introduction {
-        p {
-            text-align: left;
-            margin-top: 1em;
-            padding: 0;
         }
     }
 }
@@ -105,17 +97,10 @@
 
             p {
                 text-align: start;
-                font-weight: 400;
-                line-height: 1.5em;
+                font-weight: 200;
+                line-height: 1.6em;
                 text-align: justify;
                 padding: 0.5em 0;
-
-                span {
-                    font-weight: 200;
-                    font-size: 0.8em;
-                    display: block;
-                    line-height: 1.2em;
-                }
             }
 
             .product-description {
@@ -214,8 +199,15 @@
                 align-items: center;
                 width: 100%;
 
+                h2 {
+                    text-align: center;
+                    font-size: 1.2em;
+                    list-style: 1.2em;
+                }
+
                 p {
                     text-align: center;
+                    font-size: 0.9em;
                 }
 
                 .product-description {
