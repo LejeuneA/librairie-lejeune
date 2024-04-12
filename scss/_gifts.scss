@@ -1,20 +1,20 @@
 @use 'mixins';
 @use 'sass-customized';
 
-* -----------------------------------------------------------------
-                        Stationery header
+/* -----------------------------------------------------------------
+                        Gifts header
  ----------------------------------------------------------------- */
 
- .books {
-    background-image: url(../assets/images/book-magic.jpg);
+ .gifts {
+    background-image: url(../assets/images/present.jpg);
     background-position: center;
 
     h1 {
-        top: 10%;
+        top: 72%;
     }
 
     p {
-        top: 18%;
+        top: 86%;
     }
 
     &::before {
@@ -23,7 +23,7 @@
 }
 
 /* -------------------------------------------------------
-                Books header responsive
+                Gifts header responsive
 ---------------------------------------------------------*/
 
 /* Media queries for xs, sm, and md screens */
@@ -34,10 +34,29 @@
 
         h1 {
             top: 10%;
+            color: $primary-blue;
+            font-size: 1.3em;
         }
 
         p {
-            top: 22%;
+            top: 23%;
+            color: $primary-blue;
+        }
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1332px) {
+    .header-image {
+        background-size: cover;
+        height: 25em;
+
+        h1 {
+            font-size: 1.7em;
+        }
+
+        p {
+            font-size: 1em;
+            top: 82%;
         }
     }
 }
@@ -46,9 +65,9 @@
                     Books header end
 ---------------------------------------------------------*/
 /* -------------------------------------------------------
-                        Les livres
+                        Cadeaux
 ---------------------------------------------------------*/
-.books-container {
+.gifts-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -178,11 +197,11 @@
 @include pagination;
 
 /* -------------------------------------------------------
-                Les livres responsive
+                Cadeaux responsive
 ---------------------------------------------------------*/
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-    .books-container {
+    .gifts-container {
         .article-container {
             display: flex;
             justify-content: center;
@@ -265,7 +284,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
-    .books-container {
+    .gifts-container {
         .article-container {
             display: flex;
             justify-content: center;
@@ -341,5 +360,5 @@
 }
 
 /* -------------------------------------------------------
-                    Les livres end
+                    Cadeaux end
 ---------------------------------------------------------*/
