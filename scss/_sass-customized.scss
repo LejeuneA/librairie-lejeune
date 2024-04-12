@@ -11,107 +11,50 @@ $yellow: rgb(245, 240, 142);
 
 $box-shadow-primary: 0px 3px 5px 0px rgba(71, 71, 71, 0.66);
 
-
-
 /* -------------------------------------------------------
-                 Define a mixin for hover
----------------------------------------------------------*/
-
-@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
-  &:hover {
-    #{$bgProperty}: $bgValue;
-    #{$colorProperty}: $colorValue;
-    transition: background-color 0.5s ease, color 0.5s ease;
+                      Define h1 styles
+  ---------------------------------------------------------*/
+  $h1-font-family: "Poppins", sans-serif;
+  $h1-font-size: 3em;
+  $h1-font-weight: lighter;
+  $h1-text-align: center;
+  $h1-color: $secondary-blue;
+  
+  // Apply styles to h1 element
+  h1 {
+    font-family: $h1-font-family;
+    font-size: $h1-font-size;
+    font-weight: $h1-font-weight;
+    text-align: $h1-text-align;
+    color: $h1-color;
   }
-}
-
-/* -------------------------------------------------------
-                    Define h1 styles
----------------------------------------------------------*/
-$h1-font-family: "Poppins", sans-serif;
-$h1-font-size: 3em;
-$h1-font-weight: lighter;
-$h1-text-align: center;
-$h1-color: $secondary-blue;
-
-// Apply styles to h1 element
-h1 {
-  font-family: $h1-font-family;
-  font-size: $h1-font-size;
-  font-weight: $h1-font-weight;
-  text-align: $h1-text-align;
-  color: $h1-color;
-}
-
-/* -------------------------------------------------------
-               Define introduction section
----------------------------------------------------------*/
-
-$introduction-section: (
-  padding: 4em 25em,
-);
-
-.introduction {
-  padding: map-get($introduction-section, padding);
-
-  p {
-    font-weight: 300;
-    line-height: 1.8em;
-    text-align: justify;
-    padding-right: map-get($introduction-section, padding);
-    padding-left: map-get($introduction-section, padding);
-
-    @media (min-width: 320px) and (max-width: 768px) {
-      margin-top: 1em;
-      text-align: center;
-      padding-right: 0; 
-      padding-left: 0; 
-    }
-  }
-}
-
-
-/* -------------------------------------------------------
-                Define pagination styles
----------------------------------------------------------*/
-
-@mixin pagination {
-  .pagination {
-    display: inline-block;
-    margin-bottom: 4em;
-
-    a {
-      color: $primary-blue;
-      float: left;
-      padding: 0.5em 1em;
-      text-decoration: none;
-
-      &.active {
-        background-color: $secondary-blue;
-        color: $light-blue;
-        border-radius: 5px;
-      }
-
-      &:hover:not(.active) {
-        background-color: $light-blue;
-        border-radius: 5px;
+  
+  /* -------------------------------------------------------
+                 Define introduction section
+  ---------------------------------------------------------*/
+  
+  $introduction-section: (
+    padding: 4em 25em,
+  );
+  
+  .introduction {
+    padding: map-get($introduction-section, padding);
+  
+    p {
+      font-weight: 300;
+      line-height: 1.8em;
+      text-align: justify;
+      padding-right: map-get($introduction-section, padding);
+      padding-left: map-get($introduction-section, padding);
+  
+      @media (min-width: 320px) and (max-width: 768px) {
+        margin-top: 1em;
+        text-align: center;
+        padding-right: 0; 
+        padding-left: 0; 
       }
     }
   }
-
-  // Define pagination styles for responsive design
-  @media (min-width: 320px) and (max-width: 768px) {
-    .pagination {
-      margin-top: 1em;
-      text-align: center;
-
-      a {
-        display: inline-block;
-        float: none;
-      }
-    }
-  }
-}
 
 /* -------------------------------------------------------
                     Google fonts
@@ -119,7 +62,7 @@ $introduction-section: (
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-@each $weight in 100, 200, 300, 400, 500, 600, 700, 800, 900 {
+@each $weight in (100, 200, 300, 400, 500, 600, 700, 800, 900) {
   $font-weight: unquote('#{$weight}');
 
   .poppins-#{$font-weight} {
@@ -139,28 +82,20 @@ $introduction-section: (
 @font-face {
   font-family: 'Chelsea Market';
   src: url('../assets/fonts/ChelseaMarket-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
 }
 
 @font-face {
   font-family: 'Great Vibes';
   src: url('../assets/fonts/GreatVibes-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
 }
 
 // Usage
 .chelsea-market-regular {
   font-family: 'Chelsea Market', system-ui;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .great-vibes-regular {
   font-family: 'Great Vibes', cursive;
-  font-weight: 400;
-  font-style: normal;
 }
 
 // Additional SCSS styles for .chelsea-market-regular and .great-vibes-regular
