@@ -1,0 +1,70 @@
+html,
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h2{
+    text-align: center;
+    font-weight: 500;
+    font-size: larger;
+    margin-top: 2em;
+    padding: 0 2em;
+  }
+
+  p{
+    font-weight: 300;
+    line-height: 1.8em;
+    text-align: justify;
+    padding: 2em 0;
+  }
+}
+
+
+
+/* -------------------------------------------------------
+                  .Class styles
+---------------------------------------------------------*/
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1em;
+  width: 100%;
+  display: flex;
+}
+
+.square-right {
+  display: flex;
+  justify-content: flex-end;
+  top: 0;
+  right: 0;
+}
+
+.square-left {
+  display: flex;
+  justify-content: flex-start;
+  bottom: 0;
+  left: 0;
+}
+
+
+/* -------------------------------------------------------
+                  Responsive styles
+---------------------------------------------------------*/
+
+@media (min-width: 320px) and (max-width: 1200px) {
+  section{  
+    p{
+      padding: 2em;
+    }
+  }
+    .square-right,
+    .square-left {
+        height: 5em;
+    }
+}
