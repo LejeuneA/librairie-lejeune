@@ -1,13 +1,13 @@
 /* -----------------------------------------------------------------
-                        Custom styles
+                    Custom styles
  ----------------------------------------------------------------- */
 @import "_reset";
 @import "_sass-customized";
+@import "_mixins";
 @import "_custom";
 @import "_navbar";
 @import "_home";
 @import "_stationery";
 @import "_books";
 @import "_about-us"; 
-@import "_footer";
-@import "_button";         
+@import "_footer";      
