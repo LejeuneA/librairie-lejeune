@@ -1,0 +1,83 @@
+/* -------------------------------------------------------
+                 Define a mixin for hover
+---------------------------------------------------------*/
+
+@mixin hover($bgProperty, $bgValue, $colorProperty, $colorValue) {
+  &:hover {
+    #{$bgProperty}: $bgValue;
+    #{$colorProperty}: $colorValue;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+}
+/* -------------------------------------------------------
+               Define mixin for button styles
+---------------------------------------------------------*/
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  color: $text-color;
+  z-index: 1000;
+  cursor: pointer;
+
+  // Include hover mixin for button
+  @include hover("background-color", $primary-blue, "color", $light-blue);
+}
+
+// Apply mixin for primary button
+.btn-primary {
+  @include button-style($primary-red, $light-blue);
+}
+
+// Apply mixin for secondary button
+.btn-secondary {
+  @include button-style($primary-blue, $light-blue);
+}
+
+
+/* -------------------------------------------------------
+            Define mixin for pagination styles
+---------------------------------------------------------*/
+
+@mixin pagination {
+  .pagination {
+    display: inline-block;
+    margin-bottom: 4em;
+
+    a {
+      color: $primary-blue;
+      float: left;
+      padding: 0.5em 1em;
+      text-decoration: none;
+
+      &.active {
+        background-color: $secondary-blue;
+        color: $light-blue;
+        border-radius: 5px;
+      }
+
+      &:hover:not(.active) {
+        background-color: $light-blue;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  // Define pagination styles for responsive design
+  @media (min-width: 320px) and (max-width: 768px) {
+    .pagination {
+      margin-top: 1em;
+      text-align: center;
+
+      a {
+        display: inline-block;
+        float: none;
+      }
+    }
+  }
+}
+
+@forward "pagination";
+@forward "hover";
+@forward "button-style";
