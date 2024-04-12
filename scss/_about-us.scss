@@ -1,6 +1,6 @@
-@import "_reset";
-@import "_sass-customized";
-@import "_custom";
+@use 'mixins';
+@use 'sass-customized';
+
 /* -----------------------------------------------------------------
                     Qui sommes-nous header
  ----------------------------------------------------------------- */
