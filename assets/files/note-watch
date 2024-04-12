@@ -35,6 +35,7 @@
 // |   |-- _footer.scss
 // |   |-- _gifts.scss
 // |   |-- _home.scss
+// |   |-- _mixins.scss
 // |   |-- _navbar.scss
 // |   |-- _reset.scss
 // |   |-- _sass-customized.scss
