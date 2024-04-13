@@ -131,50 +131,7 @@
         }
 
         .product-price {
-            display: flex;
-            justify-content: center;
-            align-items: start;
-            flex-direction: column;
-            width: 30%;
-            height: auto;
-            border-left: 1px solid $primary-blue;
-            padding: 3em 2em;
-
-            p {
-                text-align: start;
-                font-weight: 700;
-                line-height: 1.5em;
-                text-align: justify;
-                padding: 0.5em 0;
-                color: $primary-red;
-                font-size: 2em;
-
-                span {
-                    font-weight: 200;
-                    font-size: 0.5em;
-                    display: block;
-                    line-height: 1.5em;
-
-                    &:first-child {
-                        margin-top: 1em;
-                    }
-
-                    i {
-                        margin-right: 0.5em;
-                    }
-                }
-            }
-
-            .btn-primary {
-                text-align: start;
-                margin-top: 2em;
-
-                i {
-                    margin-right: 0.5em;
-                }
-
-                @include hover("background-color", $secondary-blue, "color", $primary-blue);
-            }
+            @extend %product-price;
         }
     }
 }
