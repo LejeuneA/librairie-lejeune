@@ -18,18 +18,19 @@
 
 .information-bottom {
     @extend %information-bottom;
-    .information-bottom-right {
+
+    .information-bottom-right--work-with-us {
         ul {
-          li {
-            &:first-child {
-              font-size: 1.3em;
-              color: $light-blue;
-              font-weight: 200;
+            li {
+                &:first-child {
+                    font-size: 1em;
+                    color: $light-blue;
+                    font-weight: 400;
+                }
             }
-          }
         }
-      }
-  }
+    }
+}
 
 /* -------------------------------------------------------
                    About us responsive
@@ -48,8 +49,20 @@
         padding: 2em 3em;
     }
 
+    .information-top {
+        p {
+            text-align: center;
+        }
+    }
+
     .information-bottom {
         flex-direction: column;
+
+        .information-bottom-left {
+            p {
+                text-align: center;
+            }
+        }
 
         .information-bottom-left,
         .information-bottom-right {
