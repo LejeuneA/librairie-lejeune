@@ -17,8 +17,9 @@
 }
 
 .information-bottom {
-  @extend %information-bottom; 
-  .information-bottom-right {
+  @extend %information-bottom;
+
+  .information-bottom-right--about-us {
     ul {
       li {
         span {
@@ -59,8 +60,20 @@
     padding: 2em 3em;
   }
 
+  .information-top {
+    p {
+      text-align: center;
+    }
+  }
+
   .information-bottom {
     flex-direction: column;
+
+    .information-bottom-left {
+      p {
+        text-align: center;
+      }
+    }
 
     .information-bottom-left,
     .information-bottom-right {
