@@ -30,6 +30,7 @@
 // |-- /scss
 // |   |-- _about-us.scss
 // |   |-- _books.scss
+// |   |-- _extends.scss
 // |   |-- _global.scss
 // |   |-- _footer.scss
 // |   |-- _gifts.scss
