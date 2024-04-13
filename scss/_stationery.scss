@@ -1,27 +1,27 @@
 @use 'mixins';
+@use 'extends';
 @use 'sass-customized';
 
 /* -----------------------------------------------------------------
                         Stationery header
  ----------------------------------------------------------------- */
 
- .stationery {
+ .header-image--stationery {
+    @extend %header-image;
     background-image: url(../assets/images/office-supplies.jpg);
     background-position: center;
 
     h1 {
         top: 50%;
         color: $primary-red;
+        width: 100%;
     }
 
     p {
         top: 60%;
         color: $primary-blue;
         margin-top: 1em;
-    }
-
-    &::before {
-        display: none;
+        width: 100%;
     }
 }
 
@@ -31,16 +31,18 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-    .stationery.header-image {
+    .header-image--stationery{
         background-size: cover;
         height: 25em;
 
         h1 {
             top: 50%;
+            font-size: 1.7em;
         }
 
         p {
             top: 60%;
+            font-size: 1em;
         }
     }
 }
