@@ -42,6 +42,15 @@
         font-weight: 300;
         z-index: 3;
     }
+}/* -------------------------------------------------------
+        Define extend for information top
+---------------------------------------------------------*/
+%information-top {
+  background-color: $tertiary-blue;
+
+  .container {
+      flex-direction: column;
+  }
 }
 
 /* -------------------------------------------------------
@@ -86,25 +95,6 @@
             $primary-blue,
             "color",
             $primary-red );
-        }
-  
-        li {
-          span {
-            &:last-child {
-              font-weight: 200;
-              font-size: 1.1rem;
-            }
-          }
-  
-          &:not(:last-child) {
-            margin-bottom: 1rem;
-          }
-  
-          &:first-child {
-            font-size: 1.3em;
-            color: $primary-red;
-            font-weight: 200;
-          }
         }
       }
     }
