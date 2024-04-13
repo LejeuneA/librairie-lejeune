@@ -1,48 +1,15 @@
 @use 'mixins';
+@use 'extends';
 @use 'sass-customized';
 
 /* -------------------------------------------------------
 					Accueil header
 ---------------------------------------------------------*/
 
-.header-image {
-  position: relative;
-  height: 45em;
-  width: 100%;
+.header-image--home {
+  @extend %header-image;
   background-image: url(../assets/images/textbook.jpg);
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-
-  h1 {
-	position: absolute;
-	top: 13%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	color: $light-blue;
-	font-family: "Chelsea Market", system-ui;
-	font-weight: bold;
-	font-size: 3rem;
-	z-index: 2;
-  }
-
-  p {
-	position: absolute;
-	top: 26%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-	color: $light-blue;
-	font-size: 1.3rem;
-	font-weight: 300;
-	z-index: 3;
-  }
-
+  
   .btn-primary {
 	position: absolute;
 	top: 40%;
@@ -80,7 +47,7 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-  .header-image {
+  .header-image--home {
 	background-size: cover;
 	height: 25em;
 
@@ -120,7 +87,7 @@
 }
 
 @media (min-width: 769px) and (max-width: 1332px) {
-  .header-image {
+  .header-image--home {
 	background-size: cover;
 
 	h1 {
