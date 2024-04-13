@@ -2,9 +2,10 @@
                         Custom styles
  ----------------------------------------------------------------- */
 @import "_reset";
+@import "_global";
 @import "_sass-customized";
 @import "_mixins";
-@import "_global";
+@import "_extends";
 @import "_navbar";
 @import "_home";
 @import "_books";
