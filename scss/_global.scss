@@ -33,9 +33,14 @@ section{
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1em;
+  padding: 0 1.5em;
   width: 100%;
   display: flex;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5em;
+    
+  }
 }
 
 .square-right {
