@@ -1,0 +1,53 @@
+@use 'mixins';
+@use 'extends';
+@use 'sass-customized';
+
+/* -----------------------------------------------------------------
+                    Qui sommes-nous header
+ ----------------------------------------------------------------- */
+
+.header-image--work-with-us {
+    @extend %header-image;
+    background-image: url(../assets/images/happy-woman-bookshelf.jpg);
+
+}
+
+.information-top {
+    background-color: $tertiary-blue;
+
+    .container {
+        flex-direction: column;
+    }
+}
+
+.information-bottom {
+    @extend %information-bottom;
+  }
+
+/* -------------------------------------------------------
+                   About us responsive
+---------------------------------------------------------*/
+
+@media (min-width: 320px) and (max-width: 1200px) {
+    .header-image--work-with-us {
+        height: 20em;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .introduction {
+        padding: 2em 3em;
+    }
+
+    .information-bottom {
+        flex-direction: column;
+
+        .information-bottom-left,
+        .information-bottom-right {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
