@@ -1,6 +1,10 @@
 @use 'mixins';
 @use 'sass-customized';
 
+
+/* -------------------------------------------------------
+                Define extend for header image
+---------------------------------------------------------*/
 %header-image {
     position: relative;
     height: 45em;
@@ -24,6 +28,7 @@
         font-weight: bold;
         font-size: 3rem;
         z-index: 2;
+        text-shadow: $text-shadow-primary;
     }
 
     p {
