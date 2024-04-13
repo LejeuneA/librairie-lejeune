@@ -1,0 +1,61 @@
+@use 'mixins';
+@use 'extends';
+@use 'sass-customized';
+
+/* -----------------------------------------------------------------
+                    Conditions générales header
+ ----------------------------------------------------------------- */
+
+.header-image--conditions{
+  @extend %header-image;
+  background-image: url(../assets/images/conditions.jpg);
+
+}
+
+.information-top {
+  @extend %information-top;
+}
+
+.information-bottom {
+  @extend %information-bottom;
+}
+
+/* -------------------------------------------------------
+            Conditions générales responsive
+---------------------------------------------------------*/
+
+@media (min-width: 320px) and (max-width: 1200px) {
+  .header-image--about-us {
+    height: 20em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .introduction {
+    padding: 2em 3em;
+  }
+
+  .information-top {
+    p {
+      text-align: center;
+    }
+  }
+
+  .information-bottom {
+    flex-direction: column;
+
+    .information-bottom-left {
+      p {
+        text-align: center;
+      }
+    }
+
+    .information-bottom-left,
+    .information-bottom-right {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
