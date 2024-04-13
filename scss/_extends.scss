@@ -1,0 +1,43 @@
+@use 'mixins';
+@use 'sass-customized';
+
+%header-image {
+    position: relative;
+    height: 45em;
+    width: 100%;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+    h1 {
+        position: absolute;
+        top: 13%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: $light-blue;
+        font-family: "Chelsea Market", system-ui;
+        font-weight: bold;
+        font-size: 3rem;
+        z-index: 2;
+    }
+
+    p {
+        position: absolute;
+        top: 26%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: $light-blue;
+        font-size: 1.3rem;
+        font-weight: 300;
+        z-index: 3;
+    }
+}
+
+
+@forward '%header-image';
