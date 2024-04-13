@@ -68,3 +68,6 @@
 // npm run scss
 
 // npm rebuild node-sass
+
+
+// npm install node-sass npm-run-all --save-dev

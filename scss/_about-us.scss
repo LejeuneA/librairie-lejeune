@@ -17,7 +17,7 @@
 }
 
 .information-bottom {
-  @extend %information-bottom;
+  @extend %information-bottom; 
   .information-bottom-right {
     ul {
       li {
