@@ -1,24 +1,24 @@
 @use 'mixins';
+@use 'extends';
 @use 'sass-customized';
 
 /* -----------------------------------------------------------------
                         Books header
  ----------------------------------------------------------------- */
 
-.books {
+.header-image--books {
+    @extend %header-image;
     background-image: url(../assets/images/book-magic.jpg);
     background-position: center;
 
     h1 {
         top: 10%;
+        width: 100%;
     }
 
     p {
         top: 18%;
-    }
-
-    &::before {
-        display: none;
+        width: 100%;
     }
 }
 
@@ -28,16 +28,18 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-    .header-image {
+    .header-image--books {
         background-size: cover;
         height: 25em;
 
         h1 {
             top: 10%;
+            font-size: 1.7em;
         }
 
         p {
-            top: 22%;
+            top: 20%;
+            font-size: 1em;
         }
     }
 }
