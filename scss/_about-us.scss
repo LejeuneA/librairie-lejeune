@@ -1,17 +1,15 @@
 @use 'mixins';
+@use 'extends';
 @use 'sass-customized';
 
 /* -----------------------------------------------------------------
                     Qui sommes-nous header
  ----------------------------------------------------------------- */
 
-.about-us {
+.header-image--about-us {
+  @extend %header-image;
   background-image: url(../assets/images/stack-books.jpg);
-  background-size: cover;
 
-  &::before {
-    display: none;
-  }
 }
 
 .information-top {
@@ -91,7 +89,7 @@
 ---------------------------------------------------------*/
 
 @media (min-width: 320px) and (max-width: 1200px) {
-  .about-us {
+  .header-image--about-us {
     height: 20em;
   }
 
