@@ -1,24 +1,24 @@
 @use 'mixins';
+@use 'extends';
 @use 'sass-customized';
 
 /* -----------------------------------------------------------------
                         Gifts header
  ----------------------------------------------------------------- */
 
- .gifts {
+ .header-image--gifts {
+    @extend %header-image;
     background-image: url(../assets/images/present.jpg);
     background-position: center;
 
     h1 {
         top: 72%;
+        width: 100%;
     }
 
     p {
-        top: 86%;
-    }
-
-    &::before {
-        display: none;
+        top: 82%;
+        width: 100%;
     }
 }
 
@@ -28,24 +28,20 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-    .header-image {
-        background-size: cover;
-        height: 25em;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1332px) {
-    .header-image {
+    .header-image--gifts {
         background-size: cover;
         height: 25em;
 
         h1 {
-            font-size: 1.7em;
+            font-size: 1.5em;
+            top: 10%;
+            color: $primary-blue;
         }
 
         p {
             font-size: 1em;
-            top: 82%;
+            top: 24%;
+            color: $primary-blue;
         }
     }
 }
