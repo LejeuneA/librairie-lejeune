@@ -30,6 +30,9 @@
 // |-- /scss
 // |   |-- _about-us.scss
 // |   |-- _books.scss
+// |   |-- _conditions.scss
+// |   |-- _contact.scss
+// |   |-- _custom.scss
 // |   |-- _extends.scss
 // |   |-- _global.scss
 // |   |-- _footer.scss
@@ -38,7 +41,6 @@
 // |   |-- _mixins.scss
 // |   |-- _navbar.scss
 // |   |-- _reset.scss
-// |   |-- _sass-customized.scss
 // |   |-- _stationery.scss
 // |   |-- styles.scss
 // |-- package-lock.json
