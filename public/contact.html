@@ -86,12 +86,55 @@
                     <img src="../assets/icons/contact-icons-04.png" alt="Qualité première">
                     <p>Envoyer-nous un message<span>support@librairie.com</span></p>
                 </article>
-
-
         </section>
         <!-----------------------------------------------------------------
-                               Contact icons
+                               Contact icons end
         ------------------------------------------------------------------>
+
+        <!-----------------------------------------------------------------
+                                Contact form
+        ------------------------------------------------------------------>
+        <!-- Contact section -->
+        <section class="contact-section container">
+            <div class="contact-title">
+                <h1>Contactez-nous</h1>
+            </div>
+            <!-- Contact form -->
+            <form action="/action_page.php">
+                <label for="fname">Prénom</label>
+                <input type="text" id="fname" name="firstname" placeholder="Votre prénom...">
+
+                <label for="lname">Nom</label>
+                <input type="text" id="lname" name="lastname" placeholder="Votre nom...">
+
+                <label for="country">Pay</label>
+                <select id="country" name="country">
+                    <option value="australia">Belgique</option>
+                    <option value="canada">France</option>
+                    <option value="usa">Angleterre</option>
+                </select>
+
+                <label for="subject">Message</label>
+                <textarea id="subject" name="subject" placeholder="Rédiger votre message..."
+                    style="height:200px"></textarea>
+                <!-- Checkbox -->
+                <div class="checkbox">
+                    <input type="checkbox" id="cgu" name="cgu" required>
+                    <label for="cgu">J'accepte les condition générales d'utilisation</label>
+                </div>
+                <!-- Checkbox end -->
+                <!-- Button -->
+                <input type="reset" value="Réinitialiser">
+                <input type="submit" value="Envoyer">
+                <!-- Button end -->
+            </form>
+
+            <!-- Contact form end -->
+        </section>
+        <!-- Contact section end -->
+        <!-------------------------------------------------------- 
+                          Contact form end
+        ---------------------------------------------------------->
 
 
     </main>
