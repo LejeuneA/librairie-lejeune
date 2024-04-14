@@ -16,11 +16,56 @@
                         Contact icons
  ----------------------------------------------------------------- */
 .contact-icons-container {
+  background-color: $primary-blue;
+  width: 100%;
+  height: 40em;
+  padding: 2em;
+
+  .contact-icons {
+    @extend %advantage-icons;
     background-color: $primary-blue;
-    width: 100%;
-    height: 40em;
+    color: $light-blue;
+    gap: 2em;
+
+    article {
+      flex: 0 0 auto;
+      width: 14em;
+      height: auto;
+      text-align: center;
+
+      img {
+        width: 25em;
+        height: 100%;
+      }
+
+      p {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        font-weight: 400;
+        font-size: 1.3em;
+
+        span {
+          font-weight: 200;
+          font-size: 1.2em;
+          display: block;
+          line-height: 1.2em;
+        }
+      }
+    }
+  }
 }
 
-.contact-icons {
-    @extend %advantage-icons;
+
+
+/* -----------------------------------------------------------------
+                      Contact icons responsive
+ ----------------------------------------------------------------- */
+
+@media (min-width: 320px) and (max-width: 768px) {
+
+  .contact-icons-container {
+    height: auto;
+  }
+
 }
