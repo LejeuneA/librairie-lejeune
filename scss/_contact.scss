@@ -18,8 +18,7 @@
 .contact-icons-container {
   background-color: $primary-blue;
   width: 100%;
-  height: 40em;
-  padding: 2em;
+  height: 20em;
 
   .contact-icons {
     @extend %advantage-icons;
@@ -29,21 +28,17 @@
 
     article {
       flex: 0 0 auto;
-      width: 14em;
+      width: 20em;
+      max-width: 100%;
       height: auto;
       text-align: center;
-
-      img {
-        width: 25em;
-        height: 100%;
-      }
 
       p {
         text-align: center;
         padding: 0;
         margin: 0;
         font-weight: 400;
-        font-size: 1.3em;
+        font-size: 1.1em;
 
         span {
           font-weight: 200;
@@ -56,16 +51,16 @@
   }
 }
 
-
-
 /* -----------------------------------------------------------------
                       Contact icons responsive
- ----------------------------------------------------------------- */
-
+----------------------------------------------------------------- */
 @media (min-width: 320px) and (max-width: 768px) {
 
   .contact-icons-container {
     height: auto;
   }
-
 }
+
+/* -----------------------------------------------------------------
+                        Contact form
+ ----------------------------------------------------------------- */
