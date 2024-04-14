@@ -64,32 +64,16 @@
 /* -----------------------------------------------------------------
                         Contact form
 ----------------------------------------------------------------- */
-
 .contact-section {
   position: relative;
   align-items: center;
+  margin-bottom: 5em;
 
   .contact-title {
     h1 {
       margin: 2em 0;
     }
   }
-}
-
-.contact-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2em;
-}
-
-.form-box {
-  margin-top: 6em;
-  width: 60%;
-}
-
-form {
-  margin-bottom: 5em;
 
   input[type=text],
   select,
@@ -124,6 +108,10 @@ form {
     outline: 1px solid $secondary-blue;
   }
 
+  /* -----------------------------------------------------------------
+                           Buttons
+  ----------------------------------------------------------------- */
+
   input[type=submit],
   input[type=reset] {
     background-color: $secondary-blue;
@@ -134,8 +122,17 @@ form {
     border-radius: 4px;
     cursor: pointer;
 
+    /* -----------------------------------------------------------------
+                           Buttons responsive
+    ----------------------------------------------------------------- */
     @media (min-width: 320px) and (max-width: 768px) {
-      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      margin: 0.5em auto;
+      padding: 0.7em 1.2em;
+      width: 17em;
     }
   }
 
@@ -145,39 +142,39 @@ form {
       $primary-blue,
       "color",
       $light-blue);
-
-    @media (min-width: 320px) and (max-width: 768px) {
-      font-size: 0.9em;
-    }
   }
+} 
 
-  #country {
-    background-color: $light-blue;
-  }
+#country {
+  background-color: $light-blue;
+}
 
-  /* Style the select element */
-  select {
-    font-size: 0.9em;
-    font-family: "Poppins", sans-serif;
-    color: $secondary-blue;
-    padding: 0.7em;
-  }
+/* Style the select element */
+select {
+  font-size: 0.9em;
+  font-family: "Poppins", sans-serif;
+  color: $secondary-blue;
+  padding: 0.7em;
+}
 
-  /* Style the options */
-  select option {
-    font-size: 1em;
-    color: $secondary-blue;
-    padding: 0.7em;
-  }
+/* Style the options */
+select option {
+  font-size: 1em;
+  color: $secondary-blue;
+  padding: 0.7em;
+}
 
-  /* Checkbox */
-  .checkbox {
-    margin: 1em 0;
-  }
+/* -----------------------------------------------------------------
+                        Check box
+  ----------------------------------------------------------------- */
+.checkbox {
+  margin: 0.5em 0 1.5em 0;
 
-  .checkbox label {
+
+  label {
     margin-left: 0.2em;
     font-weight: 300;
+    font-size: 1em;
   }
 
   input[type="checkbox"] {
@@ -205,6 +202,23 @@ form {
   }
 }
 
-/* Checkbox end */
-/* Form end */
-/* Contact end */
+
+/* -----------------------------------------------------------------
+                      Check box responsive
+----------------------------------------------------------------- */
+@media (min-width: 320px) and (max-width: 768px) {
+  .contact-section {
+    .checkbox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      label {
+        font-weight: 300;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
