@@ -1,0 +1,114 @@
+/* -------------------------------------------------------
+                 Custom colors
+---------------------------------------------------------*/
+$primary-red: rgb(240, 84, 85);
+$primary-blue: rgb(48, 71, 94);
+$secondary-blue: rgb(132, 192, 225);
+$tertiary-blue: rgb(193, 224, 240);
+$dark-blue: rgb(34, 40, 49);
+$light-blue: rgb(234, 245, 250);
+$yellow: rgb(245, 240, 142);
+
+$box-shadow-primary: 0px 3px 5px 0px rgba(71, 71, 71, 0.66);
+$text-shadow-primary: 1px 1px rgba(71, 71, 71, 0.66);
+
+/* -------------------------------------------------------
+                      Define h1 styles
+  ---------------------------------------------------------*/
+  $h1-font-family: "Poppins", sans-serif;
+  $h1-font-size: 3em;
+  $h1-font-weight: lighter;
+  $h1-text-align: center;
+  $h1-color: $secondary-blue;
+  
+  // Apply styles to h1 element
+  h1 {
+    font-family: $h1-font-family;
+    font-size: $h1-font-size;
+    font-weight: $h1-font-weight;
+    text-align: $h1-text-align;
+    color: $h1-color;
+  }
+  
+  /* -------------------------------------------------------
+                 Define introduction section
+  ---------------------------------------------------------*/
+  
+  $introduction-section: (
+    padding: 4em 25em,
+  );
+  
+  .introduction {
+    padding: map-get($introduction-section, padding);
+  
+    p {
+      font-weight: 300;
+      line-height: 1.8em;
+      text-align: justify;
+      padding-right: map-get($introduction-section, padding);
+      padding-left: map-get($introduction-section, padding);
+  
+      @media (min-width: 320px) and (max-width: 768px) {
+        margin-top: 1em;
+        text-align: center;
+        padding-right: 0; 
+        padding-left: 0; 
+      }
+    }
+  }
+
+
+  
+
+/* -------------------------------------------------------
+                    Google fonts
+---------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@each $weight in (100, 200, 300, 400, 500, 600, 700, 800, 900) {
+  $font-weight: unquote('#{$weight}');
+
+  .poppins-#{$font-weight} {
+    font-family: "Poppins", sans-serif;
+    font-weight: $font-weight;
+    font-style: normal;
+  }
+
+  .poppins-#{$font-weight}-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: $font-weight;
+    font-style: italic;
+  }
+}
+
+// Additional Fonts
+@font-face {
+  font-family: 'Chelsea Market';
+  src: url('../assets/fonts/ChelseaMarket-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('../assets/fonts/GreatVibes-Regular.ttf') format('truetype');
+}
+
+// Usage
+.chelsea-market-regular {
+  font-family: 'Chelsea Market', system-ui;
+}
+
+.great-vibes-regular {
+  font-family: 'Great Vibes', cursive;
+}
+
+// Additional SCSS styles for .chelsea-market-regular and .great-vibes-regular
+.some-other-style {
+  color: $primary-red;
+  // Add more styles as needed
+}
+
+.another-style {
+  background-color: $light-blue;
+  // Add more styles as needed
+}
