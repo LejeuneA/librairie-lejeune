@@ -69,8 +69,8 @@
   position: relative;
   align-items: center;
 
-  .contact-title{
-    h1{
+  .contact-title {
+    h1 {
       margin: 2em 0;
     }
   }
@@ -88,121 +88,123 @@
   width: 60%;
 }
 
-form{
+form {
   margin-bottom: 5em;
-input[type=text],
-select,
-textarea {
-  width: 100%;
-  padding: 0.6em;
-  border: 1px solid $secondary-blue;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 1em;
-  resize: vertical;
-}
 
-input::placeholder,
-textarea::placeholder {
-  font-family: "Poppins", sans-serif;
-  font-size: small;
-  font-style: italic;
-}
+  input[type=text],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.6em;
+    border: 1px solid $secondary-blue;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 1em;
+    resize: vertical;
+  }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border: 1px solid $secondary-blue;
-  box-shadow: 0 0 15px rgba(132, 192, 225, 0.9);
-}
+  input::placeholder,
+  textarea::placeholder {
+    font-family: "Poppins", sans-serif;
+    font-size: small;
+    font-style: italic;
+  }
 
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 1px solid $secondary-blue;
-}
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border: 1px solid $secondary-blue;
+    box-shadow: 0 0 15px rgba(132, 192, 225, 0.9);
+  }
 
-input[type=submit],
-input[type=reset] {
-  background-color: $secondary-blue;
-  font-size: 1em;
-  color: $light-blue;
-  padding: 1em 1.5em;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 1px solid $secondary-blue;
+  }
 
-  @media (min-width: 320px) and (max-width: 768px) {
+  input[type=submit],
+  input[type=reset] {
+    background-color: $secondary-blue;
+    font-size: 1em;
+    color: $light-blue;
+    padding: 1em 1.5em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    @media (min-width: 320px) and (max-width: 768px) {
+      font-size: 0.9em;
+    }
+  }
+
+  input[type=submit]:hover,
+  input[type=reset]:hover {
+    @include hover("background-color",
+      $primary-blue,
+      "color",
+      $light-blue);
+
+    @media (min-width: 320px) and (max-width: 768px) {
+      font-size: 0.9em;
+    }
+  }
+
+  #country {
+    background-color: $light-blue;
+  }
+
+  /* Style the select element */
+  select {
     font-size: 0.9em;
+    font-family: "Poppins", sans-serif;
+    color: $secondary-blue;
+    padding: 0.7em;
+  }
+
+  /* Style the options */
+  select option {
+    font-size: 1em;
+    color: $secondary-blue;
+    padding: 0.7em;
+  }
+
+  /* Checkbox */
+  .checkbox {
+    margin: 1em 0;
+  }
+
+  .checkbox label {
+    margin-left: 0.2em;
+    font-weight: 300;
+  }
+
+  input[type="checkbox"] {
+    box-sizing: border-box;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    margin: 0.5em;
+    padding: 0;
+    border: 1px solid $secondary-blue;
+    appearance: inherit;
+    outline: none;
+    transition: outline 0.1s;
+  }
+
+  input[type="checkbox"]:checked {
+    background-size: cover;
+    padding: 2px;
+  }
+
+  input[type="checkbox"]:not(:disabled):checked {
+    border-color: $secondary-blue;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: %23274c77" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
+    background-color: $light-blue;
   }
 }
 
-input[type=submit]:hover,
-input[type=reset]:hover {
-  @include hover("background-color",
-    $primary-blue,
-    "color",
-    $light-blue);
-
-  @media (min-width: 320px) and (max-width: 768px) {
-    font-size: 0.9em;
-  }
-}
-
-#country {
-  background-color: $light-blue;
-}
-
-/* Style the select element */
-select {
-  font-size: 0.9em;
-  font-family: "Poppins", sans-serif;
-  color: $secondary-blue;
-  padding: 0.7em;
-}
-
-/* Style the options */
-select option {
-  font-size: 1em;
-  color: $secondary-blue;
-  padding: 0.7em;
-}
-
-/* Checkbox */
-.checkbox {
-  margin: 1em 0;
-}
-
-.checkbox label {
-  margin-left: 0.2em;
-  font-weight: 300;
-}
-
-input[type="checkbox"] {
-  box-sizing: border-box;
-  width: 1.5em;
-  height: 1.5em;
-  vertical-align: middle;
-  margin: 0.5em;
-  padding: 0;
-  border: 1px solid $secondary-blue;
-  appearance: inherit;
-  outline: none;
-  transition: outline 0.1s;
-}
-
-input[type="checkbox"]:checked {
-  background-size: cover;
-  padding: 2px;
-}
-
-input[type="checkbox"]:not(:disabled):checked {
-  border-color: $secondary-blue;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: %23274c77" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
-  background-color: $light-blue;
-}
-}
 /* Checkbox end */
 /* Form end */
 /* Contact end */
