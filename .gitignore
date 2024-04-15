@@ -1,0 +1,21 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore any local development environment files
+.env
+
+# Ignore any build or compiled files
+/build/
+/dist/
+
+# Ignore any logs or temporary files
+*.log
+*.tmp
+
+# Ignore any IDE or editor-specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
