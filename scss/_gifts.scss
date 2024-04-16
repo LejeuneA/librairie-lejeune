@@ -54,19 +54,15 @@
                         Cadeaux
 ---------------------------------------------------------*/
 .gifts-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    @include d-flex(flex, center, center, column, center);
+    
     gap: 3em;
     height: auto;
     width: 100%;
 
     .article-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
+        @include d-flex(flex, space-between, center, row, center);
+        
         width: 100%;
         border: 1px solid $dark-blue;
         padding: 1em;
@@ -85,10 +81,8 @@
         }
 
         .product-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: start;
+            @include d-flex(flex, start, start, column, start);
+            
             width: calc(70% - 15em);
             height: 100%;
 
@@ -146,19 +140,16 @@
 @media (min-width: 320px) and (max-width: 768px) {
     .gifts-container {
         .article-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            @include d-flex(flex, center, center, column, center);
+            
             width: 100%;
             height: auto;
             border: 1px solid $dark-blue;
 
             .product-info {
+                @include d-flex(flex, center, center, column, center);
                 display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                
                 width: 100%;
 
                 h2 {
@@ -178,9 +169,8 @@
             }
 
             .product-price {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                @include d-flex(flex, center, center, column, center);
+                
                 align-content: space-between;
                 width: 100%;
                 border-top: 1px solid $primary-blue;
@@ -189,9 +179,8 @@
                 margin-top: 1em;
 
                 p {
-                    text-align: center;
-                    justify-content: center;
-                    align-items: center;
+                    @include d-flex(flex, center, center, column, center);
+                    
                     font-weight: 700;
                     line-height: 1.3em;
                     padding: 0.5em 0;
@@ -229,19 +218,15 @@
 @media (min-width: 769px) and (max-width: 1332px) {
     .gifts-container {
         .article-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            @include d-flex(flex, center, center, column, center);
+            
             width: 90%;
             height: auto;
             border: 1px solid $dark-blue;
 
             .product-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                @include d-flex(flex, center, center, column, center);
+                
                 width: 100%;
 
                 p {
@@ -254,9 +239,8 @@
             }
 
             .product-price {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                @include d-flex(flex, center, center, column, center);
+                
                 align-content: space-between;
                 width: 100%;
                 border-top: 1px solid $primary-blue;
@@ -265,9 +249,8 @@
                 margin-top: 1em;
 
                 p {
-                    text-align: center;
-                    justify-content: center;
-                    align-items: center;
+                    @include d-flex(flex, center, center, column, center);
+                    
                     font-weight: 700;
                     line-height: 1.3em;
                     padding: 0.5em 0;
