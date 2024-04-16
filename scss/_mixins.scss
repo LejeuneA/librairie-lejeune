@@ -9,6 +9,21 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 }
+
+/* -------------------------------------------------------
+            Define mixin for display flex
+---------------------------------------------------------*/
+@mixin d-flex($display: flex, $justify: center, $align: center, $direction: column, $text-align: center) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+  text-align: $text-align;
+}
+
+// @include d-flex(flex, center, center, column, center);
+
+
 /* -------------------------------------------------------
                Define mixin for button styles
 ---------------------------------------------------------*/
@@ -78,6 +93,12 @@
   }
 }
 
+
+
+
+
+
+@forward "d-flex";
 @forward "pagination";
 @forward "hover";
 @forward "button-style";
