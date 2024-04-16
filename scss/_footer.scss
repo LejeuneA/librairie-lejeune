@@ -14,12 +14,10 @@
 }
 
 .upper-footer {
-  color: $light-blue;
-  display: flex; 
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: row;
+  @include d-flex(flex, center, flex-start, row, start);
+  
   gap: 2em;
+  color: $light-blue;
   position: relative;
   max-width: 1400px;
   width: 100%;
@@ -121,10 +119,8 @@
 }
 
 .bottom-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
+  @include d-flex(flex, space-between,center, row, center);
+  
   color: $primary-blue;
   font-size: small;
   max-width: 1400px; 
