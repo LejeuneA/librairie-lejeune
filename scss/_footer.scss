@@ -11,45 +11,46 @@
 
 .upper-footer-container {
   background-color: $primary-blue;
-}
 
-.upper-footer {
-  @include d-flex(flex, center, flex-start, row, start);
-  
-  gap: 2em;
-  color: $light-blue;
-  position: relative;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2.5em 0 ;
+  .upper-footer {
+    @include d-flex(flex, center, flex-start, row, start);
 
-  a {
-    @include hover("background-color", $primary-blue, "color", $primary-red);
-  }
+    gap: 2em;
+    color: $light-blue;
+    position: relative;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5em 0;
 
-  h3 {
-    margin-bottom: 0.8rem;
-    font-weight: 500;
-  }
+    a {
+      @include hover("background-color", $primary-blue, "color", $primary-red);
+    }
 
-  ul,
-  .footer-follow-us {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-weight: 300;
-    font-size: medium;
-  }
+    h3 {
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
 
-  ul li {
-    margin-bottom: 0.5rem;
+    ul,
+    .footer-follow-us {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 300;
+      font-size: medium;
+    }
 
-    &:last-child {
-      margin-bottom: 0;
+    ul li {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
+
 
 .upper-footer>div {
   flex: 1;
@@ -119,11 +120,11 @@
 }
 
 .bottom-footer {
-  @include d-flex(flex, space-between,center, row, center);
-  
+  @include d-flex(flex, space-between, center, row, center);
+
   color: $primary-blue;
   font-size: small;
-  max-width: 1400px; 
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 1em 0;
