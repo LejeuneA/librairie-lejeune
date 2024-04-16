@@ -7,8 +7,250 @@
                  Article upper section
 ---------------------------------------------------------*/
 
-.product-container{
+.product-container {
     @include d-flex(flex, center, center, column, center);
     gap: 2em;
 
+    .product-info-container {
+        @include d-flex(flex, center, center, row, center);
+        gap: 6em;
+        width: 100%;
+        padding: 1em;
+
+        .product-img {
+            img {
+                height: auto;
+                width: 25em;
+            }
+        }
+
+        .product-info {
+            @include d-flex(flex, space-between, start, column, start);
+            gap: 2em;
+
+            h2 {
+                text-align: start;
+                font-weight: 500;
+                font-size: 2em;
+                margin: 0;
+                padding: 0;
+            }
+
+            p {
+                text-align: start;
+                font-weight: 300;
+                font-size: 1.2em;
+                line-height: 1.6em;
+                padding: 0.5em 0 0;
+
+                span {
+                    font-weight: 200;
+                    font-size: 0.9rem;
+                    display: block;
+                }
+            }
+
+            .product-price {
+                @extend %product-price;
+
+                border-left: none;
+                padding: 0;
+                width: 100%;
+
+                p {
+                    padding: 0;
+                }
+
+                .btn-primary {
+                    margin-top: 1.5em;
+                }
+            }
+
+            .product-advantages {
+                font-weight: 200;
+                font-size: 0.9rem;
+
+
+                ul {
+                    padding: 0;
+
+                    li {
+                        margin-bottom: 0.3em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* -------------------------------------------------------
+                Product upper section responsive
+---------------------------------------------------------*/
+/* Media queries for xs, sm, and md screens */
+@media (min-width: 320px) and (max-width: 768px) {
+    .product-container {
+
+        .product-info-container {
+            @include d-flex(flex, center, center, column, center);
+            width: 100%;
+            padding: 0.5em;
+            gap: 1em;
+
+
+            .product-img {
+                img {
+                    width: 18em;
+                }
+            }
+
+            .product-info {
+                @include d-flex(flex, center, center, column, center);
+
+                h2 {
+                    font-size: 1.5em;
+                }
+
+                p {
+                    line-height: 1.3em;
+                    padding: 0.5em 0;
+                    text-align: center;
+
+                    span {
+                        font-size: 0.7em;
+                    }
+                }
+
+                .product-price {
+                    @include d-flex(flex, center, center, column, center);
+
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
+
+            .product-advantages {
+
+                ul {
+                    li {
+                        margin-bottom: 0.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1332px) {
+    .product-container {
+
+        .product-info-container {
+            @include d-flex(flex, center, center, row, center);
+
+            width: 100%;
+            padding: 0.5em;
+        }
+    }
+}
+
+/* -------------------------------------------------------
+                 Article bottom section
+---------------------------------------------------------*/
+.product-description {
+
+    h2 {
+        font-size: 2em;
+        text-align: start;
+        font-weight: 200;
+        padding: 1em 0;
+    }
+
+    p {
+        padding: 0;
+    }
+}
+
+.product-specification {
+    width: 100%;
+    margin-bottom: 5em;
+
+    h2 {
+        font-size: 2em;
+        text-align: start;
+        font-weight: 200;
+        padding: 1em 0;
+    }
+
+    .product-specification-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .product-specification-left{
+            ul{
+                margin-bottom: 4em;
+            }
+        }
+
+        .product-specification-left,
+        .product-specification-right {
+            flex: 0 0 calc(50% - 1em);
+            text-align: start;
+
+            h3 {
+                font-size: 1.2em;
+                margin-bottom: 0.5em;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin-top: 0.5em;
+
+                li {
+                    margin-bottom: 0.2em;
+
+                    span {
+                        font-weight: 200;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+/* -------------------------------------------------------
+            Product bottom section responsive
+---------------------------------------------------------*/
+/* Media queries for xs, sm, and md screens */
+@media (min-width: 320px) and (max-width: 768px) {
+    .product-description {
+        h2 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+
+    .product-specification {
+        h2 {
+            text-align: center;
+        }
+        
+        .product-specification-container {
+            @include d-flex(flex, center, center, column, center);
+            gap: 2em;
+
+            .product-specification-left,
+            .product-specification-right {
+                flex: 100%;
+                text-align: center;
+            }
+
+        }
+    }
 }
