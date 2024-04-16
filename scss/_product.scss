@@ -6,3 +6,9 @@
 /* -------------------------------------------------------
                  Article upper section
 ---------------------------------------------------------*/
+
+.product-container{
+    @include d-flex(flex, center, center, column, center);
+    gap: 2em;
+
+}
