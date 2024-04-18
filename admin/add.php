@@ -20,13 +20,13 @@ if (!is_object($conn)) {
 
         // Gather data from the form
         $addData = [
-            'title' => $_POST['title'],
+            'titleLivre' => $_POST['title'],
             'content' => $_POST['content'],
             'published_article' => isset($_POST['published_article']) ? 1 : 0,
         ];
 
         // Add the article to the database
-        $addResult = addArticleDB($conn, $addData);
+        $addResult = addLivreDB($conn, $addData);
 
         // Check the result and display appropriate message
         if ($addResult === true) {
