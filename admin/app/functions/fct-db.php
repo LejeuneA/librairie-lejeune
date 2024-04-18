@@ -5,6 +5,10 @@
 /* *    FONCTIONS RELATIVES AUX INTERACTIONS AVEC LA BASE DE DONNEES    * */
 /* ********************************************************************** */
 
+
+/**-----------------------------------------------------------------
+                    Connexion à la base de données
+*------------------------------------------------------------------**/
  /**
  * Connexion à la base de données
  * 
@@ -31,7 +35,9 @@ function connectDB($serverName, $userName, $userPwd, $dbName) {
     }
 }
 
-
+/**-----------------------------------------------------------------
+            Récupérer tous les articles de la table articles
+*------------------------------------------------------------------**/
 /**
  * Récupérer tous les articles de la table articles
  * 
@@ -61,6 +67,9 @@ function getAllLivresDB($conn, $active = '%') {
     }
 }
 
+/**-----------------------------------------------------------------
+            Récupérer un article en fonction de son ID
+*------------------------------------------------------------------**/
 /**
  * Récupérer un article en fonction de son ID
  * 
@@ -89,6 +98,10 @@ function getLivreByIDDB($conn, $id) {
     }
 }
 
+
+/**-----------------------------------------------------------------
+                Ajout d'un article dans la base de données
+*------------------------------------------------------------------**/
 /**
  * Ajout d'un article dans la base de données
  * 
@@ -98,7 +111,7 @@ function getLivreByIDDB($conn, $id) {
 function addLivreDB($conn, $datas) {
     try{
         // Préparation des données avant insertion dans la base de données
-            $title = filterInputs($datas['title']);
+            $title = filterInputs($datas['titleLivre']);
             $content = nl2br(filterInputs($datas['content']));
 
             // Si on reçoit une valeur pour le status de publication de l'article
@@ -108,8 +121,8 @@ function addLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-            $req = $conn->prepare("INSERT INTO livres (title, content, active) VALUES (:title, :content, :active)");
-            $req->bindParam(':title', $title);
+            $req = $conn->prepare("INSERT INTO livres (titleLivre, content, active) VALUES (:titleLivre, :content, :active)");
+            $req->bindParam(':titleLivre', $title);
             $req->bindParam(':content', $content);
             $req->bindParam(':active', $active);
             $req->execute();
@@ -126,6 +139,10 @@ function addLivreDB($conn, $datas) {
     }       
 }
 
+
+/**-----------------------------------------------------------------
+           Modification d'un article dans la base de données
+*------------------------------------------------------------------**/
 /**
  * Modification d'un article dans la base de données
  * 
@@ -137,13 +154,13 @@ function updateLivreDB($conn, $datas) {
     try{
         //DEBUG// disp_ar($datas, 'DATAS', 'VD');
         // Préparation des données avant insertion dans la base de données
-            $title = filterInputs($datas['title']);
+            $title = filterInputs($datas['titleLivre']);
 
             $content = nl2br($datas['content']);
             $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);        
             $content = htmlentities($content);
             
-            $id = filterInputs($datas['id']);
+            $id = filterInputs($datas['idLivre']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
@@ -152,11 +169,11 @@ function updateLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE articles SET title = :title, content = :content, active = :active WHERE id = :id");
-        $req->bindParam(':title', $title);
+        $req = $conn->prepare("UPDATE articles SET titleLivre = :titleLivre, content = :content, active = :active WHERE idLivre = :idLivre");
+        $req->bindParam(':titleLivre', $title);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
-        $req->bindParam(':id', $id);
+        $req->bindParam(':idLivre', $id);
         $req->execute();
 
         // Fermeture connexion
@@ -166,11 +183,14 @@ function updateLivreDB($conn, $datas) {
         return true;
 
     }catch(PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateArticleDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateLivreDB() function";            
         return $st;  
     } 
 }   
 
+/**-----------------------------------------------------------------
+           Suppression d'un article dans la base de données
+*------------------------------------------------------------------**/
 /**
  * Suppression d'un article dans la base de données
  * 
@@ -200,6 +220,10 @@ function deleteLivreDB($conn, $id) {
 
 }   
 
+
+/**-----------------------------------------------------------------
+                Identification d'un utilisateur
+*------------------------------------------------------------------**/
 /**
  * Identification d'un utilisateur
  * 
@@ -242,6 +266,10 @@ function userIdentificationDB($conn, $datas) {
     }       
 }
 
+
+/**-----------------------------------------------------------------
+        Identification d'un utilisateur avec mot de passe hashé
+*------------------------------------------------------------------**/
 /**
  * Identification d'un utilisateur avec mot de passe hashé
  * 
