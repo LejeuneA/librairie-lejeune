@@ -10,7 +10,7 @@ if (!$_SESSION['IDENTIFY']) {
 
 $msg = null;
 $tinyMCE = true;
-$article = null;
+$livre = null; // Change $article to $livre
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -20,10 +20,10 @@ if (!is_object($conn)) {
     if (isset($_GET['id'])) {
 
         // Get the article ID from the URL
-        $articleId = $_GET['id'];
+        $idLivre = $_GET['id']; // Change $articleId to $livreId
 
         // Retrieve article details from the database
-        $article = getLivreByIDDB($conn, $articleId);
+        $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form'])) {
@@ -31,9 +31,9 @@ if (!is_object($conn)) {
             // Check if the form type is 'update'
             if ($_POST['form'] === 'update') {
                 // Update the article content on the page
-                $article['titleLivre'] = $_POST['titleLivre'];
-                $article['content'] = $_POST['content'];
-                $article['active'] = isset($_POST['published_article']) ? 1 : 0;
+                $livre['titleLivre'] = $_POST['titleLivre'];
+                $livre['content'] = $_POST['content'];
+                $livre['active'] = isset($_POST['published_article']) ? 1 : 0;
                 $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
             }
 
@@ -41,10 +41,10 @@ if (!is_object($conn)) {
             if ($_POST['form'] === 'submit' || isset($_POST['submit_and_afficher'])) {
                 // Update the article in the database
                 $updateData = [
-                    'idLivre' => $articleId,
-                    'titleLivre' => $_POST['titleLivre'],
+                    'idLivre' => $idLivre, 
+                    'titleLivre' => isset($_POST['titleLivre']) ? $_POST['titleLivre'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
-                    'active' => isset($_POST['published_article']) ? 1 : 0,
+                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
                 ];
 
                 // Perform the update operation in the database
@@ -52,8 +52,13 @@ if (!is_object($conn)) {
 
                 // Check the result of the update operation
                 if ($updateResult === true) {
-                    // Redirect to manager.php after successful update
-                    header('Location: manager.php');
+                    if (isset($_POST['submit_and_afficher'])) {
+                        // Redirect to the article page after successful update
+                        header("Location: article.php?id=$idLivre");
+                    } else {
+                        // Redirect to manager.php after successful update
+                        header('Location: manager.php');
+                    }
                     exit;
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
@@ -89,23 +94,23 @@ if (!is_object($conn)) {
         <div id="content-edit">
             <?php echo $msg; ?>
 
-            <form action="edit.php?id=<?php echo $article['idLivre']; ?>" method="post">
-                <input type="hidden" name="idLivre" value="<?php echo $article['idLivre']; ?>">
+            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post">
+                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
                 <div class="form-ctrl">
                     <label for="titleLivre" class="form-ctrl">Titre</label>
-                    <input type="text" class="form-ctrl" id="titleLivre" name="titleLivre" value="<?php echo $article['titleLivre']; ?>" required>
+                    <input type="text" class="form-ctrl" id="titleLivre" name="titleLivre" value="<?php echo isset($livre['titleLivre']) ? $livre['titleLivre'] : ''; ?>" required>
                 </div>
                 <div class="form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
-                    <?php displayFormRadioBtnArticlePublished($article['active'], 'EDIT'); ?>
+                    <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                 </div>
                 <div class="form-ctrl">
                     <label for="content" class="form-ctrl">Contenu</label>
-                    <textarea class="content" id="content" name="content" rows="5"><?php echo $article['content']; ?></textarea>
+                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
                 </div>
                 <input type="hidden" id="form" name="form" value="update">
                 <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" name="submit_and_afficher" class="btn-primary">Afficher</button>
+                <button type="submit" name="submit_and_afficher" class="btn-primary">Sauvegarder & Afficher</button>
             </form>
         </div>
     </div>
