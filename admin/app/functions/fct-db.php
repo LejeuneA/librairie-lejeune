@@ -69,7 +69,7 @@ function getAllArticlesDB($conn, $active = '%') {
 function getArticleByIDDB($conn, $id) {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres, papeterie, cadeau WHERE id = :id");
+        $req = $conn->prepare("SELECT * FROM livres, papeteries, cadeaux WHERE id = :id");
         $req->bindParam(':id', $id);
         $req->execute();
     
@@ -107,7 +107,7 @@ function addArticleDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-            $req = $conn->prepare("INSERT INTO articles (title, content, active) VALUES (:title, :content, :active)");
+            $req = $conn->prepare("INSERT INTO livres (title, content, active) VALUES (:title, :content, :active)");
             $req->bindParam(':title', $title);
             $req->bindParam(':content', $content);
             $req->bindParam(':active', $active);
