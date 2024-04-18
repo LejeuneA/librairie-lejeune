@@ -5,6 +5,9 @@
 /* *        FONCTIONS D'AFFICHAGE DE L'INTERFACE UTILISATEUR            * */
 /* ********************************************************************** */
 
+/**-----------------------------------------------------------------
+                le status de publication de l'article
+*------------------------------------------------------------------**/
 /**
  * Retourne le code html des boutons radios indiquant 
  * le status de publication de l'article
@@ -47,7 +50,9 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
     echo $html;
 }
 
-
+/**-----------------------------------------------------------------
+                    Affichage de la section JS
+*------------------------------------------------------------------**/
 /**
  * Affichage de la section JS
  * 
@@ -68,6 +73,10 @@ function displayJSSection($tinyMCE = false)
     echo $js;
 }
 
+
+/**-----------------------------------------------------------------
+                Affichage de la section head d'une page
+*------------------------------------------------------------------**/
 /**
  * Affichage de la section head d'une page
  * 
@@ -294,7 +303,7 @@ e
     echo $navigation;
 }
 /**-----------------------------------------------------------------
-                            Navigation
+                  Retour d'un message au format HTML
 *------------------------------------------------------------------**/
 
 /**
@@ -323,7 +332,7 @@ function getMessage($message, $type = 'success')
 function displayLivres($livres)
 {
     foreach ($livres as $livre) {
-        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['titleLivre'] . '</h2></a></article>';
+        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" titleLivre="Lire l\'article"><h2">' . $livre['titleLivre'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
