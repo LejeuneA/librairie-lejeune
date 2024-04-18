@@ -17,7 +17,7 @@ if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
     // Fetch all articles from the database
-    $result = getAllArticlesDB($conn);
+    $result = getAllLivresDB($conn);
 
     // Check if articles exist
     if (is_array($result) && !empty($result)) {
@@ -28,7 +28,7 @@ if (!is_object($conn)) {
             $articleIdToDelete = $_GET['id'];
 
             // Delete the article from the database
-            $deleteResult = deleteArticleDB($conn, $articleIdToDelete);
+            $deleteResult = deleteLivreDB($conn, $articleIdToDelete);
 
             // Check deletion result and display appropriate message
             if ($deleteResult === true) {
@@ -82,7 +82,7 @@ if (!is_object($conn)) {
             <?php
             // If articles exist, display them with buttons
             if ($execute) {
-                displayArticlesWithButtons($result);
+                displayLivresWithButtons($result);
             }
             ?>
         </div>
