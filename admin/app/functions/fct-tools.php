@@ -5,6 +5,9 @@
 /* *              FONCTIONS GENERIQUES : DE TYPE OUTILS                 * */
 /* ********************************************************************** */
 
+/**-----------------------------------------------------------------
+    Préparation des données avant insertion dans la base de données
+*------------------------------------------------------------------**/
 /**
  * Préparation des données avant insertion dans la base de données
  * 
@@ -26,6 +29,9 @@ function filterInputs($datas) {
     return $datas;
 }
 
+/**-----------------------------------------------------------------
+            Display an array variable in a more readable way
+*------------------------------------------------------------------**/
 /**
  * Display an array variable in a more readable way
  * 
