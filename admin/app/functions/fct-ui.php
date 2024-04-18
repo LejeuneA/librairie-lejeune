@@ -343,7 +343,7 @@ function displayLivres($livres)
 /**
  * Affiche l'article reçu en paramètre
  * 
- * @param mixed $article 
+ * @param mixed $livre 
  * @return void 
  */
 function displayLivreByID($livre)
@@ -381,9 +381,9 @@ function displayLivresWithButtons($livres)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-manager" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-manager" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
