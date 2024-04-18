@@ -170,7 +170,7 @@ function updateLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE articles SET titleLivre = :titleLivre, content = :content, active = :active WHERE idLivre = :idLivre");
+        $req = $conn->prepare("UPDATE livres SET titleLivre = :titleLivre, content = :content, active = :active WHERE idLivre = :idLivre");
         $req->bindParam(':titleLivre', $title);
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
