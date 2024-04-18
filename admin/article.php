@@ -5,25 +5,25 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// On vérifie si l'ID de l'article est passé en paramètre dans l'url ($_GET)
+
+// Check if the ID of the livre is passed in the URL
 if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
-
-    // On récupère l'ID de l'article passé en paramètre
-    $id = $_GET['idLivre'];
-
-    // On vérifie l'objet de connexion $conn
+    $id = $_GET['idLivre']; // Retrieve the livre ID from the URL
+    // Ensure that the database connection object is valid
     if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error');
+        $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
     } else {
-
-        // Récupérer l'article spécifié par l'ID
+        // Fetch the livre from the database based on the ID
         $result = getLivreByIDDB($conn, $id);
-
-        // On vérifie le retour de la fonction : si c'est un tableau, on continue, sinon on affiche un message d'erreur
-        (isset($result) && is_array($result) && !empty($result)) ? $execute = true : $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error');
+        // Check if the result is a valid array and not empty
+        if (isset($result) && is_array($result) && !empty($result)) {
+            $execute = true; // Set execute flag to true if a valid livre is found
+        } else {
+            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre is found
+        }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'success');
+    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'success'); // Display a success message if no livre ID is provided
 }
 
 ?>
@@ -64,6 +64,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 
         </div>
     </div>
+
     <!-----------------------------------------------------------------
 								Footer
 	------------------------------------------------------------------>
