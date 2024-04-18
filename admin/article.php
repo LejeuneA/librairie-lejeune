@@ -6,10 +6,10 @@ $result = null;
 $execute = false;
 
 // On vérifie si l'ID de l'article est passé en paramètre dans l'url ($_GET)
-if (isset($_GET['id']) && !empty($_GET['id'])) {
+if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 
     // On récupère l'ID de l'article passé en paramètre
-    $id = $_GET['id'];
+    $id = $_GET['idLivre'];
 
     // On vérifie l'objet de connexion $conn
     if (!is_object($conn)) {
@@ -17,7 +17,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     } else {
 
         // Récupérer l'article spécifié par l'ID
-        $result = getArticleByIDDB($conn, $id);
+        $result = getLivreByIDDB($conn, $id);
 
         // On vérifie le retour de la fonction : si c'est un tableau, on continue, sinon on affiche un message d'erreur
         (isset($result) && is_array($result) && !empty($result)) ? $execute = true : $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error');
@@ -59,7 +59,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             <?php
             // Peut-on exécuter l'affichage de l'article
             if ($execute)
-                displayArticleByID($result);
+                displayLivreByID($result);
             ?>
 
         </div>
