@@ -107,24 +107,104 @@ function displayNavigation()
 
     if ($_SESSION['IDENTIFY']) {
         $navigation .= '
-        <nav>
-            <ul class="menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="manager.php">Gérer</a></li>
-                <li><a href="add.php">Ajouter</a></li>
-                <li><a href="logoff.php" class="btn-disconnect">Déconnexion</a></li>                        
-            </ul>           
-        </nav>
+        <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Logo -->
+            <a href="../public/index.html">
+                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
+            </a>
+            <!-- Logo end -->
+
+            <!-- Right-side content -->
+            <div class="d-flex">
+                <!-- Social icons -->
+                <ul class="social-nav">
+                    <!-- Icons -->
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.facebook.com/">
+                            <i class="fa-brands fa-square-facebook fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://twitter.com/">
+                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.instagram.com">
+                            <i class="fa-brands fa-instagram fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Social icons end -->
+
+                <!-- Search -->
+                <form class="search" role="search">
+                    <div class="search-group">
+                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+                <!-- Search end -->
+
+                <!-- Login button -->
+                <a href="logoff.php" class="btn-primary">Déconnexion</a>
+                <!-- Login button end -->
+            </div>
+            <!-- Right-side content end -->
+        </div>
+    </nav>
         <div class="welcome"> Bienvenue <span>' . $_SESSION['user_email'] . '</span></div>
         ';
     } else {
         $navigation .= '
-        <nav>
-            <ul class="menu">
-                <li><a href="index.php">Home</a></li>                  
-                <li><a href="login.php">Se connecter</a></li>                        
-            </ul>
-        <nav>';
+        <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Logo -->
+            <a href="../public/index.html">
+                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
+            </a>
+            <!-- Logo end -->
+
+            <!-- Right-side content -->
+            <div class="d-flex">
+                <!-- Social icons -->
+                <ul class="social-nav">
+                    <!-- Icons -->
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.facebook.com/">
+                            <i class="fa-brands fa-square-facebook fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://twitter.com/">
+                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.instagram.com">
+                            <i class="fa-brands fa-instagram fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Social icons end -->
+
+                <!-- Search -->
+                <form class="search" role="search">
+                    <div class="search-group">
+                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+                <!-- Search end -->
+
+                <!-- Login button -->
+                <a href="login.php" class="btn-primary">Se connecter</a>
+                <!-- Login button end -->
+            </div>
+            <!-- Right-side content end -->
+        </div>
+    </nav>';
     }
 
     echo $navigation;
