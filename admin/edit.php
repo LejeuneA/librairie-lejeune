@@ -30,7 +30,7 @@ if (!is_object($conn)) {
             // Check if the form type is 'update'
             if ($_POST['form'] === 'update') {
                 // Update the article content on the page
-                $article['title'] = $_POST['title'];
+                $article['titleLivre'] = $_POST['titleLivre'];
                 $article['content'] = $_POST['content'];
                 $article['active'] = isset($_POST['published_article']) ? 1 : 0;
                 $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
@@ -41,7 +41,7 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'id' => $articleId,
-                    'title' => $_POST['title'],
+                    'titleLivre' => $_POST['titleLivre'],
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
                 ];
@@ -104,9 +104,9 @@ if (!is_object($conn)) {
                 <!-- Hidden input field to store the article ID -->
                 <input type="hidden" name="idLivre" value="<?php echo $article['idLivre']; ?>">
                 <div class="form-ctrl">
-                    <label for="title" class="form-ctrl">Titre</label>
+                    <label for="titleLivre" class="form-ctrl">Titre</label>
                     <!-- Input field for article title -->
-                    <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo $article['titleLivre']; ?>" required>
+                    <input type="text" class="form-ctrl" id="titleLivre" name="titleLivre" value="<?php echo $article['titleLivre']; ?>" required>
                 </div>
                 <div class="form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
