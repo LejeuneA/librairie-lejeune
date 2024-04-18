@@ -22,7 +22,7 @@ if (!is_object($conn)) {
         $articleId = $_GET['id'];
 
         // Retrieve article details from the database
-        $article = getArticleByIDDB($conn, $articleId);
+        $article = getLivreByIDDB($conn, $articleId);
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form'])) {
@@ -47,7 +47,7 @@ if (!is_object($conn)) {
                 ];
 
                 // Perform the update operation in the database
-                $updateResult = updateArticleDB($conn, $updateData);
+                $updateResult = updateLivreDB($conn, $updateData);
 
                 // Check the result of the update operation
                 if ($updateResult === true) {
@@ -100,13 +100,13 @@ if (!is_object($conn)) {
         <div id="content-edit">
             <?php echo $msg; ?>
 
-            <form action="edit.php?id=<?php echo $article['id']; ?>" method="post">
+            <form action="edit.php?id=<?php echo $article['idLivre']; ?>" method="post">
                 <!-- Hidden input field to store the article ID -->
-                <input type="hidden" name="id" value="<?php echo $article['id']; ?>">
+                <input type="hidden" name="idLivre" value="<?php echo $article['idLivre']; ?>">
                 <div class="form-ctrl">
                     <label for="title" class="form-ctrl">Titre</label>
                     <!-- Input field for article title -->
-                    <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo $article['title']; ?>" required>
+                    <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo $article['titleLivre']; ?>" required>
                 </div>
                 <div class="form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
