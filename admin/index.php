@@ -11,7 +11,7 @@ if (!is_object($conn)) {
 } else {
 
     // Va cherche en DB les articles publiés
-    $result = getAllArticlesDB($conn, 1);
+    $result = getAllLivresDB($conn, 1);
 
     //DEBUG// disp_ar($result);
 
@@ -53,7 +53,7 @@ if (!is_object($conn)) {
             <?php
             // Peut-on exécuter l'affichage des articles
             if ($execute)
-                displayArticles($result);
+                displayLivres($result);
             ?>
         </div>
     </div>
