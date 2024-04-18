@@ -4,6 +4,7 @@
 /* *                           ------------                             * */
 /* *    FONCTIONS RELATIVES AUX INTERACTIONS AVEC LA BASE DE DONNEES    * */
 /* ********************************************************************** */
+// Include your database connection file
 
 
 /**-----------------------------------------------------------------
@@ -160,7 +161,7 @@ function updateLivreDB($conn, $datas) {
             $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);        
             $content = htmlentities($content);
             
-            $id = filterInputs($datas['id']);
+            $id = filterInputs($datas['idLivre']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
