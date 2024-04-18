@@ -40,7 +40,7 @@ if (!is_object($conn)) {
             if ($_POST['form'] === 'submit' || isset($_POST['submit_and_afficher'])) {
                 // Update the article in the database
                 $updateData = [
-                    'id' => $articleId,
+                    'idLivre' => $articleId,
                     'titleLivre' => $_POST['titleLivre'],
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
@@ -64,6 +64,7 @@ if (!is_object($conn)) {
         header('Location: manager.php');
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -116,14 +117,14 @@ if (!is_object($conn)) {
                 <div class="form-ctrl">
                     <label for="content" class="form-ctrl">Contenu</label>
                     <!-- Textarea for article content -->
-                    <textarea class="" id="content" name="content" rows="5"><?php echo $article['content']; ?></textarea>
+                    <textarea class="content" id="content" name="content" rows="5"><?php echo $article['content']; ?></textarea>
                 </div>
                 <!-- Hidden input field to specify the form type -->
                 <input type="hidden" id="form" name="form" value="update">
                 <!-- Button to save changes -->
-                <button type="submit" class="btn-manager">Sauvegarder</button>
+                <button type="submit" class="btn-primary">Sauvegarder</button>
                 <!-- Button to submit and display -->
-                <button type="submit" name="submit_and_afficher" class="btn-manager">Afficher</button>
+                <button type="submit" name="submit_and_afficher" class="btn-primary">Afficher</button>
             </form>
         </div>
     </div>
