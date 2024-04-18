@@ -95,6 +95,11 @@ function displayHeadSection($title = APP_NAME)
     echo $head;
 }
 
+
+/**-----------------------------------------------------------------
+                            Navigation
+*------------------------------------------------------------------**/
+
 /**
  * Affichage de la navigation
  * 
@@ -154,6 +159,85 @@ function displayNavigation()
             <!-- Right-side content end -->
         </div>
     </nav>
+    <!---------------------------------------------------------------
+                                     Menu
+    ----------------------------------------------------------------->
+    <div class="navbar-menu">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/index.php">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/edit.php">Modefiér</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/add.php">Ajouter</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/article.php">Afficher</a>
+            </li>
+        </ul>
+    </div>
+    <!---------------------------------------------------------------
+                                 Menu end
+    ---------------------------------------------------------------->
+
+    <!---------------------------------------------------------------
+                             Offcanvas menu
+    ----------------------------------------------------------------->
+    <div id="mySidenav" class="sidenav">
+
+        <!-- Search bar -->
+        <form class="search" role="search">
+            <div class="search-group">
+                <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+        <!-- Search bar end -->
+
+        <!-- Menu -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="nav-link" href="../admin/index.php">Accueil</a>
+        <a class="nav-link" href="../admin/manager.php">Modifiér</a>
+        <a class="nav-link" href="../admin/add.php">Ajouter</a>
+        <a class="nav-link" href="../admin/article.php">Afficher</a>
+        <!-- Menu end -->
+e 
+        <!-- Login button -->
+        <a href="logoff.php" class="btn-login">Déconnexion</a>
+        <!-- Login button end -->
+
+        <!-- Social icons -->
+        <ul class="social-nav">
+            <!-- Icons -->
+            <li class="social-item">
+                <a class="social-link" href="https://www.facebook.com/">
+                    <i class="fa-brands fa-square-facebook fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://twitter.com/">
+                    <i class="fa-brands fa-x-twitter fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://www.instagram.com">
+                    <i class="fa-brands fa-instagram fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Social icons end -->
+
+    </div>
+
+    <!-- Hamburger icon for smaller screens -->
+    <div class="navbar-hamburger">
+        <div id="hamburger" onclick="openNav()"><i class="fa-solid fa-bars"></i></div>
+    </div>
+    <!------------------------------------------------------------- 
+                          Offcanvas menu end
+    --------------------------------------------------------------->
         <div class="welcome"> Bienvenue <span>' . $_SESSION['user_email'] . '</span></div>
         ';
     } else {
@@ -209,6 +293,9 @@ function displayNavigation()
 
     echo $navigation;
 }
+/**-----------------------------------------------------------------
+                            Navigation
+*------------------------------------------------------------------**/
 
 /**
  * Retour d'un message au format HTML
@@ -224,78 +311,72 @@ function getMessage($message, $type = 'success')
 }
 
 
+/**-----------------------------------------------------------------
+                        Affichage des articles 
+*------------------------------------------------------------------**/
 /**
  * Affichage des articles 
  * 
- * @param mixed $articles 
+ * @param mixed $livres 
  * @return void 
  */
-function displayArticles($articles)
+function displayLivres($livres)
 {
-    foreach ($articles as $article) {
-        echo '<article><a href="article.php?id=' . $article['id'] . '" title="Lire l\'article"><h2 class="article-item">' . $article['title'] . '</h2></a></article>';
+    foreach ($livres as $livre) {
+        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" title="Lire l\'article"><h2 class="article-item">' . $livre['titleLivre'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
 
-
-/**
- * Affichage du footer
- * 
- * @param string $app_name 
- * @param string $app_version 
- * @param string $app_update 
- * @param string $app_author 
- * @return void 
- */
-function displayFooter($app_name = APP_NAME, $app_version = APP_VERSION, $app_update = APP_UPDATED, $app_author = APP_AUTHOR)
-{
-    echo "<p>$app_name - $app_version -$app_update by $app_author<p>";
-}
-
+/**-----------------------------------------------------------------
+                 Affiche l'article reçu en paramètre
+*------------------------------------------------------------------**/
 /**
  * Affiche l'article reçu en paramètre
  * 
  * @param mixed $article 
  * @return void 
  */
-function displayArticleByID($article)
+function displayLivreByID($livre)
 {
     echo '<article>';
-    echo '<h2 class="article-title">' . $article['title'] . '</h2>';
+    echo '<h2 class="article-title">' . $livre['title'] . '</h2>';
     echo '<hr>';
-    echo '<p>' . html_entity_decode($article['content']) . '</p>';
+    echo '<p>' . html_entity_decode($livre['content']) . '</p>';
     echo '</article>';
 }
 
+/**-----------------------------------------------------------------
+            Affiche les articles pour la page du manager
+*------------------------------------------------------------------**/
 
 /**
  * Affiche les articles pour la page du manager
  * 
- * @param array $articles 
+ * @param array $livres
  * @return string 
  */
 
- function displayArticlesWithButtons($articles)
+function displayLivresWithButtons($livres)
 {
-    foreach ($articles as $article) {
+    foreach ($livres as $livre) {
         // Display Article Content
         echo '<div class="article">';
-        
+
         // Display circle based on article status
-        $circleClass = ($article['active']) ? 'circle-published' : 'circle-not-published';
+        $circleClass = ($livre['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
-        
-        echo '<h3>' . htmlspecialchars_decode($article['title']) . '</h3>';
+
+        echo '<h3>' . htmlspecialchars_decode($livre['titleLivre']) . '</h3>';
         echo '</div>';
-        
+
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-manager" onclick="modifierArticle(' . $article['id'] . ')">Modifier</button>';
-        echo '<button class="btn-manager" onclick="afficherArticle(' . $article['id'] . ')">Afficher</button>';
-        echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $article['id'] . ')">Supprimer</button>';
+        echo '<button class="btn-manager" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-manager" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</div>';
-        
+
         echo '<hr>';
     }
 }
