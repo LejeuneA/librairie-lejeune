@@ -109,7 +109,7 @@ if (!is_object($conn)) {
                     <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
                 </div>
                 <input type="hidden" id="form" name="form" value="update">
-                <button type="submit" class="btn-primary">Sauvegarder</button>
+                <button type="submit" name="submit" class="btn-primary">Sauvegarder</button>
                 <button type="submit" name="submit_and_afficher" class="btn-primary">Sauvegarder & Afficher</button>
             </form>
         </div>
