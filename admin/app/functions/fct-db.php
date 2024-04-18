@@ -39,10 +39,10 @@ function connectDB($serverName, $userName, $userPwd, $dbName) {
  * @param string $active (0, 1 ou %)
  * @return array $resultat
  */
-function getAllArticlesDB($conn, $active = '%') {
+function getAllLivresDB($conn, $active = '%') {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres WHERE active LIKE :active ORDER BY id DESC");
+        $req = $conn->prepare("SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC");
         $req->bindParam(':active', $active);
         $req->execute();
     
@@ -56,7 +56,7 @@ function getAllArticlesDB($conn, $active = '%') {
         return $resultat;
 
     } catch (PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllArticlesDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllLivresDB() function";            
         return $st;  
     }
 }
@@ -67,11 +67,11 @@ function getAllArticlesDB($conn, $active = '%') {
  * @param object $conn 
  * @return array $resultat
  */
-function getArticleByIDDB($conn, $id) {
+function getLivreByIDDB($conn, $id) {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres, papeteries, cadeaux WHERE id = :id");
-        $req->bindParam(':id', $id);
+        $req = $conn->prepare("SELECT * FROM livres WHERE idLivre = :idLivre");
+        $req->bindParam(':idLivre', $id);
         $req->execute();
     
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -84,7 +84,7 @@ function getArticleByIDDB($conn, $id) {
         return $resultat;
 
     } catch (PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getArticleByIDDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getLivreByIDDB() function";            
         return $st;  
     }
 }
@@ -95,7 +95,7 @@ function getArticleByIDDB($conn, $id) {
  * @param mixed $conn 
  * @return true 
  */
-function addArticleDB($conn, $datas) {
+function addLivreDB($conn, $datas) {
     try{
         // Préparation des données avant insertion dans la base de données
             $title = filterInputs($datas['title']);
@@ -133,7 +133,7 @@ function addArticleDB($conn, $datas) {
  * @param array $datas 
  * @return true 
  */
-function updateArticleDB($conn, $datas) {
+function updateLivreDB($conn, $datas) {
     try{
         //DEBUG// disp_ar($datas, 'DATAS', 'VD');
         // Préparation des données avant insertion dans la base de données
@@ -177,14 +177,14 @@ function updateArticleDB($conn, $datas) {
  * @param mixed $conn 
  * @return true 
  */
-function deleteArticleDB($conn, $id) {
+function deleteLivreDB($conn, $id) {
     try{
         // Préparation des données avant insertion dans la base de données
         $id = filterInputs($id);
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM articles WHERE id = :id");
-        $req->bindParam(':id', $id);
+        $req = $conn->prepare("DELETE FROM livres WHERE idLivre = :idLivre");
+        $req->bindParam(':idLivre', $id);
         $req->execute();
 
         // Fermeture connexion
@@ -194,7 +194,7 @@ function deleteArticleDB($conn, $id) {
         return true;
 
     }catch(PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deleteArticleDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deleteLivreDB() function";            
         return $st;     
     }       
 
