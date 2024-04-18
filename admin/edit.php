@@ -5,6 +5,7 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
+    exit; // Add exit after redirection
 }
 
 $msg = null;
@@ -43,7 +44,7 @@ if (!is_object($conn)) {
                     'idLivre' => $articleId,
                     'titleLivre' => $_POST['titleLivre'],
                     'content' => $_POST['content'],
-                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
+                    'active' => isset($_POST['published_article']) ? 1 : 0,
                 ];
 
                 // Perform the update operation in the database
@@ -62,9 +63,9 @@ if (!is_object($conn)) {
     } else {
         // If article ID is not provided, redirect to manager.php
         header('Location: manager.php');
+        exit; // Add exit after redirection
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -79,79 +80,44 @@ if (!is_object($conn)) {
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
 
     <div class="container">
-        <!-- Display the title for editing an article -->
         <h2 class="title">Editer un article</h2>
         <div id="content-edit">
             <?php echo $msg; ?>
 
             <form action="edit.php?id=<?php echo $article['idLivre']; ?>" method="post">
-                <!-- Hidden input field to store the article ID -->
                 <input type="hidden" name="idLivre" value="<?php echo $article['idLivre']; ?>">
                 <div class="form-ctrl">
                     <label for="titleLivre" class="form-ctrl">Titre</label>
-                    <!-- Input field for article title -->
                     <input type="text" class="form-ctrl" id="titleLivre" name="titleLivre" value="<?php echo $article['titleLivre']; ?>" required>
                 </div>
                 <div class="form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
-                    <!-- Display radio button for article status -->
                     <?php displayFormRadioBtnArticlePublished($article['active'], 'EDIT'); ?>
                 </div>
                 <div class="form-ctrl">
                     <label for="content" class="form-ctrl">Contenu</label>
-                    <!-- Textarea for article content -->
                     <textarea class="content" id="content" name="content" rows="5"><?php echo $article['content']; ?></textarea>
                 </div>
-                <!-- Hidden input field to specify the form type -->
                 <input type="hidden" id="form" name="form" value="update">
-                <!-- Button to save changes -->
                 <button type="submit" class="btn-primary">Sauvegarder</button>
-                <!-- Button to submit and display -->
                 <button type="submit" name="submit_and_afficher" class="btn-primary">Afficher</button>
             </form>
         </div>
     </div>
+
     <?php
     displayJSSection($tinyMCE);
     ?>
-
-    <!-----------------------------------------------------------------
-								Footer
-	    ------------------------------------------------------------------>
     <footer>
         <div data-include="footer"></div>
     </footer>
-    <!-----------------------------------------------------------------
-							  Footer end
-	------------------------------------------------------------------>
 
-    <!-- Font Awesome JS -->
     <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
-
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
-
-    <!-- Font Awesome JS -->
-    <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
-
-    <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
 </body>
 
