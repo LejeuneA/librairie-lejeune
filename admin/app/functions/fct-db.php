@@ -15,7 +15,7 @@
  * 
  * @return object $conn
  */
- function connectDB($serverName, $userName, $userPwd, $dbName) {
+function connectDB($serverName, $userName, $userPwd, $dbName) {
     try {
         // Création d'une connexion à la base de données
         $conn = new PDO("mysql:host=$serverName;dbname=$dbName;charset=utf8", $userName, $userPwd);
@@ -30,6 +30,7 @@
         return $st; 
     }
 }
+
 
 /**
  * Récupérer tous les articles de la table articles
