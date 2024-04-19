@@ -26,19 +26,9 @@ if (!is_object($conn)) {
         $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
 
         // Check if the form is submitted and the form type
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form'])) {
-
-            // Check if the form type is 'update'
-            if ($_POST['form'] === 'update') {
-                // Update the article content on the page
-                $livre['titleLivre'] = $_POST['titleLivre'];
-                $livre['content'] = $_POST['content'];
-                $livre['active'] = isset($_POST['published_article']) ? 1 : 0;
-                $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-            }
-
-            // Check if the form type is 'submit' or the 'submit_and_afficher' button is clicked
-            if ($_POST['form'] === 'submit' || isset($_POST['submit_and_afficher'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if the form was submitted for update
+            if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
                     'idLivre' => $idLivre, 
@@ -52,14 +42,8 @@ if (!is_object($conn)) {
 
                 // Check the result of the update operation
                 if ($updateResult === true) {
-                    if (isset($_POST['submit_and_afficher'])) {
-                        // Redirect to the article page after successful update
-                        header("Location: article.php?id=$idLivre");
-                    } else {
-                        // Redirect to manager.php after successful update
-                        header('Location: manager.php');
-                    }
-                    exit;
+                    $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
+                    $_SESSION['form_submitted'] = true; // Set session variable to indicate form submission
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
@@ -70,6 +54,13 @@ if (!is_object($conn)) {
         header('Location: manager.php');
         exit; // Add exit after redirection
     }
+}
+
+// Check if form was submitted and unset the session variable
+if (isset($_SESSION['form_submitted'])) {
+    unset($_SESSION['form_submitted']);
+    // Refresh the page after form submission
+    header("Refresh: 1; URL=edit.php?id=$idLivre");
 }
 ?>
 
@@ -108,9 +99,9 @@ if (!is_object($conn)) {
                     <label for="content" class="form-ctrl">Contenu</label>
                     <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
                 </div>
-                <input type="hidden" id="form" name="form" value="update">
-                <button type="submit" name="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" name="submit_and_afficher" class="btn-primary">Sauvegarder & Afficher</button>
+                <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
+                <button type="submit" class="btn-primary">Sauvegarder</button>
+                <button type="submit" class="btn-primary" formaction="article.php">Afficher</button>
             </form>
         </div>
     </div>
