@@ -34,7 +34,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
 <body>
     <header>
-        <?php displayNavigationAdmin(); ?>
+        <?php displayNavigation(); ?>
     </header>
     <div class="container">
         <div id="message">
