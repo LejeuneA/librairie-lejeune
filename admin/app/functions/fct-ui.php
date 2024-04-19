@@ -182,9 +182,6 @@ function displayNavigation()
             <li class="nav-item">
                 <a class="nav-link" href="../admin/add.php">Ajouter</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/article.php">Afficher</a>
-            </li>
         </ul>
     </div>
     <!---------------------------------------------------------------
@@ -210,9 +207,8 @@ function displayNavigation()
         <a class="nav-link" href="../admin/index.php">Accueil</a>
         <a class="nav-link" href="../admin/manager.php">Modifiér</a>
         <a class="nav-link" href="../admin/add.php">Ajouter</a>
-        <a class="nav-link" href="../admin/article.php">Afficher</a>
         <!-- Menu end -->
-e 
+ 
         <!-- Login button -->
         <a href="logoff.php" class="btn-login">Déconnexion</a>
         <!-- Login button end -->
