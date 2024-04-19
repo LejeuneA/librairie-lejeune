@@ -101,7 +101,7 @@ if (isset($_SESSION['form_submitted'])) {
                 </div>
                 <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                 <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article.php">Afficher</button>
+                <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
