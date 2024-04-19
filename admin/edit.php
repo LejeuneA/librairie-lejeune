@@ -31,7 +31,7 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'idLivre' => $idLivre, 
+                    'idLivre' => $idLivre,
                     'titleLivre' => isset($_POST['titleLivre']) ? $_POST['titleLivre'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
@@ -77,7 +77,7 @@ if (isset($_SESSION['form_submitted'])) {
 
 <body>
     <header>
-        <?php displayNavigation(); ?>
+        <?php displayNavigationAdmin(); ?>
     </header>
 
     <div class="container">
