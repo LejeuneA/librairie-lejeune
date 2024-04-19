@@ -55,23 +55,23 @@ if (!is_object($conn)) {
 </head>
 
 <body>
-  
-        <!-----------------------------------------------------------------
+
+    <!-----------------------------------------------------------------
 							   Header
 	------------------------------------------------------------------>
     <header>
         <!-----------------------------------------------------------------
 							   Navigation
 	    ------------------------------------------------------------------>
-        <?php displayNavigation(); ?>
+        <?php displayNavigationAdmin(); ?>
         <!-----------------------------------------------------------------
 							Navigation end
 	    ------------------------------------------------------------------>
     </header>
     <!-----------------------------------------------------------------
 							   Header end
-	------------------------------------------------------------------> 
-        <div class="container">
+	------------------------------------------------------------------>
+    <div class="container">
         <!-- Display the title for article management -->
         <h2 class="title">Gérer les articles</h2>
         <div id="message">
@@ -90,18 +90,18 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 								Footer
 	    ------------------------------------------------------------------>
-	<footer>
-		<div data-include="footer"></div>
-	</footer>
-	<!-----------------------------------------------------------------
+    <footer>
+        <div data-include="footer"></div>
+    </footer>
+    <!-----------------------------------------------------------------
 							  Footer end
 	------------------------------------------------------------------>
 
-	<!-- Font Awesome JS -->
-	<script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
 
-	<!-- Include functions.js -->
-	<script src="../js/functions.js"></script>
+    <!-- Include functions.js -->
+    <script src="../js/functions.js"></script>
     </div>
 
     <script>
