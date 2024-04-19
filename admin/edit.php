@@ -77,7 +77,7 @@ if (isset($_SESSION['form_submitted'])) {
 
 <body>
     <header>
-        <?php displayNavigationAdmin(); ?>
+        <?php displayNavigation(); ?>
     </header>
 
     <div class="container">
