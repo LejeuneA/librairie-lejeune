@@ -74,9 +74,9 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div id="login-container">
+    <div class="login-container">
         <div class="login-title">
-            <h1>S'identifier</h1>
+            <h1>Se connecter</h1>
             <p>Connectez-vous et gérer votre page</p>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
@@ -96,9 +96,9 @@ if (!is_object($conn)) {
                 <input type="hidden" id="form" name="form" value="login">
                 <button type="submit" class="btn-primary">Se connecter</button>
             </form>
-        <div class="login-vector">
-            <img src="../assets/components/login-vector.png" alt="login-vector">
-        </div>
+            <div class="login-vector">
+                <img src="../assets/components/login-vector.png" alt="login-vector">
+            </div>
         </div>
     </div>
     <!-----------------------------------------------------------------
