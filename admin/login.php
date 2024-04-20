@@ -74,8 +74,8 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="container">
-        <h2 class="title">S'identifier</h2>
+    <div class="login container">
+        <h2>S'identifier</h2>
         <div id="message">
             <?php if (isset($msg)) echo $msg; ?>
         </div>
