@@ -1,7 +1,7 @@
-@use 'custom';
-@use 'mixins';
-@use 'extends';
-@use 'global';
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
 
 /* -------------------------------------------------------
                  Footer upper section
@@ -10,18 +10,16 @@
 // Upper footer
 
 .upper-footer-container {
+  @include d-flex(flex, center, center, row, center);
   background-color: $primary-blue;
 
   .upper-footer {
     @include d-flex(flex, center, flex-start, row, start);
-
     gap: 2em;
     color: $light-blue;
     position: relative;
-    max-width: 1400px;
-    width: 100%;
     margin: 0 auto;
-    padding: 2.5em 0;
+    padding: 2.5em 0; 
 
     a {
       @include hover("background-color", $primary-blue, "color", $primary-red);
@@ -49,124 +47,121 @@
       }
     }
   }
-}
 
+  .upper-footer {
+    display: flex;
+    justify-content: space-between; // Distribute items evenly along the main axis
+  
+    // Logo
+    .footer-brand {
+      display: flex;
+      align-self: center;
+      height: 100%;
+  
+      img {
+        height: 4em; 
+        margin: auto;
+      }
+    }
+    // Logo end
+  
+    // Contact us
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+  
+      ul {
+        li {
+          &:last-child {
+            font-size: small;
+          }
+        }
+      }
+    } 
+  
+    // Contact us end
 
-.upper-footer>div {
-  flex: 1;
-  max-width: 25%;
-}
+    //Follow us
+    .footer-follow-us {
+      font-size: medium;
 
-// Logo
-.footer-brand {
-  display: flex;
-  align-items: center;
-  margin: auto;
-}
-
-.footer-brand img {
-  height: 3em;
-}
-
-// Logo end
-
-// Contact us
-.footer-contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  ul {
-    li {
-      &:last-child {
+      p {
         font-size: small;
+
+        &:last-child {
+          font-size: medium;
+        }
+      }
+    }
+
+    .social-icons {
+      margin: 1em 0;
+      color: $secondary-blue;
+      font-size: 1.2em;
+
+      a {
+        padding-right: 1em;
+      }
+    }
+    //Follow us end
+  }
+
+  // Media queries for xs, sm, and md screens
+  @media (min-width: 320px) and (max-width: 768px) {
+    @include d-flex(flex, center, center, column, center);
+    .upper-footer {
+      padding: 3em;
+    }
+
+    .footer-brand {
+      margin: 0;
+
+      img {
+        height: 3.5em;
+      }
+    }
+
+    .upper-footer {
+      flex-direction: column;
+      align-items: stretch;
+
+      > div {
+        width: 100%;
+        max-width: 100%;
       }
     }
   }
 }
-
-// Contact us end
-
-//Follow us
-.footer-follow-us {
-  font-size: medium;
-
-  p {
-    font-size: small;
-
-    &:last-child {
-      font-size: medium;
-    }
-  }
-}
-
-.social-icons {
-  margin: 1em 0;
-  color: $secondary-blue;
-  font-size: 1.2em;
-
-  a {
-    padding-right: 1em;
-  }
-}
-
-//Follow us end
 
 /* -------------------------------------------------------
                 Footer bottom section
 ---------------------------------------------------------*/
 .bottom-footer-container {
   background-color: $light-blue;
-}
 
-.bottom-footer {
-  @include d-flex(flex, space-between, center, row, center);
+  .bottom-footer {
+    @include d-flex(flex, space-between, center, row, center);
 
-  color: $primary-blue;
-  font-size: small;
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1em 0;
+    color: $primary-blue;
+    font-size: small;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1em 0;
 
-  a {
-    @include hover("background-color", $light-blue, "color", $primary-red);
-  }
-}
-
-// Bottom footer end
-
-/* -------------------------------------------------------
-                 Footer responsive
----------------------------------------------------------*/
-
-// Media queries for xs, sm, and md screens
-@media (min-width: 320px) and (max-width: 768px) {
-  .upper-footer {
-    padding: 3em;
-  }
-
-  .footer-brand {
-    margin: 0;
-  }
-
-  .footer-brand img {
-    height: 3.5em;
-  }
-
-  .upper-footer {
-    flex-direction: column;
-    align-items: stretch;
-
-    >div {
-      width: 100%;
-      max-width: 100%;
+    a {
+      @include hover("background-color", $light-blue, "color", $primary-red);
     }
   }
 
-  .bottom-footer {
-    flex-direction: column;
-    text-align: center;
-    font-size: small;
+  // Media queries for xs, sm, and md screens
+  @media (min-width: 320px) and (max-width: 768px) {
+    .bottom-footer {
+      flex-direction: column;
+      text-align: center;
+      font-size: small;
+    }
   }
 }
+// Bottom footer end
