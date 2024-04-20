@@ -74,12 +74,12 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="login container">
-        <h2>S'identifier</h2>
+    <div class="login">
+        <h1>S'identifier</h1>
         <div id="message">
             <?php if (isset($msg)) echo $msg; ?>
         </div>
-        <div id="content-login">
+        <div id="content-login container">
 
             <form class="mt-15" action="login.php" method="post">
                 <div class="form-ctrl">
