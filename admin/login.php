@@ -74,13 +74,15 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="container">
-        <h1 class="title">S'identifier</h1>
-        <div id="message">
-            <?php if (isset($msg)) echo $msg; ?>
+    <div id="login-container container">
+        <div class="login-title">
+            <h1>S'identifier</h1>
+            <div id="message">
+                <?php if (isset($msg)) echo $msg; ?>
+            </div>
         </div>
         <div id="login-content">
-            <form class="mt-15" action="login.php" method="post">
+            <form class="login-form" action="login.php" method="post">
                 <div class="form-ctrl">
                     <label for="login" class="form-ctrl">E-mail</label>
                     <input type="email" class="form-ctrl" id="login" name="login" value="<?php echo (!empty($_POST['login'])) ? $_POST['login'] : null; ?>" required>
@@ -90,7 +92,7 @@ if (!is_object($conn)) {
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
                 <input type="hidden" id="form" name="form" value="login">
-                <button type="submit" class="btn-manager">Se connecter</button>
+                <button type="submit" class="btn-primary">Se connecter</button>
             </form>
 
         </div>
