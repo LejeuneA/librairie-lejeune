@@ -6,5 +6,10 @@
 /* -----------------------------------------------------------------
                             Login page
  ----------------------------------------------------------------- */
-
+#login-container {
+  @include d-flex(flex, center, center, row, center);
+  height: 40em;
+  width: 100%;
+  background-color: $primary-blue;
+}
 
