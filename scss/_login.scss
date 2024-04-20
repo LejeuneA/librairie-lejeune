@@ -6,58 +6,125 @@
 /* -----------------------------------------------------------------
                             Login page
  ----------------------------------------------------------------- */
-#login-container {
-  @include d-flex(flex, start, center, column, center);
+.login-container {
+  @include d-flex(flex, center, center, column, center);
   background-color: $primary-blue;
   height: 100vh;
   width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding: 5em;
 
   .login-title {
     h1 {
       color: $light-blue;
-      margin-top: 2em;
     }
 
     p {
       color: $light-blue;
-      margin: 1em 0;
+      margin: 0.8em 0;
       font-weight: 200;
       font-size: 1.5em;
     }
   }
 
+  .message {
+    color: $primary-red;
+    margin-bottom: 1em;
+  }
+
   .login-content {
     @include d-flex(flex, center, center, column, center);
     background-color: $secondary-blue;
-    padding: 3em;
-    border-radius: 10px;
-    width: 30em;
+    padding: 2em;
+    border-radius: 1em;
+    max-width: 30em;
+    width: 100%;
+    z-index: 3;
 
-    .form-ctrl {
-      width: 100%;
-      margin-bottom: 1em;
+    .login-form {
+      .form-ctrl {
+        width: 100%;
+        margin-bottom: 1em;
 
-      &:last-child {
-        margin-bottom: 0;
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.6em;
+          border: 1px solid $secondary-blue;
+          border-radius: 4px;
+          box-sizing: border-box;
+          margin-top: 6px;
+          margin-bottom: 1em;
+          resize: vertical;
+          outline: none;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+          font-family: "Poppins", sans-serif;
+          font-size: small;
+          font-style: italic;
+          color: $light-blue;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+          border: 1px solid $primary-blue;
+          box-shadow: 0 0 10px rgba(48, 71, 94, 0.9);
+        }
+
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+          outline: 1px solid $secondary-blue;
+        }
+      }
+
+      p {
+        color: $primary-blue;
+        text-align: end;
+        font-size: 0.9em;
+        font-weight: 400;
+      }
+
+      .btn-primary {
+        margin-top: 2em;
+
+        @include hover("background-color", $primary-blue, "color", $light-blue);
       }
     }
+  }
 
-    p {
-      color: $primary-red;
-      text-align: end;
-      font-size: 0.9em;
+  .login-vector {
+    background-color: $primary-blue;
+
+    img {
+      height: auto;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
     }
+  }
 
-    .btn-primary {
-      margin-top: 2em;
-    }
+  // Responsive styles for login page
+  @media (min-width: 320px) and (max-width: 768px) {
+    padding: 2em;
+    height: auto;
 
-    .login-vector {
-      img {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
+    .login-title {
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1.2em;
       }
     }
   }
