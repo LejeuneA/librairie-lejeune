@@ -1,23 +1,52 @@
 <?php
 require_once('settings.php');
 
-// Déclaration et initalisation des variables
-$msg = null;
-$result = null;
-$execute = false;
+// Redirection vers la page de gestion si l'utilisateur est connecté
+if ($_SESSION['IDENTIFY']) {
+    header('Location: manager.php');
+}
 
+$user = null;
+$connexionSuccessfull = null;
+$msg = null;
+
+// On vérifie l'objet de connexion $conn
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
 
-    // Va cherche en DB les articles publiés
-    $result = getAllLivresDB($conn, 1);
+    // Vérifie si on reçoit le formumaire d'identification
+    if (isset($_POST['form']) && $_POST['form'] == 'login') {
 
-    //DEBUG// disp_ar($result);
+        // Vérifie si les champs sont vides
+        if ($_POST['login'] == '' || $_POST['pwd'] == '') {
+            $msg = getMessage('Veuillez remplir tous les champs', 'error');
+        } else {
 
-    // On vérifie le retour de la fonction  getAllArticlesDB(), elle doit nous retourner un tableau 
-    // Si c'est un tableau, on continue donc on initialise $execute = true, sinon on affiche le message d'erreur retourné par la fonction     
-    (isset($result) && is_array($result)) ? $execute = true : $msg = getMessage($result, 'error');
+            // On récupère les données du formulaire
+            $datas = $_POST;
+
+            // Appel de la fonction d'identification
+            // Utiliser cette fonction si les mots de passe sont en clair dans la DB
+            $user = userIdentificationDB($conn, $datas);
+
+            // Utiliser cette fonction si les mots de passe sont hashés dans la DB
+            // $user = userIdentificationWithHashPwdDB($conn, $datas);            
+
+            // On vérifie si on a une adresse email dans le tableau $user, si c'est le cas on est connecté
+            (!empty($user['email'])) ? $connexionSuccessfull = true : $connexionSuccessfull = false;
+        }
+    }
+
+    // Si on est connecté, on initialise les variables de session et on redirige vers la page de gestion
+    if ($connexionSuccessfull === true) {
+        $_SESSION['IDENTIFY'] = true;
+        $_SESSION['user_email'] = $user['email'];
+        header('Location: manager.php');
+        // Dans le cas contraire on affiche un message d'erreur, il y a eu une erreur d'identification
+    } elseif ($connexionSuccessfull === false) {
+        $msg = getMessage('Votre email et/ou votre mot de passe sont erronés', 'error');
+    }
 }
 
 ?>
@@ -25,10 +54,11 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Accueil'); ?>
+    <?php displayHeadSection('S\'identifier'); ?>
 </head>
 
 <body>
+
     <!-----------------------------------------------------------------
 							   Header
 	------------------------------------------------------------------>
@@ -44,17 +74,31 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="container">
-
-        <div id="message">
-            <?php if (isset($msg)) echo $msg; ?>
+    <div class="login-container">
+        <div class="login-title">
+            <h1>Se connecter</h1>
+            <p>Connectez-vous et gérer votre page</p>
+            <div class="message">
+                <?php if (isset($msg)) echo $msg; ?>
+            </div>
         </div>
-        <div id="content">
-            <?php
-            // Peut-on exécuter l'affichage des articles
-            if ($execute)
-                displayLivres($result);
-            ?>
+        <div class="login-content container">
+            <form class="login-form" action="login.php" method="post">
+                <div class="form-ctrl">
+                    <label for="login" class="form-ctrl">E-mail</label>
+                    <input type="email" class="form-ctrl" id="login" name="login" value="<?php echo (!empty($_POST['login'])) ? $_POST['login'] : null; ?>" required>
+                </div>
+                <div class="form-ctrl">
+                    <label for="pwd" class="form-ctrl">Mot de passe</label>
+                    <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
+                </div>
+                <p>Oublié le mot de passe ?</p>
+                <input type="hidden" id="form" name="form" value="login">
+                <button type="submit" class="btn-primary">Se connecter</button>
+            </form>
+            <div class="login-vector">
+                <img src="../assets/components/login-vector.png" alt="login-vector">
+            </div>
         </div>
     </div>
     <!-----------------------------------------------------------------
