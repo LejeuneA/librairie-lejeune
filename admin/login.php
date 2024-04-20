@@ -74,14 +74,15 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div id="login-container container">
+    <div id="login-container">
         <div class="login-title">
             <h1>S'identifier</h1>
-            <div id="message">
+            <p>Connectez-vous et gérer votre page</p>
+            <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
-        <div id="login-content">
+        <div class="login-content container">
             <form class="login-form" action="login.php" method="post">
                 <div class="form-ctrl">
                     <label for="login" class="form-ctrl">E-mail</label>
@@ -91,10 +92,13 @@ if (!is_object($conn)) {
                     <label for="pwd" class="form-ctrl">Mot de passe</label>
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
+                <p>Oublié le mot de passe ?</p>
                 <input type="hidden" id="form" name="form" value="login">
                 <button type="submit" class="btn-primary">Se connecter</button>
             </form>
-
+        <div class="login-vector">
+            <img src="../assets/components/login-vector.png" alt="login-vector">
+        </div>
         </div>
     </div>
     <!-----------------------------------------------------------------
