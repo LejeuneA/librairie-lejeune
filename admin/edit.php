@@ -129,7 +129,7 @@ if (isset($_SESSION['form_submitted'])) {
                 </div>
                 <div class="form-ctrl">
                     <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                    <img id="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image" style="max-width: 100%; max-height: 200px;">
+                    <img id="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
                 </div>
 
                 <div class="form-ctrl">
