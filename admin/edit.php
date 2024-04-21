@@ -97,17 +97,17 @@ if (isset($_SESSION['form_submitted'])) {
                     <label for="title" class="form-ctrl">Titre</label>
                     <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
                 </div>
-                
+
                 <div class="form-ctrl">
                     <label for="writer" class="form-ctrl">Author</label>
                     <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
                 </div>
-                
+
                 <div class="form-ctrl">
                     <label for="feature" class="form-ctrl">Caractèriques</label>
                     <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
                 </div>
-                
+
                 <div class="form-ctrl">
                     <label for="price" class="form-ctrl">Prix</label>
                     <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
@@ -117,15 +117,21 @@ if (isset($_SESSION['form_submitted'])) {
                     <label for="idCategory" class="form-ctrl">Catégorie</label>
                     <select id="idCategory" name="idCategory" class="form-ctrl" required>
                         <option value="">Sélectionner une catégorie</option>
-                        <?php foreach ($categories as $category): ?>
+                        <?php foreach ($categories as $category) : ?>
                             <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+
                 <div class="form-ctrl">
                     <label for="image_url" class="form-ctrl">URL de l'image</label>
-                    <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>">
+                    <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
                 </div>
+                <div class="form-ctrl">
+                    <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
+                    <img id="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image" style="max-width: 100%; max-height: 200px;">
+                </div>
+
                 <div class="form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
                     <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
