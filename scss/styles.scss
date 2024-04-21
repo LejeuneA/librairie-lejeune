@@ -1,13 +1,24 @@
 /* -----------------------------------------------------------------
                         Custom styles
  ----------------------------------------------------------------- */
+//  Settings
 @import "_custom";
+
+// Tools
 @import "_mixins";
 @import "_extends";
+
+// Generic
 @import "_reset";
-@import "_global";  
+
+// Elements
+@import "_global";
+
+// Components
 @import "_navbar"; 
-@import "_footer";   
+@import "_footer";
+
+// Public pages
 @import "_index";
 @import "_books";
 @import "_stationery";
@@ -17,5 +28,7 @@
 @import "_conditions";
 @import "_product"; 
 @import "_contact";
+
+// Admin pages
 @import "_edit";
 @import "_login";
