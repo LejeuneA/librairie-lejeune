@@ -8,13 +8,22 @@
  ----------------------------------------------------------------- */
 
 .edit-content {
-
-    h1{
-        margin-top: 5em;
+    @include d-flex(flex, center, center, column, center);
+    height: auto;
+    width: 100%;
+  
+    .edit-title {
+      h1 {
+        margin: 1em 0;
+      }
     }
-    
-    .edit-form {
+  
+    .message {
+      color: $primary-red;
+      margin-bottom: 1em;
+    }
+
+    .edit-form{
         @include d-flex(flex, center, center, column, center);
-        gap: 2em;
     }
 }
