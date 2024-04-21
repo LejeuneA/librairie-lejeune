@@ -87,9 +87,13 @@ if (isset($_SESSION['form_submitted'])) {
     </header>
 
     <div class="edit-content">
-        <h1>Editer un article</h1>
-        <?php echo $msg; ?>
-        
+        <div class="edit-title">
+            <h1>Editer un article</h1>
+            <div class="message">
+                <?php if (isset($msg)) echo $msg; ?>
+            </div>
+        </div>
+
         <div class="edit-form container">
             <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post">
                 <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
