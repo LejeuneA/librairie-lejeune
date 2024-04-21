@@ -3,18 +3,18 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-h1{
+h1 {
   font-weight: 100;
   font-size: 3em;
 }
 
-section{
+section {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  h2{
+  h2 {
     text-align: center;
     font-weight: 500;
     font-size: larger;
@@ -22,7 +22,7 @@ section{
     padding: 0 2em;
   }
 
-  p{
+  p {
     font-weight: 300;
     line-height: 1.8em;
     text-align: justify;
@@ -42,7 +42,6 @@ section{
 
   @media screen and (max-width: 768px) {
     padding: 0.5em;
-    
   }
 }
 
@@ -60,23 +59,20 @@ section{
   left: 0;
 }
 
-
 /* -------------------------------------------------------
                   Responsive styles
 ---------------------------------------------------------*/
 
 @media (min-width: 320px) and (max-width: 1200px) {
-  section{  
-    p{
+  section {
+    p {
       padding: 2em;
     }
   }
-    .square-right,
-    .square-left {
-        height: 5em;
-    }
+  .square-right,
+  .square-left {
+    height: 5em;
+  }
 }
 
-
-
-@forward 'global';
+@forward "global";
