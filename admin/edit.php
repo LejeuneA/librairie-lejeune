@@ -32,15 +32,12 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
-                    'image_url' => $_POST['image_url'], // Add image URL to update data
                     'idLivre' => $idLivre,
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
                     'content' => $_POST['content'],
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
-                    'idCategory' => $_POST['idCategory'], // Add category ID to update data
+                    'image_url' => $_POST['image_url'], // Add image URL to update data
+                    'idCategory' => $_POST['category'], // Add category ID to update data
                 ];
 
                 // Perform the update operation in the database
@@ -98,25 +95,13 @@ if (isset($_SESSION['form_submitted'])) {
                     <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
                 </div>
                 <div class="form-ctrl">
-                    <label for="writer" class="form-ctrl">Auteur</label>
-                    <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
-                </div>
-                <div class="form-ctrl">
                     <label for="category" class="form-ctrl">Catégorie</label>
-                    <select id="category" name="idCategory" class="form-ctrl" required> <!-- Update name attribute to "idCategory" -->
+                    <select id="category" name="category" class="form-ctrl" required>
                         <option value="">Sélectionner une catégorie</option>
-                        <?php foreach ($categories as $category) : ?>
+                        <?php foreach ($categories as $category): ?>
                             <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
                         <?php endforeach; ?>
                     </select>
-                </div>
-                <div class="form-ctrl">
-                    <label for="price" class="form-ctrl">Prix</label>
-                    <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
-                </div>
-                <div class="form-ctrl">
-                    <label for="feature" class="form-ctrl">Caractéristique</label>
-                    <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
                 </div>
                 <div class="form-ctrl">
                     <label for="image_url" class="form-ctrl">URL de l'image</label>
