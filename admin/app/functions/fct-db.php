@@ -112,11 +112,8 @@ function getLivreByIDDB($conn, $id) {
 function addLivreDB($conn, $datas) {
     try{
         // Préparation des données avant insertion dans la base de données
-            $image_url = filterInputs($datas['image_url']);
             $title = filterInputs($datas['title']);
-            $writer = filterInputs($datas['writer']);
             $content = nl2br(filterInputs($datas['content']));
-            $idCategory = filterInputs($datas['idCategory']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
@@ -125,13 +122,10 @@ function addLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-            $req = $conn->prepare("INSERT INTO livres (image_url,title, writer, content, active, idCategory) VALUES (:image_url,:title, :writer, :content, :active, :idCategory)");
-            $req->bindParam(':image_url', $image_url);
+            $req = $conn->prepare("INSERT INTO livres (title, content, active) VALUES (:title, :content, :active)");
             $req->bindParam(':title', $title);
-            $req->bindParam(':writer', $writer);
             $req->bindParam(':content', $content);
             $req->bindParam(':active', $active);
-            $req->bindParam(':idCategory', $idCategory);
             $req->execute();
 
         // Fermeture connexion
@@ -161,17 +155,11 @@ function updateLivreDB($conn, $datas) {
     try{
         //DEBUG// disp_ar($datas, 'DATAS', 'VD');
         // Préparation des données avant insertion dans la base de données
-            $image_url = filterInputs($datas['image_url']);
             $title = filterInputs($datas['title']);
-            $writer = filterInputs($datas['writer']);
-            $feature = filterInputs($datas['feature']);
-            $price = filterInputs($datas['price']);
 
             $content = nl2br($datas['content']);
             $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);        
             $content = htmlentities($content);
-
-            $idCategory = filterInputs($datas['idCategory']);
             
             $id = filterInputs($datas['idLivre']);
 
@@ -182,15 +170,10 @@ function updateLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE livres SET image_url = :image_url, title = :title, writer = :writer, feature: = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idLivre = :idLivre");
-        $req->bindParam(':image_url', $image_url);
+        $req = $conn->prepare("UPDATE livres SET title = :title, content = :content, active = :active WHERE idLivre = :idLivre");
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
-        $req->bindParam(':feature', $feature); 
         $req->bindParam(':content', $content);
-        $req->bindParam(':price', $price);
         $req->bindParam(':active', $active);
-        $req->bindParam(':idCategory', $idCategory);
         $req->bindParam(':idLivre', $id);
         $req->execute();
 
@@ -339,6 +322,7 @@ function userIdentificationWithHashPwdDB($conn, $datas) {
         Function to retrieve category names from the database
 *------------------------------------------------------------------**/
 
+// Function to retrieve category names from the database
 function getCategoryNamesFromDB($conn) {
     $categories = array();
 
@@ -356,6 +340,3 @@ function getCategoryNamesFromDB($conn) {
 
     return $categories;
 }
-
-
-
