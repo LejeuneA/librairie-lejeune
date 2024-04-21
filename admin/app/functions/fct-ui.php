@@ -330,7 +330,7 @@ function getMessage($message, $type = 'success')
 function displayLivres($livres)
 {
     foreach ($livres as $livre) {
-        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" titleLivre="Lire l\'article"><h2">' . $livre['titleLivre'] . '</h2></a></article>';
+        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
@@ -347,7 +347,7 @@ function displayLivres($livres)
 function displayLivreByID($livre)
 {
     echo '<article>';
-    echo '<h2 class="article-title">' . $livre['titleLivre'] . '</h2>';
+    echo '<h2 class="article-title">' . $livre['title'] . '</h2>';
     echo '<hr>';
     echo '<p>' . html_entity_decode($livre['content']) . '</p>';
     echo '</article>';
@@ -374,7 +374,7 @@ function displayLivresWithButtons($livres)
         $circleClass = ($livre['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
 
-        echo '<h3>' . htmlspecialchars_decode($livre['titleLivre']) . '</h3>';
+        echo '<h3>' . htmlspecialchars_decode($livre['title']) . '</h3>';
         echo '</div>';
 
         // Display buttons
