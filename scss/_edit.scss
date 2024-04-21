@@ -11,19 +11,97 @@
     @include d-flex(flex, center, center, column, center);
     height: auto;
     width: 100%;
-  
+
     .edit-title {
-      h1 {
-        margin: 1em 0;
-      }
-    }
-  
-    .message {
-      color: $primary-red;
-      margin-bottom: 1em;
+        h1 {
+            margin: 1em 0;
+        }
     }
 
-    .edit-form{
-        @include d-flex(flex, center, center, column, center);
+    .message {
+        color: $primary-red;
+        margin-bottom: 1em;
+    }
+
+    .edit-form {
+        @include d-flex(flex, center, center, column, start);
+
+        .form-ctrl {
+            width: 100%;
+            margin-bottom: 1em;
+
+            label{
+                color: $secondary-blue;
+                font-weight: 400;
+                font-size: 1.5em;
+                margin-bottom: 0.5em;
+            }
+
+            input {
+                width: 100%;
+                padding: 0.6em;
+                border: 1px solid $secondary-blue;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 1em;
+                resize: vertical;
+                outline: none;
+            }
+
+            input::placeholder,
+            textarea::placeholder {
+                font-family: "Poppins", sans-serif;
+                font-size: small;
+                font-style: italic;
+                color: $light-blue;
+            }
+
+            input:focus,
+            select:focus,
+            textarea:focus {
+                border: 1px solid $secondary-blue;
+                box-shadow: 0 0 10px rgb(132, 192, 225);
+            }
+
+            input:focus-visible,
+            select:focus-visible,
+            textarea:focus-visible {
+                outline: 1px solid $secondary-blue;
+            }
+        }
+
+        p {
+            color: $primary-blue;
+            text-align: end;
+            font-size: 0.9em;
+            font-weight: 400;
+        }
+
+        .image_preview {
+            width: 5em;
+            height: auto;
+            margin-bottom: 1em;
+        }
+
+        .btn-primary {
+            margin: 1.3em 0 5em;
+            background-color: $primary-blue;
+
+            @include hover("background-color", $secondary-blue, "color", $light-blue);
+        }
+    }
+
+    .login-vector {
+        background-color: $primary-blue;
+
+        img {
+            height: auto;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }
     }
 }
