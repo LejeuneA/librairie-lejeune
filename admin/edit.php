@@ -86,11 +86,11 @@ if (isset($_SESSION['form_submitted'])) {
         <?php displayNavigation(); ?>
     </header>
 
-    <div class="container">
-        <h2 class="title">Editer un article</h2>
-        <div id="content-edit">
-            <?php echo $msg; ?>
-
+    <div class="edit-content">
+        <h1>Editer un article</h1>
+        <?php echo $msg; ?>
+        
+        <div class="edit-form container">
             <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post">
                 <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
                 <div class="form-ctrl">
@@ -132,7 +132,7 @@ if (isset($_SESSION['form_submitted'])) {
                     <img id="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
                 </div>
 
-                <div class="form-ctrl">
+                <div class=" form-ctrl">
                     <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
                     <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                 </div>
