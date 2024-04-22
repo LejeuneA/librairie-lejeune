@@ -24,8 +24,8 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
     if ($typeForm == 'ADD') {
         $html .= '
         <div class="form-check form-switch custom-checkbox">
-            <label class="form-check-label" for="published_article"></label>
             <input class="form-check-input" type="checkbox" value="1" id="published_article" name="published_article">          
+            <label class="form-check-label" for="published_article"></label>
         </div>
         ';
     } elseif ($typeForm == 'EDIT') {
