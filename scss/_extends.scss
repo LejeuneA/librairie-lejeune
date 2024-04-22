@@ -185,9 +185,58 @@
   }
 }
 
+/* -------------------------------------------------------
+             Define extend for form
+---------------------------------------------------------*/
+%form-ctrl {
+  width: 100%;
+  margin-bottom: 1em;
+
+  label {
+      color: $secondary-blue;
+      font-weight: 400;
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+  }
+
+  input {
+      width: 100%;
+      padding: 0.6em;
+      border: 1px solid $secondary-blue;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 6px;
+      margin-bottom: 1em;
+      resize: vertical;
+      outline: none;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+      font-family: "Poppins", sans-serif;
+      font-size: small;
+      font-style: italic;
+      color: $light-blue;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+      border: 1px solid $secondary-blue;
+      box-shadow: 0 0 10px rgb(132, 192, 225);
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+      outline: 1px solid $secondary-blue;
+  }
+}
+
 
 @forward '%header-image';
 @forward '%information-top';
 @forward '%information-bottom';
 @forward '%product-price';
 @forward '%advantage-icons';
+@forward '%form-ctrl';
