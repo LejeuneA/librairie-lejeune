@@ -121,27 +121,16 @@ if (isset($_SESSION['form_submitted'])) {
 
                 <!-- Form top -->
                 <div class="form-top">
+
                     <!-- Form left -->
                     <div class="form-left">
-                        <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
+                        <!-- Statue of the article -->
+                        <div class=" form-ctrl">
+                            <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
+                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
 
-                        <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Author</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
-                        </div>
-
-                        <div class="form-ctrl">
-                            <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
-                        </div>
-
-                        <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
-                        </div>
+                        <!-- Category -->
                         <div class="form-ctrl">
                             <label for="idCategory" class="form-ctrl">Catégorie</label>
                             <select id="idCategory" name="idCategory" class="form-ctrl" required>
@@ -151,10 +140,36 @@ if (isset($_SESSION['form_submitted'])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
+
+                        <!-- Title -->
+                        <div class="form-ctrl">
+                            <label for="title" class="form-ctrl">Titre</label>
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
+                        </div>
+
+                        <!-- Writer -->
+                        <div class="form-ctrl">
+                            <label for="writer" class="form-ctrl">Author</label>
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
+                        </div>
+
+                        <!-- Feature -->
+                        <div class="form-ctrl">
+                            <label for="feature" class="form-ctrl">Caractèriques</label>
+                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
+                        </div>
+                        
+                        <!-- Price -->
+                        <div class="form-ctrl">
+                            <label for="price" class="form-ctrl">Prix</label>
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
+                        </div>
+
                     </div>
 
                     <!-- Form right -->
                     <div class="form-right">
+                        <!-- URL of the image -->
                         <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
                             <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
@@ -165,7 +180,7 @@ if (isset($_SESSION['form_submitted'])) {
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
                         </div>
-
+                        <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
@@ -177,19 +192,15 @@ if (isset($_SESSION['form_submitted'])) {
                 
                 <!-- Form bottom -->
                 <div class=" form-bottom">
-                            <div class=" form-ctrl">
-                                <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
-                                <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                                <div class="form-ctrl">
+                                    <label for="content" class="form-ctrl">Contenu</label>
+                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                                </div>
                             </div>
-                            <div class="form-ctrl">
-                                <label for="content" class="form-ctrl">Contenu</label>
-                                <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
-                            </div>
-                        </div>
 
-                        <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
-                        <button type="submit" class="btn-primary">Sauvegarder</button>
-                        <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                            <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
+                            <button type="submit" class="btn-primary">Sauvegarder</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
