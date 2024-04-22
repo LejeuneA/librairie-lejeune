@@ -97,56 +97,75 @@ if (isset($_SESSION['form_submitted'])) {
         <div class="edit-form container">
             <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post">
                 <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
-                <div class="form-ctrl">
-                    <label for="title" class="form-ctrl">Titre</label>
-                    <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
-                </div>
 
-                <div class="form-ctrl">
-                    <label for="writer" class="form-ctrl">Author</label>
-                    <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
-                </div>
+                <!-- Form top -->
+                <div class="form-top">
+                    <!-- Form left -->
+                    <div class="form-left">
+                        <div class="form-ctrl">
+                            <label for="title" class="form-ctrl">Titre</label>
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
+                        </div>
 
-                <div class="form-ctrl">
-                    <label for="feature" class="form-ctrl">Caractèriques</label>
-                    <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
-                </div>
+                        <div class="form-ctrl">
+                            <label for="writer" class="form-ctrl">Author</label>
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
+                        </div>
 
-                <div class="form-ctrl">
-                    <label for="price" class="form-ctrl">Prix</label>
-                    <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
-                </div>
+                        <div class="form-ctrl">
+                            <label for="feature" class="form-ctrl">Caractèriques</label>
+                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
+                        </div>
 
-                <div class="form-ctrl">
-                    <label for="idCategory" class="form-ctrl">Catégorie</label>
-                    <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                        <option value="">Sélectionner une catégorie</option>
-                        <?php foreach ($categories as $category) : ?>
-                            <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+                        <div class="form-ctrl">
+                            <label for="price" class="form-ctrl">Prix</label>
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
+                        </div>
+                        <div class="form-ctrl">
+                            <label for="idCategory" class="form-ctrl">Catégorie</label>
+                            <select id="idCategory" name="idCategory" class="form-ctrl" required>
+                                <option value="">Sélectionner une catégorie</option>
+                                <?php foreach ($categories as $category) : ?>
+                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="form-ctrl">
-                    <label for="image_url" class="form-ctrl">URL de l'image</label>
-                    <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
-                </div>
-                <div class="form-ctrl">
-                    <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                    <img id="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
-                </div>
+                    <!-- Form right -->
+                    <div class="form-right">
+                        <div class="form-ctrl">
+                            <label for="image_url" class="form-ctrl">URL de l'image</label>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                        </div>
 
-                <div class=" form-ctrl">
-                    <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
-                    <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                        <div class="form-ctrl">
+                            <label for="image_upload" class="form-ctrl">Uploader une image</label>
+                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
+                        </div>
+
+                        <div class="form-ctrl">
+                            <label for="image-preview" class="form-ctrl">Aperçu de l'image</label>
+                            <img id="image-preview" class="image-preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-ctrl">
-                    <label for="content" class="form-ctrl">Contenu</label>
-                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
-                </div>
-                <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
-                <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                
+                <!-- Form bottom -->
+                <div class=" form-bottom">
+                            <div class=" form-ctrl">
+                                <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
+                                <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                            </div>
+                            <div class="form-ctrl">
+                                <label for="content" class="form-ctrl">Contenu</label>
+                                <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
+                        <button type="submit" class="btn-primary">Sauvegarder</button>
+                        <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
