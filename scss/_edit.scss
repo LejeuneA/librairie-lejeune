@@ -26,35 +26,52 @@
     .edit-form {
         @include d-flex(flex, center, center, column, start);
         width: 100%;
-        
 
         .form-top {
             @include d-flex(flex, space-between, start, row, start);
             width: 100%;
-            gap:3em;
+            gap: 3em;
 
             .form-left {
                 width: 100%;
 
                 .form-ctrl {
                     @extend %form-ctrl;
+
+                    .form-check {
+                        @include d-flex(flex, start, center, row, start);
+                        margin-top: 1em;
+
+                        .form-check-label {
+                            width: 80%;
+                            font-size: 1.2em;
+                            color: $primary-red;
+                        }
+
+                        .form-check-input {
+                            justify-self: end;
+                            width: 20%;
+                            height: 2em;
+                            margin-right: 0.5em;
+                        }
+                    }
                 }
             }
             .form-right {
                 width: 100%;
-                
+
                 .form-ctrl {
                     @extend %form-ctrl;
 
-                    div{
-                        img{
-                            margin-top: 1em;
+                    div {
+                        img {
+                            margin-top: 0.5em;
                         }
                     }
                 }
 
                 .image_preview {
-                    width: 11em;
+                    width: 15em;
                     height: 100%;
                 }
             }
@@ -67,9 +84,8 @@
             .form-ctrl {
                 @extend %form-ctrl;
 
-                .published_article{
-
-                    span{
+                .published_article {
+                    span {
                         font-size: 0.7em;
                     }
                 }
