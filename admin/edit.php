@@ -39,7 +39,7 @@ if (!is_object($conn)) {
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
                     'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
-                    'active' => isset($_POST['active']) ? 1 : 0,
+                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
