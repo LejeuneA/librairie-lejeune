@@ -42,13 +42,19 @@
             }
             .form-right {
                 width: 100%;
-
+                
                 .form-ctrl {
                     @extend %form-ctrl;
+
+                    div{
+                        img{
+                            margin-top: 1em;
+                        }
+                    }
                 }
 
-                .image-preview {
-                    width: 15em;
+                .image_preview {
+                    width: 11em;
                     height: 100%;
                 }
             }
@@ -56,9 +62,17 @@
 
         .form-bottom {
             width: 100%;
+            margin-top: 7em;
 
             .form-ctrl {
                 @extend %form-ctrl;
+
+                .published_article{
+
+                    span{
+                        font-size: 0.7em;
+                    }
+                }
             }
         }
 
