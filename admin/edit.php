@@ -54,6 +54,26 @@ if (!is_object($conn)) {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
             }
+
+            // Check if file is uploaded
+            if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+                $target_dir = "assets/images/books/";
+                $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+
+                // Check if the directory exists, if not, create it
+                if (!file_exists($target_dir)) {
+                    mkdir($target_dir, 0777, true); // Create directory recursively with full permissions
+                }
+
+                // Move the uploaded file to the target directory
+                if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
+                    // File upload successful, update the image URL in the database
+                    $updateData['image_url'] = $target_file;
+                    updateLivreDB($conn, $updateData); // Update the database with the new image URL
+                } else {
+                    $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
+                }
+            }
         }
     } else {
         // If article ID is not provided, redirect to manager.php
@@ -95,8 +115,9 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post">
+            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
+                <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -139,14 +160,17 @@ if (isset($_SESSION['form_submitted'])) {
                             <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
                         </div>
 
+                        <!-- File upload field -->
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Uploader une image</label>
+                            <label for="image_upload" class="form-ctrl">Uploader l'image</label>
                             <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
                         </div>
 
                         <div class="form-ctrl">
-                            <label for="image-preview" class="form-ctrl">Aperçu de l'image</label>
-                            <img id="image-preview" class="image-preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                            <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
+                            <div>
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,7 +178,7 @@ if (isset($_SESSION['form_submitted'])) {
                 <!-- Form bottom -->
                 <div class=" form-bottom">
                             <div class=" form-ctrl">
-                                <label for="published_article" class="form-ctrl">Status de l'article <small>(publication)</small></label>
+                                <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
                                 <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                             </div>
                             <div class="form-ctrl">
