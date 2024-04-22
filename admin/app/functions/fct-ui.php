@@ -23,10 +23,10 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
     // Si c'est le formulaire d'ajout d'article
     if ($typeForm == 'ADD') {
         $html .= '
-            <div class="form-check form-switch custom-checkbox">
-                <input class="form-check-input" type="checkbox" value="1" id="published_article" name="published_article">          
-                <label class="form-check-label" for="published_article"></label>
-            </div>
+        <div class="form-check form-switch custom-checkbox">
+            <label class="form-check-label" for="published_article"></label>
+            <input class="form-check-input" type="checkbox" value="1" id="published_article" name="published_article">          
+        </div>
         ';
     } elseif ($typeForm == 'EDIT') {
         // Si c'est le formulaire de modification d'article
