@@ -25,63 +25,41 @@
 
     .edit-form {
         @include d-flex(flex, center, center, column, start);
+        width: 100%;
+        
 
-        .form-ctrl {
+        .form-top {
+            @include d-flex(flex, space-between, start, row, start);
             width: 100%;
-            margin-bottom: 1em;
+            gap:3em;
 
-            label{
-                color: $secondary-blue;
-                font-weight: 400;
-                font-size: 1.5em;
-                margin-bottom: 0.5em;
-            }
-
-            input {
+            .form-left {
                 width: 100%;
-                padding: 0.6em;
-                border: 1px solid $secondary-blue;
-                border-radius: 4px;
-                box-sizing: border-box;
-                margin-top: 6px;
-                margin-bottom: 1em;
-                resize: vertical;
-                outline: none;
-            }
 
-            input::placeholder,
-            textarea::placeholder {
-                font-family: "Poppins", sans-serif;
-                font-size: small;
-                font-style: italic;
-                color: $light-blue;
+                .form-ctrl {
+                    @extend %form-ctrl;
+                }
             }
+            .form-right {
+                width: 100%;
 
-            input:focus,
-            select:focus,
-            textarea:focus {
-                border: 1px solid $secondary-blue;
-                box-shadow: 0 0 10px rgb(132, 192, 225);
-            }
+                .form-ctrl {
+                    @extend %form-ctrl;
+                }
 
-            input:focus-visible,
-            select:focus-visible,
-            textarea:focus-visible {
-                outline: 1px solid $secondary-blue;
+                .image-preview {
+                    width: 15em;
+                    height: 100%;
+                }
             }
         }
 
-        p {
-            color: $primary-blue;
-            text-align: end;
-            font-size: 0.9em;
-            font-weight: 400;
-        }
+        .form-bottom {
+            width: 100%;
 
-        .image_preview {
-            width: 5em;
-            height: auto;
-            margin-bottom: 1em;
+            .form-ctrl {
+                @extend %form-ctrl;
+            }
         }
 
         .btn-primary {
