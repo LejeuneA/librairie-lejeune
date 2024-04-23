@@ -9,7 +9,7 @@ if (!$_SESSION['IDENTIFY']) {
 
 $msg = null;
 $tinyMCE = true;
-$livre = null; 
+$livre = null;
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -18,10 +18,12 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['id'])) {
         // Get the article ID from the URL
-        $id = $_GET['id']; 
+        $id = $_GET['id'];
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $id); 
+        $livre = getLivreByIDDB($conn, $id);
+        $papeteries = getPapeteriesByIDDB($conn, $id);
+        $cadeaux = getCadeauxByIDDB($conn, $id);
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -33,23 +35,29 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'id' => $id,
-                    'image_url' => $_POST['image_url'], 
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '', 
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', 
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '', 
+                    'image_url' => $_POST['image_url'],
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
                 // Perform the update operation in the database
-                $updateResult = updateLivreDB($conn, $updateData);
+                $updateResult = updateArticleDB($conn, $updateData);
 
-                // Check the result of the update operation
+                // Check the category and update accordingly
                 if ($updateResult === true) {
-                    $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true; 
+                    if ($updateData['idCategory'] == 1) {
+                        $msg = getMessage('Les modifications ont été enregistrées sur la page Livre.', 'success');
+                    } elseif ($updateData['idCategory'] == 2) {
+                        $msg = getMessage('Les modifications ont été enregistrées sur la page Papeterie.', 'success');
+                    } elseif ($updateData['idCategory'] == 3) {
+                        $msg = getMessage('Les modifications ont été enregistrées sur la page Cadeau.', 'success');
+                    }
+                    $_SESSION['form_submitted'] = true;
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
@@ -62,14 +70,14 @@ if (!is_object($conn)) {
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true); 
+                    mkdir($target_dir, 0777, true);
                 }
 
                 // Move the uploaded file to the target directory
                 if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
                     // File upload successful, update the image URL in the database
                     $updateData['image_url'] = $target_file;
-                    updateLivreDB($conn, $updateData); 
+                    updateLivreDB($conn, $updateData);
                 } else {
                     $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
                 }
@@ -116,7 +124,7 @@ if (isset($_SESSION['form_submitted'])) {
         <div class="edit-form container">
             <form action="edit.php?id=<?php echo $livre['id']; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
-                
+
                 <!-- Form top -->
                 <div class="form-top">
 
@@ -156,7 +164,7 @@ if (isset($_SESSION['form_submitted'])) {
                             <label for="feature" class="form-ctrl">Caractèriques</label>
                             <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
                         </div>
-                        
+
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
