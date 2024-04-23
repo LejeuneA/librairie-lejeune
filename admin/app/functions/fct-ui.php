@@ -330,7 +330,7 @@ function getMessage($message, $type = 'success')
 function displayLivres($livres)
 {
     foreach ($livres as $livre) {
-        echo '<article><a href="article.php?id=' . $livre['id'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
+        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
@@ -339,56 +339,19 @@ function displayLivres($livres)
                  Affiche l'article reçu en paramètre
  *------------------------------------------------------------------**/
 /**
- * Affiche les livres reçus en paramètre
+ * Affiche l'article reçu en paramètre
  * 
- * @param array $livres 
+ * @param mixed $livre 
  * @return void 
  */
-function displayLivresByID($livres)
+function displayLivreByID($livre)
 {
-    foreach ($livres as $livre) {
-        echo '<article>';
-        echo '<h2 class="article-title">' . $livre['title'] . '</h2>';
-        echo '<hr>';
-        echo '<p>' . html_entity_decode($livre['content']) . '</p>';
-        echo '</article>';
-    }
+    echo '<article>';
+    echo '<h2 class="article-title">' . $livre['title'] . '</h2>';
+    echo '<hr>';
+    echo '<p>' . html_entity_decode($livre['content']) . '</p>';
+    echo '</article>';
 }
-
-/**
- * Affiche les papeteries reçues en paramètre
- * 
- * @param array $papeteries 
- * @return void 
- */
-function displayPapeteriesByID($papeteries)
-{
-    foreach ($papeteries as $papeterie) {
-        echo '<article>';
-        echo '<h2 class="article-title">' . $papeterie['title'] . '</h2>';
-        echo '<hr>';
-        echo '<p>' . html_entity_decode($papeterie['content']) . '</p>';
-        echo '</article>';
-    }
-}
-
-/**
- * Affiche les cadeaux reçus en paramètre
- * 
- * @param array $cadeaux 
- * @return void 
- */
-function displayCadeauxByID($cadeaux)
-{
-    foreach ($cadeaux as $cadeau) {
-        echo '<article>';
-        echo '<h2 class="article-title">' . $cadeau['title'] . '</h2>';
-        echo '<hr>';
-        echo '<p>' . html_entity_decode($cadeau['content']) . '</p>';
-        echo '</article>';
-    }
-}
-
 
 /**-----------------------------------------------------------------
             Affiche les articles pour la page du manager
@@ -401,38 +364,26 @@ function displayCadeauxByID($cadeaux)
  * @return string 
  */
 
- function displayItemsWithButtons($items, $type)
+function displayLivresWithButtons($livres)
 {
-    foreach ($items as $item) {
-        // Display Item Content
-        echo '<div class="item">';
+    foreach ($livres as $livre) {
+        // Display Article Content
+        echo '<div class="article">';
 
-        // Display circle based on item status
-        $circleClass = ($item['active']) ? 'circle-published' : 'circle-not-published';
+        // Display circle based on article status
+        $circleClass = ($livre['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
 
-        echo '<h3>' . htmlspecialchars_decode($item['title']) . '</h3>';
+        echo '<h3>' . htmlspecialchars_decode($livre['title']) . '</h3>';
         echo '</div>';
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
     }
 }
-
- 
- // Example usage:
- // For livres
- // displayItemsWithButtons($livres, 'livres');
- 
- // For papeteries
- // displayItemsWithButtons($papeteries, 'papeteries');
- 
- // For cadeaux
- // displayItemsWithButtons($cadeaux, 'cadeaux');
- 
