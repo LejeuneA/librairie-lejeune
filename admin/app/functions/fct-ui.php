@@ -357,8 +357,40 @@ function displayLivreByID($livre)
             Affiche les articles pour la page du manager
  *------------------------------------------------------------------**/
 
-/**
+ /**
  * Affiche les articles pour la page du manager
+ * 
+ * @param array $articles 
+ * @return string 
+ */
+
+ function displayArticlesWithButtons($articles)
+{
+    foreach ($articles as $article) {
+        // Display Article Content
+        echo '<div class="article">';
+        
+        // Display circle based on article status
+        $circleClass = ($article['active']) ? 'circle-published' : 'circle-not-published';
+        echo '<div class="circle ' . $circleClass . '"></div>';
+        
+        echo '<h3>' . htmlspecialchars_decode($article['title']) . '</h3>';
+        echo '</div>';
+        
+        // Display buttons
+        echo '<div class="buttons">';
+        echo '<button class="btn-manager" onclick="modifierArticle(' . $article['id'] . ')">Modifier</button>';
+        echo '<button class="btn-manager" onclick="afficherArticle(' . $article['id'] . ')">Afficher</button>';
+        echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $article['id'] . ')">Supprimer</button>';
+        echo '</div>';
+        
+        echo '<hr>';
+    }
+}
+
+
+/**
+ * Affiche les livres pour la page du manager
  * 
  * @param array $livres
  * @return string 
@@ -387,3 +419,67 @@ function displayLivresWithButtons($livres)
         echo '<hr>';
     }
 }
+ 
+ /**
+ * Affiche les papeteries pour la page du manager
+ * 
+ * @param array $livres
+ * @return string 
+ */
+
+function displayPapeteriesWithButtons($papeteries)
+{
+    foreach ($papeteries as $papeterie) {
+        // Display Article Content
+        echo '<div class="article">';
+
+        // Display circle based on article status
+        $circleClass = ($papeterie['active']) ? 'circle-published' : 'circle-not-published';
+        echo '<div class="circle ' . $circleClass . '"></div>';
+
+        echo '<h3>' . htmlspecialchars_decode($papeterie['title']) . '</h3>';
+        echo '</div>';
+
+        // Display buttons
+        echo '<div class="buttons">';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['idLivre'] . ')">Supprimer</button>';
+        echo '</div>';
+
+        echo '<hr>';
+    }
+}
+
+/**
+ * Affiche les cadeaux pour la page du manager
+ * 
+ * @param array $livres
+ * @return string 
+ */
+
+ function displayCadeauxWithButtons($cadeaux)
+ {
+     foreach ($cadeaux as $cadeau) {
+         // Display Article Content
+         echo '<div class="article">';
+ 
+         // Display circle based on article status
+         $circleClass = ($cadeau['active']) ? 'circle-published' : 'circle-not-published';
+         echo '<div class="circle ' . $circleClass . '"></div>';
+ 
+         echo '<h3>' . htmlspecialchars_decode($cadeau['title']) . '</h3>';
+         echo '</div>';
+ 
+         // Display buttons
+         echo '<div class="buttons">';
+         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['idLivre'] . ')">Modifier</button>';
+         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['idLivre'] . ')">Afficher</button>';
+         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['idLivre'] . ')">Supprimer</button>';
+         echo '</div>';
+ 
+         echo '<hr>';
+     }
+ }
+
+
