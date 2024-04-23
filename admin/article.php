@@ -5,24 +5,32 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// Check if the ID of the livre is passed in the URL
+// Check if the ID of the item is passed in the URL
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = $_GET['id']; // Retrieve the livre ID from the URL
+    $id = $_GET['id']; // Retrieve the item ID from the URL
+
+    // Define the category based on the item type (livres, papeteries, or cadeaux)
+    $category = 1; // Default category for livres
+    if (isset($_GET['category']) && in_array($_GET['category'], [1, 2, 3])) {
+        $category = $_GET['category'];
+    }
+
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
         $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
     } else {
-        // Fetch the livre from the database based on the ID
-        $result = getLivreByIDDB($conn, $id);
+        // Fetch the item from the database based on the ID and category
+        $result = getItemByID($conn, $id, $category);
+
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true; // Set execute flag to true if a valid livre is found
+            $execute = true; // Set execute flag to true if a valid item is found
         } else {
-            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre is found
+            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no item is found
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre ID is provided
+    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no item ID is provided
 }
 ?>
 <!DOCTYPE html>
@@ -42,9 +50,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
         <div id="content">
             <?php
-            // Peut-on exécuter l'affichage de l'article
+            // Check if execution is successful
             if ($execute) {
-                displayLivreByID($result);
+                // Display the item content
+                echo "<h3>" . $result['title'] . "</h3>";
+                echo "<p>" . $result['content'] . "</p>";
             }
             ?>
         </div>
