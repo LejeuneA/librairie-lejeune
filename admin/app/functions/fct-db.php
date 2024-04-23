@@ -166,7 +166,7 @@ function getLivreByIDDB($conn, $id) {
  * @param object $conn 
  * @return array $resultat
  */
-function getPapeteriesByIDDB($conn, $id) {
+function getPapeterieByIDDB($conn, $id) {
     try {
         // Récupérer des données de notre table articles
         $req = $conn->prepare("SELECT * FROM papeteries WHERE id = :id");
@@ -183,7 +183,7 @@ function getPapeteriesByIDDB($conn, $id) {
         return $resultat;
 
     } catch (PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getPapeteriesByIDDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getPapeterieByIDDB() function";            
         return $st;  
     }
 }
@@ -194,7 +194,7 @@ function getPapeteriesByIDDB($conn, $id) {
  * @param object $conn 
  * @return array $resultat
  */
-function getCadeauxByIDDB($conn, $id) {
+function getCadeauByIDDB($conn, $id) {
     try {
         // Récupérer des données de notre table articles
         $req = $conn->prepare("SELECT * FROM cadeaux WHERE id = :id");
@@ -211,7 +211,7 @@ function getCadeauxByIDDB($conn, $id) {
         return $resultat;
 
     } catch (PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getCadeauxByIDDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getCadeauByIDDB() function";            
         return $st;  
     }
 }
