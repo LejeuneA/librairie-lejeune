@@ -28,12 +28,13 @@ if (!is_object($conn)) {
     ) {
         $execute = true;
 
-        // Check if item ID is provided in the URL for deletion
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        // Check if item ID and category are provided in the URL for deletion
+        if (isset($_GET['id']) && isset($_GET['idCategory']) && is_numeric($_GET['id']) && is_numeric($_GET['idCategory'])) {
             $itemIdToDelete = $_GET['id'];
+            $categoryToDelete = $_GET['idCategory'];
 
-            // Delete the item from the database
-            $deleteResult = deleteItemFromDB($conn, $itemIdToDelete);
+            // Delete the item from the database based on its category
+            $deleteResult = deleteItemFromDB($conn, $itemIdToDelete, $categoryToDelete);
 
             // Check deletion result and display appropriate message
             if ($deleteResult === true) {
@@ -90,15 +91,60 @@ if (!is_object($conn)) {
                 // If items exist, display them with buttons
                 if (!empty($livres)) {
                     echo "<h3>Livres</h3>";
-                    displayItemsWithButtons($livres, 'livres');
+                    echo "<table>";
+                    echo "<tr><th>ID</th><th>Title</th><th>Feature</th><th>Price</th><th>Action</th></tr>";
+                    foreach ($livres as $livre) {
+                        echo "<tr>";
+                        echo "<td>{$livre['id']}</td>";
+                        echo "<td>{$livre['title']}</td>";
+                        echo "<td>{$livre['feature']}</td>";
+                        echo "<td>{$livre['price']}</td>";
+                        echo "<td>";
+                        echo "<button onclick=\"modifierItem({$livre['id']}, 'livres')\">Modifier</button>";
+                        echo "<button onclick=\"afficherItem({$livre['id']}, 'livres')\">Afficher</button>";
+                        echo "<button onclick=\"supprimerItem({$livre['id']}, 'livres')\">Supprimer</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
                 }
                 if (!empty($papeteries)) {
                     echo "<h3>Papeteries</h3>";
-                    displayItemsWithButtons($papeteries, 'papeteries');
+                    echo "<table>";
+                    echo "<tr><th>ID</th><th>Title</th><th>Feature</th><th>Price</th><th>Action</th></tr>";
+                    foreach ($papeteries as $papeterie) {
+                        echo "<tr>";
+                        echo "<td>{$papeterie['id']}</td>";
+                        echo "<td>{$papeterie['title']}</td>";
+                        echo "<td>{$papeterie['feature']}</td>";
+                        echo "<td>{$papeterie['price']}</td>";
+                        echo "<td>";
+                        echo "<button onclick=\"modifierItem({$papeterie['id']}, 'papeteries')\">Modifier</button>";
+                        echo "<button onclick=\"afficherItem({$papeterie['id']}, 'papeteries')\">Afficher</button>";
+                        echo "<button onclick=\"supprimerItem({$papeterie['id']}, 'papeteries')\">Supprimer</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
                 }
                 if (!empty($cadeaux)) {
                     echo "<h3>Cadeaux</h3>";
-                    displayItemsWithButtons($cadeaux, 'cadeaux');
+                    echo "<table>";
+                    echo "<tr><th>ID</th><th>Title</th><th>Feature</th><th>Price</th><th>Action</th></tr>";
+                    foreach ($cadeaux as $cadeau) {
+                        echo "<tr>";
+                        echo "<td>{$cadeau['id']}</td>";
+                        echo "<td>{$cadeau['title']}</td>";
+                        echo "<td>{$cadeau['feature']}</td>";
+                        echo "<td>{$cadeau['price']}</td>";
+                        echo "<td>";
+                        echo "<button onclick=\"modifierItem({$cadeau['id']}, 'cadeaux')\">Modifier</button>";
+                        echo "<button onclick=\"afficherItem({$cadeau['id']}, 'cadeaux')\">Afficher</button>";
+                        echo "<button onclick=\"supprimerItem({$cadeau['id']}, 'cadeaux')\">Supprimer</button>";
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
                 }
             } else {
                 echo "Error fetching data from the database.";
@@ -124,32 +170,26 @@ if (!is_object($conn)) {
     </div>
 
     <script>
-    // JavaScript functions for handling item actions
-    function modifierItem(itemId, itemType) {
-        console.log('Modifier item called with ID:', itemId, 'Type:', itemType);
-        // Redirect to the edit page with the specified item ID and type
-        window.location.href = 'edit.php?id=' + itemId + '&type=' + itemType;
-    }
-
-    function ajouterItem(itemType) {
-        // Redirect to the add item page with the specified type
-        window.location.href = 'add.php?type=' + itemType;
-    }
-
-    function afficherItem(itemId, itemType) {
-        // Redirect to the display page with the specified item ID and type
-        window.location.href = 'article.php?id=' + itemId + '&type=' + itemType;
-    }
-
-    function supprimerItem(itemId) {
-        // Confirm item deletion
-        var confirmation = confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?');
-        if (confirmation) {
-            // Redirect to manager.php with the item ID
-            window.location.href = 'manager.php?id=' + itemId;
+        function modifierItem(itemId, idCategory) {
+            console.log('Modifier item called with ID:', itemId, 'Category ID:', idCategory);
+            // Redirect to the edit page with the specified item ID and category ID
+            window.location.href = 'edit.php?id=' + itemId + '&idCategory=' + idCategory;
         }
-    }
-</script>
+
+        function afficherItem(itemId, idCategory) {
+            // Redirect to the display page with the specified item ID and category ID
+            window.location.href = 'article.php?id=' + itemId + '&idCategory=' + idCategory;
+        }
+
+        function supprimerItem(itemId, idCategory) {
+            // Confirm item deletion
+            var confirmation = confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?');
+            if (confirmation) {
+                // Redirect to manager.php with the item ID and category ID
+                window.location.href = 'manager.php?id=' + itemId + '&idCategory=' + idCategory;
+            }
+        }
+    </script>
 </body>
 
 </html>
