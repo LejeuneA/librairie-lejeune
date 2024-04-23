@@ -175,10 +175,16 @@ function displayNavigation()
     <div class="navbar-menu">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../admin/index.php">Accueil</a>
+                <a class="nav-link" href="../admin/manager.php">Modefiér</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/edit.php">Modefiér</a>
+                <a class="nav-link" href="../admin/manager-livres.php">Livres</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="../admin/manager-papeteries.php">Papeteries</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/manager-cadeaux.php">Cadeaux</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../admin/add.php">Ajouter</a>
@@ -205,8 +211,10 @@ function displayNavigation()
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="nav-link" href="../admin/index.php">Accueil</a>
-        <a class="nav-link" href="../admin/manager.php">Modifiér</a>
+        <a class="nav-link" href="../admin/manager.php">Modefiér</a>
+        <a class="nav-link" href="../admin/manager-livres.php">Livres</a>
+        <a class="nav-link" href="../admin/manager-papeteries.php">Papeteries</a>
+        <a class="nav-link" href="../admin/manager-cadeaux.php">Cadeaux</a>
         <a class="nav-link" href="../admin/add.php">Ajouter</a>
         <!-- Menu end -->
  
@@ -411,9 +419,9 @@ function displayLivresWithButtons($livres)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['id'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['id'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['id'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -423,7 +431,7 @@ function displayLivresWithButtons($livres)
  /**
  * Affiche les papeteries pour la page du manager
  * 
- * @param array $livres
+ * @param array $papeteries
  * @return string 
  */
 
@@ -442,9 +450,9 @@ function displayPapeteriesWithButtons($papeteries)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['id'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['id'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['id'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -473,9 +481,9 @@ function displayPapeteriesWithButtons($papeteries)
  
          // Display buttons
          echo '<div class="buttons">';
-         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['idLivre'] . ')">Modifier</button>';
-         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['idLivre'] . ')">Afficher</button>';
-         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['idLivre'] . ')">Supprimer</button>';
+         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['id'] . ')">Modifier</button>';
+         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['id'] . ')">Afficher</button>';
+         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['id'] . ')">Supprimer</button>';
          echo '</div>';
  
          echo '<hr>';
