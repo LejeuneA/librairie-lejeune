@@ -4,12 +4,12 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit;
+    exit; // Add exit after redirection
 }
 
 $msg = null;
 $tinyMCE = true;
-$article = null;
+$livre = null; // Change $article to $livre
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -18,21 +18,10 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['id'])) {
         // Get the article ID from the URL
-        $id = $_GET['id'];
+        $idLivre = $_GET['id']; // Change $articleId to $livreId
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $id);
-        $papeterie = getPapeterieByIDDB($conn, $id);
-        $cadeau = getCadeauByIDDB($conn, $id);
-
-        // Choose the appropriate article based on category
-        if ($livre) {
-            $article = $livre;
-        } elseif ($papeterie) {
-            $article = $papeterie;
-        } elseif ($cadeau) {
-            $article = $cadeau;
-        }
+        $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -43,30 +32,24 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'id' => $id,
-                    'image_url' => $_POST['image_url'],
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
+                    'idLivre' => $idLivre,
+                    'image_url' => $_POST['image_url'], // Add image URL to update data
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
-                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
+                    'active' => isset($_POST['active']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
                 // Perform the update operation in the database
-                $updateResult = updateArticleDB($conn, $updateData);
+                $updateResult = updateLivreDB($conn, $updateData);
 
-                // Check the category and update accordingly
+                // Check the result of the update operation
                 if ($updateResult === true) {
-                    if ($updateData['idCategory'] == 1) {
-                        $msg = getMessage('Les modifications ont été enregistrées sur la page Livre.', 'success');
-                    } elseif ($updateData['idCategory'] == 2) {
-                        $msg = getMessage('Les modifications ont été enregistrées sur la page Papeterie.', 'success');
-                    } elseif ($updateData['idCategory'] == 3) {
-                        $msg = getMessage('Les modifications ont été enregistrées sur la page Cadeau.', 'success');
-                    }
-                    $_SESSION['form_submitted'] = true;
+                    $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
+                    $_SESSION['form_submitted'] = true; // Set session variable to indicate form submission
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
@@ -79,14 +62,14 @@ if (!is_object($conn)) {
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
+                    mkdir($target_dir, 0777, true); // Create directory recursively with full permissions
                 }
 
                 // Move the uploaded file to the target directory
                 if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
                     // File upload successful, update the image URL in the database
                     $updateData['image_url'] = $target_file;
-                    updateArticleDB($conn, $updateData);
+                    updateLivreDB($conn, $updateData); // Update the database with the new image URL
                 } else {
                     $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
                 }
@@ -103,7 +86,7 @@ if (!is_object($conn)) {
 if (isset($_SESSION['form_submitted'])) {
     unset($_SESSION['form_submitted']);
     // Refresh the page after form submission
-    header("Refresh: 1; URL=edit.php?id=$id");
+    header("Refresh: 1; URL=edit.php?id=$idLivre");
 }
 ?>
 
@@ -112,6 +95,7 @@ if (isset($_SESSION['form_submitted'])) {
 
 <head>
     <?php
+    // Include the head section
     displayHeadSection('Editer un article');
     displayJSSection($tinyMCE);
     ?>
@@ -131,8 +115,9 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $article['id']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?php echo $article['id']; ?>">
+            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
+                <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -142,7 +127,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($article['active']) ? $article['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Category -->
@@ -151,7 +136,7 @@ if (isset($_SESSION['form_submitted'])) {
                             <select id="idCategory" name="idCategory" class="form-ctrl" required>
                                 <option value="">Sélectionner une catégorie</option>
                                 <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $article['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -159,25 +144,25 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- Title -->
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($article['title']) ? $article['title'] : ''; ?>" required>
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
                         </div>
 
                         <!-- Writer -->
                         <div class="form-ctrl">
                             <label for="writer" class="form-ctrl">Author</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($article['writer']) ? $article['writer'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
                         </div>
 
                         <!-- Feature -->
                         <div class="form-ctrl">
                             <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($article['feature']) ? $article['feature'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
                         </div>
-
+                        
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($article['price']) ? $article['price'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
                         </div>
 
                     </div>
@@ -187,7 +172,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- URL of the image -->
                         <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
-                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($article['image_url']) ? $article['image_url'] : ''; ?>" readonly>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
                         </div>
 
                         <!-- File upload field -->
@@ -199,7 +184,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($article['image_url']) ? $article['image_url'] : ''; ?>" alt="Aperçu de l'image">
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
                             </div>
                         </div>
                     </div>
@@ -207,15 +192,15 @@ if (isset($_SESSION['form_submitted'])) {
                 
                 <!-- Form bottom -->
                 <div class=" form-bottom">
-                    <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Contenu</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($article['content']) ? $article['content'] : ''; ?></textarea>
-                    </div>
-                </div>
+                                <div class="form-ctrl">
+                                    <label for="content" class="form-ctrl">Contenu</label>
+                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                                </div>
+                            </div>
 
-                <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
-                <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $article['id']; ?>">Afficher</button>
+                            <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
+                            <button type="submit" class="btn-primary">Sauvegarder</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
