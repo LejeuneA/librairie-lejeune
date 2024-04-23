@@ -18,13 +18,13 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['id'])) {
         // Get the article ID from the URL
-        $id = $_GET['id'];
+        $id = $_GET['id']; // Change $articleId to $livreId
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $id);
+        $livre = getLivreByIDDB($conn, $id); // Change $article to $livre
 
         // Fetch category names from the database
-        // $categories = getCategoryNamesFromDB($conn);
+        $categories = getCategoryNamesFromDB($conn);
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,23 +33,23 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'id' => $id,
-                    'image_url' => $_POST['image_url'],
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
+                    'image_url' => $_POST['image_url'], // Add image URL to update data
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
                     'active' => isset($_POST['active']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
                 // Perform the update operation in the database
-                $updateResult = updateLivreDB($conn, $updateData) || updatePapeterieDB($conn, $updateData) || updateCadeauDB($conn, $updateData);
+                $updateResult = updateLivreDB($conn, $updateData);
 
                 // Check the result of the update operation
                 if ($updateResult === true) {
                     $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true;
+                    $_SESSION['form_submitted'] = true; // Set session variable to indicate form submission
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
@@ -57,12 +57,12 @@ if (!is_object($conn)) {
 
             // Check if file is uploaded
             if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "assets/images/uploads/";
+                $target_dir = "assets/images/books/";
                 $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
+                    mkdir($target_dir, 0777, true); // Create directory recursively with full permissions
                 }
 
                 // Move the uploaded file to the target directory
@@ -102,9 +102,21 @@ if (isset($_SESSION['form_submitted'])) {
 </head>
 
 <body>
+    <!-----------------------------------------------------------------
+							   Header
+	------------------------------------------------------------------>
     <header>
+        <!-----------------------------------------------------------------
+							   Navigation
+	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
+        <!-----------------------------------------------------------------
+							Navigation end
+	    ------------------------------------------------------------------>
     </header>
+    <!-----------------------------------------------------------------
+							   Header end
+	------------------------------------------------------------------>
 
     <div class="edit-content">
         <div class="edit-title">
@@ -115,8 +127,8 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
+            <form action="edit.php?id=<?php echo $livre['id']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
                 <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
@@ -200,7 +212,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                             <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                             <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['id']; ?>">Afficher</button>
             </form>
         </div>
     </div>
