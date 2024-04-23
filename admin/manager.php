@@ -1,5 +1,4 @@
 <?php
-
 require_once('settings.php');
 
 // Check if user is not identified, redirect to login page
@@ -16,25 +15,31 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all articles from the database
-    $result = getAllLivresDB($conn);
+    // Fetch all items from the database
+    $livres = getAllLivresDB($conn);
+    $papeteries = getAllPapeteriesDB($conn);
+    $cadeaux = getAllCadeauxDB($conn);
 
-    // Check if articles exist
-    if (is_array($result) && !empty($result)) {
+    // Check if any item exists
+    if (
+        (is_array($livres) && !empty($livres)) ||
+        (is_array($papeteries) && !empty($papeteries)) ||
+        (is_array($cadeaux) && !empty($cadeaux))
+    ) {
         $execute = true;
 
-        // Check if article ID is provided in the URL for deletion
+        // Check if item ID is provided in the URL for deletion
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $articleIdToDelete = $_GET['id'];
+            $itemIdToDelete = $_GET['id'];
 
-            // Delete the article from the database
-            $deleteResult = deleteLivreDB($conn, $articleIdToDelete);
+            // Delete the item from the database
+            $deleteResult = deleteItemFromDB($conn, $itemIdToDelete);
 
             // Check deletion result and display appropriate message
             if ($deleteResult === true) {
-                $msg = getMessage('Article supprimé avec succès.', 'success');
+                $msg = getMessage('Item supprimé avec succès.', 'success');
             } else {
-                $msg = getMessage('Erreur lors de la suppression de l\'article. ' . $deleteResult, 'error');
+                $msg = getMessage('Erreur lors de la suppression de l\'item. ' . $deleteResult, 'error');
             }
         }
     } else {
@@ -80,9 +85,23 @@ if (!is_object($conn)) {
 
         <div id="content">
             <?php
-            // If articles exist, display them with buttons
+            // Check if the fetch was successful
             if ($execute) {
-                displayLivresWithButtons($result);
+                // If items exist, display them with buttons
+                if (!empty($livres)) {
+                    echo "<h3>Livres</h3>";
+                    displayItemsWithButtons($livres, 'livres');
+                }
+                if (!empty($papeteries)) {
+                    echo "<h3>Papeteries</h3>";
+                    displayItemsWithButtons($papeteries, 'papeteries');
+                }
+                if (!empty($cadeaux)) {
+                    echo "<h3>Cadeaux</h3>";
+                    displayItemsWithButtons($cadeaux, 'cadeaux');
+                }
+            } else {
+                echo "Error fetching data from the database.";
             }
             ?>
         </div>
@@ -105,24 +124,32 @@ if (!is_object($conn)) {
     </div>
 
     <script>
-        // JavaScript functions for handling article actions
-        function modifierArticle(articleId) {
-            // Redirect to the edit page with the specified article ID
-            window.location.href = 'edit.php?id=' + articleId;
-        }
+    // JavaScript functions for handling item actions
+    function modifierItem(itemId, itemType) {
+        console.log('Modifier item called with ID:', itemId, 'Type:', itemType);
+        // Redirect to the edit page with the specified item ID and type
+        window.location.href = 'edit.php?id=' + itemId + '&type=' + itemType;
+    }
 
-        function afficherArticle(articleId) {
-            // Redirect to the article page with the specified article ID
-            window.location.href = 'article.php?id=' + articleId;
-        }
+    function ajouterItem(itemType) {
+        // Redirect to the add item page with the specified type
+        window.location.href = 'add.php?type=' + itemType;
+    }
 
-        function supprimerArticle(articleId) {
-            // Confirm article deletion and redirect to manager.php with the article ID
-            if (confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?')) {
-                window.location.href = 'manager.php?id=' + articleId;
-            }
+    function afficherItem(itemId, itemType) {
+        // Redirect to the display page with the specified item ID and type
+        window.location.href = 'article.php?id=' + itemId + '&type=' + itemType;
+    }
+
+    function supprimerItem(itemId) {
+        // Confirm item deletion
+        var confirmation = confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?');
+        if (confirmation) {
+            // Redirect to manager.php with the item ID
+            window.location.href = 'manager.php?id=' + itemId;
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>
