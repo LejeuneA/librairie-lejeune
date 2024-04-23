@@ -118,8 +118,8 @@ if (isset($_SESSION['form_submitted'])) {
 
         <div class="edit-form container">
             <form action="edit.php?id=<?php echo $livre['id'];
-                                        $papeterie['id'];
-                                        $cadeau['id']; ?>" method="post" enctype="multipart/form-data">
+                                        /*$papeterie['id'];
+                                        $cadeau['id'];*/ ?>"  method="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
                 <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
