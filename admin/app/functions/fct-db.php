@@ -336,6 +336,64 @@ function addCadeauDB($conn, $datas) {
 /**-----------------------------------------------------------------
            Modification d'un article dans la base de données
 *------------------------------------------------------------------**/
+
+/**
+ * Modification d'un livre dans la base de données
+ * 
+ * @param mixed $conn 
+ * @param array $datas 
+ * @return true 
+ */
+function updateArticleDB($conn, $datas) {
+    try{
+        //DEBUG// disp_ar($datas, 'DATAS', 'VD');
+        // Préparation des données avant insertion dans la base de données
+            $image_url = filterInputs($datas['image_url']);
+            $title = filterInputs($datas['title']);
+            $writer = filterInputs($datas['writer']);
+            $feature = filterInputs($datas['feature']);
+            $price = filterInputs($datas['price']);
+            $idCategory = filterInputs($datas['idCategory']);
+
+            $content = nl2br($datas['content']);
+            $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);        
+            $content = htmlentities($content);
+
+            
+            $id = filterInputs($datas['id']);
+
+            // Si on reçoit une valeur pour le status de publication de l'article
+            if(isset($datas['published_article']) && !empty($datas['published_article']))
+                $active = $datas['published_article'];
+            else
+                $active = 0;
+
+        // Insertion des données dans la table articles
+        $req = $conn->prepare("UPDATE livres, papeteries, cadeaux SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE id = :id");
+        $req->bindParam(':image_url', $image_url);
+        $req->bindParam(':title', $title);
+        $req->bindParam(':writer', $writer);
+        $req->bindParam(':feature', $feature);
+        $req->bindParam(':price', $price);
+        $req->bindParam(':content', $content);
+        $req->bindParam(':active', $active);
+        $req->bindParam(':idCategory', $idCategory);
+        $req->bindParam(':id', $id);
+        $req->execute();
+
+        // Fermeture connexion
+        $req = null;
+        $conn = null;
+
+        return true;
+
+    }catch(PDOException $e) {
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateLivreDB() function";            
+        return $st;  
+    } 
+}   
+
+
 /**
  * Modification d'un livre dans la base de données
  * 
