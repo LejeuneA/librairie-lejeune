@@ -53,8 +53,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             // Check if execution is successful
             if ($execute) {
                 // Display the item content
-                echo "<h3>" . $result['title'] . "</h3>";
-                echo "<p>" . $result['content'] . "</p>";
+                echo "<h3>" . html_entity_decode($result['title']) . "</h3>";
+                echo "<p>" . html_entity_decode($result['content']) . "</p>";
             }
             ?>
         </div>
