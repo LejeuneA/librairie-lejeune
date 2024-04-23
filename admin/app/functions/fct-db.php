@@ -647,8 +647,6 @@ function userIdentificationWithHashPwdDB($conn, $datas) {
         //DEBUG// disp_ar($user, 'USER', 'VD');     
         if(!empty($user['email']))
             $isConnected = password_verify($pwd, $user['passwd']);
-        
-        //DEBUG// echo 'PWD : '.$pwd.'<br>';disp_ar($isConnected, 'IS CONNECTED', 'VD'); 
 
         // Fermeture connexion
         $req = null;
