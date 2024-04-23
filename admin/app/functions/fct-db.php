@@ -849,3 +849,26 @@ function userIdentificationWithHashPwdDB($conn, $datas) {
         return $st;      
     }       
 }
+
+/**-----------------------------------------------------------------
+        Function to retrieve category names from the database
+*------------------------------------------------------------------**/
+
+// Function to retrieve category names from the database
+function getCategoryNamesFromDB($conn) {
+    $categories = array();
+
+    // Assuming your SQL query to fetch category names
+    $query = "SELECT idCategory, nameOfCategory FROM product_category";
+    $stmt = $conn->query($query);
+
+    // Check if the query executed successfully
+    if ($stmt) {
+        // Fetch associative array of category names
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $categories[] = $row;
+        }
+    }
+
+    return $categories;
+}
