@@ -388,7 +388,7 @@ function updateArticleDB($conn, $datas) {
         return true;
 
     }catch(PDOException $e) {
-        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateLivreDB() function";            
+        (DEBUG)? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateArticleDB() function";            
         return $st;  
     } 
 }   
@@ -745,4 +745,68 @@ function getCategoryNamesFromDB($conn) {
     }
 
     return $categories;
+}
+
+// Function to fetch an item from the livres category by ID
+function getItemByIDLivres($conn, $id) {
+    // Prepare the SQL statement to fetch the item from the livres category based on the provided ID
+    $sql = "SELECT * FROM livres WHERE id = :id";
+
+    // Prepare the SQL query
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch the result as an associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Return the result
+    return $result;
+}
+
+// Function to fetch an item from the papeteries category by ID
+function getItemByIDPapeteries($conn, $id) {
+    // Prepare the SQL statement to fetch the item from the livres category based on the provided ID
+    $sql = "SELECT * FROM papeteries WHERE id = :id";
+
+    // Prepare the SQL query
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch the result as an associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Return the result
+    return $result;
+    
+}
+
+// Function to fetch an item from the cadeaux category by ID
+function getItemByIDCadeaux($conn, $id) {
+    // Prepare the SQL statement to fetch the item from the livres category based on the provided ID
+    $sql = "SELECT * FROM cadeaux WHERE id = :id";
+
+    // Prepare the SQL query
+    $stmt = $conn->prepare($sql);
+
+    // Bind parameters
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch the result as an associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Return the result
+    return $result;
 }
