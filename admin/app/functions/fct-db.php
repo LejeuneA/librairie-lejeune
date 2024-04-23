@@ -457,7 +457,7 @@ function updateLivreDB($conn, $datas) {
  * @param array $datas 
  * @return true 
  */
-function updatePapaterieDB($conn, $datas) {
+function updatePapeterieDB($conn, $datas) {
     try{
         //DEBUG// disp_ar($datas, 'DATAS', 'VD');
         // Préparation des données avant insertion dans la base de données
