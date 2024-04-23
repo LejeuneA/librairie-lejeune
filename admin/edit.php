@@ -18,10 +18,10 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['id'])) {
         // Get the article ID from the URL
-        $idLivre = $_GET['id']; // Change $articleId to $livreId
+        $id = $_GET['id']; // Change $articleId to $livreId
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
+        $livre = getLivreByIDDB($conn, $id); // Change $article to $livre
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -32,7 +32,7 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'idLivre' => $idLivre,
+                    'id' => $id,
                     'image_url' => $_POST['image_url'], // Add image URL to update data
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
                     'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
@@ -86,7 +86,7 @@ if (!is_object($conn)) {
 if (isset($_SESSION['form_submitted'])) {
     unset($_SESSION['form_submitted']);
     // Refresh the page after form submission
-    header("Refresh: 1; URL=edit.php?id=$idLivre");
+    header("Refresh: 1; URL=edit.php?id=$id");
 }
 ?>
 
@@ -115,8 +115,8 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
+            <form action="edit.php?id=<?php echo $livre['id']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
                 <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
@@ -200,7 +200,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                             <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                             <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['id']; ?>">Afficher</button>
             </form>
         </div>
     </div>
