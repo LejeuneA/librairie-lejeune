@@ -402,28 +402,29 @@ function displayCadeauxByID($cadeaux)
  */
 
  function displayItemsWithButtons($items, $type)
- {
-     foreach ($items as $item) {
-         // Display Item Content
-         echo '<div class="item">';
- 
-         // Display circle based on item status
-         $circleClass = ($item['active']) ? 'circle-published' : 'circle-not-published';
-         echo '<div class="circle ' . $circleClass . '"></div>';
- 
-         echo '<h3>' . htmlspecialchars_decode($item['title']) . '</h3>';
-         echo '</div>';
- 
-         // Display buttons
-         echo '<div class="buttons">';
-         echo '<button class="btn-primary" onclick="modifierItem(' . $item['id'] . ')">Modifier</button>';
-         echo '<button class="btn-primary" onclick="afficherItem(' . $item['id'] . ')">Afficher</button>';
-         echo '<button class="btn-secondary" onclick="supprimerItem(' . $item['id'] . ')">Supprimer</button>';
-         echo '</div>';
- 
-         echo '<hr>';
-     }
- }
+{
+    foreach ($items as $item) {
+        // Display Item Content
+        echo '<div class="item">';
+
+        // Display circle based on item status
+        $circleClass = ($item['active']) ? 'circle-published' : 'circle-not-published';
+        echo '<div class="circle ' . $circleClass . '"></div>';
+
+        echo '<h3>' . htmlspecialchars_decode($item['title']) . '</h3>';
+        echo '</div>';
+
+        // Display buttons
+        echo '<div class="buttons">';
+        echo '<button class="btn-primary" onclick="modifierItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerItem(' . $item['id'] . ', ' . $item['idCategory'] . ', \'' . $type . '\')">Supprimer</button>';
+        echo '</div>';
+
+        echo '<hr>';
+    }
+}
+
  
  // Example usage:
  // For livres
