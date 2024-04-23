@@ -18,10 +18,10 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['id'])) {
         // Get the article ID from the URL
-        $idLivre = $_GET['id']; // Change $articleId to $livreId
+        $id = $_GET['id']; 
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
+        $livre = getLivreByIDDB($conn, $id); 
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -32,12 +32,12 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'idLivre' => $idLivre,
-                    'image_url' => $_POST['image_url'], // Add image URL to update data
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
+                    'id' => $id,
+                    'image_url' => $_POST['image_url'], 
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '', 
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', 
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '', 
                     'content' => $_POST['content'],
                     'active' => isset($_POST['active']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
@@ -49,7 +49,7 @@ if (!is_object($conn)) {
                 // Check the result of the update operation
                 if ($updateResult === true) {
                     $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true; // Set session variable to indicate form submission
+                    $_SESSION['form_submitted'] = true; 
                 } else {
                     $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
                 }
@@ -57,12 +57,12 @@ if (!is_object($conn)) {
 
             // Check if file is uploaded
             if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "assets/images/books/";
+                $target_dir = "assets/images/uploads/";
                 $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true); // Create directory recursively with full permissions
+                    mkdir($target_dir, 0777, true); 
                 }
 
                 // Move the uploaded file to the target directory
@@ -86,7 +86,7 @@ if (!is_object($conn)) {
 if (isset($_SESSION['form_submitted'])) {
     unset($_SESSION['form_submitted']);
     // Refresh the page after form submission
-    header("Refresh: 1; URL=edit.php?id=$idLivre");
+    header("Refresh: 1; URL=edit.php?id=$id");
 }
 ?>
 
@@ -115,8 +115,8 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
+            <form action="edit.php?id=<?php echo $livre['id']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
                 <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
@@ -200,7 +200,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                             <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                             <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['id']; ?>">Afficher</button>
             </form>
         </div>
     </div>
