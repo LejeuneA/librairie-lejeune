@@ -55,16 +55,25 @@ if (!is_object($conn)) {
 </head>
 
 <body>
+
+    <!-----------------------------------------------------------------
+							   Header
+	------------------------------------------------------------------>
+    <header>
+        <!-----------------------------------------------------------------
+							   Navigation
+	    ------------------------------------------------------------------>
+        <?php displayNavigation(); ?>
+        <!-----------------------------------------------------------------
+							Navigation end
+	    ------------------------------------------------------------------>
+    </header>
+    <!-----------------------------------------------------------------
+							   Header end
+	------------------------------------------------------------------>
     <div class="container">
-        <div id="header-logo">
-            <!-- Display the application name -->
-            <h1><a href="index.php"><?= APP_NAME; ?></a></h1>
-        </div>
+        
         <div id="main-menu">
-            <?php
-            // Display the navigation menu
-            displayNavigation();
-            ?>
         </div>
         <!-- Display the title for article management -->
         <h2 class="title">Gérer les articles</h2>
@@ -73,21 +82,18 @@ if (!is_object($conn)) {
         </div>
 
         <div id="content">
-            <?php
-            // If articles exist, display them with buttons
-            if ($execute) {
-                displayArticlesWithButtons($result);
-            }
+            <a href="./manager-livres.php">Gérer les livres</a>
             ?>
         </div>
-    </div>
+    </div><!-----------------------------------------------------------------
+								Footer
+	------------------------------------------------------------------>
     <footer>
-        <?php
-        // Display the footer
-        displayFooter();
-        ?>
+        <div data-include="footer"></div>
     </footer>
-    </div>
+    <!-----------------------------------------------------------------
+							  Footer end
+	------------------------------------------------------------------>
 
     <script>
         // JavaScript functions for handling article actions
@@ -108,6 +114,12 @@ if (!is_object($conn)) {
             }
         }
     </script>
+
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
+
+    <!-- Include functions.js -->
+    <script src="../js/functions.js"></script>
 </body>
 
 </html>
