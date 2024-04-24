@@ -177,13 +177,13 @@ function displayNavigation()
                 <a class="nav-link" href="../admin/manager.php">Modefiér</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/manager-livres.php">Livres</a>
+                <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="../admin/manager-papeteries.php">Papeteries</a>
+            <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../admin/manager-cadeaux.php">Cadeaux</a>
+                <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../admin/add.php">Ajouter</a>
@@ -211,9 +211,9 @@ function displayNavigation()
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a class="nav-link" href="../admin/manager.php">Modefiér</a>
-        <a class="nav-link" href="../admin/manager-livres.php">Livres</a>
-        <a class="nav-link" href="../admin/manager-papeteries.php">Papeteries</a>
-        <a class="nav-link" href="../admin/manager-cadeaux.php">Cadeaux</a>
+        <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
+        <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
+        <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
         <a class="nav-link" href="../admin/add.php">Ajouter</a>
         <!-- Menu end -->
  
@@ -546,4 +546,135 @@ function displayPapeteriesWithButtons($papeteries)
      }
  }
 
+/**-----------------------------------------------------------------
+    Affiche les articles pour la page du manager sous forme de table
+ *------------------------------------------------------------------**/
+/**
+ * Affiche les livres pour la page du manager sous forme de table
+ * 
+ * @param array $livres
+ * @return string 
+ */
+function displayLivresAsTable($livres)
+{
+    // Start the table
+    echo '<table>';
+    
+    // Table headers
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Titre</th>';
+    echo '<th>Auteur</th>';
+    echo '<th>Fonctionnalité</th>';
+    echo '<th>Prix</th>';
+    echo '<th>Statut</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    
+    // Table data
+    foreach ($livres as $livre) {
+        echo '<tr>';
+        echo '<td>' . $livre['idLivre'] . '</td>';
+        echo '<td>' . html_entity_decode($livre['title']) . '</td>';
+        echo '<td>' . html_entity_decode($livre['writer']) . '</td>';
+        echo '<td>' . html_entity_decode($livre['feature']) . '</td>';
+        echo '<td>' .html_entity_decode($livre['price']) . '</td>';
+        echo '<td>' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td>';
+        echo '<button class="btn-primary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+    
+    // End the table
+    echo '</table>';
+}
+
+
+
+/**
+ * Affiche les papeteries pour la page du manager sous forme de table
+ * 
+ * @param array $papeteries
+ * @return string 
+ */
+function displayPapeteriesAsTable($papeteries)
+{
+    // Start the table
+    echo '<table>';
+    
+    // Table headers
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Titre</th>';
+    echo '<th>Fonctionnalité</th>';
+    echo '<th>Prix</th>';
+    echo '<th>Statut</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    
+    // Table data
+    foreach ($papeteries as $papeterie) {
+        echo '<tr>';
+        echo '<td>' . $papeterie['idPapeterie'] . '</td>';
+        echo '<td>' . html_entity_decode($papeterie['title']) . '</td>';
+        echo '<td>' . html_entity_decode($papeterie['feature']) . '</td>';
+        echo '<td>' . html_entity_decode($papeterie['price']) . '</td>';
+        echo '<td>' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td>';
+        echo '<button class="btn-primary" onclick="modifierLivre(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherLivre(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+    
+    // End the table
+    echo '</table>';
+}
+
+
+
+/**
+ * Affiche les cadeaux pour la page du manager sous forme de table
+ * 
+ * @param array $livres
+ * @return string 
+ */
+function displayCadeauxsAsTable($cadeaux)
+{
+    // Start the table
+    echo '<table>';
+    
+    // Table headers
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Titre</th>';
+    echo '<th>Fonctionnalité</th>';
+    echo '<th>Prix</th>';
+    echo '<th>Statut</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    
+    // Table data
+    foreach ($cadeaux as $cadeau) {
+        echo '<tr>';
+        echo '<td>' . $cadeau['idCadeau'] . '</td>';
+        echo '<td>' . html_entity_decode($cadeau['title']) . '</td>';
+        echo '<td>' . html_entity_decode($cadeau['feature']) . '</td>';
+        echo '<td>' . html_entity_decode($cadeau['price']) . '</td>';
+        echo '<td>' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td>';
+        echo '<button class="btn-primary" onclick="modifierLivre(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherLivre(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+    
+    // End the table
+    echo '</table>';
+}
 
