@@ -38,6 +38,12 @@
                 .form-ctrl {
                     @extend %form-ctrl;
 
+                    .published_article {
+
+                        
+                    }
+                
+
                     .form-check {
                         @include d-flex(flex, start, center, row, start);
                         margin-top: 1em;
