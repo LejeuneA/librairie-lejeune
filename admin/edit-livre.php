@@ -16,12 +16,12 @@ if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
     // Check if article ID is provided in the URL
-    if (isset($_GET['id'])) {
+    if (isset($_GET['idLivre'])) {
         // Get the article ID from the URL
-        $id = $_GET['id']; // Change $articleId to $livreId
+        $idLivre = $_GET['idLivre']; // Change $articleId to $livreId
 
         // Retrieve article details from the database
-        $livre = getLivreByIDDB($conn, $id); // Change $article to $livre
+        $livre = getLivreByIDDB($conn, $idLivre); // Change $article to $livre
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -32,14 +32,14 @@ if (!is_object($conn)) {
             if (isset($_POST['update_form'])) {
                 // Update the article in the database
                 $updateData = [
-                    'id' => $id,
+                    'idLivre' => $idLivre,
                     'image_url' => $_POST['image_url'], // Add image URL to update data
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
                     'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
                     'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
                     'content' => $_POST['content'],
-                    'active' => isset($_POST['active']) ? 1 : 0,
+                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
@@ -57,7 +57,7 @@ if (!is_object($conn)) {
 
             // Check if file is uploaded
             if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "assets/images/books/";
+                $target_dir = "assets/images/uploads/";
                 $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
                 // Check if the directory exists, if not, create it
@@ -86,7 +86,7 @@ if (!is_object($conn)) {
 if (isset($_SESSION['form_submitted'])) {
     unset($_SESSION['form_submitted']);
     // Refresh the page after form submission
-    header("Refresh: 1; URL=edit.php?id=$id");
+    header("Refresh: 1; URL=edit-livre.php?idLivre=$idLivre");
 }
 ?>
 
@@ -102,21 +102,9 @@ if (isset($_SESSION['form_submitted'])) {
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
 
     <div class="edit-content">
         <div class="edit-title">
@@ -127,8 +115,8 @@ if (isset($_SESSION['form_submitted'])) {
         </div>
 
         <div class="edit-form container">
-            <form action="edit.php?id=<?php echo $livre['id']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?php echo $livre['id']; ?>">
+            <form action="edit-livre.php?idLivre=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
                 <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
@@ -212,7 +200,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                             <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                             <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['id']; ?>">Afficher</button>
+                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
