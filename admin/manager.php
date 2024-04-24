@@ -83,7 +83,6 @@ if (!is_object($conn)) {
 
         <div id="content">
             <a href="./manager-livres.php">Gérer les livres</a>
-            ?>
         </div>
     </div><!-----------------------------------------------------------------
 								Footer
