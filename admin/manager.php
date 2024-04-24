@@ -77,9 +77,6 @@ if (!is_object($conn)) {
         </div>
         <!-- Display the title for article management -->
         <h2 class="title">Gérer les articles</h2>
-        <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
-        </div>
 
         <div id="content">
             <a href="./manager-livre.php">Gérer les livres</a>
