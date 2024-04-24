@@ -149,7 +149,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                         <!-- Writer -->
                         <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Author</label>
+                            <label for="writer" class="form-ctrl">Auteur</label>
                             <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
                         </div>
 
