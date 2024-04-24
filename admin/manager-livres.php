@@ -1,5 +1,4 @@
 <?php
-
 require_once('settings.php');
 
 // Check if user is not identified, redirect to login page
@@ -24,8 +23,8 @@ if (!is_object($conn)) {
         $execute = true;
 
         // Check if article ID is provided in the URL for deletion
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $articleIdToDelete = $_GET['id'];
+        if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
+            $articleIdToDelete = $_GET['idLivre'];
 
             // Delete the article from the database
             $deleteResult = deleteLivreDB($conn, $articleIdToDelete);
@@ -44,7 +43,7 @@ if (!is_object($conn)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <?php
@@ -99,18 +98,18 @@ if (!is_object($conn)) {
         // JavaScript functions for handling article actions
         function modifierArticle(articleId) {
             // Redirect to the edit page with the specified article ID
-            window.location.href = 'edit-livre.php?id=' + articleId;
+            window.location.href = 'edit-livre.php?idLivre=' + articleId;
         }
 
         function afficherArticle(articleId) {
             // Redirect to the article page with the specified article ID
-            window.location.href = 'article.php?id=' + articleId;
+            window.location.href = 'article.php?idLivre=' + articleId;
         }
 
         function supprimerArticle(articleId) {
             // Confirm article deletion and redirect to manager.php with the article ID
             if (confirm('Êtes-vous certain de vouloir supprimer l\'article ci-dessous ?')) {
-                window.location.href = 'manager.php?id=' + articleId;
+                window.location.href = 'manager.php?idLivre=' + articleId;
             }
         }
     </script>
