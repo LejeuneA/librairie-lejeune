@@ -120,7 +120,7 @@ function getAllArticlesDB($conn, $active = '%') {
 function getAllLivresDB($conn, $active = '%') {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres WHERE active LIKE :active ORDER BY id DESC");
+        $req = $conn->prepare("SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC");
         $req->bindParam(':active', $active);
         $req->execute();
     
@@ -149,7 +149,7 @@ function getAllLivresDB($conn, $active = '%') {
 function getAllPapeteriesDB($conn, $active = '%') {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM papeteries WHERE active LIKE :active ORDER BY id DESC");
+        $req = $conn->prepare("SELECT * FROM papeteries WHERE active LIKE :active ORDER BY idPapeterie DESC");
         $req->bindParam(':active', $active);
         $req->execute();
     
@@ -178,7 +178,7 @@ function getAllPapeteriesDB($conn, $active = '%') {
 function getAllCadeauxDB($conn, $active = '%') {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY id DESC");
+        $req = $conn->prepare("SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY idCadeau DESC");
         $req->bindParam(':active', $active);
         $req->execute();
     
@@ -234,11 +234,11 @@ function getArticleByIDDB($conn, $id) {
  * @param object $conn 
  * @return array $resultat
  */
-function getLivreByIDDB($conn, $id) {
+function getLivreByIDDB($conn, $idLivre) {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres WHERE id = :id");
-        $req->bindParam(':idLivre', $id);
+        $req = $conn->prepare("SELECT * FROM livres WHERE idLivre = :idLivre");
+        $req->bindParam(':idLivre', $idLivre);
         $req->execute();
     
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -262,11 +262,11 @@ function getLivreByIDDB($conn, $id) {
  * @param object $conn 
  * @return array $resultat
  */
-function getPapeterieByIDDB($conn, $id) {
+function getPapeterieByIDDB($conn, $idPapeterie) {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM papeteries WHERE id = :id");
-        $req->bindParam(':idLivre', $id);
+        $req = $conn->prepare("SELECT * FROM papeteries WHERE idPapeterie = :idPapeterie");
+        $req->bindParam(':idLivre', $idPapeterie);
         $req->execute();
     
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -290,11 +290,11 @@ function getPapeterieByIDDB($conn, $id) {
  * @param object $conn 
  * @return array $resultat
  */
-function getCadeauByIDDB($conn, $id) {
+function getCadeauByIDDB($conn, $idCadeau) {
     try {
         // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM cadeaux WHERE id = :id");
-        $req->bindParam(':idLivre', $id);
+        $req = $conn->prepare("SELECT * FROM cadeaux WHERE idCadeau = :idCadeau");
+        $req->bindParam(':idLivre', $idCadeau);
         $req->execute();
     
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -535,7 +535,7 @@ function updateLivreDB($conn, $datas) {
             $content = htmlentities($content);
 
             
-            $id = filterInputs($datas['id']);
+            $idLivre = filterInputs($datas['idLivre']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
@@ -544,7 +544,7 @@ function updateLivreDB($conn, $datas) {
                 $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE livres SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE id = :id");
+        $req = $conn->prepare("UPDATE livres SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idLivre = :idLivre");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':writer', $writer);
@@ -553,7 +553,7 @@ function updateLivreDB($conn, $datas) {
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':id', $id);
+        $req->bindParam(':idLivre', $idLivre);
         $req->execute();
 
         // Fermeture connexion
@@ -591,7 +591,7 @@ function updatePapeterieDB($conn, $datas) {
             $content = htmlentities($content);
 
             
-            $id = filterInputs($datas['id']);
+            $idPapeterie = filterInputs($datas['idPapeterie']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
@@ -609,7 +609,7 @@ function updatePapeterieDB($conn, $datas) {
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':id', $id);
+        $req->bindParam(':idPapeterie', $idPapeterie);
         $req->execute();
 
         // Fermeture connexion
@@ -647,7 +647,7 @@ function updateCadeauDB($conn, $datas) {
             $content = htmlentities($content);
 
             
-            $id = filterInputs($datas['id']);
+            $idCadeau = filterInputs($datas['idCadeau']);
 
             // Si on reçoit une valeur pour le status de publication de l'article
             if(isset($datas['published_article']) && !empty($datas['published_article']))
@@ -665,7 +665,7 @@ function updateCadeauDB($conn, $datas) {
         $req->bindParam(':content', $content);
         $req->bindParam(':active', $active);
         $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':id', $id);
+        $req->bindParam(':idCadeau', $idCadeau);
         $req->execute();
 
         // Fermeture connexion
@@ -718,14 +718,14 @@ function deleteArticleDB($conn, $id) {
  * @param mixed $conn 
  * @return true 
  */
-function deleteLivreDB($conn, $id) {
+function deleteLivreDB($conn, $idLivre) {
     try{
         // Préparation des données avant insertion dans la base de données
-        $id = filterInputs($id);
+        $idLivre = filterInputs($idLivre);
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM livres WHERE id = :id");
-        $req->bindParam(':id', $id);
+        $req = $conn->prepare("DELETE FROM livres WHERE idLivre = :idLivre");
+        $req->bindParam(':idLivre', $idLivre);
         $req->execute();
 
         // Fermeture connexion
@@ -747,14 +747,14 @@ function deleteLivreDB($conn, $id) {
  * @param mixed $conn 
  * @return true 
  */
-function deletePapeterieDB($conn, $id) {
+function deletePapeterieDB($conn, $idPapeterie) {
     try{
         // Préparation des données avant insertion dans la base de données
-        $id = filterInputs($id);
+        $idPapeterie = filterInputs($idPapeterie);
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM papeteries WHERE id = :id");
-        $req->bindParam(':id', $id);
+        $req = $conn->prepare("DELETE FROM papeteries WHERE idPapeterie = :idPapeterie");
+        $req->bindParam(':id', $idPapeterie);
         $req->execute();
 
         // Fermeture connexion
@@ -776,14 +776,14 @@ function deletePapeterieDB($conn, $id) {
  * @param mixed $conn 
  * @return true 
  */
-function deleteCadeauDB($conn, $id) {
+function deleteCadeauDB($conn, $idCadeau) {
     try{
         // Préparation des données avant insertion dans la base de données
-        $id = filterInputs($id);
+        $idCadeau = filterInputs($idCadeau);
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("DELETE FROM cadeaux WHERE id = :id");
-        $req->bindParam(':id', $id);
+        $req = $conn->prepare("DELETE FROM cadeaux WHERE idCadeau = :idCadeau");
+        $req->bindParam(':idCadeau', $idCadeau);
         $req->execute();
 
         // Fermeture connexion
