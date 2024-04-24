@@ -82,7 +82,7 @@ if (!is_object($conn)) {
         </div>
 
         <div id="content">
-            <a href="./manager-livres.php">Gérer les livres</a>
+            <a href="./manager-livre.php">Gérer les livres</a>
         </div>
     </div><!-----------------------------------------------------------------
 								Footer
