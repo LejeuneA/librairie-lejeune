@@ -78,7 +78,6 @@ function displayJSSection($tinyMCE = false)
                 Affichage de la section head d'une page
  *------------------------------------------------------------------**/
 /**
- /**
  * Affichage de la section head d'une page
  * 
  * @param string $title 
@@ -343,6 +342,34 @@ function displayLivres($livres)
     }
 }
 
+/**
+ * Affichage des articles 
+ * 
+ * @param mixed $papeteries 
+ * @return void 
+ */
+function displayPapeteries($papeteries)
+{
+    foreach ($papeteries as $papeterie) {
+        echo '<article><a href="article.php?id=' . $papeterie['idPapeterie'] . '" title="Lire l\'article"><h2">' . $papeterie['title'] . '</h2></a></article>';
+        echo '<hr>';
+    }
+}
+
+/**
+ * Affichage des articles 
+ * 
+ * @param mixed $cadeaux 
+ * @return void 
+ */
+function displayCadeaux($cadeaux)
+{
+    foreach ($cadeaux as $cadeau) {
+        echo '<article><a href="article.php?id=' . $cadeau['idPapeterie'] . '" title="Lire l\'article"><h2">' . $cadeau['title'] . '</h2></a></article>';
+        echo '<hr>';
+    }
+}
+
 /**-----------------------------------------------------------------
                  Affiche l'article reçu en paramètre
  *------------------------------------------------------------------**/
@@ -361,6 +388,35 @@ function displayLivreByID($livre)
     echo '</article>';
 }
 
+/**
+ * Affiche l'article reçu en paramètre
+ * 
+ * @param mixed $papeterie
+ * @return void 
+ */
+function displayPapeterieByID($papeterie)
+{
+    echo '<article>';
+    echo '<h2 class="article-title">' . $papeterie['title'] . '</h2>';
+    echo '<hr>';
+    echo '<p>' . html_entity_decode($papeterie['content']) . '</p>';
+    echo '</article>';
+}
+
+/**
+ * Affiche l'article reçu en paramètre
+ * 
+ * @param mixed $cadeau 
+ * @return void 
+ */
+function displayCadeauByID($cadeau)
+{
+    echo '<article>';
+    echo '<h2 class="article-title">' . $cadeau['title'] . '</h2>';
+    echo '<hr>';
+    echo '<p>' . html_entity_decode($cadeau['content']) . '</p>';
+    echo '</article>';
+}
 /**-----------------------------------------------------------------
             Affiche les articles pour la page du manager
  *------------------------------------------------------------------**/
@@ -419,9 +475,9 @@ function displayLivresWithButtons($livres)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['id'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['id'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['id'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -450,9 +506,9 @@ function displayPapeteriesWithButtons($papeteries)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['id'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['id'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['id'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -462,7 +518,7 @@ function displayPapeteriesWithButtons($papeteries)
 /**
  * Affiche les cadeaux pour la page du manager
  * 
- * @param array $livres
+ * @param array $cadeaux
  * @return string 
  */
 
@@ -481,9 +537,9 @@ function displayPapeteriesWithButtons($papeteries)
  
          // Display buttons
          echo '<div class="buttons">';
-         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['id'] . ')">Modifier</button>';
-         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['id'] . ')">Afficher</button>';
-         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['id'] . ')">Supprimer</button>';
+         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
          echo '</div>';
  
          echo '<hr>';
