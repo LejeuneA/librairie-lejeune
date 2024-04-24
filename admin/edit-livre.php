@@ -117,7 +117,6 @@ if (isset($_SESSION['form_submitted'])) {
         <div class="edit-form container">
             <form action="edit-livre.php?idLivre=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
-                <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
                 <div class="form-top">
@@ -200,7 +199,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                             <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
                             <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article.php?id=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                            <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
