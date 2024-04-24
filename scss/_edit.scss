@@ -40,9 +40,33 @@
 
                     .published_article {
 
+                        span {
+                            color: $primary-blue;
+                            font-size: 0.7em;
+                        }
                         
+                        .custom-checkbox {
+                            @include d-flex(flex, start, center, row, start);
+                            margin-top: 1em;
+
+                            .form-check-label {
+                                label {
+                                    width: 80%;
+                                    font-size: 1.2em;
+                                    color: $primary-red;
+                                }
+                            }
+
+                            .form-check-input {
+                                justify-self: end;
+                                width: 20%;
+                                height: 2em;
+                                margin-right: 0.5em;
+                                color: $primary-red;
+                                background-color: red;
+                            }
+                        }
                     }
-                
 
                     .form-check {
                         @include d-flex(flex, start, center, row, start);
