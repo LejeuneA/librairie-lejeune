@@ -53,7 +53,7 @@ if (!is_object($conn)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un article');
+    displayHeadSection('Ajouter un product');
     ?>
 </head>
 
