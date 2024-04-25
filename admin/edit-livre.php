@@ -123,6 +123,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form left -->
                     <div class="form-left">
+                        
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
