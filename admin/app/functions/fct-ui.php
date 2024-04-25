@@ -247,7 +247,6 @@ function displayNavigation()
     <!------------------------------------------------------------- 
                           Offcanvas menu end
     --------------------------------------------------------------->
-        <div class="welcome" style="text-align: center; margin-top: 1em;"> <div class="welcome-text" style="color: rgb(48, 71, 94); font-weight: light;"> Bienvenue <span style="color: rgb(132, 192, 225); font-weight: light;">' . $_SESSION['user_email'] . '</span></div>
         ';
     } else {
         $navigation .= '
