@@ -6,3 +6,71 @@
 /* -----------------------------------------------------------------
                         Manager page
  ----------------------------------------------------------------- */
+
+.manager-container {
+    @include d-flex(flex, space-evenly, center, column, center);
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 1em;
+    background-color: $primary-blue;
+
+    .welcome {
+        text-align: center;
+        background-color: inherit;
+
+        .welcome-text {
+            color: $light-blue;
+            font-weight: light;
+
+            span {
+                color: $secondary-blue;
+                font-weight: light;
+            }
+        }
+    }
+
+    .manager-content {
+        @include d-flex(flex, center, center, column, center);
+
+        .category-container {
+            @include d-flex(flex, center, center, row, center);
+            border-radius: 1em;
+            max-width: 30em;
+            width: 100%;
+            gap: 3em;
+            z-index: 3;
+
+            .category-card {
+                background-color: $secondary-blue;
+                padding: 2em;
+                border-radius: 1em;
+                width: 15em;
+                height: 15em;
+
+                .card-image {
+                    width: 15em;
+                    height: 15em;
+                }
+
+                .btn-primary {
+                    @include button-style($primary-blue, $light-blue, $light-blue, $primary-blue);
+                }
+            }
+        }
+
+        .background-vector {
+            background-color: $primary-blue;
+
+            img {
+                height: auto;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                z-index: -1;
+            }
+        }
+    }
+}
