@@ -266,7 +266,7 @@ function getPapeterieByIDDB($conn, $idPapeterie)
     try {
         // Récupérer des données de notre table articles
         $req = $conn->prepare("SELECT * FROM papeteries WHERE idPapeterie = :idPapeterie");
-        $req->bindParam(':idLivre', $idPapeterie);
+        $req->bindParam(':idPapeterie', $idPapeterie);
         $req->execute();
 
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -294,7 +294,7 @@ function getCadeauByIDDB($conn, $idCadeau)
     try {
         // Récupérer des données de notre table articles
         $req = $conn->prepare("SELECT * FROM cadeaux WHERE idCadeau = :idCadeau");
-        $req->bindParam(':idLivre', $idCadeau);
+        $req->bindParam(':idCadeau', $idCadeau);
         $req->execute();
 
         // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
@@ -415,7 +415,6 @@ function addPapeterieDB($conn, $datas)
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -432,10 +431,9 @@ function addPapeterieDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, writer, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
@@ -466,7 +464,6 @@ function addCadeauDB($conn, $datas)
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -483,10 +480,9 @@ function addCadeauDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, writer, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
@@ -622,11 +618,9 @@ function updateLivreDB($conn, $datas)
 function updatePapeterieDB($conn, $datas)
 {
     try {
-        //DEBUG// disp_ar($datas, 'DATAS', 'VD');
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -645,10 +639,9 @@ function updatePapeterieDB($conn, $datas)
             $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE papeteries SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE id = :id");
+        $req = $conn->prepare("UPDATE papeteries SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idPapeterie = :idPapeterie");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
@@ -682,7 +675,6 @@ function updateCadeauDB($conn, $datas)
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
-        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -701,10 +693,9 @@ function updateCadeauDB($conn, $datas)
             $active = 0;
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE cadeaux SET image_url = :image_url, title = :title, writer = :writer, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE id = :id");
+        $req = $conn->prepare("UPDATE cadeaux SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idCadeau = :idCadeau");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
-        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
