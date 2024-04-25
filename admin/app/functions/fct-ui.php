@@ -640,7 +640,7 @@ function displayPapeteriesAsTable($papeteries)
  * @param array $cadeaux
  * @return string 
  */
-function displayCadeauxsAsTable($cadeaux)
+function displayCadeauxAsTable($cadeaux)
 {
     // Start the table
     echo '<table>';
