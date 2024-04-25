@@ -15,32 +15,32 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all livres from the database
-    $result = getAllLivresDB($conn);
+    // Fetch all cadeaux from the database
+    $result = getAllCadeauxDB($conn);
 
-    // Check if livres exist
+    // Check if cadeau exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
 
-        // Check if livre ID is provided in the URL for deletion
-        if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
-            $livreIdToDelete = $_GET['idLivre'];
+        // Check if cadeau ID is provided in the URL for deletion
+        if (isset($_GET['idCadeau']) && is_numeric($_GET['idCadeau'])) {
+            $cadeauIdToDelete = $_GET['idCadeau'];
 
-            // Delete the livre from the database
-            $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+            // Delete the cadeau from the database
+            $deleteResult = deleteCadeauDB($conn, $cadeauIdToDelete);
 
             // Check deletion result and display appropriate message
             if ($deleteResult === true) {
-                $msg = getMessage('Livre supprimé avec succès.', 'success');
+                $msg = getMessage('Cadeau supprimé avec succès.', 'success');
                 // Refresh the page to reflect the changes after deletion
-                header('Location: manager-livre.php');
+                header('Location: manager-cadeau.php');
                 exit();
             } else {
-                $msg = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
+                $msg = getMessage('Erreur lors de la suppression du cadeau. ' . $deleteResult, 'error');
             }
         }
     } else {
-        $msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+        $msg = getMessage('Il n\'y a pas de cadeau à afficher actuellement', 'error');
     }
 }
 ?>
@@ -51,7 +51,7 @@ if (!is_object($conn)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des livres');
+    displayHeadSection('Gestion des cadeaux');
     displayJSSection();
     ?>
 </head>
@@ -74,16 +74,16 @@ if (!is_object($conn)) {
 							   Header end
 	------------------------------------------------------------------>
     <div class="container">
-        <h2 class="title">Gérer les livres</h2>
+        <h2 class="title">Gérer les cadeaux</h2>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
 
         <div id="content">
             <?php
-            // If livres exist, display them in a table
+            // If cadeaux exist, display them in a table
             if ($execute) {
-                displayLivresAsTable($result);
+                displayCadeauxAsTable($result);
             }
             ?>
         </div>
@@ -98,22 +98,22 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling livre actions
-        function modifierLivre(livreId) {
-            // Redirect to the edit page with the specified livre ID
-            window.location.href = 'edit-livre.php?idLivre=' + livreId;
+        // JavaScript functions for handling cadeau actions
+        function modifierCadeau(cadeauId) {
+            // Redirect to the edit page with the specified cadeau ID
+            window.location.href = 'edit-cadeau.php?idCadeau=' + cadeauId;
         }
 
-        function afficherLivre(livreId) {
-            // Redirect to the livre page with the specified livre ID
-            window.location.href = 'article-livre.php?idLivre=' + livreId;
+        function afficherCadeau(cadeauId) {
+            // Redirect to the cadeau page with the specified cadeau ID
+            window.location.href = 'article-cadeau.php?idCadeau=' + cadeauId;
         }
 
-        function supprimerLivre(livreId) {
-            // Confirm livre deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer le livre ci-dessous ?')) {
-                // Redirect to manager-livre.php with the livre ID for deletion
-                window.location.href = 'manager-livre.php?idLivre=' + livreId;
+        function supprimerCadeau(cadeauId) {
+            // Confirm cadeau deletion
+            if (confirm('Êtes-vous certain de vouloir supprimer le cadeau ci-dessous ?')) {
+                // Redirect to manager-cadeau.php with the cadeau ID for deletion
+                window.location.href = 'manager-cadeau.php?idCadeau=' + cadeauId;
             }
         }
     </script>
