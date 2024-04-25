@@ -9,7 +9,7 @@ if (!$_SESSION['IDENTIFY']) {
 
 $msg = null;
 $tinyMCE = true;
-$cadeau= null; 
+$cadeau = null; 
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -35,16 +35,16 @@ if (!is_object($conn)) {
                     'idCadeau' => $idCadeau,
                     'image_url' => $_POST['image_url'], 
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', 
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', 
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '', 
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
                 ];
 
                 // Perform the update operation in the database
-                $updateResult = updatePapeterieDB($conn, $updateData);
+                $updateResult = updateCadeauDB($conn, $updateData);
 
                 // Check the result of the update operation
                 if ($updateResult === true) {
@@ -69,7 +69,7 @@ if (!is_object($conn)) {
                 if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
                     // File upload successful, update the image URL in the database
                     $updateData['image_url'] = $target_file;
-                    updatePapeterieDB($conn, $updateData); 
+                    updateCadeauDB($conn, $updateData); 
                 } else {
                     $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
                 }
@@ -123,6 +123,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form left -->
                     <div class="form-left">
+                        
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
@@ -144,6 +145,12 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($cadeau['title']) ? $cadeau['title'] : ''; ?>" required>
+                        </div>
+
+                        <!-- Writer -->
+                        <div class="form-ctrl">
+                            <label for="writer" class="form-ctrl">Auteur</label>
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($cadeau['writer']) ? $cadeau['writer'] : ''; ?>">
                         </div>
 
                         <!-- Feature -->
