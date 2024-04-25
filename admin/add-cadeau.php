@@ -13,38 +13,74 @@ $tinyMCE = true;
 $execute = false;
 
 // Check the database connection
+// Check the database connection
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
     // Check if the form is submitted and it's an add operation
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form']) && $_POST['form'] === 'add') {
+        // Initialize empty array for storing form data
+        $addData = [];
 
         // Gather data from the form
-        $addData = [
-            'image_url' => $_POST['image_url'],
-            'title' => isset($_POST['title']) ? $_POST['title'] : '',
-            'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
-            'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
-            'price' => isset($_POST['price']) ? $_POST['price'] : '',
-            'content' => $_POST['content'],
-            'active' => isset($_POST['active']) ? 1 : 0,
-            'idCategory' => isset($_POST['idCategory']) ? $_POST['idCategory'] : 0 
-        ];
+        $addData['image_url'] = ''; // Placeholder for now, will be updated after processing image upload
+        $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
+        $addData['feature'] = isset($_POST['feature']) ? $_POST['feature'] : '';
+        $addData['price'] = isset($_POST['price']) ? $_POST['price'] : '';
+        $addData['content'] = isset($_POST['content']) ? $_POST['content'] : '';
+        $addData['published_article'] = isset($_POST['published_article']) ? 1 : 0;
+        $addData['idCategory'] = isset($_POST['idCategory']) ? $_POST['idCategory'] : 0;
 
-        // Add the livre to the database
-        $addResult = addLivreDB($conn, $addData);
+        // Handle image upload
+        if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = 'uploads/'; // Directory where uploaded images will be stored
+            $uploadFile = $uploadDir . basename($_FILES['image_upload']['name']);
+
+            // Move uploaded file to designated directory
+            if (move_uploaded_file($_FILES['image_upload']['tmp_name'], $uploadFile)) {
+                $addData['image_url'] = $uploadFile;
+            }
+        }
+
+        // Add the papeterie to the database
+        $addResult = addPapeterieDB($conn, $addData);
 
         // Check the result and display appropriate message
         if ($addResult === true) {
-            $msg = getMessage('Le livre a été ajouté avec succès.', 'success');
+            // Set session variable to indicate success
+            $_SESSION['papeterie_added'] = true;
+            // Redirect to the same page to refresh and clear the form
+            header('Location: add-papeterie.php');
+            exit();
         } else {
-            $msg = getMessage('Erreur lors de l\'ajout du livre. Veuillez réessayer.', 'error');
+            $msg = getMessage('Erreur lors de l\'ajout de la papeterie. Veuillez réessayer.', 'error');
         }
     }
 
     // Fetch categories for the form dropdown
     $categories = getAllCategoriesDB($conn);
 }
+
+// At the beginning of the file, before any output
+// Check if a papeterie has been successfully added
+if (isset($_SESSION['papeterie_added']) && $_SESSION['papeterie_added'] === true) {
+    // Display success message
+    $msg = getMessage('Le papeterie a été ajouté avec succès.', 'success');
+    // Clear the session variable
+    unset($_SESSION['papeterie_added']);
+}
+
+// Initialize the $addData array with empty values
+$addData = [
+    'image_url' => '',
+    'title' => '',
+    'feature' => '',
+    'price' => '',
+    'content' => '',
+    'published_article' => 0,
+    'idCategory' => 0
+];
+
 ?>
 
 <!DOCTYPE html>
@@ -53,36 +89,36 @@ if (!is_object($conn)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un livre');
+    displayHeadSection('Ajouter une papeterie');
     ?>
 </head>
 
 <body>
     <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
+                               Header
+    ------------------------------------------------------------------>
     <header>
         <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
+                               Navigation
+        ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
         <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
+                            Navigation end
+        ------------------------------------------------------------------>
     </header>
     <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
+                               Header end
+    ------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter un livre</h1>
+            <h1>Ajouter une papeterie</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="add.php" method="post" enctype="multipart/form-data">
+            <form action="add-papeterie.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
@@ -90,10 +126,11 @@ if (!is_object($conn)) {
 
                     <!-- Form left -->
                     <div class="form-left">
+                        
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
-                            <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                            <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
+                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Category -->
@@ -110,25 +147,19 @@ if (!is_object($conn)) {
                         <!-- Title -->
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
-                        </div>
-
-                        <!-- Writer -->
-                        <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Author</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($addData['title']) ? $addData['title'] : ''; ?>" required>
                         </div>
 
                         <!-- Feature -->
                         <div class="form-ctrl">
                             <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($addData['feature']) ? $addData['feature'] : ''; ?>">
                         </div>
 
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
+                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($addData['price']) ? $addData['price'] : ''; ?>">
                         </div>
 
                     </div>
@@ -138,7 +169,7 @@ if (!is_object($conn)) {
                         <!-- URL of the image -->
                         <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
-                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>" readonly>
                         </div>
 
                         <!-- File upload field -->
@@ -150,7 +181,7 @@ if (!is_object($conn)) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
                     </div>
@@ -160,7 +191,7 @@ if (!is_object($conn)) {
                 <div class=" form-bottom">
                                 <div class="form-ctrl">
                                     <label for="content" class="form-ctrl">Contenu</label>
-                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
                                 </div>
                             </div>
                             <button type="submit" class="btn-primary">Ajouter</button>
@@ -168,14 +199,14 @@ if (!is_object($conn)) {
         </div>
     </div>
     <!-----------------------------------------------------------------
-								Footer
-	------------------------------------------------------------------>
+                                Footer
+    ------------------------------------------------------------------>
     <footer>
         <div data-include="footer"></div>
     </footer>
     <!-----------------------------------------------------------------
-							  Footer end
-	------------------------------------------------------------------>
+                              Footer end
+    ------------------------------------------------------------------>
     <?php
     displayJSSection($tinyMCE);
     ?>
