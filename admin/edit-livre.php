@@ -96,7 +96,7 @@ if (isset($_SESSION['form_submitted'])) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Editer un article');
+    displayHeadSection('Editer un livre');
     displayJSSection($tinyMCE);
     ?>
 </head>
@@ -108,7 +108,7 @@ if (isset($_SESSION['form_submitted'])) {
 
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Editer un article</h1>
+            <h1>Editer un livre</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
@@ -125,7 +125,7 @@ if (isset($_SESSION['form_submitted'])) {
                     <div class="form-left">
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
-                            <label for="published_article" class="published_article">Status de l'article <span>(publication)</span></label>
+                            <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
                             <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
 
@@ -197,7 +197,7 @@ if (isset($_SESSION['form_submitted'])) {
                                 </div>
                             </div>
 
-                            <input type="hidden" name="update_form" value="1"> <!-- Hidden input to identify form submission -->
+                            <input type="hidden" name="update_form" value="1"> 
                             <button type="submit" class="btn-primary">Sauvegarder</button>
                             <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
