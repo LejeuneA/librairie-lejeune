@@ -175,7 +175,7 @@ $addData = [
                         <!-- File upload field -->
                         <div class="form-ctrl">
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
+                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
@@ -188,13 +188,13 @@ $addData = [
                 </div>
                 
                 <!-- Form bottom -->
-                <div class=" form-bottom">
-                                <div class="form-ctrl">
-                                    <label for="content" class="form-ctrl">Contenu</label>
-                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-primary">Ajouter</button>
+                <div class="form-bottom">
+                    <div class="form-ctrl">
+                        <label for="content" class="form-ctrl">Contenu</label>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter</button>
             </form>
         </div>
     </div>
@@ -217,6 +217,20 @@ $addData = [
     <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
 
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('image_preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
+
