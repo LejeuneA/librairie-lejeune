@@ -35,6 +35,7 @@ if (!is_object($conn)) {
                     'idPapeterie' => $idPapeterie,
                     'image_url' => $_POST['image_url'], 
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', 
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
                     'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'content' => $_POST['content'],
@@ -122,6 +123,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form left -->
                     <div class="form-left">
+                        
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
@@ -143,6 +145,12 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($papeterie['title']) ? $papeterie['title'] : ''; ?>" required>
+                        </div>
+
+                        <!-- Writer -->
+                        <div class="form-ctrl">
+                            <label for="writer" class="form-ctrl">Auteur</label>
+                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($papeterie['writer']) ? $papeterie['writer'] : ''; ?>">
                         </div>
 
                         <!-- Feature -->
