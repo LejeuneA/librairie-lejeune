@@ -178,13 +178,13 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- File upload field -->
                         <div class="form-ctrl">
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
+                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
                     </div>
@@ -192,15 +192,15 @@ if (isset($_SESSION['form_submitted'])) {
                 
                 <!-- Form bottom -->
                 <div class=" form-bottom">
-                                <div class="form-ctrl">
-                                    <label for="content" class="form-ctrl">Contenu</label>
-                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
-                                </div>
-                            </div>
+                    <div class="form-ctrl">
+                        <label for="content" class="form-ctrl">Contenu</label>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                    </div>
+                </div>
 
-                            <input type="hidden" name="update_form" value="1"> 
-                            <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
+                <input type="hidden" name="update_form" value="1"> 
+                <button type="submit" class="btn-primary">Sauvegarder</button>
+                <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
             </form>
         </div>
     </div>
@@ -214,6 +214,19 @@ if (isset($_SESSION['form_submitted'])) {
 
     <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
     <script src="../js/functions.js"></script>
+
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('image_preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>
