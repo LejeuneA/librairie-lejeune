@@ -98,18 +98,18 @@
         @include hover("background-color", $primary-blue, "color", $light-blue);
       }
     }
-  }
 
-  .login-vector {
-    background-color: $primary-blue;
+    .background-vector {
+      background-color: $primary-blue;
 
-    img {
-      height: auto;
-      width: 100%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      z-index: -1;
+      img {
+        height: auto;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+      }
     }
   }
 
