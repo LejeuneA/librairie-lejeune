@@ -120,21 +120,18 @@ $addData = [
         </div>
 
         <div class="edit-form container">
-            <form action="add-livre.php" method="post" enctype="multipart/form-data">
+            <form id="add-livre-form" action="add-livre.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
                 <div class="form-top">
-
                     <!-- Form left -->
                     <div class="form-left">
-                        
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
                             <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
-
                         <!-- Category -->
                         <div class="form-ctrl">
                             <label for="idCategory" class="form-ctrl">Catégorie</label>
@@ -145,31 +142,26 @@ $addData = [
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
                         <!-- Title -->
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($addData['title']) ? $addData['title'] : ''; ?>" required>
                         </div>
-
                         <!-- Writer -->
                         <div class="form-ctrl">
                             <label for="writer" class="form-ctrl">Author</label>
                             <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($addData['writer']) ? $addData['writer'] : ''; ?>">
                         </div>
-
                         <!-- Feature -->
                         <div class="form-ctrl">
                             <label for="feature" class="form-ctrl">Caractèriques</label>
                             <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($addData['feature']) ? $addData['feature'] : ''; ?>">
                         </div>
-
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
                             <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($addData['price']) ? $addData['price'] : ''; ?>">
                         </div>
-
                     </div>
 
                     <!-- Form right -->
@@ -179,11 +171,10 @@ $addData = [
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
                             <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>" readonly>
                         </div>
-
                         <!-- File upload field -->
                         <div class="form-ctrl">
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
+                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
@@ -194,15 +185,15 @@ $addData = [
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Form bottom -->
-                <div class=" form-bottom">
-                                <div class="form-ctrl">
-                                    <label for="content" class="form-ctrl">Contenu</label>
-                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-primary">Ajouter</button>
+                <div class="form-bottom">
+                    <div class="form-ctrl">
+                        <label for="content" class="form-ctrl">Contenu</label>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($addData['content']) ? $addData['content'] : ''; ?></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter</button>
             </form>
         </div>
     </div>
@@ -224,6 +215,19 @@ $addData = [
 
     <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
+
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('image_preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 </body>
 
