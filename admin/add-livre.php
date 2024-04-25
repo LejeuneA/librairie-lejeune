@@ -53,7 +53,7 @@ if (!is_object($conn)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter un produit');
+    displayHeadSection('Ajouter un livre');
     ?>
 </head>
 
@@ -75,7 +75,7 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter un produit</h1>
+            <h1>Ajouter un livre</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
