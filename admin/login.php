@@ -96,8 +96,8 @@ if (!is_object($conn)) {
                 <input type="hidden" id="form" name="form" value="login">
                 <button type="submit" class="btn-primary">Se connecter</button>
             </form>
-            <div class="login-vector">
-                <img src="../assets/components/login-vector.png" alt="login-vector">
+            <div class="background-vector">
+                <img src="../assets/components/background-vector.png" alt="background-vector">
             </div>
         </div>
     </div>
