@@ -35,7 +35,6 @@ if (!is_object($conn)) {
                     'idCadeau' => $idCadeau,
                     'image_url' => $_POST['image_url'], 
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', 
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
                     'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'content' => $_POST['content'],
@@ -147,12 +146,6 @@ if (isset($_SESSION['form_submitted'])) {
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($cadeau['title']) ? $cadeau['title'] : ''; ?>" required>
                         </div>
 
-                        <!-- Writer -->
-                        <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Auteur</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($cadeau['writer']) ? $cadeau['writer'] : ''; ?>">
-                        </div>
-
                         <!-- Feature -->
                         <div class="form-ctrl">
                             <label for="feature" class="form-ctrl">Caractèriques</label>
@@ -178,13 +171,13 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- File upload field -->
                         <div class="form-ctrl">
                             <label for="image_upload" class="form-ctrl">Uploader l'image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload">
+                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
                         </div>
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" alt="Aperçu de l'image"">
+                                <img id="image_preview" class="image_preview" src="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
                     </div>
@@ -192,15 +185,15 @@ if (isset($_SESSION['form_submitted'])) {
                 
                 <!-- Form bottom -->
                 <div class=" form-bottom">
-                                <div class="form-ctrl">
-                                    <label for="content" class="form-ctrl">Contenu</label>
-                                    <textarea class="content" id="content" name="content" rows="5"><?php echo isset($cadeau['content']) ? $cadeau['content'] : ''; ?></textarea>
-                                </div>
-                            </div>
+                    <div class="form-ctrl">
+                        <label for="content" class="form-ctrl">Contenu</label>
+                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($cadeau['content']) ? $cadeau['content'] : ''; ?></textarea>
+                    </div>
+                </div>
 
-                            <input type="hidden" name="update_form" value="1"> 
-                            <button type="submit" class="btn-primary">Sauvegarder</button>
-                            <button type="submit" class="btn-primary" formaction="article-cadeau.php?idCadeau=<?php echo $cadeau['idCadeau']; ?>">Afficher</button>
+                <input type="hidden" name="update_form" value="1"> 
+                <button type="submit" class="btn-primary">Sauvegarder</button>
+                <button type="submit" class="btn-primary" formaction="article-cadeau.php?idCadeau=<?php echo $cadeau['idCadeau']; ?>">Afficher</button>
             </form>
         </div>
     </div>
@@ -214,6 +207,19 @@ if (isset($_SESSION['form_submitted'])) {
 
     <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
     <script src="../js/functions.js"></script>
+
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('image_preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>
