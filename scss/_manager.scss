@@ -37,25 +37,26 @@
         .category-container {
             @include d-flex(flex, center, center, row, center);
             border-radius: 1em;
-            max-width: 30em;
             width: 100%;
             gap: 3em;
             z-index: 3;
 
             .category-card {
+                @include d-flex(flex, center, center, column, center);
+
                 background-color: $secondary-blue;
                 padding: 2em;
                 border-radius: 1em;
-                width: 15em;
-                height: 15em;
+                width: 25em;
+                height: 25em;
 
-                .card-image {
-                    width: 15em;
-                    height: 15em;
-                }
+                // .card-image {
+                // }
 
                 .btn-primary {
-                    @include button-style($primary-blue, $light-blue, $light-blue, $primary-blue);
+                    @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
+                    margin-top: 1em;
+                    width: 20em; 
                 }
             }
         }

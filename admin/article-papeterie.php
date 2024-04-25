@@ -49,10 +49,13 @@ if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
             ?>
         </div>
     </div>
+    <!-- Footer -->
     <footer>
         <div data-include="footer"></div>
     </footer>
-    <script src="https://kit.fontawesome.com/3546d47201.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
 </body>
 
