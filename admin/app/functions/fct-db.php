@@ -404,7 +404,7 @@ function addLivreDB($conn, $datas)
 }
 
 /**
- * Ajout d'un papeterie dans la base de données
+ * Ajout d'une papeterie dans la base de données
  * 
  * @param mixed $conn 
  * @return boolean 
@@ -424,8 +424,8 @@ function addPapeterieDB($conn, $datas)
         $content = htmlentities($content);
 
         // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['active']) && !empty($datas['active'])) {
-            $active = $datas['active'];
+        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
+            $active = $datas['published_article'];
         } else {
             $active = 0;
         }
@@ -453,7 +453,7 @@ function addPapeterieDB($conn, $datas)
  * Ajout d'un cadeau dans la base de données
  * 
  * @param mixed $conn 
- * @return true 
+ * @return boolean 
  */
 function addCadeauDB($conn, $datas)
 {
@@ -476,8 +476,8 @@ function addCadeauDB($conn, $datas)
             $active = 0;
         }
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
+        // Insertion des données dans la table papeteries
+        $req = $conn->prepare("INSERT INTO cadeaux (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
         $req->bindParam(':feature', $feature);
@@ -487,17 +487,13 @@ function addCadeauDB($conn, $datas)
         $req->bindParam(':idCategory', $idCategory);
         $req->execute();
 
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
+        // Return true on success
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addCadeauDB() function";
-        return $st;
+        // Log error or return false
+        return false;
     }
 }
-
 
 /**-----------------------------------------------------------------
            Modification d'un article dans la base de données
