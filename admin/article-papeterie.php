@@ -7,22 +7,22 @@ $execute = false;
 
 // Check if the ID of the papeterie is passed in the URL
 if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
-    $idPapeterie = $_GET['idPapeterie']; // Retrieve the papeterie ID from the URL
+    $idPapeterie = $_GET['idPapeterie']; 
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
+        $msg = getMessage($conn, 'error'); 
     } else {
         // Fetch the papeterie from the database based on the ID
         $result = getPapeterieByIDDB($conn, $idPapeterie);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true; // Set execute flag to true if a valid papeterie is found
+            $execute = true; 
         } else {
-            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no papeterie is found
+            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); 
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no papeterie ID is provided
+    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); 
 }
 ?>
 <!DOCTYPE html>
