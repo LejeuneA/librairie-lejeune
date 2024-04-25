@@ -407,7 +407,7 @@ function addLivreDB($conn, $datas)
  * Ajout d'un papeterie dans la base de données
  * 
  * @param mixed $conn 
- * @return true 
+ * @return boolean 
  */
 function addPapeterieDB($conn, $datas)
 {
@@ -424,13 +424,13 @@ function addPapeterieDB($conn, $datas)
         $content = htmlentities($content);
 
         // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
-            $active = $datas['published_article'];
+        if (isset($datas['active']) && !empty($datas['active'])) {
+            $active = $datas['active'];
         } else {
             $active = 0;
         }
 
-        // Insertion des données dans la table articles
+        // Insertion des données dans la table papeteries
         $req = $conn->prepare("INSERT INTO papeteries (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
@@ -441,14 +441,11 @@ function addPapeterieDB($conn, $datas)
         $req->bindParam(':idCategory', $idCategory);
         $req->execute();
 
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
+        // Return true on success
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addPapeterieDB() function";
-        return $st;
+        // Log error or return false
+        return false;
     }
 }
 
@@ -500,8 +497,6 @@ function addCadeauDB($conn, $datas)
         return $st;
     }
 }
-
-
 
 
 /**-----------------------------------------------------------------
