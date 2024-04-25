@@ -49,7 +49,7 @@ if (!is_object($conn)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des articles');
+    displayHeadSection('Gestion des produits');
     displayJSSection();
     ?>
 </head>
@@ -76,11 +76,24 @@ if (!is_object($conn)) {
         <div id="main-menu">
         </div>
         <!-- Display the title for article management -->
-        <h2 class="title">Gérer les articles</h2>
+        <h2 class="title">Gérer les produits</h2>
 
         <div id="content">
-            <a href="./manager-livre.php">Gérer les livres</a>
-            <a class="nav-link" href="./add-livre.php">Ajouter</a>
+            <!-- Livres -->
+            <div class="category-card">
+                <a href="./manager-livre.php">Gérer les livres</a>
+                <a class="nav-link" href="./add-livre.php">Ajouter un livre</a>
+            </div>
+            <!-- Papeteries -->
+            <div class="category-card">
+                <a href="./manager-papeterie.php">Gérer les papeteries</a>
+                <a class="nav-link" href="./add-papeterie.php">Ajouter une papeterie</a>
+            </div>
+            <!-- Cadeaux -->
+            <div class="category-card">
+                <a href="./manager-cadeau.php">Gérer les cadeaux</a>
+                <a class="nav-link" href="./add-cadeau.php">Ajouter un cadeau</a>
+            </div>
         </div>
     </div><!-----------------------------------------------------------------
 								Footer
