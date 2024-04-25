@@ -606,53 +606,48 @@ function updateLivreDB($conn, $datas)
 /**
  * Modification d'un papeterie dans la base de données
  * 
- * @param mixed $conn 
- * @param array $datas 
- * @return true 
+ * @param PDO $conn The database connection
+ * @param array $datas The data to update
+ * @return bool|string Returns true on success, or an error message on failure
  */
 function updatePapeterieDB($conn, $datas)
 {
     try {
-        // Préparation des données avant insertion dans la base de données
+        // Sanitize input data
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
+        $idPapeterie = filterInputs($datas['idPapeterie']);
 
+        // Sanitize and format content
         $content = nl2br($datas['content']);
         $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
         $content = htmlentities($content);
 
+        // Determine the active status
+        $active = isset($datas['published_article']) ? $datas['published_article'] : 0;
 
-        $idPapeterie = filterInputs($datas['idPapeterie']);
+        // Prepare and execute the update query
+        $stmt = $conn->prepare("UPDATE papeteries SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idPapeterie = :idPapeterie");
+        $stmt->bindParam(':image_url', $image_url);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':feature', $feature);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':content', $content);
+        $stmt->bindParam(':active', $active);
+        $stmt->bindParam(':idCategory', $idCategory);
+        $stmt->bindParam(':idPapeterie', $idPapeterie);
+        $stmt->execute();
 
-        // Si on reçoit une valeur pour le status de publication de l'article
-        if (isset($datas['published_article']) && !empty($datas['published_article']))
-            $active = $datas['published_article'];
-        else
-            $active = 0;
+        // Close the statement
+        $stmt = null;
 
-        // Insertion des données dans la table articles
-        $req = $conn->prepare("UPDATE papeteries SET image_url = :image_url, title = :title, feature = :feature, content = :content, price = :price, active = :active, idCategory = :idCategory WHERE idPapeterie = :idPapeterie");
-        $req->bindParam(':image_url', $image_url);
-        $req->bindParam(':title', $title);
-        $req->bindParam(':feature', $feature);
-        $req->bindParam(':price', $price);
-        $req->bindParam(':content', $content);
-        $req->bindParam(':active', $active);
-        $req->bindParam(':idCategory', $idCategory);
-        $req->bindParam(':idPapeterie', $idPapeterie);
-        $req->execute();
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        return true;
+        return true; // Return true on success
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updatePapeterieDB() function";
-        return $st;
+        // Log or handle the error
+        return 'Error: ' . $e->getMessage(); // Return the error message
     }
 }
 
@@ -927,3 +922,4 @@ function getCategoryNamesFromDB($conn) {
 
     return $categories;
 }
+
