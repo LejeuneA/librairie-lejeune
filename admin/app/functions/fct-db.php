@@ -403,6 +403,104 @@ function addLivreDB($conn, $datas)
     }
 }
 
+/**
+ * Ajout d'un papeterie dans la base de données
+ * 
+ * @param mixed $conn 
+ * @return true 
+ */
+function addPapeterieDB($conn, $datas)
+{
+    try {
+        // Préparation des données avant insertion dans la base de données
+        $image_url = filterInputs($datas['image_url']);
+        $title = filterInputs($datas['title']);
+        $feature = filterInputs($datas['feature']);
+        $price = filterInputs($datas['price']);
+        $idCategory = filterInputs($datas['idCategory']);
+
+        $content = nl2br($datas['content']);
+        $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
+        $content = htmlentities($content);
+
+        // Si on reçoit une valeur pour le status de publication de l'article
+        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
+            $active = $datas['published_article'];
+        } else {
+            $active = 0;
+        }
+
+        // Insertion des données dans la table articles
+        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req->bindParam(':image_url', $image_url);
+        $req->bindParam(':title', $title);
+        $req->bindParam(':feature', $feature);
+        $req->bindParam(':price', $price);
+        $req->bindParam(':content', $content);
+        $req->bindParam(':active', $active);
+        $req->bindParam(':idCategory', $idCategory);
+        $req->execute();
+
+        // Fermeture connexion
+        $req = null;
+        $conn = null;
+
+        return true;
+    } catch (PDOException $e) {
+        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addPapeterieDB() function";
+        return $st;
+    }
+}
+
+/**
+ * Ajout d'un cadeau dans la base de données
+ * 
+ * @param mixed $conn 
+ * @return true 
+ */
+function addCadeauDB($conn, $datas)
+{
+    try {
+        // Préparation des données avant insertion dans la base de données
+        $image_url = filterInputs($datas['image_url']);
+        $title = filterInputs($datas['title']);
+        $feature = filterInputs($datas['feature']);
+        $price = filterInputs($datas['price']);
+        $idCategory = filterInputs($datas['idCategory']);
+
+        $content = nl2br($datas['content']);
+        $content = preg_replace("/(<[a-zA-Z0-9=\"\/\ ]+>)<br \/>/", "$1", $content);
+        $content = htmlentities($content);
+
+        // Si on reçoit une valeur pour le status de publication de l'article
+        if (isset($datas['published_article']) && !empty($datas['published_article'])) {
+            $active = $datas['published_article'];
+        } else {
+            $active = 0;
+        }
+
+        // Insertion des données dans la table articles
+        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req->bindParam(':image_url', $image_url);
+        $req->bindParam(':title', $title);
+        $req->bindParam(':feature', $feature);
+        $req->bindParam(':price', $price);
+        $req->bindParam(':content', $content);
+        $req->bindParam(':active', $active);
+        $req->bindParam(':idCategory', $idCategory);
+        $req->execute();
+
+        // Fermeture connexion
+        $req = null;
+        $conn = null;
+
+        return true;
+    } catch (PDOException $e) {
+        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addCadeauDB() function";
+        return $st;
+    }
+}
+
 
 
 
