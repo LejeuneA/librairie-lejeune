@@ -5,7 +5,7 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit(); // Make sure to exit after redirection
+    exit(); 
 }
 
 $msg = null;
@@ -28,7 +28,7 @@ if (!is_object($conn)) {
             'price' => isset($_POST['price']) ? $_POST['price'] : '',
             'content' => $_POST['content'],
             'active' => isset($_POST['active']) ? 1 : 0,
-            'idCategory' => isset($_POST['idCategory']) ? $_POST['idCategory'] : 0 // Make sure to handle if no category is selected
+            'idCategory' => isset($_POST['idCategory']) ? $_POST['idCategory'] : 0 
         ];
 
         // Add the livre to the database
@@ -84,7 +84,6 @@ if (!is_object($conn)) {
         <div class="edit-form container">
             <form action="add.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
-                <!-- Add enctype="multipart/form-data" to enable file uploads -->
 
                 <!-- Form top -->
                 <div class="form-top">
