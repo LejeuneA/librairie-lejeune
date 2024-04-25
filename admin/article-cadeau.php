@@ -5,24 +5,24 @@ $msg = null;
 $result = null;
 $execute = false;
 
-// Check if the ID of the livre is passed in the URL
-if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
-    $idLivre = $_GET['idLivre']; // Retrieve the livre ID from the URL
+// Check if the ID of the cadeau is passed in the URL
+if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
+    $idCadeau = $_GET['idCadeau']; // Retrieve the cadeau ID from the URL
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
         $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
     } else {
-        // Fetch the livre from the database based on the ID
-        $result = getLivreByIDDB($conn, $idLivre);
+        // Fetch the cadeau from the database based on the ID
+        $result = getCadeauByIDDB($conn, $idCadeau);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true; // Set execute flag to true if a valid livre is found
+            $execute = true; // Set execute flag to true if a valid cadeau is found
         } else {
-            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre is found
+            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no cadeau is found
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre ID is provided
+    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no cadeau ID is provided
 }
 ?>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
             <?php
             // Peut-on exécuter l'affichage de l'article
             if ($execute) {
-                displayLivreByID($result);
+                displayCadeauByID($result);
             }
             ?>
         </div>
