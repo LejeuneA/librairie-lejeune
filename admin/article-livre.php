@@ -18,11 +18,11 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
         if (isset($result) && is_array($result) && !empty($result)) {
             $execute = true; // Set execute flag to true if a valid livre is found
         } else {
-            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre is found
+            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no livre is found
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no livre ID is provided
+    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no livre ID is provided
 }
 ?>
 <!DOCTYPE html>
