@@ -174,7 +174,7 @@ function displayNavigation()
     <div class="navbar-menu">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../admin/manager.php">Modefiér</a>
+                <a class="nav-link" href="../admin/manager.php">Catégories</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
@@ -184,9 +184,6 @@ function displayNavigation()
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../admin/add.php">Ajouter</a>
             </li>
         </ul>
     </div>
@@ -210,11 +207,10 @@ function displayNavigation()
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="nav-link" href="../admin/manager.php">Modefiér</a>
+        <a class="nav-link" href="../admin/manager.php">Catégories</a>
         <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
         <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
         <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
-        <a class="nav-link" href="../admin/add.php">Ajouter</a>
         <!-- Menu end -->
  
         <!-- Login button -->
