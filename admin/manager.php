@@ -80,6 +80,7 @@ if (!is_object($conn)) {
 
         <div id="content">
             <a href="./manager-livre.php">Gérer les livres</a>
+            <a class="nav-link" href="./add-livre.php">Ajouter</a>
         </div>
     </div><!-----------------------------------------------------------------
 								Footer
