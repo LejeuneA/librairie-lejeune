@@ -42,18 +42,18 @@ if (!is_object($conn)) {
             }
         }
 
-        // Add the papeterie to the database
-        $addResult = addPapeterieDB($conn, $addData);
+        // Add the cadeau to the database
+        $addResult = addCadeauDB($conn, $addData);
 
         // Check the result and display appropriate message
         if ($addResult === true) {
             // Set session variable to indicate success
-            $_SESSION['papeterie_added'] = true;
+            $_SESSION['cadeau_added'] = true;
             // Redirect to the same page to refresh and clear the form
-            header('Location: add-papeterie.php');
+            header('Location: add-cadeau.php');
             exit();
         } else {
-            $msg = getMessage('Erreur lors de l\'ajout de la papeterie. Veuillez réessayer.', 'error');
+            $msg = getMessage('Erreur lors de l\'ajout de le cadeaue. Veuillez réessayer.', 'error');
         }
     }
 
@@ -61,13 +61,13 @@ if (!is_object($conn)) {
     $categories = getAllCategoriesDB($conn);
 }
 
-// At the beginning of the file, before any output
-// Check if a papeterie has been successfully added
-if (isset($_SESSION['papeterie_added']) && $_SESSION['papeterie_added'] === true) {
+
+// Check if a cadeau has been successfully added
+if (isset($_SESSION['cadeau_added']) && $_SESSION['cadeau_added'] === true) {
     // Display success message
-    $msg = getMessage('Le papeterie a été ajouté avec succès.', 'success');
+    $msg = getMessage('Le cadeau a été ajouté avec succès.', 'success');
     // Clear the session variable
-    unset($_SESSION['papeterie_added']);
+    unset($_SESSION['cadeau_added']);
 }
 
 // Initialize the $addData array with empty values
@@ -89,7 +89,7 @@ $addData = [
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Ajouter une papeterie');
+    displayHeadSection('Ajouter un cadeau');
     ?>
 </head>
 
@@ -111,14 +111,14 @@ $addData = [
     ------------------------------------------------------------------>
     <div class="edit-content">
         <div class="edit-title">
-            <h1>Ajouter une papeterie</h1>
+            <h1>Ajouter un cadeau</h1>
             <div class="message">
                 <?php if (isset($msg)) echo $msg; ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="add-papeterie.php" method="post" enctype="multipart/form-data">
+            <form action="add-cadeau.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="form" value="add">
 
                 <!-- Form top -->
@@ -130,7 +130,7 @@ $addData = [
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($cadeau['active']) ? $cadeau['active'] : 0, 'EDIT'); ?>
                         </div>
 
                         <!-- Category -->
