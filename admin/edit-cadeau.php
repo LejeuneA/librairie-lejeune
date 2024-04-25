@@ -4,12 +4,12 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit; // Add exit after redirection
+    exit; 
 }
 
 $msg = null;
 $tinyMCE = true;
-$cadeau= null; // Change $article to $cadeau
+$cadeau= null; 
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -18,10 +18,10 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['idCadeau'])) {
         // Get the article ID from the URL
-        $idCadeau = $_GET['idCadeau']; // Change $articleId to $livreId
+        $idCadeau = $_GET['idCadeau']; 
 
         // Retrieve article details from the database
-        $cadeau = getCadeauByIDDB($conn, $idCadeau); // Change $article to $cadeau
+        $cadeau = getCadeauByIDDB($conn, $idCadeau); 
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -33,11 +33,11 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'idCadeau' => $idCadeau,
-                    'image_url' => $_POST['image_url'], // Add image URL to update data
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '', // Check if the key exists before accessing
-                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', // Check if the key exists before accessing
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', // Check if the key exists before accessing
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '', // Check if the key exists before accessing
+                    'image_url' => $_POST['image_url'], 
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '', 
+                    'writer' => isset($_POST['writer']) ? $_POST['writer'] : '', 
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
+                    'price' => isset($_POST['price']) ? $_POST['price'] : '', 
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
                     'idCategory' => $_POST['idCategory']
@@ -49,9 +49,9 @@ if (!is_object($conn)) {
                 // Check the result of the update operation
                 if ($updateResult === true) {
                     $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true; // Set session variable to indicate form submission
+                    $_SESSION['form_submitted'] = true; 
                 } else {
-                    $msg = getMessage('Erreur lors de la modification de l\'article. Veuillez réessayer.', 'error');
+                    $msg = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
                 }
             }
 
@@ -62,14 +62,14 @@ if (!is_object($conn)) {
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true); // Create directory recursively with full permissions
+                    mkdir($target_dir, 0777, true); 
                 }
 
                 // Move the uploaded file to the target directory
                 if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
                     // File upload successful, update the image URL in the database
                     $updateData['image_url'] = $target_file;
-                    updatePapeterieDB($conn, $updateData); // Update the database with the new image URL
+                    updatePapeterieDB($conn, $updateData); 
                 } else {
                     $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
                 }
@@ -78,7 +78,7 @@ if (!is_object($conn)) {
     } else {
         // If article ID is not provided, redirect to manager.php
         header('Location: manager.php');
-        exit; // Add exit after redirection
+        exit; 
     }
 }
 
@@ -144,12 +144,6 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="title" class="form-ctrl">Titre</label>
                             <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($cadeau['title']) ? $cadeau['title'] : ''; ?>" required>
-                        </div>
-
-                        <!-- Writer -->
-                        <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Auteur</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($cadeau['writer']) ? $cadeau['writer'] : ''; ?>">
                         </div>
 
                         <!-- Feature -->
