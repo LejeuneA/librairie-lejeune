@@ -27,7 +27,7 @@
 /* -------------------------------------------------------
                Define mixin for button styles
 ---------------------------------------------------------*/
-@mixin button-style($bg-color, $text-color) {
+@mixin button-style($bg-color, $text-color, $hover-bg-color, $hover-text-color) {
   background-color: $bg-color;
   text-align: center;
   border-radius: 5px;
@@ -37,17 +37,17 @@
   cursor: pointer;
 
   // Include hover mixin for button
-  @include hover("background-color", $primary-blue, "color", $light-blue);
+  @include hover("background-color", $hover-bg-color, "color", $hover-text-color);
 }
 
 // Apply mixin for primary button
 .btn-primary {
-  @include button-style($primary-red, $light-blue);
+  @include button-style($primary-red, $light-blue, $light-blue, $primary-blue);
 }
 
 // Apply mixin for secondary button
 .btn-secondary {
-  @include button-style($primary-blue, $light-blue);
+  @include button-style($primary-blue, $light-blue, $light-blue, $primary-blue);
 }
 
 
