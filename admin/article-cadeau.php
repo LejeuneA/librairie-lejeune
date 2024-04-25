@@ -7,7 +7,7 @@ $execute = false;
 
 // Check if the ID of the cadeau is passed in the URL
 if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
-    $idCadeau = $_GET['idCadeau']; // Retrieve the cadeau ID from the URL
+    $idCadeau = $_GET['idCadeau']; 
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
         $msg = getMessage($conn, 'error'); // Display an error message if the connection is not valid
@@ -18,11 +18,11 @@ if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
         if (isset($result) && is_array($result) && !empty($result)) {
             $execute = true; // Set execute flag to true if a valid cadeau is found
         } else {
-            $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no cadeau is found
+            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no cadeau is found
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas d\'article à afficher', 'error'); // Display an error message if no cadeau ID is provided
+    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no cadeau ID is provided
 }
 ?>
 <!DOCTYPE html>
