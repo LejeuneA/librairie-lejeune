@@ -65,7 +65,7 @@ if (!is_object($conn)) {
 // Check if a papeterie has been successfully added
 if (isset($_SESSION['papeterie_added']) && $_SESSION['papeterie_added'] === true) {
     // Display success message
-    $msg = getMessage('Le papeterie a été ajouté avec succès.', 'success');
+    $msg = getMessage('La papeterie a été ajouté avec succès.', 'success');
     // Clear the session variable
     unset($_SESSION['papeterie_added']);
 }
