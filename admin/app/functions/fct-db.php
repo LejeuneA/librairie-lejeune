@@ -415,6 +415,7 @@ function addPapeterieDB($conn, $datas)
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
+        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -431,9 +432,10 @@ function addPapeterieDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req = $conn->prepare("INSERT INTO papeteries (image_url, title, writer, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
+        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
@@ -464,6 +466,7 @@ function addCadeauDB($conn, $datas)
         // Préparation des données avant insertion dans la base de données
         $image_url = filterInputs($datas['image_url']);
         $title = filterInputs($datas['title']);
+        $writer = filterInputs($datas['writer']);
         $feature = filterInputs($datas['feature']);
         $price = filterInputs($datas['price']);
         $idCategory = filterInputs($datas['idCategory']);
@@ -480,9 +483,10 @@ function addCadeauDB($conn, $datas)
         }
 
         // Insertion des données dans la table articles
-        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
+        $req = $conn->prepare("INSERT INTO cadeaux(image_url, title, writer, feature, content, price, active, idCategory) VALUES (:image_url, :title, :writer, :feature, :content, :price, :active, :idCategory)");
         $req->bindParam(':image_url', $image_url);
         $req->bindParam(':title', $title);
+        $req->bindParam(':writer', $writer);
         $req->bindParam(':feature', $feature);
         $req->bindParam(':price', $price);
         $req->bindParam(':content', $content);
