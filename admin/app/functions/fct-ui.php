@@ -185,6 +185,9 @@ function displayNavigation()
             <li class="nav-item">
                 <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../admin/manager.php">Ajouter</a>
+            </li>
         </ul>
     </div>
     <!---------------------------------------------------------------
@@ -211,6 +214,7 @@ function displayNavigation()
         <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
         <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
         <a class="nav-link" href="../admin/manager-cadeau.php">Cadeaux</a>
+        <a class="nav-link" href="../admin/manager.php">Ajouter</a>
         <!-- Menu end -->
  
         <!-- Login button -->
@@ -333,7 +337,7 @@ function getMessage($message, $type = 'success')
 function displayLivres($livres)
 {
     foreach ($livres as $livre) {
-        echo '<article><a href="article.php?id=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
+        echo '<article><a href="article-livre.php?idLivre=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
@@ -347,7 +351,7 @@ function displayLivres($livres)
 function displayPapeteries($papeteries)
 {
     foreach ($papeteries as $papeterie) {
-        echo '<article><a href="article.php?id=' . $papeterie['idPapeterie'] . '" title="Lire l\'article"><h2">' . $papeterie['title'] . '</h2></a></article>';
+        echo '<article><a href="article-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '" title="Lire l\'article"><h2">' . $papeterie['title'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
@@ -361,7 +365,7 @@ function displayPapeteries($papeteries)
 function displayCadeaux($cadeaux)
 {
     foreach ($cadeaux as $cadeau) {
-        echo '<article><a href="article.php?id=' . $cadeau['idPapeterie'] . '" title="Lire l\'article"><h2">' . $cadeau['title'] . '</h2></a></article>';
+        echo '<article><a href="article-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '" title="Lire l\'article"><h2">' . $cadeau['title'] . '</h2></a></article>';
         echo '<hr>';
     }
 }
@@ -471,9 +475,9 @@ function displayLivresWithButtons($livres)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -502,9 +506,9 @@ function displayPapeteriesWithButtons($papeteries)
 
         // Display buttons
         echo '<div class="buttons">';
-        echo '<button class="btn-primary" onclick="modifierArticle(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherArticle(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerArticle(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
         echo '</div>';
 
         echo '<hr>';
@@ -533,9 +537,9 @@ function displayPapeteriesWithButtons($papeteries)
  
          // Display buttons
          echo '<div class="buttons">';
-         echo '<button class="btn-primary" onclick="modifierArticle(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-         echo '<button class="btn-primary" onclick="afficherArticle(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-         echo '<button class="btn-secondary" onclick="supprimerArticle(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+         echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+         echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+         echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
          echo '</div>';
  
          echo '<hr>';
@@ -620,9 +624,9 @@ function displayPapeteriesAsTable($papeteries)
         echo '<td>' . html_entity_decode($papeterie['price']) . '</td>';
         echo '<td>' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-primary" onclick="modifierLivre(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherLivre(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -636,7 +640,7 @@ function displayPapeteriesAsTable($papeteries)
 /**
  * Affiche les cadeaux pour la page du manager sous forme de table
  * 
- * @param array $livres
+ * @param array $cadeaux
  * @return string 
  */
 function displayCadeauxsAsTable($cadeaux)
@@ -663,9 +667,9 @@ function displayCadeauxsAsTable($cadeaux)
         echo '<td>' . html_entity_decode($cadeau['price']) . '</td>';
         echo '<td>' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-primary" onclick="modifierLivre(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherLivre(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
