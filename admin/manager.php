@@ -71,31 +71,48 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="container">
-        
-        <div id="main-menu">
-        </div>
-        <!-- Display the title for article management -->
-        <h2 class="title">Gérer les produits</h2>
+    <div class="manager-container">
+        <?php echo '<div class="welcome"><div class="welcome-text"> Bienvenue <span>' . $_SESSION['user_email'] . '</span></div></div>'; ?>
+        <h1 class="title">Gérer les produits</h1>
+        <div class="manager-content container">
+            <div class="category-container">
+                <!-- Livres -->
+                <div class="category-card">
+                    <div class="card-image">
+                        <img src="../assets/images/" alt="">
+                    </div>
+                    <a class="btn-primary" href="./manager-livre.php">Gérer les livres</a>
+                    <a class="btn-primary" href="./add-livre.php">Ajouter un livre</a>
 
-        <div id="content">
-            <!-- Livres -->
-            <div class="category-card">
-                <a href="./manager-livre.php">Gérer les livres</a>
-                <a class="nav-link" href="./add-livre.php">Ajouter un livre</a>
+                </div>
+
+                <!-- Papeteries -->
+                <div class="category-card">
+                    <div class="card-image">
+                    </div>
+                    <a class="btn-primary" href="./manager-papeterie.php">Gérer les papeteries</a>
+                    <a class="btn-primary" href="./add-papeterie.php">Ajouter une papeterie</a>
+                </div>
+
+                <!-- Cadeaux -->
+                <div class="category-card">
+                    <div class="card-image">
+                    </div>
+                    <a class="btn-primary" href="./manager-cadeau.php">Gérer les cadeaux</a>
+                    <a class="btn-primary" href="./add-cadeau.php">Ajouter un cadeau</a>
+                </div>
+
+                <!-- Vector -->
+                <div class="background-vector">
+                    <img src="../assets/components/background-vector.png" alt="background-vector">
+                </div>
             </div>
-            <!-- Papeteries -->
-            <div class="category-card">
-                <a href="./manager-papeterie.php">Gérer les papeteries</a>
-                <a class="nav-link" href="./add-papeterie.php">Ajouter une papeterie</a>
-            </div>
-            <!-- Cadeaux -->
-            <div class="category-card">
-                <a href="./manager-cadeau.php">Gérer les cadeaux</a>
-                <a class="nav-link" href="./add-cadeau.php">Ajouter un cadeau</a>
-            </div>
+
         </div>
-    </div><!-----------------------------------------------------------------
+    </div>
+    </div>
+
+    <!-----------------------------------------------------------------
 								Footer
 	------------------------------------------------------------------>
     <footer>
