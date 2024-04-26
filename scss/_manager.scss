@@ -6,7 +6,9 @@
 /* -----------------------------------------------------------------
                         Manager page
  ----------------------------------------------------------------- */
-
+.navbar{
+    background-color: $light-blue;
+}
 .manager-container {
     @include d-flex(flex, space-evenly, center, column, center);
     height: 100vh;
