@@ -57,21 +57,24 @@
             z-index: 3;
 
             .category-card {
-                @include d-flex(flex, center, center, column, center);
+                @include d-flex(flex, space-evenly, center, column, center);
 
                 background-color: $secondary-blue;
-                padding: 2em;
+                margin-top: 5em;
+                padding: 1em;
                 border-radius: 1em;
                 width: 25em;
                 height: 25em;
-
-                // .card-image {
-                // }
+                gap:2em;
 
                 .btn-primary {
+                    @include d-flex(flex, center, center, column, center);
                     @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
-                    margin-top: 1em;
-                    width: 20em; 
+                    width: 15em; 
+                    height: 15em;
+                    font-weight: 200;
+                    font-size: 1.5em;
+                    border-radius: 1em;
                 }
             }
         }
