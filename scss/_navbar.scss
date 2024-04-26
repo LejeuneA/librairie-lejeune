@@ -1,87 +1,102 @@
-@use 'custom';
-@use 'mixins';
-@use 'extends';
-@use 'global';
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
 
 /* -------------------------------------------------------
                  Navbar upper section
 ---------------------------------------------------------*/
 .navbar {
   background-color: $light-blue;
-}
 
-// Navbar container
-.navbar-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  // Navbar container
+  .navbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.d-flex {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+  // Logo
+  .navbar-brand-img {
+    height: 3.5em;
+  }
 
-// Logo
-.navbar-brand-img {
-  height: 3.5em;
-}
+  .d-flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-// Logo end
+    // Social Icons
+    .social-nav {
+      display: flex;
+      flex-direction: row;
 
-// Social Icons
-.social-nav {
-  display: flex;
-  flex-direction: row;
+      .social-item {
+        margin-right: 1rem;
+        font-size: 1.1em;
+        color: $primary-blue;
 
-  .social-item {
-    margin-right: 1rem;
-    font-size: 1.1em;
-    color: $primary-blue;
+        .social-link {
+          @include hover("background-color", $light-blue, "color", $secondary-blue);
+        }
+      }
+    }
+    // Search bar
+    .search-group {
+      display: flex;
+      align-items: stretch;
 
-    .social-link {
-      @include hover("background-color", $light-blue, "color", $secondary-blue);
+      input[type="search"] {
+        border: 1px solid $primary-blue;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-size: smaller;
+        font-style: italic;
+        padding: 0.3rem;
+        flex: 1;
+
+        &:focus {
+          box-shadow: 0 0 10px $secondary-blue;
+          outline: none;
+          border: 1px solid $secondary-blue;
+        }
+      }
+
+      .btn-search {
+        background-color: $primary-blue;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color: $light-blue;
+        padding: 0.3rem 0.5rem;
+        cursor: pointer;
+
+        @include hover("background-color", $secondary-blue, "color", $light-blue);
+      }
+    }
+
+    // Login button
+    .btn-primary {
+      @include hover("background-color", $secondary-blue, "color", $light-blue);
+    }
+  }
+
+  // Responsive styles
+  @media (min-width: 320px) and (max-width: 768px) {
+    .navbar-container {
+      justify-content: center;
+      align-items: center;
+
+      .navbar-brand-img {
+        height: 3.5em;
+      }
+
+      .d-flex {
+        display: none;
+      }
     }
   }
 }
-
-// Social Icons end
-
-// Search bar
-.search-group {
-  display: flex;
-  align-items: stretch;
-
-  input[type="search"] {
-    border: 1px solid $primary-blue;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    font-size: smaller;
-    font-style: italic;
-    padding: 0.3rem;
-    flex: 1;
-
-    &:focus {
-      box-shadow: 0 0 10px $secondary-blue;
-      outline: none;
-      border: 1px solid $secondary-blue;
-    }
-  }
-
-  .btn-search {
-    background-color: $primary-blue;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    color: $light-blue;
-    padding: 0.3rem 0.5rem;
-    cursor: pointer;
-
-    @include hover("background-color", $secondary-blue, "color", $light-blue);
-  }
-}
-// Search bar end
 
 /* -------------------------------------------------------
                Navbar bottom section
@@ -98,34 +113,31 @@
   box-shadow: $box-shadow-primary;
   -webkit-box-shadow: $box-shadow-primary;
   -moz-box-shadow: $box-shadow-primary;
-}
 
-// Navbar Nav
-.navbar-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  // Navbar Nav
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
-  .nav-item {
-    margin-right: 2em;
+    .nav-item {
+      margin-right: 2em;
 
-    .nav-link {
-      color: $light-blue;
-      padding: 0.8em;
+      .nav-link {
+        color: $light-blue;
+        padding: 0.8em;
 
-      @include hover("background-color", $primary-red, "color", $light-blue);
+        @include hover("background-color", $primary-red, "color", $light-blue);
+      }
     }
   }
-}
 
-// Login button
-nav{
-  .btn-primary{
-      @include hover("background-color", $secondary-blue, "color", $light-blue);
-    }
+  // Responsive styles for menu
+  @media (min-width: 320px) and (max-width: 768px) {
+    display: none;
   }
-// Login button end
+}
 
 /* -------------------------------------------------------
                  Navbar responsive
@@ -133,25 +145,7 @@ nav{
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 768px) {
-  .navbar-menu {
-    display: none;
-  }
-
-  .navbar-container {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .d-flex {
-    display: none;
-  }
-
-  /* Logo styles for small screens */
-  .navbar-brand-img {
-    height: 3.5em;
-  }
-
-  /* -------------------------------------------------------
+/* -------------------------------------------------------
                    Offcanvas menu
 ---------------------------------------------------------*/
   .navbar-hamburger {
@@ -192,11 +186,35 @@ nav{
     }
 
     .search-group {
-      margin: 2em 1em;
+      display: flex;
+      align-items: stretch;
+      margin: 1em;
+
+      input[type="search"] {
+        border: 1px solid $primary-blue;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        font-size: smaller;
+        font-style: italic;
+        padding: 0.3rem;
+        flex: 1;
+
+        &:focus {
+          box-shadow: 0 0 10px $secondary-blue;
+          outline: none;
+          border: 1px solid $secondary-blue;
+        }
+      }
 
       .btn-search {
-        background-color: $secondary-blue;
-        @include hover("background-color", $primary-red, "color", $light-blue);
+        background-color: $primary-blue;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color: $light-blue;
+        padding: 0.3rem 0.5rem;
+        cursor: pointer;
+
+        @include hover("background-color", $secondary-blue, "color", $light-blue);
       }
     }
 
@@ -217,12 +235,7 @@ nav{
       padding: 0.5em 1em;
       border-radius: 5px;
 
-      @include hover(
-        "background-color",
-        $secondary-blue,
-        "color",
-        $primary-blue
-      );
+      @include hover("background-color", $secondary-blue, "color", $primary-blue);
     }
 
     /* Social Icons styles for small screens */
@@ -242,19 +255,14 @@ nav{
       .social-link {
         color: $secondary-blue;
 
-        @include hover(
-          "color",
-          $primary-red,
-          "background-color",
-          $primary-blue
-        );
+        @include hover("color", $primary-red, "background-color", $primary-blue);
       }
     }
   }
 
   /* -------------------------------------------------------
            Offcanvas styles for smaller screens
----------------------------------------------------------*/
+  ---------------------------------------------------------*/
   @media (min-width: 320px) and (max-width: 768px) {
     #hamburger {
       display: block;
@@ -275,4 +283,4 @@ nav{
   .closebtn {
     display: none;
   }
-} 
+}
