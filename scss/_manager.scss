@@ -6,9 +6,22 @@
 /* -----------------------------------------------------------------
                         Manager page
  ----------------------------------------------------------------- */
-.navbar{
-    background-color: $light-blue;
+ .manager-header{
+    .navbar-menu{
+        background-color: $secondary-blue;
+    
+        .navbar-nav{
+            .nav-item{
+                .nav-link{
+                    @include button-style($secondary-blue, $primary-blue, $primary-blue, $light-blue);
+                    padding: 0.8em;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
 }
+    
 .manager-container {
     @include d-flex(flex, space-evenly, center, column, center);
     height: 100vh;
