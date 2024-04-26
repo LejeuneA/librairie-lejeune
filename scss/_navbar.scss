@@ -125,10 +125,9 @@
       margin-right: 2em;
 
       .nav-link {
-        color: $light-blue;
+        @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
         padding: 0.8em;
-
-        @include hover("background-color", $primary-red, "color", $light-blue);
+        border-radius: 0;
       }
     }
   }
