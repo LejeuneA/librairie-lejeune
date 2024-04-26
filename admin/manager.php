@@ -73,31 +73,23 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
     <div class="manager-container">
         <?php echo '<div class="welcome"><div class="welcome-text"> Bienvenue <span>' . $_SESSION['user_email'] . '</span></div></div>'; ?>
-        <h1 class="title">Gérer les produits</h1>
         <div class="manager-content container">
+            <h1 class="title">Gérer les produits</h1>
             <div class="category-container">
                 <!-- Livres -->
                 <div class="category-card">
-                    <div class="card-image">
-                        <img src="../assets/images/" alt="">
-                    </div>
                     <a class="btn-primary" href="./manager-livre.php">Gérer les livres</a>
                     <a class="btn-primary" href="./add-livre.php">Ajouter un livre</a>
-
                 </div>
 
                 <!-- Papeteries -->
                 <div class="category-card">
-                    <div class="card-image">
-                    </div>
                     <a class="btn-primary" href="./manager-papeterie.php">Gérer les papeteries</a>
                     <a class="btn-primary" href="./add-papeterie.php">Ajouter une papeterie</a>
                 </div>
 
                 <!-- Cadeaux -->
-                <div class="category-card">
-                    <div class="card-image">
-                    </div>
+                <div class="category-card"> 
                     <a class="btn-primary" href="./manager-cadeau.php">Gérer les cadeaux</a>
                     <a class="btn-primary" href="./add-cadeau.php">Ajouter un cadeau</a>
                 </div>
