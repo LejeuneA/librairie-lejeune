@@ -10,6 +10,7 @@
 .product-container {
     @include d-flex(flex, center, center, column, center);
     gap: 2em;
+    margin: 5em 0;
 
     .product-info-container {
         @include d-flex(flex, center, center, row, center);
