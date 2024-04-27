@@ -325,23 +325,16 @@ function getMessage($message, $type = 'success')
     return $html;
 }
 
-
+TODO:
 /**-----------------------------------------------------------------
                         Affichage des articles 
  *------------------------------------------------------------------**/
-/**
- * Affichage des articles 
- * 
- * @param mixed $livres 
- * @return void 
- */
-function displayLivres($livres)
-{
-    foreach ($livres as $livre) {
-        echo '<article><a href="article-livre.php?idLivre=' . $livre['idLivre'] . '" title="Lire l\'article"><h2">' . $livre['title'] . '</h2></a></article>';
-        echo '<hr>';
-    }
+// Function to display livres
+function displayLivres($conn) {
+    FIXME:
 }
+
+
 
 /**
  * Affichage des articles 
@@ -403,7 +396,7 @@ function generateLivreHTML($livre) {
 
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
-        // Truncate content after 200 characters and append "..."
+        
         $truncatedContent = strlen($livre['content']) > 500 ? substr($livre['content'], 0, 500) . '...' : $livre['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
@@ -456,7 +449,7 @@ function generatePapeterieHTML($papeterie) {
 
     // Check if 'content' key is set before accessing it
     if (isset($papeterie['content'])) {
-        // Truncate content after 200 characters and append "..."
+       
         $truncatedContent = strlen($papeterie['content']) > 500 ? substr($papeterie['content'], 0, 500) . '...' : $papeterie['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
@@ -500,17 +493,16 @@ function generateCadeauHTML($cadeau) {
     $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
-    $writer = isset($cadeau['writer']) ? $cadeau['writer'] : 'Auteur non disponible';
     $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
 
     $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
-    $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+    $html .= '<p><span>' . $feature . '</span></p>';
 
     // Check if 'content' key is set before accessing it
     if (isset($cadeau['content'])) {
-        // Truncate content after 200 characters and append "..."
+        
         $truncatedContent = strlen($cadeau['content']) > 500 ? substr($cadeau['content'], 0, 500) . '...' : $cadeau['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
@@ -625,7 +617,7 @@ function displayPapeterieByID($papeterie)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -662,7 +654,7 @@ function displayCadeauByID($cadeau)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
