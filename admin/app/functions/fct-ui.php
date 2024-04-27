@@ -377,20 +377,14 @@ function displayCadeaux($cadeaux)
  * @param array $livre Array containing livre information
  * @return string HTML markup for displaying livre
  */
-/**
- * Generate HTML markup for displaying livre information
- * 
- * @param array $livre Array containing livre information
- * @return string HTML markup for displaying livre
- */
 function generateLivreHTML($livre) {
     // Start building the HTML markup
     echo '<article class="article-container">';
     echo '<div class="product-img">';
-    echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
+    
     echo '<div class="product-info">';
-
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($livre['title']) ? $livre['title'] : 'Titre non disponible';
     $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
@@ -444,7 +438,7 @@ function displayLivreByID($livre)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
