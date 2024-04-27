@@ -36,6 +36,8 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
     <header>
         <?php displayNavigation(); ?>
     </header>
+    <!-- Main -->
+    <main>
     <div class="container">
         <div id="message">
             <?php if (isset($msg)) echo $msg; ?>
@@ -49,6 +51,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
             ?>
         </div>
     </div>
+    </main>
     <!-- Footer -->
     <footer>
         <div data-include="footer"></div>
