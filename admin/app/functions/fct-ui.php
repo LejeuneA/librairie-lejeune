@@ -122,7 +122,7 @@ function displayNavigation()
         <nav class="navbar">
         <div class="navbar-container container">
             <!-- Logo -->
-            <a href="../public/index.html">
+            <a href="../public/index.php">
                 <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
             </a>
             <!-- Logo end -->
@@ -383,48 +383,50 @@ function displayCadeaux($cadeaux)
  */
 function generateLivreHTML($livre) {
     // Start building the HTML markup
-    echo '<article class="article-container">';
-    echo '<div class="product-img">';
-    echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
-    echo '</a>'; 
-    echo '</div>';
+    $html = '<article class="article-container">';
+    $html .= '<div class="product-img">';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    $html .= '</a>'; 
+    $html .= '</div>';
     
-    echo '<div class="product-info">';
+    $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($livre['title']) ? $livre['title'] : 'Titre non disponible';
     $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
     $feature = isset($livre['feature']) ? $livre['feature'] : 'Feature non disponible';
 
-    echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-    echo '<h2>' . $title . '</h2>';
-    echo '</a>';
-    echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<h2>' . $title . '</h2>';
+    $html .= '</a>';
+    $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
 
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
         // Truncate content after 200 characters and append "..."
         $truncatedContent = strlen($livre['content']) > 500 ? substr($livre['content'], 0, 500) . '...' : $livre['content'];
-        echo '<div class="product-description">';
-        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        echo '</div>';
+        $html .= '<div class="product-description">';
+        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        $html .= '</div>';
     }
 
-    echo '<div class="more-info">';
+    $html .= '<div class="more-info">';
     // Check if 'idLivre' key is set before creating the link
     $link = isset($livre['idLivre']) ? 'http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
-    echo '<a href="' . $link . '">Savoir plus</a>';
-    echo '</div>';
-    echo '</div>';
+    $html .= '<a href="' . $link . '">Savoir plus</a>';
+    $html .= '</div>';
+    $html .= '</div>';
 
-    echo '<div class="product-price">';
+    $html .= '<div class="product-price">';
     // Check if 'price' key is set before accessing it
     $price = isset($livre['price']) ? $livre['price'] . ' €' : 'Prix non disponible';
-    echo '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
+    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '</div>';
 
-    echo '</article>';
+    $html .= '</article>';
+
+    return $html;
 }
 
 /**
@@ -435,50 +437,50 @@ function generateLivreHTML($livre) {
  */
 function generatePapeterieHTML($papeterie) {
     // Start building the HTML markup
-    echo '<article class="article-container">';
-    echo '<div class="product-img">';
-    echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
-    echo '</a>'; 
-    echo '</div>';
+    $html = '<article class="article-container">';
+    $html .= '<div class="product-img">';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    $html .= '</a>'; 
+    $html .= '</div>';
     
-    echo '<div class="product-info">';
+    $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
-    $writer = isset($papeterie['writer']) ? $papeterie['writer'] : 'Auteur non disponible';
     $feature = isset($papeterie['feature']) ? $papeterie['feature'] : 'Feature non disponible';
 
-    echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    echo '<h2>' . $title . '</h2>';
-    echo '</a>';
-    echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<h2>' . $title . '</h2>';
+    $html .= '</a>';
+    $html .= '<p><span>' . $feature . '</span></p>';
 
     // Check if 'content' key is set before accessing it
     if (isset($papeterie['content'])) {
         // Truncate content after 200 characters and append "..."
         $truncatedContent = strlen($papeterie['content']) > 500 ? substr($papeterie['content'], 0, 500) . '...' : $papeterie['content'];
-        echo '<div class="product-description">';
-        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        echo '</div>';
+        $html .= '<div class="product-description">';
+        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        $html .= '</div>';
     }
 
-    echo '<div class="more-info">';
+    $html .= '<div class="more-info">';
     // Check if 'idPapeterie' key is set before creating the link
     $link = isset($papeterie['idPapeterie']) ? 'http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
-    echo '<a href="' . $link . '">Savoir plus</a>';
-    echo '</div>';
-    echo '</div>';
+    $html .= '<a href="' . $link . '">Savoir plus</a>';
+    $html .= '</div>';
+    $html .= '</div>';
 
-    echo '<div class="product-price">';
+    $html .= '<div class="product-price">';
     // Check if 'price' key is set before accessing it
     $price = isset($papeterie['price']) ? $papeterie['price'] . ' €' : 'Prix non disponible';
-    echo '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
+    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '</div>';
 
-    echo '</article>';
+    $html .= '</article>';
+
+    return $html;
 }
-
 
 /**
  * Generate HTML markup for displaying cadeau information
@@ -488,49 +490,52 @@ function generatePapeterieHTML($papeterie) {
  */
 function generateCadeauHTML($cadeau) {
     // Start building the HTML markup
-    echo '<article class="article-container">';
-    echo '<div class="product-img">';
-    echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
-    echo '</a>'; 
-    echo '</div>';
+    $html = '<article class="article-container">';
+    $html .= '<div class="product-img">';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    $html .= '</a>'; 
+    $html .= '</div>';
     
-    echo '<div class="product-info">';
+    $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
     $writer = isset($cadeau['writer']) ? $cadeau['writer'] : 'Auteur non disponible';
     $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
 
-    echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    echo '<h2>' . $title . '</h2>';
-    echo '</a>';
-    echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<h2>' . $title . '</h2>';
+    $html .= '</a>';
+    $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
 
     // Check if 'content' key is set before accessing it
     if (isset($cadeau['content'])) {
         // Truncate content after 200 characters and append "..."
         $truncatedContent = strlen($cadeau['content']) > 500 ? substr($cadeau['content'], 0, 500) . '...' : $cadeau['content'];
-        echo '<div class="product-description">';
-        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        echo '</div>';
+        $html .= '<div class="product-description">';
+        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        $html .= '</div>';
     }
 
-    echo '<div class="more-info">';
+    $html .= '<div class="more-info">';
     // Check if 'idCadeau' key is set before creating the link
     $link = isset($cadeau['idCadeau']) ? 'http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
-    echo '<a href="' . $link . '">Savoir plus</a>';
-    echo '</div>';
-    echo '</div>';
+    $html .= '<a href="' . $link . '">Savoir plus</a>';
+    $html .= '</div>';
+    $html .= '</div>';
 
-    echo '<div class="product-price">';
+    $html .= '<div class="product-price">';
     // Check if 'price' key is set before accessing it
     $price = isset($cadeau['price']) ? $cadeau['price'] . ' €' : 'Prix non disponible';
-    echo '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
+    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '</div>';
 
-    echo '</article>';
+    $html .= '</article>';
+
+    return $html;
 }
+
 
 
 /**-----------------------------------------------------------------
