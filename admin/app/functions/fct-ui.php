@@ -172,6 +172,9 @@ function displayNavigation()
     <div class="navbar-menu">
         <ul class="navbar-nav">
             <li class="nav-item">
+                <a class="nav-link" href="../public/index.php">Accueil</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="../admin/manager.php">Catégories</a>
             </li>
             <li class="nav-item">
@@ -208,6 +211,7 @@ function displayNavigation()
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="nav-link" href="../public/index.php">Accueil</a>
         <a class="nav-link" href="../admin/manager.php">Catégories</a>
         <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
         <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
@@ -369,19 +373,21 @@ function displayCadeaux($cadeaux)
 
 
 /**-----------------------------------------------------------------
-        Generate HTML markup for displaying livre information
+        Generate HTML markup for displaying articles information
  *------------------------------------------------------------------**/
 /**
  * Generate HTML markup for displaying livre information
  * 
- * @param array $livre Array containing livre information
- * @return string HTML markup for displaying livre
+ * @param array $livre 
+ * @return string 
  */
 function generateLivreHTML($livre) {
     // Start building the HTML markup
     echo '<article class="article-container">';
     echo '<div class="product-img">';
+    echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
     echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '</a>'; 
     echo '</div>';
     
     echo '<div class="product-info">';
@@ -390,13 +396,15 @@ function generateLivreHTML($livre) {
     $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
     $feature = isset($livre['feature']) ? $livre['feature'] : 'Feature non disponible';
 
+    echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
     echo '<h2>' . $title . '</h2>';
+    echo '</a>';
     echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
 
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
         // Truncate content after 200 characters and append "..."
-        $truncatedContent = strlen($livre['content']) > 200 ? substr($livre['content'], 0, 200) . '...' : $livre['content'];
+        $truncatedContent = strlen($livre['content']) > 500 ? substr($livre['content'], 0, 500) . '...' : $livre['content'];
         echo '<div class="product-description">';
         echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
         echo '</div>';
@@ -419,7 +427,110 @@ function generateLivreHTML($livre) {
     echo '</article>';
 }
 
+/**
+ * Generate HTML markup for displaying papeterie information
+ * 
+ * @param array $papeterie
+ * @return string 
+ */
+function generatePapeterieHTML($papeterie) {
+    // Start building the HTML markup
+    echo '<article class="article-container">';
+    echo '<div class="product-img">';
+    echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '</a>'; 
+    echo '</div>';
+    
+    echo '<div class="product-info">';
+    // Check if 'title', 'writer', and 'feature' keys are set before accessing them
+    $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
+    $writer = isset($papeterie['writer']) ? $papeterie['writer'] : 'Auteur non disponible';
+    $feature = isset($papeterie['feature']) ? $papeterie['feature'] : 'Feature non disponible';
 
+    echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    echo '<h2>' . $title . '</h2>';
+    echo '</a>';
+    echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+
+    // Check if 'content' key is set before accessing it
+    if (isset($papeterie['content'])) {
+        // Truncate content after 200 characters and append "..."
+        $truncatedContent = strlen($papeterie['content']) > 500 ? substr($papeterie['content'], 0, 500) . '...' : $papeterie['content'];
+        echo '<div class="product-description">';
+        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        echo '</div>';
+    }
+
+    echo '<div class="more-info">';
+    // Check if 'idPapeterie' key is set before creating the link
+    $link = isset($papeterie['idPapeterie']) ? 'http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
+    echo '<a href="' . $link . '">Savoir plus</a>';
+    echo '</div>';
+    echo '</div>';
+
+    echo '<div class="product-price">';
+    // Check if 'price' key is set before accessing it
+    $price = isset($papeterie['price']) ? $papeterie['price'] . ' €' : 'Prix non disponible';
+    echo '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '</div>';
+
+    echo '</article>';
+}
+
+
+/**
+ * Generate HTML markup for displaying cadeau information
+ * 
+ * @param array $cadeau
+ * @return string 
+ */
+function generateCadeauHTML($cadeau) {
+    // Start building the HTML markup
+    echo '<article class="article-container">';
+    echo '<div class="product-img">';
+    echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '</a>'; 
+    echo '</div>';
+    
+    echo '<div class="product-info">';
+    // Check if 'title', 'writer', and 'feature' keys are set before accessing them
+    $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
+    $writer = isset($cadeau['writer']) ? $cadeau['writer'] : 'Auteur non disponible';
+    $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
+
+    echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    echo '<h2>' . $title . '</h2>';
+    echo '</a>';
+    echo '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+
+    // Check if 'content' key is set before accessing it
+    if (isset($cadeau['content'])) {
+        // Truncate content after 200 characters and append "..."
+        $truncatedContent = strlen($cadeau['content']) > 500 ? substr($cadeau['content'], 0, 500) . '...' : $cadeau['content'];
+        echo '<div class="product-description">';
+        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        echo '</div>';
+    }
+
+    echo '<div class="more-info">';
+    // Check if 'idCadeau' key is set before creating the link
+    $link = isset($cadeau['idCadeau']) ? 'http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
+    echo '<a href="' . $link . '">Savoir plus</a>';
+    echo '</div>';
+    echo '</div>';
+
+    echo '<div class="product-price">';
+    // Check if 'price' key is set before accessing it
+    $price = isset($cadeau['price']) ? $cadeau['price'] . ' €' : 'Prix non disponible';
+    echo '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '</div>';
+
+    echo '</article>';
+}
 
 
 /**-----------------------------------------------------------------
