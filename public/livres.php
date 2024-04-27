@@ -32,26 +32,7 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!">
-
-
-    <!-- Custom Sass file -->
-    <link rel="stylesheet" href="../css/styles.css">
-
-    <!-- Google Fonts Preconnect and Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-    <!-- Favicon -->
-
-    <!-- Title -->
-    <title>Livres</title>
+    <?php displayHeadSection('Livre'); ?>
 </head>
 
 <body>
@@ -107,17 +88,17 @@ if (!is_object($conn)) {
         <section class="books-container container">
             <!-- Articles -->
             <?php
-    // Check if there are livres to display
-    if ($execute) {
-        // Loop through each livre and generate HTML markup
-        foreach ($result as $livre) {
-            echo generateLivreHTML($livre);
-        }
-    } else {
-        // Display a message if there are no livres to display
-        echo '<p>Il n\'y a pas de livre à afficher actuellement</p>';
-    }
-    ?>
+            // Check if there are livres to display
+            if ($execute) {
+                // Loop through each livre and generate HTML markup
+                foreach ($result as $livre) {
+                    echo generateLivreHTML($livre);
+                }
+            } else {
+                // Display a message if there are no livres to display
+                echo '<p>Il n\'y a pas de livre à afficher actuellement</p>';
+            }
+            ?>
             <!-- Articles end -->
 
             <!-- Pagination -->
@@ -148,9 +129,7 @@ if (!is_object($conn)) {
         ------------------------------------------------------------------>
 
         <!-- Font Awesome -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
-            integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- Include functions.js -->
         <script src="../js/functions.js"></script>
