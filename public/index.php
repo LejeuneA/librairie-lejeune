@@ -45,7 +45,7 @@
 				choisissez,
 				et laissez-vous emporter par des histoires captivantes.
 			</p>
-			<a href="../public/books.html" class="btn-primary">Découvrir nos produit</a>
+			<a href="../public/livres.php" class="btn-primary">Découvrir nos produit</a>
 		</div>
 	</header>
 	<!-----------------------------------------------------------------
@@ -143,7 +143,7 @@
 					<p>Plongez dans l'air du temps littéraire avec notre collection, qui propose les derniers
 						best-sellers qui promettent de captiver et d'inspirer à la pointe de la narration contemporaine.
 					</p>
-					<a href="../public/books.html" class="btn-primary">Découvrir nos produit</a>
+					<a href="../public/livres.php" class="btn-primary">Découvrir nos produit</a>
 				</div>
 				<!-- Best-sellers-right end -->
 
@@ -235,7 +235,7 @@
 			<div class="container">
 				<p>Des éditions de collection qui ont l'air parfaites sur une étagère</p>
 			</div>
-			<a href="../public/books.html" class="btn-secondary">Découvrir le top</a>
+			<a href="../public/livres.php" class="btn-secondary">Découvrir le top</a>
 			<!-- Container end -->
 		</section>
 		<!-- Edition-special end -->
