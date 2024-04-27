@@ -32,7 +32,7 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Livre'); ?>
+    <?php displayHeadSection('Livres'); ?>
 </head>
 
 <body>
