@@ -7,22 +7,22 @@ $execute = false;
 
 // Check if the ID of the livre is passed in the URL
 if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
-    $idLivre = $_GET['idLivre']; 
+    $idLivre = $_GET['idLivre'];
     // Ensure that the database connection object is valid
     if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error'); 
+        $msg = getMessage($conn, 'error');
     } else {
         // Fetch the livre from the database based on the ID
         $result = getLivreByIDDB($conn, $idLivre);
         // Check if the result is a valid array and not empty
         if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true; 
+            $execute = true;
         } else {
-            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); 
+            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
         }
     }
 } else {
-    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); 
+    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
 }
 ?>
 
@@ -40,19 +40,19 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
     </header>
     <!-- Main -->
     <main>
-    <div class="container">
-        <div id="message">
-            <?php if (isset($msg)) echo $msg; ?>
+        <div class="container">
+            <div id="message">
+                <?php if (isset($msg)) echo $msg; ?>
+            </div>
+            <div id="content">
+                <?php
+                // Peut-on exécuter l'affichage de l'article
+                if ($execute) {
+                    displayLivreByID($result);
+                }
+                ?>
+            </div>
         </div>
-        <div id="content">
-            <?php
-            // Peut-on exécuter l'affichage de l'article
-            if ($execute) {
-                displayLivreByID($result);
-            }
-            ?>
-        </div>
-    </div>
     </main>
     <!-- Footer -->
     <footer>
