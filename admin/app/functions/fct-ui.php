@@ -366,53 +366,153 @@ function displayCadeaux($cadeaux)
     }
 }
 
-/**-----------------------------------------------------------------
-                 Affiche l'article reçu en paramètre
- *------------------------------------------------------------------**/
 /**
- * Affiche l'article reçu en paramètre
+ * Affiche le livre reçu en paramètre
  * 
  * @param mixed $livre 
  * @return void 
  */
 function displayLivreByID($livre)
 {
-    echo '<article>';
-    echo '<h2 class="article-title">' . $livre['title'] . '</h2>';
-    echo '<hr>';
-    echo '<p>' . html_entity_decode($livre['content']) . '</p>';
-    echo '</article>';
+    echo '<main>';
+    echo '<section class="product-container container">';
+    echo '<div class="product-info-container">';
+    echo '<div class="product-img">';
+    echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '</div>';
+    echo '<div class="product-info">';
+    echo '<div>';
+    echo '<h2>' . $livre['title'] . '</h2>';
+    echo '<p>' . $livre['writer'] . ' <span>' . $livre['feature'] . '</span></p>';
+    echo '</div>';
+    echo '<div class="product-price">';
+    echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '</div>';
+    echo '<div class="product-advantages">';
+    echo '<ul>';
+    echo '<li><i class="fa fa-shopping-cart"></i> Passer une commande en un clic</li>';
+    echo '<li><i class="fa fa-lock"></i> Payer en toute sécurité</li>';
+    echo '<li><i class="fa fa-home"></i> Livraison en Belgique: 3,99 €</li>';
+    echo '<li><i class="fa fa-gift"></i> Livraison en magasin gratuite</li>';
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '<div class="product-description">';
+    echo '<h2>Description</h2>';
+    echo '<p>' . htmlspecialchars_decode($livre['content']). '</p>';
+    echo '</div>';
+    // echo '<div class="product-specification">';
+    // echo '<h2>Spécifications</h2>';
+    // echo '<div class="product-specification-container">';
+    // echo '<div class="product-specification-left">';
+    // echo '<h3>Parties prenantes</h3>';
+    // echo '<ul>';
+    // echo '<li>Auteur(s): <span>' . $livre['writer'] . '</span></li>';
+    // echo '<li>Editeur: <span>' . $livre['feature'] . '</span></li>';
+    // echo '</ul>';
+    // echo '<h3>Contenu</h3>';
+    // echo '<ul>';
+    
+    // echo '<li>Nombre de pages: <span>' . $livre['pages'] . '</span></li>';
+    // echo '<li>Langue: <span>Français</span></li>';
+    // echo '</ul>';
+    // echo '</div>';
+    // echo '<div class="product-specification-right">';
+    // echo '<h3>Caractéristiques</h3>';
+    // echo '<ul>';
+    
+    // echo '<li>EAN: <span>' . $livre['ean'] . '</span></li>';
+    // echo '<li>Date de parution: <span>' . $livre['publication_date'] . '</span></li>';
+    // echo '<li>Format: <span>' . $livre['feature'] . '</span></li>'; 
+    // echo '<li>Dimensions: <span>' . $livre['dimensions'] . '</span></li>';
+    // echo '<li>Poids: <span>' . $livre['weight'] . '</span></li>';
+    // echo '</ul>';
+    // echo '</div>';
+    // echo '</div>';
+    // echo '</div>';
+    // echo '</section>';
+    // echo '</main>';
 }
 
+
 /**
- * Affiche l'article reçu en paramètre
+ * Affiche la papeterie reçu en paramètre
  * 
  * @param mixed $papeterie
  * @return void 
  */
 function displayPapeterieByID($papeterie)
 {
-    echo '<article>';
-    echo '<h2 class="article-title">' . $papeterie['title'] . '</h2>';
-    echo '<hr>';
-    echo '<p>' . html_entity_decode($papeterie['content']) . '</p>';
-    echo '</article>';
+    echo '<main>';
+    echo '<section class="product-container container">';
+    echo '<div class="product-info-container">';
+    echo '<div class="product-img">';
+    echo '<img src="' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '</div>';
+    echo '<div class="product-info">';
+    echo '<div>';
+    echo '<h2>' . $papeterie['title'] . '</h2>';
+    echo '</div>';
+    echo '<div class="product-price">';
+    echo '<p>' . $papeterie['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '</div>';
+    echo '<div class="product-advantages">';
+    echo '<ul>';
+    echo '<li><i class="fa fa-shopping-cart"></i> Passer une commande en un clic</li>';
+    echo '<li><i class="fa fa-lock"></i> Payer en toute sécurité</li>';
+    echo '<li><i class="fa fa-home"></i> Livraison en Belgique: 3,99 €</li>';
+    echo '<li><i class="fa fa-gift"></i> Livraison en magasin gratuite</li>';
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '<div class="product-description">';
+    echo '<h2>Description</h2>';
+    echo '<p>' . htmlspecialchars_decode($papeterie['content']). '</p>';
+    echo '</div>';
 }
 
 /**
- * Affiche l'article reçu en paramètre
+ * Affiche le cadeau reçu en paramètre
  * 
- * @param mixed $cadeau 
+ * @param mixed $papeterie
  * @return void 
  */
 function displayCadeauByID($cadeau)
 {
-    echo '<article>';
-    echo '<h2 class="article-title">' . $cadeau['title'] . '</h2>';
-    echo '<hr>';
-    echo '<p>' . html_entity_decode($cadeau['content']) . '</p>';
-    echo '</article>';
+    echo '<section class="product-container container">';
+    echo '<div class="product-info-container">';
+    echo '<div class="product-img">';
+    echo '<img src="' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '</div>';
+    echo '<div class="product-info">';
+    echo '<div>';
+    echo '<h2>' . $cadeau['title'] . '</h2>';
+    echo '</div>';
+    echo '<div class="product-price">';
+    echo '<p>' . $cadeau['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '</div>';
+    echo '<div class="product-advantages">';
+    echo '<ul>';
+    echo '<li><i class="fa fa-shopping-cart"></i> Passer une commande en un clic</li>';
+    echo '<li><i class="fa fa-lock"></i> Payer en toute sécurité</li>';
+    echo '<li><i class="fa fa-home"></i> Livraison en Belgique: 3,99 €</li>';
+    echo '<li><i class="fa fa-gift"></i> Livraison en magasin gratuite</li>';
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '<div class="product-description">';
+    echo '<h2>Description</h2>';
+    echo '<p>' . htmlspecialchars_decode($cadeau['content']). '</p>';
+    echo '</div>';
 }
+
+
 /**-----------------------------------------------------------------
             Affiche les articles pour la page du manager
  *------------------------------------------------------------------**/
