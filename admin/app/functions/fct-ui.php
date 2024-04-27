@@ -4,6 +4,7 @@
 /* *                          ---------------                           * */
 /* *        FONCTIONS D'AFFICHAGE DE L'INTERFACE UTILISATEUR            * */
 /* ********************************************************************** */
+
 /**
  * Retourne le code html des boutons radios indiquant 
  * le status de publication de l'article
@@ -376,21 +377,17 @@ function displayCadeaux($cadeaux)
  * @param array $livre Array containing livre information
  * @return string HTML markup for displaying livre
  */
-function generateLivreHTML($livre) {
+function generateLivreHTML($livre)
+{
     echo '<article class="article-container">';
     echo '<div class="product-img">';
-    // Check if 'image_url' key is set before accessing it
-    if (isset($livre['image_url'])) {
-        echo '<img src="/librairie-lejeune/assets/images/uploads/'.$livre['image_url'].'" alt="'.$livre['title'].'">';
-    } else {
-        echo '<img src="/librairie-lejeune/assets/images/uploads/book-cup.jpg" alt="Placeholder Image">';
-    }
+    echo '<img src="http://localhost/librairie-lejeune/assets/images/uploads/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     if (isset($livre['title']) && isset($livre['writer']) && isset($livre['feature'])) {
-        echo '<h2>'.$livre['title'].'</h2>';
-        echo '<p>'.$livre['writer'].' <span>'.$livre['feature'].'</span></p>';
+        echo '<h2>' . $livre['title'] . '</h2>';
+        echo '<p>' . $livre['writer'] . ' <span>' . $livre['feature'] . '</span></p>';
     } else {
         echo '<h2>Titre non disponible</h2>';
         echo '<p>Auteur non disponible <span>Feature non disponible</span></p>';
@@ -400,14 +397,14 @@ function generateLivreHTML($livre) {
         // Truncate content after 200 characters and append "..."
         $truncatedContent = strlen($livre['content']) > 200 ? substr($livre['content'], 0, 200) . '...' : $livre['content'];
         echo '<div class="product-description">';
-        echo '<p>'.htmlspecialchars_decode($truncatedContent).'</p>';
+        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
         echo '</div>';
     }
     echo '<div class="more-info">';
     // Check if 'idLivre' key is set before creating the link
     if (isset($livre['idLivre'])) {
         // Link to product.php with the product id
-        echo '<a href="../public/product-livre.php?idLivre='.$livre['idLivre'].'">Savoir plus</a>';
+        echo '<a href="http://localhost/librairie-lejeune/admin/article-livre.php?idLivre=' . $livre['idLivre'] . '">Savoir plus</a>';
     } else {
         echo '<a href="#">Savoir plus</a>';
     }
@@ -416,7 +413,7 @@ function generateLivreHTML($livre) {
     echo '<div class="product-price">';
     // Check if 'price' key is set before accessing it
     if (isset($livre['price'])) {
-        echo '<p>'.$livre['price'].' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+        echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     } else {
         echo '<p>Prix non disponible <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     }
@@ -465,7 +462,7 @@ function displayLivreByID($livre)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($livre['content']). '</p>';
+    echo '<p>' . htmlspecialchars_decode($livre['content']) . '</p>';
     echo '</div>';
     // echo '<div class="product-specification">';
     // echo '<h2>Spécifications</h2>';
@@ -478,7 +475,7 @@ function displayLivreByID($livre)
     // echo '</ul>';
     // echo '<h3>Contenu</h3>';
     // echo '<ul>';
-    
+
     // echo '<li>Nombre de pages: <span>' . $livre['pages'] . '</span></li>';
     // echo '<li>Langue: <span>Français</span></li>';
     // echo '</ul>';
@@ -486,7 +483,7 @@ function displayLivreByID($livre)
     // echo '<div class="product-specification-right">';
     // echo '<h3>Caractéristiques</h3>';
     // echo '<ul>';
-    
+
     // echo '<li>EAN: <span>' . $livre['ean'] . '</span></li>';
     // echo '<li>Date de parution: <span>' . $livre['publication_date'] . '</span></li>';
     // echo '<li>Format: <span>' . $livre['feature'] . '</span></li>'; 
@@ -535,7 +532,7 @@ function displayPapeterieByID($papeterie)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($papeterie['content']). '</p>';
+    echo '<p>' . htmlspecialchars_decode($papeterie['content']) . '</p>';
     echo '</div>';
 }
 
@@ -572,7 +569,7 @@ function displayCadeauByID($cadeau)
     echo '</div>';
     echo '<div class="product-description">';
     echo '<h2>Description</h2>';
-    echo '<p>' . htmlspecialchars_decode($cadeau['content']). '</p>';
+    echo '<p>' . htmlspecialchars_decode($cadeau['content']) . '</p>';
     echo '</div>';
 }
 
@@ -582,33 +579,33 @@ function displayCadeauByID($cadeau)
             Affiche les articles pour la page du manager
  *------------------------------------------------------------------**/
 
- /**
+/**
  * Affiche les articles pour la page du manager
  * 
  * @param array $articles 
  * @return string 
  */
 
- function displayArticlesWithButtons($articles)
+function displayArticlesWithButtons($articles)
 {
     foreach ($articles as $article) {
         // Display Article Content
         echo '<div class="article">';
-        
+
         // Display circle based on article status
         $circleClass = ($article['active']) ? 'circle-published' : 'circle-not-published';
         echo '<div class="circle ' . $circleClass . '"></div>';
-        
+
         echo '<h3>' . htmlspecialchars_decode($article['title']) . '</h3>';
         echo '</div>';
-        
+
         // Display buttons
         echo '<div class="buttons">';
         echo '<button class="btn-manager" onclick="modifierArticle(' . $article['id'] . ')">Modifier</button>';
         echo '<button class="btn-manager" onclick="afficherArticle(' . $article['id'] . ')">Afficher</button>';
         echo '<button class="btn-manager-delete" onclick="supprimerArticle(' . $article['id'] . ')">Supprimer</button>';
         echo '</div>';
-        
+
         echo '<hr>';
     }
 }
@@ -644,8 +641,8 @@ function displayLivresWithButtons($livres)
         echo '<hr>';
     }
 }
- 
- /**
+
+/**
  * Affiche les papeteries pour la page du manager
  * 
  * @param array $papeteries
@@ -683,29 +680,29 @@ function displayPapeteriesWithButtons($papeteries)
  * @return string 
  */
 
- function displayCadeauxWithButtons($cadeaux)
- {
-     foreach ($cadeaux as $cadeau) {
-         // Display Article Content
-         echo '<div class="article">';
- 
-         // Display circle based on article status
-         $circleClass = ($cadeau['active']) ? 'circle-published' : 'circle-not-published';
-         echo '<div class="circle ' . $circleClass . '"></div>';
- 
-         echo '<h3>' . htmlspecialchars_decode($cadeau['title']) . '</h3>';
-         echo '</div>';
- 
-         // Display buttons
-         echo '<div class="buttons">';
-         echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-         echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-         echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
-         echo '</div>';
- 
-         echo '<hr>';
-     }
- }
+function displayCadeauxWithButtons($cadeaux)
+{
+    foreach ($cadeaux as $cadeau) {
+        // Display Article Content
+        echo '<div class="article">';
+
+        // Display circle based on article status
+        $circleClass = ($cadeau['active']) ? 'circle-published' : 'circle-not-published';
+        echo '<div class="circle ' . $circleClass . '"></div>';
+
+        echo '<h3>' . htmlspecialchars_decode($cadeau['title']) . '</h3>';
+        echo '</div>';
+
+        // Display buttons
+        echo '<div class="buttons">';
+        echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+        echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+        echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '</div>';
+
+        echo '<hr>';
+    }
+}
 
 /**-----------------------------------------------------------------
     Affiche les articles pour la page du manager sous forme de table
@@ -720,7 +717,7 @@ function displayLivresAsTable($livres)
 {
     // Start the table
     echo '<table>';
-    
+
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
@@ -731,7 +728,7 @@ function displayLivresAsTable($livres)
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
-    
+
     // Table data
     foreach ($livres as $livre) {
         echo '<tr>';
@@ -739,7 +736,7 @@ function displayLivresAsTable($livres)
         echo '<td>' . html_entity_decode($livre['title']) . '</td>';
         echo '<td>' . html_entity_decode($livre['writer']) . '</td>';
         echo '<td>' . html_entity_decode($livre['feature']) . '</td>';
-        echo '<td>' .html_entity_decode($livre['price']) . '</td>';
+        echo '<td>' . html_entity_decode($livre['price']) . '</td>';
         echo '<td>' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
         echo '<button class="btn-primary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
@@ -748,7 +745,7 @@ function displayLivresAsTable($livres)
         echo '</td>';
         echo '</tr>';
     }
-    
+
     // End the table
     echo '</table>';
 }
@@ -765,7 +762,7 @@ function displayPapeteriesAsTable($papeteries)
 {
     // Start the table
     echo '<table>';
-    
+
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
@@ -775,7 +772,7 @@ function displayPapeteriesAsTable($papeteries)
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
-    
+
     // Table data
     foreach ($papeteries as $papeterie) {
         echo '<tr>';
@@ -791,7 +788,7 @@ function displayPapeteriesAsTable($papeteries)
         echo '</td>';
         echo '</tr>';
     }
-    
+
     // End the table
     echo '</table>';
 }
@@ -808,7 +805,7 @@ function displayCadeauxAsTable($cadeaux)
 {
     // Start the table
     echo '<table>';
-    
+
     // Table headers
     echo '<tr>';
     echo '<th>ID</th>';
@@ -818,7 +815,7 @@ function displayCadeauxAsTable($cadeaux)
     echo '<th>Statut</th>';
     echo '<th>Actions</th>';
     echo '</tr>';
-    
+
     // Table data
     foreach ($cadeaux as $cadeau) {
         echo '<tr>';
@@ -834,8 +831,7 @@ function displayCadeauxAsTable($cadeaux)
         echo '</td>';
         echo '</tr>';
     }
-    
+
     // End the table
     echo '</table>';
 }
-
