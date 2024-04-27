@@ -1,40 +1,49 @@
+<?php
+require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
+
+// Check if user is not identified, redirect to login page
+if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+    header('Location: login.php');
+    exit();
+}
+
+$msg = null;
+$result = null;
+$execute = false;
+
+// Check the database connection
+if (!is_object($conn)) {
+    $msg = getMessage($conn, 'error');
+} else {
+    // Fetch all livres from the database
+    $result = getAllLivresDB($conn);
+
+    // Check if livres exist
+    if (is_array($result) && !empty($result)) {
+        $execute = true;
+    } else {
+        $msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description"
-		content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!">
-
-	<!-- Custom Sass file -->
-	<link rel="stylesheet" href="../css/styles.css">
-
-	<!-- Google Fonts Preconnect and Link -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
-
-	<!-- Favicon -->
-
-	<!-- Title -->
-	<title>Librairie Lejeune</title>
+    <?php displayHeadSection('Papeterie'); ?>
 </head>
 
 <body>
-	<!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
-	<header>
-	<!-----------------------------------------------------------------
-							   Navigation
-	------------------------------------------------------------------>
-	<div data-include="navigation"></div>
-	<!-----------------------------------------------------------------
-							Navigation end
-	------------------------------------------------------------------>
+    <header>
+        <!-----------------------------------------------------------------
+                               Navigation
+        ------------------------------------------------------------------>
+        <div data-include="navigation"></div>
+        <!-----------------------------------------------------------------
+                            Navigation end
+        ------------------------------------------------------------------>
+    </header>
 		<div class="header-image--home">
 			<h1>
 				Explorez, découvrez, lisez.
