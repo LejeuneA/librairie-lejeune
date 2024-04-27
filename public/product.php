@@ -25,6 +25,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
     $msg = getMessage('Il n\'y a pas du produit à afficher', 'error'); // Display an error message if no livre ID is provided
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
