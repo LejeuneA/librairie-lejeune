@@ -15,14 +15,14 @@ $execute = false;
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
-    // Fetch all livres from the database
+    // Fetch all cadeaux from the database
     $result = getAllCadeauxDB($conn);
 
     // Check if cadeaux exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
     } else {
-        $msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+        $msg = getMessage('Il n\'y a pas de cadeau à afficher actuellement', 'error');
     }
 }
 ?>
@@ -87,15 +87,15 @@ if (!is_object($conn)) {
         <section class="gifts-container container">
             <!-- Articles -->
             <?php
-            // Check if there are livres to display
+            // Check if there are cadeaux to display
             if ($execute) {
-                // Loop through each livre and generate HTML markup
-                foreach ($result as $livre) {
-                    echo generateCadeauHTML($livre);
+                // Loop through each cadeau and generate HTML markup
+                foreach ($result as $cadeau) {
+                    echo generateCadeauHTML($cadeau);
                 }
             } else {
-                // Display a message if there are no livres to display
-                echo '<p>Il n\'y a pas de livre à afficher actuellement</p>';
+                // Display a message if there are no cadeaux to display
+                echo '<p>Il n\'y a pas de cadeau à afficher actuellement</p>';
             }
             ?>
             <!-- Articles end -->
