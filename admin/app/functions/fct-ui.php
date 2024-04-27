@@ -368,59 +368,56 @@ function displayCadeaux($cadeaux)
 }
 
 
-/**-----------------------------------------------------------------
-        Generate HTML markup for displaying livre information
- *------------------------------------------------------------------**/
 /**
  * Generate HTML markup for displaying livre information
  * 
  * @param array $livre Array containing livre information
  * @return string HTML markup for displaying livre
  */
-function generateLivreHTML($livre)
-{
-    echo '<article class="article-container">';
-    echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/assets/images/uploads/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
-    echo '</div>';
-    echo '<div class="product-info">';
+function generateLivreHTML($livre) {
+    // Start building the HTML markup
+    $html = '<article class="article-container">';
+    $html .= '<div class="product-img">';
+    $html .= '<img src="http://localhost/librairie-lejeune/admin/uploads/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    $html .= '</div>';
+    $html .= '<div class="product-info">';
+
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
-    if (isset($livre['title']) && isset($livre['writer']) && isset($livre['feature'])) {
-        echo '<h2>' . $livre['title'] . '</h2>';
-        echo '<p>' . $livre['writer'] . ' <span>' . $livre['feature'] . '</span></p>';
-    } else {
-        echo '<h2>Titre non disponible</h2>';
-        echo '<p>Auteur non disponible <span>Feature non disponible</span></p>';
-    }
+    $title = isset($livre['title']) ? $livre['title'] : 'Titre non disponible';
+    $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
+    $feature = isset($livre['feature']) ? $livre['feature'] : 'Feature non disponible';
+
+    $html .= '<h2>' . $title . '</h2>';
+    $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
+
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
         // Truncate content after 200 characters and append "..."
         $truncatedContent = strlen($livre['content']) > 200 ? substr($livre['content'], 0, 200) . '...' : $livre['content'];
-        echo '<div class="product-description">';
-        echo '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
-        echo '</div>';
+        $html .= '<div class="product-description">';
+        $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
+        $html .= '</div>';
     }
-    echo '<div class="more-info">';
+
+    $html .= '<div class="more-info">';
     // Check if 'idLivre' key is set before creating the link
-    if (isset($livre['idLivre'])) {
-        // Link to product.php with the product id
-        echo '<a href="http://localhost/librairie-lejeune/admin/article-livre.php?idLivre=' . $livre['idLivre'] . '">Savoir plus</a>';
-    } else {
-        echo '<a href="#">Savoir plus</a>';
-    }
-    echo '</div>';
-    echo '</div>';
-    echo '<div class="product-price">';
+    $link = isset($livre['idLivre']) ? 'http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
+    $html .= '<a href="' . $link . '">Savoir plus</a>';
+    $html .= '</div>';
+    $html .= '</div>';
+
+    $html .= '<div class="product-price">';
     // Check if 'price' key is set before accessing it
-    if (isset($livre['price'])) {
-        echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    } else {
-        echo '<p>Prix non disponible <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    }
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
-    echo '</div>';
-    echo '</article>';
+    $price = isset($livre['price']) ? $livre['price'] . ' €' : 'Prix non disponible';
+    $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
+    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '</div>';
+
+    $html .= '</article>';
+
+    return $html;
 }
+
 
 
 /**-----------------------------------------------------------------
