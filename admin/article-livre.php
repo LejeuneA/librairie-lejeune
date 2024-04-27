@@ -31,7 +31,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection((isset($result['title']) ? $result['title'] : APP_NAME)); ?>
+    <?php displayHeadSection('Livre'); ?>
 </head>
 
 <body>
