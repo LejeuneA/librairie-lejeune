@@ -113,28 +113,49 @@ function getAllArticlesDB($conn, $active = '%')
  * Récupérer tous les livres de la table articles
  * 
  * @param object $conn 
+ * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
- * @return array $resultat
+ * @return array|false $resultat ou false en cas d'erreur
  */
-function getAllLivresDB($conn, $active = '%')
+function getAllLivresDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC");
+        // Préparation de la requête SQL
+        $sql = "SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC";
+        
+        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+        }
+
+        // Préparation de la requête
+        $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
+
+        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        if ($limit !== null) {
+            $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+
+        // Exécution de la requête
         $req->execute();
 
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetchall(PDO::FETCH_ASSOC);
+        // Récupération des résultats
+        $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Fermeture de la connexion
         $req = null;
         $conn = null;
 
+        // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllLivresDB() function";
-        return $st;
+        // Gestion des erreurs
+        if (DEBUG) {
+            return 'Error : ' . $e->getMessage();
+        } else {
+            return "Error in : getAllLivresDB() function";
+        }
     }
 }
 
@@ -142,28 +163,49 @@ function getAllLivresDB($conn, $active = '%')
  * Récupérer tous les papeteries de la table articles
  * 
  * @param object $conn 
+ * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
- * @return array $resultat
+ * @return array|false $resultat ou false en cas d'erreur
  */
-function getAllPapeteriesDB($conn, $active = '%')
+function getAllPapeteriesDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM papeteries WHERE active LIKE :active ORDER BY idPapeterie DESC");
+        // Préparation de la requête SQL
+        $sql = "SELECT * FROM papeteries WHERE active LIKE :active ORDER BY idPapeterie DESC";
+        
+        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+        }
+
+        // Préparation de la requête
+        $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
+
+        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        if ($limit !== null) {
+            $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+
+        // Exécution de la requête
         $req->execute();
 
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetchall(PDO::FETCH_ASSOC);
+        // Récupération des résultats
+        $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Fermeture de la connexion
         $req = null;
         $conn = null;
 
+        // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllPapeteriesDB() function";
-        return $st;
+        // Gestion des erreurs
+        if (DEBUG) {
+            return 'Error : ' . $e->getMessage();
+        } else {
+            return "Error in : getAllPapeteriesDB() function";
+        }
     }
 }
 
@@ -171,30 +213,52 @@ function getAllPapeteriesDB($conn, $active = '%')
  * Récupérer tous les cadeaux de la table articles
  * 
  * @param object $conn 
+ * @param int $limit (Nombre d'éléments à récupérer)
  * @param string $active (0, 1 ou %)
- * @return array $resultat
+ * @return array|false $resultat ou false en cas d'erreur
  */
-function getAllCadeauxDB($conn, $active = '%')
+function getAllCadeauxDB($conn, $limit = null, $active = '%')
 {
     try {
-        // Récupérer des données de notre table articles
-        $req = $conn->prepare("SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY idCadeau DESC");
+        // Préparation de la requête SQL
+        $sql = "SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY idCadeau DESC";
+        
+        // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
+        if ($limit !== null) {
+            $sql .= " LIMIT :limit";
+        }
+
+        // Préparation de la requête
+        $req = $conn->prepare($sql);
         $req->bindParam(':active', $active);
+
+        // Si un nombre limite est spécifié, bind le paramètre à la requête
+        if ($limit !== null) {
+            $req->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+
+        // Exécution de la requête
         $req->execute();
 
-        // Retourne un tableau associatif pour chaque entrée de la table articles avec le nom des colonnes comme clé
-        $resultat = $req->fetchall(PDO::FETCH_ASSOC);
+        // Récupération des résultats
+        $resultat = $req->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fermeture connexion
+        // Fermeture de la connexion
         $req = null;
         $conn = null;
 
+        // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllCadeauxDB() function";
-        return $st;
+        // Gestion des erreurs
+        if (DEBUG) {
+            return 'Error : ' . $e->getMessage();
+        } else {
+            return "Error in : getAllCadeauxDB() function";
+        }
     }
 }
+
 
 /**-----------------------------------------------------------------
             Récupérer un article en fonction de son ID
