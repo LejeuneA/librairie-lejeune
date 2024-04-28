@@ -325,36 +325,6 @@ function getMessage($message, $type = 'success')
     return $html;
 }
 
-
-/**-----------------------------------------------------------------
-                        Affichage des articles 
- *------------------------------------------------------------------**/
-// Function to display livres
-function displayLivres($conn)
-{
-    // Fetch all livres
-    $livres = getAllLivresDB($conn);
-
-    if ($livres && is_array($livres)) {
-        echo '<div class="article-preview-container">';
-
-        // Loop through livres to display them
-        foreach ($livres as $livre) {
-            echo '<article>';
-            echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-            echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
-            echo '</a>';
-            echo '<h3>' . $livre['title'] . '</h3>';
-            echo '<p>' . $livre['writer'] . '<span>Livre broché | Français</span></p>';
-            echo '</article>';
-        }
-
-        echo '</div>';
-    } else {
-        echo '<p>No livres found.</p>';
-    }
-}
-
 /**-----------------------------------------------------------------
         Generate HTML markup for displaying articles information
  *------------------------------------------------------------------**/
