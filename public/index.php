@@ -82,7 +82,7 @@ if (!is_object($conn)) {
 							echo '<div class="mySlides fade">';
 							echo '<div class="article">';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '" style="width:100%">';
+							echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
 							echo '</a>';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 							echo '<div class="article-title">' . $livre['title'] . '</div>';
@@ -136,69 +136,41 @@ if (!is_object($conn)) {
 		<!-----------------------------------------------------------------
 							  Article preview - Papeterie
 		------------------------------------------------------------------>
-		<!-- Papeterie -->
+		<!-- Article preview - Papeterie -->
 		<section class="article-preview">
-			<!-- Container -->
-			<div class="container">
-				<h2>Meilleures ventes <span>Papeterie</span></h2>
-				<!-- Article-preview-container -->
+			<div class="container slideshow-container">
+				<h2>Meilleures ventes <span>Papeteries</span></h2>
 				<div class="article-preview-container">
 					<!-- Articles -->
-					<article>
-						<img src="../assets/images/stationeries/paint-on-bloc.jpg" alt="Paint'ON bloc">
-						<h3>Paint'ON bloc</h3>
-						<p>Clairefontaine
-							<span>Multi-technique | A4</span>
-						</p>
-					</article>
+					<?php
+					// Fetch papeteries from the database
+					$papeteries = getAllPapeteriesDB($conn,6);
 
-					<article>
-						<img src="../assets/images/stationeries/memo-notes.jpg" alt="Memo Notes">
-						<h3>Memo Notes</h3>
-						<p>Paperstore
-							<span>Exotic | NL</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/stationeries/bullet-journal.jpg" alt="Bullet Journal">
-						<h3>Bullet Journal</h3>
-						<p>Minj
-							<span>Livre broché | NL</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/stationeries/cahier-cercles.jpg" alt="Cahier cercles">
-						<h3>Cahier cercles</h3>
-						<p>Paperstore
-							<span>Carnet d'adresses | NL</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/stationeries/crayons-couleurs.jpg" alt="Crayons couleurs">
-						<h3>Crayons couleurs</h3>
-						<p>BIC Kids
-							<span>Tropicolors | x18</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/stationeries/bloc-papier.jpg" alt="Aurora bloc papier">
-						<h3>Aurora bloc papier</h3>
-						<p>Aurora
-							<span>Millimetré A4 beige | A3</span>
-						</p>
-					</article>
-					<!-- Articles end -->
+					// Check if papeteries exist
+					if (is_array($papeteries) && !empty($papeteries)) {
+						// Iterate over papeteries
+						foreach ($papeteries as $papeterie) {
+							echo '<div class="article">';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+							echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
+							echo '</a>';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+							echo '<div class="article-title">' . $papeterie['title'] . '</div>';
+							echo '</a>';
+							echo '<div class="article-feature">' . $papeterie['feature'] . '</div>';
+							echo '</div>';
+						}
+					} else {
+						// No papeteries found
+						echo '<p>Aucune papeterie disponible actuellement.</p>';
+					}
+					?>
 				</div>
 				<!-- Article-preview-container end -->
 			</div>
 			<!-- Container end -->
 		</section>
-		<!-- Article-preview end -->
-		<!-- Papeterie end -->
+		<!-- Article preview - Papeterie end -->
 
 		<!-----------------------------------------------------------------
 							Article preview - Papeterie end
@@ -223,69 +195,41 @@ if (!is_object($conn)) {
 		<!-----------------------------------------------------------------
 								Article preview - Cadeaux
 		------------------------------------------------------------------>
-		<!-- Cadeaux -->
+		<!-- Article preview - Cadeaux -->
 		<section class="article-preview">
-			<!-- Container -->
-			<div class="container">
-				<h2>Meilleures ventes <span>Cadeaux</span></h2>
-				<!-- Article-preview-container -->
+			<div class="container slideshow-container">
+				<h2>Meilleures ventes <span>Cadeaux</span></h2>
 				<div class="article-preview-container">
 					<!-- Articles -->
-					<article>
-						<img src="../assets/images/gifts/cinema.jpg" alt="Cinéma & Pop-corn">
-						<h3>Cinéma & Pop-corn</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
+					<?php
+					// Fetch cadeaux from the database
+					$cadeaux = getAllCadeauxDB($conn, 6);
 
-					<article>
-						<img src="../assets/images/gifts/tables-romantiques.jpg" alt="Tables Romantiques">
-						<h3>Tables Romantiques</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/gifts/tentations.jpg" alt="Tentations a Deux">
-						<h3>Tentations a Deux</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/gifts/evasion-a-deux.jpg" alt="Evasion a Deux">
-						<h3>Evasion a Deux</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/gifts/week-end-insolite.jpg" alt="Séjour Insolite">
-						<h3>Séjour Insolite</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/gifts/aventure-en-duo.jpg" alt="Aventure en Duo">
-						<h3>Aventure en Duo</h3>
-						<p>Bongo
-							<span>Giftbox | Deux personnes</span>
-						</p>
-					</article>
-					<!-- Articles end -->
+					// Check if cadeaux exist
+					if (is_array($cadeaux) && !empty($cadeaux)) {
+						// Iterate over papeteries
+						foreach ($cadeaux as $cadeau) {
+							echo '<div class="article">';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+							echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
+							echo '</a>';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+							echo '<div class="article-title">' . $cadeau['title'] . '</div>';
+							echo '</a>';
+							echo '<div class="article-feature">' . $cadeau['feature'] . '</div>';
+							echo '</div>';
+						}
+					} else {
+						// No papeteries found
+						echo '<p>Aucune cadeau disponible actuellement.</p>';
+					}
+					?>
 				</div>
 				<!-- Article-preview-container end -->
 			</div>
 			<!-- Container end -->
 		</section>
-		<!-- Article-preview end -->
-		<!-- Cadeaux end -->
+		<!-- Article preview - Papeterie end -->
 		<!-----------------------------------------------------------------
 							Article preview - Cadeaux end
 		------------------------------------------------------------------>
