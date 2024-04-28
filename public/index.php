@@ -3,8 +3,8 @@ require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+	header('Location: login.php');
+	exit();
 }
 
 $msg = null;
@@ -13,17 +13,17 @@ $execute = false;
 
 // Check the database connection
 if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+	$msg = getMessage($conn, 'error');
 } else {
-    // Fetch all livres from the database
-    $result = getAllLivresDB($conn);
+	// Fetch all livres from the database
+	$result = getAllLivresDB($conn);
 
-    // Check if livres exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-    } else {
-        $msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
-    }
+	// Check if livres exist
+	if (is_array($result) && !empty($result)) {
+		$execute = true;
+	} else {
+		$msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+	}
 }
 ?>
 
@@ -31,31 +31,31 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Papeterie'); ?>
+	<?php displayHeadSection('Librarie Lejeune'); ?>
 </head>
 
 <body>
-    <header>
-        <!-----------------------------------------------------------------
+	<header>
+		<!-----------------------------------------------------------------
                                Navigation
         ------------------------------------------------------------------>
-        <div data-include="navigation"></div>
-        <!-----------------------------------------------------------------
+		<div data-include="navigation"></div>
+		<!-----------------------------------------------------------------
                             Navigation end
         ------------------------------------------------------------------>
-    </header>
-		<div class="header-image--home">
-			<h1>
-				Explorez, découvrez, lisez.
-			</h1>
+	</header>
+	<div class="header-image--home">
+		<h1>
+			Explorez, découvrez, lisez.
+		</h1>
 
-			<p>
-				Notre librairie en ligne propose une variété de genres pour satisfaire tous les goûts. Naviguez,
-				choisissez,
-				et laissez-vous emporter par des histoires captivantes.
-			</p>
-			<a href="../public/livres.php" class="btn-primary">Découvrir nos produit</a>
-		</div>
+		<p>
+			Notre librairie en ligne propose une variété de genres pour satisfaire tous les goûts. Naviguez,
+			choisissez,
+			et laissez-vous emporter par des histoires captivantes.
+		</p>
+		<a href="../public/livres.php" class="btn-primary">Découvrir nos produit</a>
+	</div>
 	</header>
 	<!-----------------------------------------------------------------
 							Header end
@@ -68,68 +68,47 @@ if (!is_object($conn)) {
 							Article preview - Livres
 		------------------------------------------------------------------>
 
-		<!-- Article-preview -->
+		<!-- Article preview - Livres -->
 		<section class="article-preview">
-			<!-- Container -->
-			<div class="container">
-				<h2>Meilleures ventes <span>Livres</span></h2>
-				<!-- Article-preview-container -->
+			<div class="container slideshow-container">
+				<h2>Meilleures ventes <span>Livres</span></h2>
 				<div class="article-preview-container">
 					<!-- Articles -->
-					<article>
-						<img src="../assets/images/books/les-parias.jpg" alt="Les Parias">
-						<h3>Les Parias</h3>
-						<p>Arnaldur Indridason
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/books/beautiful-sinner.jpg" alt="Beautiful Sinner">
-						<h3>Beautiful sinner</h3>
-						<p>Anita Riginss
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/books/borderline.jpg" alt="Borderline. Vol. 1">
-						<h3>Borderline. Vol. 1</h3>
-						<p>Joyce Kitten
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/books/captive.jpg" alt="Captive. Vol. 1">
-						<h3>Captive. Vol. 1</h3>
-						<p>Sarah Rivens
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/books/la-rose-de-minuit.jpg" alt="La rose de minuit">
-						<h3>La rose de minuit</h3>
-						<p>Lucinda Riley
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
-
-					<article>
-						<img src="../assets/images/books/les-yeux-de-mona.jpg" alt="Les yeux de Mona">
-						<h3>Les yeux de Mona</h3>
-						<p>Thomas Schlesser
-							<span>Livre broché | Français</span>
-						</p>
-					</article>
+					<?php
+					// Check if livres exist
+					if ($execute) {
+						// Iterate over livres
+						foreach ($result as $livre) {
+							echo '<div class="mySlides fade">';
+							echo '<div class="livre">';
+							echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '" style="width:100%">';
+							echo '<div class="livre-title">' . $livre['title'] . '</div>';
+							echo '<div class="livre-writer">' . $livre['writer'] . '</div>';
+							// You can add more livre details here as needed
+							echo '</div>';
+							echo '</div>';
+						}
+					}
+					?>
 					<!-- Articles end -->
 				</div>
-				<!-- Article-preview-container end -->
+				<!-- Next and previous buttons -->
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				<!-- The dots/circles -->
+				<div style="text-align:center">
+					<?php
+					// Output dots for each slide
+					if ($execute) {
+						for ($i = 0; $i < count($result); $i++) {
+							echo '<span class="dot" onclick="currentSlide(' . ($i + 1) . ')"></span>';
+						}
+					}
+					?>
+				</div>
 			</div>
-			<!-- Container end -->
 		</section>
-		<!-- Article-preview end -->
+		<!-- Article preview - Livres end -->
 		<!-----------------------------------------------------------------
 							Article preview - Livres end
 		------------------------------------------------------------------>
@@ -384,10 +363,45 @@ if (!is_object($conn)) {
 	------------------------------------------------------------------>
 
 	<!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<!-- Include functions.js -->
 	<script src="../js/functions.js"></script>
+
+	<!-----------------------------------------------------------------
+				JavaScript for slideshow effect
+	------------------------------------------------------------------>
+	<script>
+		let currentIndex = 0;
+		const articles = document.querySelectorAll('.mySlides');
+		const totalArticles = articles.length;
+		const articlesPerPage = 6;
+		const totalPages = Math.ceil(totalArticles / articlesPerPage);
+
+		function showSlides() {
+			const start = currentIndex * articlesPerPage;
+			const end = Math.min(start + articlesPerPage, totalArticles);
+
+			// Hide all articles
+			articles.forEach(article => {
+				article.style.display = 'none';
+			});
+
+			// Show the current set of articles
+			for (let i = start; i < end; i++) {
+				articles[i].style.display = 'block';
+			}
+
+			// Increment index for next set of articles
+			currentIndex = (currentIndex + 1) % totalPages;
+		}
+
+		// Initially show the first set of articles
+		showSlides();
+
+		// Automatically switch to the next set of articles every 3 seconds
+		setInterval(showSlides, 3000);
+	</script>
 
 </body>
 
