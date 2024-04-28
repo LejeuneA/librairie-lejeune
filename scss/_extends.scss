@@ -1,7 +1,6 @@
-@use 'custom';
-@use 'mixins';
-@use 'global';
-
+@use "custom";
+@use "mixins";
+@use "global";
 
 /* -------------------------------------------------------
                 Define extend for header image
@@ -94,15 +93,11 @@
         font-weight: 200;
         font-size: 1.1rem;
 
-        @include hover("background-color",
-          $primary-blue,
-          "color",
-          $primary-red );
+        @include hover("background-color", $primary-blue, "color", $primary-red);
       }
     }
   }
 }
-
 
 /* -------------------------------------------------------
         Define extend for product price
@@ -158,29 +153,38 @@
         Define extend for advantage icons
 ---------------------------------------------------------*/
 %advantage-icons {
+  @include d-flex(flex, center, center, row, center);
   width: 100%;
   height: auto;
   background-color: $tertiary-blue;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   flex-wrap: wrap;
   padding: 3em 0;
 
-  article {
-    flex: 0 0 auto;
-    width: 14em;
-    height: auto;
+  .article-preview-container {
+    @include d-flex(flex, center, flex-start, row, center);
+    gap:2em;
 
-    img {
-      width: 100%;
-      max-width: 100px;
+    article {
+      flex: 0 0 auto;
+      width: 14em;
       height: auto;
-    }
 
-    h3,
-    p {
-      text-align: center;
+      img {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+      }
+
+      h3{
+        font-weight: 400;
+      }
+      p {
+        text-align: center;
+        line-height: 1.3em;
+        font-size: 1em;
+        font-weight: 200;
+        padding-top: 0.5em;
+      }
     }
   }
 }
@@ -193,64 +197,63 @@
   margin-bottom: 1em;
 
   label {
-      color: $secondary-blue;
-      font-weight: 400;
-      font-size: 1.5em;
-      margin-bottom: 0.5em;
+    color: $secondary-blue;
+    font-weight: 400;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
   }
 
   input {
-      width: 100%;
-      padding: 0.6em;
-      border: 1px solid $secondary-blue;
-      border-radius: 0.3em;
-      box-sizing: border-box;
-      margin-top: 0.4em;
-      margin-bottom: 1em;
-      resize: vertical;
-      outline: none;
-      color:$primary-blue;
+    width: 100%;
+    padding: 0.6em;
+    border: 1px solid $secondary-blue;
+    border-radius: 0.3em;
+    box-sizing: border-box;
+    margin-top: 0.4em;
+    margin-bottom: 1em;
+    resize: vertical;
+    outline: none;
+    color: $primary-blue;
   }
 
   input::placeholder,
   textarea::placeholder {
-      font-family: "Poppins", sans-serif;
-      font-size: small;
-      font-style: italic;
-      color: $light-blue;
+    font-family: "Poppins", sans-serif;
+    font-size: small;
+    font-style: italic;
+    color: $light-blue;
   }
 
   input:focus,
   select:focus,
   textarea:focus {
-      border: 1px solid $secondary-blue;
-      box-shadow: 0 0 10px rgb(132, 192, 225);
+    border: 1px solid $secondary-blue;
+    box-shadow: 0 0 10px rgb(132, 192, 225);
   }
 
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible {
-      outline: 1px solid $secondary-blue;
+    outline: 1px solid $secondary-blue;
   }
 
-  select{
+  select {
     border-radius: 0.3em;
     color: $primary-blue;
     background-color: $light-blue;
     font-size: 1em;
     border: 1px solid $secondary-blue;
 
-    option{
+    option {
       color: $light-blue;
       background-color: $primary-blue;
     }
   }
 }
 
-
-@forward '%header-image';
-@forward '%information-top';
-@forward '%information-bottom';
-@forward '%product-price';
-@forward '%advantage-icons';
-@forward '%form-ctrl';
+@forward "%header-image";
+@forward "%information-top";
+@forward "%information-bottom";
+@forward "%product-price";
+@forward "%advantage-icons";
+@forward "%form-ctrl";
