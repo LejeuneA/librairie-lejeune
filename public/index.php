@@ -80,31 +80,21 @@ if (!is_object($conn)) {
 						// Iterate over livres
 						foreach ($result as $livre) {
 							echo '<div class="mySlides fade">';
-							echo '<div class="livre">';
+							echo '<div class="article">';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 							echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '" style="width:100%">';
-							echo '<div class="livre-title">' . $livre['title'] . '</div>';
-							echo '<div class="livre-writer">' . $livre['writer'] . '</div>';
-							// You can add more livre details here as needed
+							echo '</a>';
+							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+							echo '<div class="article-title">' . $livre['title'] . '</div>';
+							echo '</a>';
+							echo '<div class="article-writer">' . $livre['writer'] . '</div>';
+							echo '<div class="article-feature">' . $livre['feature'] . '</div>';
 							echo '</div>';
 							echo '</div>';
 						}
 					}
 					?>
 					<!-- Articles end -->
-				</div>
-				<!-- Next and previous buttons -->
-				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-				<a class="next" onclick="plusSlides(1)">&#10095;</a>
-				<!-- The dots/circles -->
-				<div style="text-align:center">
-					<?php
-					// Output dots for each slide
-					if ($execute) {
-						for ($i = 0; $i < count($result); $i++) {
-							echo '<span class="dot" onclick="currentSlide(' . ($i + 1) . ')"></span>';
-						}
-					}
-					?>
 				</div>
 			</div>
 		</section>
