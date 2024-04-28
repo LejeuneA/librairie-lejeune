@@ -91,12 +91,6 @@ function displayHeadSection($title = APP_NAME)
     <!-- Custom Sass file -->
     <link rel="stylesheet" href="/css/styles.css">
 
-    <!-- Font Awesome -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-	<!-- Include functions.js -->
-	<script src="/js/functions.js"></script>
-
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -361,37 +355,6 @@ function displayLivres($conn)
     }
 }
 
-
-
-/**
- * Affichage des articles 
- * 
- * @param mixed $papeteries 
- * @return void 
- */
-function displayPapeteries($papeteries)
-{
-    foreach ($papeteries as $papeterie) {
-        echo '<article><a href="article-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '" title="Lire l\'article"><h2">' . $papeterie['title'] . '</h2></a></article>';
-        echo '<hr>';
-    }
-}
-
-/**
- * Affichage des articles 
- * 
- * @param mixed $cadeaux 
- * @return void 
- */
-function displayCadeaux($cadeaux)
-{
-    foreach ($cadeaux as $cadeau) {
-        echo '<article><a href="article-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '" title="Lire l\'article"><h2">' . $cadeau['title'] . '</h2></a></article>';
-        echo '<hr>';
-    }
-}
-
-
 /**-----------------------------------------------------------------
         Generate HTML markup for displaying articles information
  *------------------------------------------------------------------**/
@@ -425,7 +388,7 @@ function generateLivreHTML($livre)
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
 
-        $truncatedContent = strlen($livre['content']) > 500 ? substr($livre['content'], 0, 500) . '...' : $livre['content'];
+        $truncatedContent = strlen($livre['content']) > 350 ? substr($livre['content'], 0, 350) . '...' : $livre['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
         $html .= '</div>';
@@ -479,7 +442,7 @@ function generatePapeterieHTML($papeterie)
     // Check if 'content' key is set before accessing it
     if (isset($papeterie['content'])) {
 
-        $truncatedContent = strlen($papeterie['content']) > 500 ? substr($papeterie['content'], 0, 500) . '...' : $papeterie['content'];
+        $truncatedContent = strlen($papeterie['content']) > 350 ? substr($papeterie['content'], 0, 350) . '...' : $papeterie['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
         $html .= '</div>';
@@ -533,7 +496,7 @@ function generateCadeauHTML($cadeau)
     // Check if 'content' key is set before accessing it
     if (isset($cadeau['content'])) {
 
-        $truncatedContent = strlen($cadeau['content']) > 500 ? substr($cadeau['content'], 0, 500) . '...' : $cadeau['content'];
+        $truncatedContent = strlen($cadeau['content']) > 350 ? substr($cadeau['content'], 0, 350) . '...' : $cadeau['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
         $html .= '</div>';
