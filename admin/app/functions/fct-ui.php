@@ -808,9 +808,9 @@ function displayLivresAsTable($livres)
         echo '<td>' . html_entity_decode($livre['price']) . '</td>';
         echo '<td>' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-primary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
+        echo '<button class="btn-secondary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
+        echo '<button class="btn-primary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -851,9 +851,9 @@ function displayPapeteriesAsTable($papeteries)
         echo '<td>' . html_entity_decode($papeterie['price']) . '</td>';
         echo '<td>' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-primary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
+        echo '<button class="btn-secondary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
+        echo '<button class="btn-primary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
@@ -894,9 +894,9 @@ function displayCadeauxAsTable($cadeaux)
         echo '<td>' . html_entity_decode($cadeau['price']) . '</td>';
         echo '<td>' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
         echo '<td>';
-        echo '<button class="btn-primary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
-        echo '<button class="btn-primary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
-        echo '<button class="btn-secondary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '<button class="btn-secondary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
+        echo '<button class="btn-secondary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
+        echo '<button class="btn-primary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
