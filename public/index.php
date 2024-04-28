@@ -144,7 +144,7 @@ if (!is_object($conn)) {
 					<!-- Articles -->
 					<?php
 					// Fetch papeteries from the database
-					$papeteries = getAllPapeteriesDB($conn,6);
+					$papeteries = getAllPapeteriesDB($conn, 6);
 
 					// Check if papeteries exist
 					if (is_array($papeteries) && !empty($papeteries)) {
@@ -238,46 +238,42 @@ if (!is_object($conn)) {
 		------------------------------------------------------------------>
 		<!-- Advantage icons -->
 		<section class="article-preview advantage-icons">
-			<!-- Container -->
-			<div class="container">
-				<!-- Article-preview-container -->
-				<div class="article-preview-container">
-					<!-- Articles -->
-					<article>
-						<img src="../assets/icons/e-commerce-icons-01.png" alt="Paiements sécurisés">
-						<h3>Paiements sécurisés</h3>
-						<p><span> Vos transactions en toute confiance.</span></p>
-					</article>
+			<!-- Article-preview-container -->
+			<div class="article-preview-container container">
+				<!-- Articles -->
+				<article>
+					<img src="../assets/icons/e-commerce-icons-01.png" alt="Paiements sécurisés">
+					<h3>Paiements sécurisés</h3>
+					<p><span> Vos transactions en toute confiance.</span></p>
+				</article>
 
-					<article>
-						<img src="../assets/icons/e-commerce-icons-02.png" alt="Le meilleur prix">
-						<h3>Le meilleur prix</h3>
-						<p><span>Le meilleur prix, tout simplement.</span></p>
-					</article>
+				<article>
+					<img src="../assets/icons/e-commerce-icons-02.png" alt="Le meilleur prix">
+					<h3>Le meilleur prix</h3>
+					<p><span>Le meilleur prix, tout simplement.</span></p>
+				</article>
 
-					<article>
-						<img src="../assets/icons/e-commerce-icons-03.png" alt="Livraison gratuite">
-						<h3>Livraison gratuite</h3>
-						<p><span>Profitez de la livraison gratuite sur toutes vos
-								commandes.</span></p>
-					</article>
+				<article>
+					<img src="../assets/icons/e-commerce-icons-03.png" alt="Livraison gratuite">
+					<h3>Livraison gratuite</h3>
+					<p><span>Profitez de la livraison gratuite sur toutes vos
+							commandes.</span></p>
+				</article>
 
-					<article>
-						<img src="../assets/icons/e-commerce-icons-04.png" alt="Retours faciles">
-						<h3>Retours faciles</h3>
-						<p><span>Retours faciles pour simplifier votre expérience d'achat.</span></p>
-					</article>
+				<article>
+					<img src="../assets/icons/e-commerce-icons-04.png" alt="Retours faciles">
+					<h3>Retours faciles</h3>
+					<p><span>Retours faciles pour simplifier votre expérience d'achat.</span></p>
+				</article>
 
-					<article>
-						<img src="../assets/icons/e-commerce-icons-05.png" alt="Qualité première">
-						<h3>Qualité première</h3>
-						<p><span>Exigez l'excellence, optez pour la première qualité.</span></p>
-					</article>
-					<!-- Articles end -->
-				</div>
-				<!-- Article-preview-container end -->
+				<article>
+					<img src="../assets/icons/e-commerce-icons-05.png" alt="Qualité première">
+					<h3>Qualité première</h3>
+					<p><span>Exigez l'excellence, optez pour la première qualité.</span></p>
+				</article>
+				<!-- Articles end -->
 			</div>
-			<!-- Container end -->
+			<!-- Article-preview-container end -->
 		</section>
 		<!-- Article-preview end -->
 		<!-- Advantage icons end -->
