@@ -91,6 +91,12 @@ function displayHeadSection($title = APP_NAME)
     <!-- Custom Sass file -->
     <link rel="stylesheet" href="/css/styles.css">
 
+    <!-- Font Awesome -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- Include functions.js -->
+	<script src="/js/functions.js"></script>
+
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -325,13 +331,34 @@ function getMessage($message, $type = 'success')
     return $html;
 }
 
-TODO:
+
 /**-----------------------------------------------------------------
                         Affichage des articles 
  *------------------------------------------------------------------**/
 // Function to display livres
-function displayLivres($conn) {
-    FIXME:
+function displayLivres($conn)
+{
+    // Fetch all livres
+    $livres = getAllLivresDB($conn);
+
+    if ($livres && is_array($livres)) {
+        echo '<div class="article-preview-container">';
+
+        // Loop through livres to display them
+        foreach ($livres as $livre) {
+            echo '<article>';
+            echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+            echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+            echo '</a>';
+            echo '<h3>' . $livre['title'] . '</h3>';
+            echo '<p>' . $livre['writer'] . '<span>Livre broché | Français</span></p>';
+            echo '</article>';
+        }
+
+        echo '</div>';
+    } else {
+        echo '<p>No livres found.</p>';
+    }
 }
 
 
@@ -374,15 +401,16 @@ function displayCadeaux($cadeaux)
  * @param array $livre 
  * @return string 
  */
-function generateLivreHTML($livre) {
+function generateLivreHTML($livre)
+{
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
     $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
     $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
-    $html .= '</a>'; 
+    $html .= '</a>';
     $html .= '</div>';
-    
+
     $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($livre['title']) ? $livre['title'] : 'Titre non disponible';
@@ -396,7 +424,7 @@ function generateLivreHTML($livre) {
 
     // Check if 'content' key is set before accessing it
     if (isset($livre['content'])) {
-        
+
         $truncatedContent = strlen($livre['content']) > 500 ? substr($livre['content'], 0, 500) . '...' : $livre['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
@@ -428,15 +456,16 @@ function generateLivreHTML($livre) {
  * @param array $papeterie
  * @return string 
  */
-function generatePapeterieHTML($papeterie) {
+function generatePapeterieHTML($papeterie)
+{
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
     $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
     $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
-    $html .= '</a>'; 
+    $html .= '</a>';
     $html .= '</div>';
-    
+
     $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
@@ -449,7 +478,7 @@ function generatePapeterieHTML($papeterie) {
 
     // Check if 'content' key is set before accessing it
     if (isset($papeterie['content'])) {
-       
+
         $truncatedContent = strlen($papeterie['content']) > 500 ? substr($papeterie['content'], 0, 500) . '...' : $papeterie['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
@@ -481,15 +510,16 @@ function generatePapeterieHTML($papeterie) {
  * @param array $cadeau
  * @return string 
  */
-function generateCadeauHTML($cadeau) {
+function generateCadeauHTML($cadeau)
+{
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
     $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
     $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
-    $html .= '</a>'; 
+    $html .= '</a>';
     $html .= '</div>';
-    
+
     $html .= '<div class="product-info">';
     // Check if 'title', 'writer', and 'feature' keys are set before accessing them
     $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
@@ -502,7 +532,7 @@ function generateCadeauHTML($cadeau) {
 
     // Check if 'content' key is set before accessing it
     if (isset($cadeau['content'])) {
-        
+
         $truncatedContent = strlen($cadeau['content']) > 500 ? substr($cadeau['content'], 0, 500) . '...' : $cadeau['content'];
         $html .= '<div class="product-description">';
         $html .= '<p>' . htmlspecialchars_decode($truncatedContent) . '</p>';
