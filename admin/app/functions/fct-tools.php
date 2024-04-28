@@ -19,7 +19,7 @@ function filterInputs($datas) {
     // Supprime les antislashs d'une chaîne
     $datas = stripslashes($datas);
     // Convertit les caractères spéciaux en entités HTML
-    $datas = htmlentities($datas);  
+    $datas = html_entity_decode($datas);  
     // Supprime les balises HTML et PHP d'une chaîne
     $datas = strip_tags($datas);
 
