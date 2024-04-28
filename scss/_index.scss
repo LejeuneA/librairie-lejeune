@@ -133,10 +133,6 @@
 	align-items: start;
 	padding: 4em 0;
 
-	.container {
-		flex-direction: column;
-	}
-
 	h2 {
 		text-align: left;
 		font-weight: 200;
@@ -152,12 +148,10 @@
 	}
 
 	.slideshow-container {
+		flex-direction: column;
 
 		.article-preview-container {
-			display: flex;
-			justify-content: center;
-			align-items: flex-start;
-			flex-direction: row;
+			@include d-flex(flex, center, flex-start, row, center);
 			gap: 3em;
 
 			.article {
@@ -168,7 +162,7 @@
 
 				img {
 					height: auto;
-					width: 12em;
+					width: 15em;
 				}
 
 				.article-title {
@@ -184,7 +178,6 @@
 					margin: 0;
 					font-weight: 400;
 					font-size: 1em;
-
 				}
 
 				.article-feature {
@@ -196,16 +189,11 @@
 			}
 		}
 	}
-}
 
-/* ----------------------------------------------------------
-				  Article preview - Livres end
-------------------------------------------------------------*/
-/* -----------------------------------------------------------
+	/* -----------------------------------------------------------
 			  Article preview - Livres responsive
-------------------------------------------------------------*/
-@media (min-width: 320px) and (max-width: 768px) {
-	.article-preview {
+	------------------------------------------------------------*/
+	@media (min-width: 320px) and (max-width: 768px) {
 		flex-direction: column;
 		justify-content: center;
 
@@ -219,10 +207,8 @@
 			flex-wrap: wrap;
 		}
 	}
-}
 
-@media (min-width: 769px) and (max-width: 1332px) {
-	.article-preview {
+	@media (min-width: 769px) and (max-width: 1332px) {
 		h2 {
 			text-align: center;
 			font-size: 1.6em;
@@ -234,9 +220,11 @@
 		}
 	}
 }
+
 /* ----------------------------------------------------------
-		  Article preview - Livres responsive end
+				  Article preview - Livres end
 ------------------------------------------------------------*/
+
 /* -----------------------------------------------------------
 				  Best-sellers paragraph
 ------------------------------------------------------------*/
@@ -298,12 +286,11 @@
 			}
 		}
 	}
-}
-/* -----------------------------------------------------------
-			  Best-sellers paragraph responsive
-------------------------------------------------------------*/
-@media (min-width: 320px) and (max-width: 1332px) {
-	.best-sellers {
+
+	/* -----------------------------------------------------------
+				  Best-sellers paragraph responsive
+	------------------------------------------------------------*/
+	@media (min-width: 320px) and (max-width: 1332px) {
 		overflow: hidden;
 		height: 50em;
 
@@ -346,18 +333,18 @@
 			}
 		}
 	}
-}
 
-@media (min-width: 769px) and (max-width: 1332px) {
-	.best-sellers {
-		.container {
-			.best-sellers-right {
-				h2 {
-					font-size: 1.7em;
-				}
+	@media (min-width: 769px) and (max-width: 1332px) {
+		.best-sellers {
+			.container {
+				.best-sellers-right {
+					h2 {
+						font-size: 1.7em;
+					}
 
-				p {
-					padding: 2em;
+					p {
+						padding: 2em;
+					}
 				}
 			}
 		}
@@ -372,12 +359,12 @@
 ------------------------------------------------------------*/
 .edition-special {
 	position: relative;
-	width: 100%;
-	height: 30em;
+	width: auto;
+	height: 35em;
 	background-image: url(../assets/images/sign-banner.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: center;
+	background-position: center bottom;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -404,16 +391,11 @@
 
 		@include hover("background-color", $yellow, "color", $primary-blue);
 	}
-}
 
-/* -----------------------------------------------------------
-				Edition special paragraph end
-------------------------------------------------------------*/
-/* -----------------------------------------------------------
-			  Edition special paragraph responsive
-------------------------------------------------------------*/
-@media (min-width: 320px) and (max-width: 768px) {
-	.edition-special {
+	/* -----------------------------------------------------------
+				  Edition special paragraph responsive
+	------------------------------------------------------------*/
+	@media (min-width: 320px) and (max-width: 768px) {
 		height: 17em;
 
 		p {
@@ -426,10 +408,8 @@
 			bottom: 8%;
 		}
 	}
-}
 
-@media (min-width: 769px) and (max-width: 1332px) {
-	.edition-special {
+	@media (min-width: 769px) and (max-width: 1332px) {
 		height: 17em;
 
 		p {
@@ -440,8 +420,9 @@
 }
 
 /* -----------------------------------------------------------
-		  Edition special paragraph responsive end
+				Edition special paragraph end
 ------------------------------------------------------------*/
+
 /* -----------------------------------------------------------
 					  Advantage icons
 ------------------------------------------------------------*/
