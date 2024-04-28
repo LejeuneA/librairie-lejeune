@@ -152,7 +152,7 @@
 /* -----------------------------------------------------------------
                         Manager product pages
  ----------------------------------------------------------------- */
-.manager-livre {
+.table-livres {
     @include d-flex(flex, center, center, column, center);
     width: 100%;
 
@@ -234,5 +234,9 @@
             }
 
         }
+    }
+
+    @media (min-width: 320px) and (max-width: 1332px) {
+        
     }
 }
