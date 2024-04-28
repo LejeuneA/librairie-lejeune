@@ -13,7 +13,6 @@ $tinyMCE = true;
 $execute = false;
 
 // Check the database connection
-// Check the database connection
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
@@ -23,7 +22,7 @@ if (!is_object($conn)) {
         $addData = [];
 
         // Gather data from the form
-        $addData['image_url'] = ''; // Placeholder for now, will be updated after processing image upload
+        $addData['image_url'] = ''; 
         $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
         $addData['writer'] = isset($_POST['writer']) ? $_POST['writer'] : '';
         $addData['feature'] = isset($_POST['feature']) ? $_POST['feature'] : '';
@@ -34,7 +33,7 @@ if (!is_object($conn)) {
 
         // Handle image upload
         if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/'; // Directory where uploaded images will be stored
+            $uploadDir = 'uploads/'; 
             $uploadFile = $uploadDir . basename($_FILES['image_upload']['name']);
 
             // Move uploaded file to designated directory
