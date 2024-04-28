@@ -79,7 +79,7 @@ if (!is_object($conn)) {
             <?= isset($msg) ? $msg : ''; ?>
         </div>
 
-        <div id="content">
+        <div id="content" class="container">
             <?php
             // If livres exist, display them in a table
             if ($execute) {
