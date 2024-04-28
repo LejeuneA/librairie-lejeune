@@ -73,8 +73,8 @@ if (!is_object($conn)) {
     <!-----------------------------------------------------------------
 							   Header end
 	------------------------------------------------------------------>
-    <div class="container">
-        <h2 class="title">Gérer les papeteries</h2>
+    <div class="manager-papeterie container">
+        <h1 class="title">Gérer les papeteries</h1>
         <div id="message">
             <?= isset($msg) ? $msg : ''; ?>
         </div>
