@@ -175,7 +175,7 @@
             &:hover {
                 background-color: $tertiary-blue;
             }
-            
+
             th {
                 font-size: 1.2em;
                 font-weight: 300;
@@ -224,19 +224,63 @@
 
                 .btn-primary {
                     @include button-style($primary-red, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.5em;
+                    margin: 0.3em;
+                    width: 7em;
                 }
-    
+
                 .btn-secondary {
                     @include button-style($primary-blue, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.5em;
+                    margin: 0.3em;
+                    width: 7em;
+                }
+            }
+        }        
+    }
+    
+    // Responsive styles for table
+    @media (min-width: 320px) and (max-width: 768px) {
+        table {
+            border: 0;
+
+            thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            tr {
+                border-bottom: 3px solid #ddd;
+                display: block;
+                margin-bottom: 0.625em;
+
+                th{
+                    display: none;
+                }
+
+                td {
+                    border-bottom: 1px solid #ddd;
+                    display: block;
+                    font-size: 0.8em;
+                    text-align: right;
+    
+                    &:before {
+                        content: attr(data-cell);
+                        float: left;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+    
+                    &:last-child {
+                        border-bottom: 0;
+                    }
                 }
             }
 
         }
-    }
-
-    @media (min-width: 320px) and (max-width: 1332px) {
-        
     }
 }
