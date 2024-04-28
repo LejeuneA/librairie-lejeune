@@ -324,7 +324,6 @@ function getMessage($message, $type = 'success')
     $html = '<div class="msg-' . $type . '">' . $message . '</div>';
     return $html;
 }
-
 /**-----------------------------------------------------------------
         Generate HTML markup for displaying articles information
  *------------------------------------------------------------------**/
