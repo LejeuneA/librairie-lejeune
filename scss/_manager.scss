@@ -4,7 +4,7 @@
 @use "global";
 
 /* -----------------------------------------------------------------
-                        Manager page
+                        Manager home page
  ----------------------------------------------------------------- */
 .manager-header {
     .navbar-menu {
@@ -125,17 +125,114 @@
         @include d-flex(flex, center, center, column, center);
         height: auto;
         width: 100%;
+
         .manager-content {
             .category-container {
                 @include d-flex(flex, center, center, column, center);
                 width: 100%;
-                gap:1em;
+                gap: 1em;
 
                 .category-card {
                     margin-top: 2em;
                     gap: 1em;
                 }
             }
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1332px) {
+        .manager-content {
+            .category-container {
+                flex-wrap: wrap;
+            }
+        }
+    }
+}
+
+/* -----------------------------------------------------------------
+                        Manager product pages
+ ----------------------------------------------------------------- */
+.manager-livre {
+    @include d-flex(flex, center, center, column, center);
+    width: 100%;
+
+    h1 {
+        margin: 1.5em 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        color: $primary-blue;
+
+        tr {
+            border: 1px solid $secondary-blue;
+
+            &:nth-child(even) {
+                background-color: $light-blue;
+            }
+
+            &:hover {
+                background-color: $tertiary-blue;
+            }
+            
+            th {
+                font-size: 1.2em;
+                font-weight: 300;
+                padding: 0.5em 1em;
+                color: $light-blue;
+                background-color: $primary-blue;
+                width: 100%;
+
+                &:nth-child(1) {
+                    width: 7%;
+                }
+
+                &:nth-child(2) {
+                    width: 20%;
+                }
+
+                &:nth-child(3) {
+                    width: 12%;
+                }
+
+                &:nth-child(4) {
+                    width: 7%;
+                }
+
+                &:nth-child(5) {
+                    width: 7%;
+                }
+
+                &:nth-child(6) {
+                    width: 7%;
+                }
+
+                &:nth-child(7) {
+                    width: 35%;
+                }
+            }
+
+            td {
+                &:nth-child(1) {
+                    font-weight: 600;
+                }
+
+                &:nth-child(4) {
+                    font-size: 0.8em;
+                }
+
+                .btn-primary {
+                    @include button-style($primary-red, $light-blue, $secondary-blue, $light-blue);
+                    margin: 0.5em;
+                }
+    
+                .btn-secondary {
+                    @include button-style($primary-blue, $light-blue, $secondary-blue, $light-blue);
+                    margin: 0.5em;
+                }
+            }
+
         }
     }
 }
