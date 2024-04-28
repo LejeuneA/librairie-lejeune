@@ -801,13 +801,13 @@ function displayLivresAsTable($livres)
     // Table data
     foreach ($livres as $livre) {
         echo '<tr>';
-        echo '<td>' . $livre['idLivre'] . '</td>';
-        echo '<td>' . html_entity_decode($livre['title']) . '</td>';
-        echo '<td>' . html_entity_decode($livre['writer']) . '</td>';
-        echo '<td>' . html_entity_decode($livre['feature']) . '</td>';
-        echo '<td>' . html_entity_decode($livre['price']) . '</td>';
-        echo '<td>' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
-        echo '<td>';
+        echo '<td data-cell="ID">' . $livre['idLivre'] . '</td>';
+        echo '<td data-cell="TITRE">' . html_entity_decode($livre['title']) . '</td>';
+        echo '<td data-cell="AUTEUR">' . html_entity_decode($livre['writer']) . '</td>';
+        echo '<td data-cell="FONCTIONNALITÉ">' . html_entity_decode($livre['feature']) . '</td>';
+        echo '<td data-cell="PRIX">' . html_entity_decode($livre['price']) . '</td>';
+        echo '<td data-cell="STATUT">' . ($livre['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="ACTIONS">';
         echo '<button class="btn-secondary" onclick="modifierLivre(' . $livre['idLivre'] . ')">Modifier</button>';
         echo '<button class="btn-secondary" onclick="afficherLivre(' . $livre['idLivre'] . ')">Afficher</button>';
         echo '<button class="btn-primary" onclick="supprimerLivre(' . $livre['idLivre'] . ')">Supprimer</button>';
@@ -845,12 +845,12 @@ function displayPapeteriesAsTable($papeteries)
     // Table data
     foreach ($papeteries as $papeterie) {
         echo '<tr>';
-        echo '<td>' . $papeterie['idPapeterie'] . '</td>';
-        echo '<td>' . html_entity_decode($papeterie['title']) . '</td>';
-        echo '<td>' . html_entity_decode($papeterie['feature']) . '</td>';
-        echo '<td>' . html_entity_decode($papeterie['price']) . '</td>';
-        echo '<td>' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
-        echo '<td>';
+        echo '<td data-cell="ID">' . $papeterie['idPapeterie'] . '</td>';
+        echo '<td data-cell="TITRE">' . html_entity_decode($papeterie['title']) . '</td>';
+        echo '<td data-cell="FONCTIONNALITÉ">' . html_entity_decode($papeterie['feature']) . '</td>';
+        echo '<td data-cell="PRIX">' . html_entity_decode($papeterie['price']) . '</td>';
+        echo '<td data-cell="STATUT">' . ($papeterie['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="ACTIONS">';
         echo '<button class="btn-secondary" onclick="modifierPapeterie(' . $papeterie['idPapeterie'] . ')">Modifier</button>';
         echo '<button class="btn-secondary" onclick="afficherPapeterie(' . $papeterie['idPapeterie'] . ')">Afficher</button>';
         echo '<button class="btn-primary" onclick="supprimerPapeterie(' . $papeterie['idPapeterie'] . ')">Supprimer</button>';
@@ -888,12 +888,12 @@ function displayCadeauxAsTable($cadeaux)
     // Table data
     foreach ($cadeaux as $cadeau) {
         echo '<tr>';
-        echo '<td>' . $cadeau['idCadeau'] . '</td>';
-        echo '<td>' . html_entity_decode($cadeau['title']) . '</td>';
-        echo '<td>' . html_entity_decode($cadeau['feature']) . '</td>';
-        echo '<td>' . html_entity_decode($cadeau['price']) . '</td>';
-        echo '<td>' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
-        echo '<td>';
+        echo '<td data-cell="ID">' . $cadeau['idCadeau'] . '</td>';
+        echo '<td data-cell="TITRE">' . html_entity_decode($cadeau['title']) . '</td>';
+        echo '<td data-cell="FONCTIONNALITÉ">' . html_entity_decode($cadeau['feature']) . '</td>';
+        echo '<td data-cell="PRIX">' . html_entity_decode($cadeau['price']) . '</td>';
+        echo '<td data-cell="STATUT">' . ($cadeau['active'] ? 'Actif' : 'Inactif') . '</td>';
+        echo '<td data-cell="ACTIONS">';
         echo '<button class="btn-secondary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
         echo '<button class="btn-secondary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
         echo '<button class="btn-primary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
