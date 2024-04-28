@@ -57,7 +57,7 @@ if (!is_object($conn)) {
 
             // Check if file is uploaded
             if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "assets/images/uploads/";
+                $target_dir = "uploads/";
                 $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
                 // Check if the directory exists, if not, create it
