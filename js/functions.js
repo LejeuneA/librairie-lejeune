@@ -3,7 +3,7 @@
 ---------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
     var includes = document.querySelectorAll('[data-include]');
-    
+
     includes.forEach(function (element) {
         var file = '../components/' + element.getAttribute('data-include') + '.html';
 
@@ -30,5 +30,6 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
+
 
 
