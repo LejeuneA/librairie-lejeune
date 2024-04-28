@@ -70,7 +70,7 @@
 
                 .btn-primary {
                     @include d-flex(block, center, center, column, center);
-                    color:$light-blue;
+                    color: $light-blue;
                     background-color: $primary-blue;
                     width: 15em;
                     height: 15em;
@@ -116,6 +116,25 @@
                 bottom: 0;
                 left: 0;
                 z-index: -1;
+            }
+        }
+    }
+
+    // Responsive styles for manager page
+    @media (min-width: 320px) and (max-width: 768px) {
+        @include d-flex(flex, center, center, column, center);
+        height: auto;
+        width: 100%;
+        .manager-content {
+            .category-container {
+                @include d-flex(flex, center, center, column, center);
+                width: 100%;
+                gap:1em;
+
+                .category-card {
+                    margin-top: 2em;
+                    gap: 1em;
+                }
             }
         }
     }
