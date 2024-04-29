@@ -125,7 +125,7 @@ function displayNavigation()
         <nav class="navbar">
         <div class="navbar-container container">
             <!-- Logo -->
-            <a href="../public/index.php">
+            <a href="../index.php">
                 <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
             </a>
             <!-- Logo end -->
@@ -175,7 +175,7 @@ function displayNavigation()
     <div class="navbar-menu">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../public/index.php">Accueil</a>
+                <a class="nav-link" href="../index.php">Accueil</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../admin/manager.php">Catégories</a>
