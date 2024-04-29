@@ -150,188 +150,51 @@
 }
 
 /* -----------------------------------------------------------------
-                        Manager product pages
+                    Manager product pages
  ----------------------------------------------------------------- */
 .table-livres {
-    @include d-flex(flex, center, center, column, center);
-    width: 100%;
+    @extend %table-style;
+}
 
-    h1 {
-        margin: 1.5em 0;
-    }
+.table-papeteries,
+.table-cadeaux {
+    @extend %table-style;
 
     table {
-        border-collapse: collapse;
-        width: 100%;
-        color: $primary-blue;
-        margin-bottom: 5em;
-
         tr {
-            border: 1px solid $light-blue;
-
-            &:nth-child(even) {
-                background-color: $light-blue;
-            }
-
-            &:first-child {
-                border: 0;
-
-                &:hover {
-                    background-color: transparent;
-                }
-            }
-
-            &:last-child {
-                border-bottom-left-radius: 1em;
-                border-bottom-right-radius: 1em;
-            }
-
-            &:hover {
-                background-color: $tertiary-blue;
-            }
-
-            th {
-                font-size: 1.2em;
-                font-weight: 300;
-                padding: 0.5em 1em;
-                color: $light-blue;
-                background-color: $primary-blue;
-                width: 100%;
-
-                &:first-child {
-                    border-top-left-radius: 1em;
-                }
-
-                &:last-child {
-                    border-top-right-radius: 1em;
-                }
-
-                &:nth-child(1) {
-                    width: 9%;
-                }
-
-                &:nth-child(2) {
-                    width: 20%;
-                }
-
-                &:nth-child(3) {
-                    width: 12%;
-                }
-
-                &:nth-child(4) {
-                    width: 7%;
-                }
-
-                &:nth-child(5) {
-                    width: 7%;
-                }
-
-                &:nth-child(6) {
-                    width: 7%;
-                }
-
-                &:nth-child(7) {
-                    width: 37%;
-                }
-            }
-
             td {
-                &:nth-child(1) {
-                    font-weight: 600;
-                }
-
-                &:nth-child(4) {
+                &:nth-child(3) {
                     font-size: 0.8em;
                 }
 
-                .btn-primary {
-                    @include button-style($primary-red, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.3em;
-                    width: 7em;
-                }
-
-                .btn-secondary {
-                    @include button-style($primary-blue, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.3em;
-                    width: 7em;
+                &:nth-child(4) {
+                    font-size: 1em;
                 }
             }
-        }
-    }
 
-    // Responsive styles for table
-    @media (min-width: 320px) and (max-width: 768px) {
-        h1 {
-            margin-bottom: 0;
-        }
-
-        table {
-            border: 0;
-
-            tr {
-                border: 0;
-                display: block;
-                padding: 1em;
-
-                &:nth-child(even) {
-                    background-color: transparent;
+            th {
+                &:nth-child(1) {
+                    width: 10%;
                 }
 
-                &:hover {
-                    background-color: transparent;
+                &:nth-child(2) {
+                    width: 25%;
                 }
 
-                th {
-                    display: none;
+                &:nth-child(3) {
+                    width: 10%;
                 }
 
-                td {
-                    display: block;
-                    font-size: 1em;
-                    text-align: right;
-                    background-color: $light-blue;
-                    padding: 1em;
+                &:nth-child(4) {
+                    width: 10%;
+                }
 
-                    &:before {
-                        content: attr(data-cell);
-                        float: left;
-                        font-weight: bold;
-                        text-transform: uppercase;
-                    }
+                &:nth-child(5) {
+                    width: 10%;
+                }
 
-                    &:nth-child(even) {
-                        background-color: $tertiary-blue;
-                    }
-
-                    &:nth-child(1) {
-                        background-color: $primary-blue;
-                        color: $light-blue;
-                    }
-
-                    &:nth-child(4) {
-                        font-size: 1em;
-                    }
-
-                    &:first-child {
-                        border-top-left-radius: 1em;
-                        border-top-right-radius: 1em;
-                    }
-
-                    &:last-child {
-                        background-color: $primary-blue;
-                        text-align: center;
-                        border-bottom-left-radius: 1em;
-                        border-bottom-right-radius: 1em;
-                    }
-
-                    .btn-primary {
-                        width: 15em;
-                    }
-
-                    .btn-secondary {
-                        @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
-                        margin: 0.3em;
-                    }
+                &:nth-child(6) {
+                    width: 35%;
                 }
             }
         }
