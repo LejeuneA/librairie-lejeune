@@ -228,7 +228,7 @@
   select:focus,
   textarea:focus {
     border: 1px solid $secondary-blue;
-    box-shadow: 0 0 10px rgb(132, 192, 225);
+    box-shadow: 0 0 10px $secondary-blue;
   }
 
   input:focus-visible,
