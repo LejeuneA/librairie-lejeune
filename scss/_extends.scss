@@ -161,7 +161,7 @@
   padding: 3em 0;
 
   .article-preview-container {
-    @include d-flex(flex, center, flex-start, row, center);
+    @include d-flex(flex, space-between, flex-start, row, center);
     gap:2em;
 
     article {
