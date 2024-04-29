@@ -27,4 +27,4 @@
     $_SESSION['IDENTIFY'] = false;
 
     // Redirection vers la page d'accueil
-    header('Location: index.php');
+    header('Location: index-admin.php');
