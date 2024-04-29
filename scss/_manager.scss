@@ -156,8 +156,7 @@
     @extend %table-style;
 }
 
-.table-papeteries,
-.table-cadeaux {
+.table-papeteries{
     @extend %table-style;
 
     table {
@@ -195,6 +194,50 @@
 
                 &:nth-child(6) {
                     width: 35%;
+                }
+            }
+        }
+    }
+}
+
+.table-cadeaux{
+    @extend %table-style;
+
+    table {
+        tr {
+            td {
+                &:nth-child(3) {
+                    font-size: 0.8em;
+                }
+
+                &:nth-child(4) {
+                    font-size: 1em;
+                }
+            }
+
+            th {
+                &:nth-child(1) {
+                    width: 10%;
+                }
+
+                &:nth-child(2) {
+                    width: 22%;
+                }
+
+                &:nth-child(3) {
+                    width: 8%;
+                }
+
+                &:nth-child(4) {
+                    width: 10%;
+                }
+
+                &:nth-child(5) {
+                    width: 10%;
+                }
+
+                &:nth-child(6) {
+                    width: 40%;
                 }
             }
         }
