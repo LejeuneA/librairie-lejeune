@@ -37,52 +37,32 @@
 
                 .form-ctrl {
                     @extend %form-ctrl;
+                }
 
-                    .published_article {
+                .checkbox-ctrl {
+                    margin-bottom: 1em;
+                    
+                    label {
+                        color: $secondary-blue;
+                        font-weight: 400;
+                        font-size: 1.5em;
 
                         span {
+                            text-align: start;
                             color: $primary-blue;
                             font-size: 0.7em;
                         }
-                        
-                        .custom-checkbox {
-                            @include d-flex(flex, start, center, row, start);
-                            margin-top: 1em;
-
-                            .form-check-label {
-                                label {
-                                    width: 80%;
-                                    font-size: 1.2em;
-                                    color: $primary-red;
-                                }
-                            }
-
-                            .form-check-input {
-                                justify-self: end;
-                                width: 20%;
-                                height: 2em;
-                                margin-right: 0.5em;
-                                color: $primary-red;
-                                background-color: red;
-                            }
-                        }
                     }
 
-                    .form-check {
-                        @include d-flex(flex, start, center, row, start);
-                        margin-top: 1em;
-
-                        .form-check-label {
-                            width: 80%;
-                            font-size: 1.2em;
+                    .form-check{
+                        .form-check-label{
                             color: $primary-red;
+                            font-size: 1em;
                         }
 
-                        .form-check-input {
-                            justify-self: end;
-                            width: 20%;
-                            height: 2em;
-                            margin-right: 0.5em;
+                        .form-check-input{
+                            width: 1.5em;
+                            height: 1.5em;
                         }
                     }
                 }
@@ -148,20 +128,19 @@
         .edit-form {
             @include d-flex(flex, center, center, column, center);
 
-            .form-top{
-                @include d-flex(flex, center, start, column, center);   
+            .form-top {
+                @include d-flex(flex, center, start, column, center);
 
-                .form-left{
+                .form-left {
                     .form-ctrl {
                         @include d-flex(flex, center, center, column, center);
                     }
                 }
             }
 
-            .form-bottom{
+            .form-bottom {
                 margin-top: 1em;
             }
         }
-        
     }
 }
