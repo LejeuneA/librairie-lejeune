@@ -21,7 +21,7 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
     if ($typeForm == 'ADD') {
         $html .= '
             <div class="form-check switch custom-checkbox">
-                <input class="form-check-input checkbox" type="checkbox" value="1" id="published_article" name="published_article">  
+                <input class="form-check-input checkbox" type="checkbox" value="1" name="published_article">  
                 <span class="slider round"></span>        
                 <label class="form-check-label" for="published_article"></label>
             </div>
@@ -31,7 +31,7 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
         if ($published) {
             $html .= '
                 <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" id="published_article" name="published_article" checked>    
+                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article" checked>    
                     <span class="slider round"></span>      
                     <label class="form-check-label" for="published_article">Publié</label>
                 </div>
@@ -39,7 +39,7 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
         } else {
             $html .= '
                 <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" id="published_article" name="published_article">  
+                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article">  
                     <span class="slider round"></span>      
                     <label class="form-check-label" for="published_article">Non publié</label>
                 </div>
