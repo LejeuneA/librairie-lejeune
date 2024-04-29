@@ -214,7 +214,7 @@ function displayNavigation()
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="nav-link" href="../public/index.php">Accueil</a>
+        <a class="nav-link" href="../index.php">Accueil</a>
         <a class="nav-link" href="../admin/manager.php">Catégories</a>
         <a class="nav-link" href="../admin/manager-livre.php">Livres</a>
         <a class="nav-link" href="../admin/manager-papeterie.php">Papeteries</a>
