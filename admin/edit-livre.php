@@ -125,7 +125,7 @@ if (isset($_SESSION['form_submitted'])) {
                     <div class="form-left">
                         
                         <!-- Statue of the article -->
-                        <div class=" form-ctrl">
+                        <div class=" checkbox-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
                             <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
                         </div>
