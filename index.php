@@ -195,7 +195,7 @@ if (!is_object($conn)) {
 				choisissez,
 				et laissez-vous emporter par des histoires captivantes.
 			</p>
-			<a href="../public/livres.php" class="btn-primary">Découvrir nos produit</a>
+			<a href="./public/livres.php" class="btn-primary">Découvrir nos produit</a>
 		</div>
 	</header>
 	<!-----------------------------------------------------------------
