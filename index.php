@@ -223,7 +223,7 @@ if (!is_object($conn)) {
 							echo '<div class="mySlides fade">';
 							echo '<div class="article">';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
+							echo '<img src="http://localhost/librairie-lejeune/' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
 							echo '</a>';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 							echo '<div class="article-title">' . $livre['title'] . '</div>';
@@ -293,7 +293,7 @@ if (!is_object($conn)) {
 						foreach ($papeteries as $papeterie) {
 							echo '<div class="article">';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
+							echo '<img src="http://localhost/librairie-lejeune/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
 							echo '</a>';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
 							echo '<div class="article-title">' . $papeterie['title'] . '</div>';
@@ -352,7 +352,7 @@ if (!is_object($conn)) {
 						foreach ($cadeaux as $cadeau) {
 							echo '<div class="article">';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
+							echo '<img src="http://localhost/librairie-lejeune/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
 							echo '</a>';
 							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
 							echo '<div class="article-title">' . $cadeau['title'] . '</div>';
