@@ -41,7 +41,7 @@
 
                 .checkbox-ctrl {
                     margin-bottom: 1em;
-                    
+
                     label {
                         color: $secondary-blue;
                         font-weight: 400;
@@ -54,13 +54,13 @@
                         }
                     }
 
-                    .form-check{
-                        .form-check-label{
+                    .form-check {
+                        .form-check-label {
                             color: $primary-red;
                             font-size: 1em;
                         }
 
-                        .form-check-input{
+                        .form-check-input {
                             width: 1.5em;
                             height: 1.5em;
                         }
@@ -73,7 +73,17 @@
                 .form-ctrl {
                     @extend %form-ctrl;
 
+                    p {
+                        color: $primary-blue;
+                        margin: 0.5em;
+
+                        span {
+                            font-weight: 700;
+                        }
+                    }
+
                     div {
+                        
                         img {
                             margin-top: 0.5em;
                         }
