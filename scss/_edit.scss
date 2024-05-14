@@ -75,7 +75,11 @@
 
                     p {
                         color: $primary-blue;
-                        margin: 0.5em;
+                        margin: 0.5em 0;
+                        background-color: $light-blue;
+                        padding: 0.7em;
+                        border-radius: 0.3em;
+                        border: 1px solid $secondary-blue;
 
                         span {
                             font-weight: 700;
@@ -91,7 +95,7 @@
                 }
 
                 .image_preview {
-                    width: 15em;
+                    width: 17em;
                     height: 100%;
                 }
             }

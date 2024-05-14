@@ -33,7 +33,6 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'idLivre' => $idLivre,
-                    'image_url' => $_POST['image_url'], 
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', 
                     'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
