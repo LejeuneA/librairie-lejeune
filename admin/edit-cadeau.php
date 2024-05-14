@@ -33,6 +33,7 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'idCadeau' => $idCadeau,
+                    'image_url' => $_POST['image_url'], 
                     'title' => isset($_POST['title']) ? $_POST['title'] : '', 
                     'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
                     'price' => isset($_POST['price']) ? $_POST['price'] : '',
@@ -161,6 +162,11 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form right -->
                     <div class="form-right">
+                        <!-- URL of the image -->
+                        <div class="form-ctrl">
+                            <label for="image_url" class="form-ctrl">URL de l'image</label>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" readonly>
+                        </div>
 
                         <!-- File upload field -->
                         <div class="form-ctrl">
@@ -170,7 +176,6 @@ if (isset($_SESSION['form_submitted'])) {
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                            <p><span>URL de l'image:</span> <?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?></p>
                             <div>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
