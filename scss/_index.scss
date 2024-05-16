@@ -147,8 +147,29 @@
 		}
 	}
 
-	.slideshow-container {
+	.container {
 		flex-direction: column;
+
+		.swiper {
+			width: 100%;
+
+			.swiper-wrapper {
+				@include d-flex(flex, center, start, row, center);
+				
+				.swiper-slide {
+					@include d-flex(flex, center, center, column, center);
+					font-size: 1.1em;
+					background: transparent;
+		
+					.swiper-slide img {
+						display: block;
+						width: 10em;
+						height: auto;
+						object-fit: cover;
+					}
+				}
+			}
+		}
 
 		.article-preview-container {
 			@include d-flex(flex, center, flex-start, row, center);
