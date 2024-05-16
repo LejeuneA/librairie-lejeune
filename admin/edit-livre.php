@@ -169,6 +169,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form right -->
                     <div class="form-right">
+                        TODO:
                         <!-- URL of the image -->
                         <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
