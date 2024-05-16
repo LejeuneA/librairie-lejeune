@@ -94,6 +94,9 @@ function displayHeadSection($title = APP_NAME)
     <!-- Custom Sass file -->
     <link rel="stylesheet" href="/css/styles.css">
 
+    <!-- Favicon -->
+	<link rel="icon" type="image/png" href="assets/icons/favicon.png">
+
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
