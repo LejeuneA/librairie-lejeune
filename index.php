@@ -562,7 +562,8 @@ if (!is_object($conn)) {
 		var swiper = new Swiper(".mySwiper", {
 			slidesPerView: 6,
 			spaceBetween: 3,
-			centeredSlides: true,
+			// centeredSlides: true,
+			loop:true,
 			autoplay: {
 				delay: 2500,
 				disableOnInteraction: false,
