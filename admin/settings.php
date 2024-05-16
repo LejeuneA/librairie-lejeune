@@ -14,7 +14,7 @@
     // Configuration de la session / du cookie de session
     $name = session_name(str_replace(' ', '', APP_NAME).'_session');
     $domain = $_SERVER['HTTP_HOST'];
-    $time = time() + 3600; // 3600 sec = 1 heure
+    $time = time() + 3600; 
 
     setcookie($name, APP_NAME, [
         'expires' => $time,
