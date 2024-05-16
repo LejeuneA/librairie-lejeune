@@ -222,31 +222,25 @@
 			margin: 1em auto;
 		}
 
-		.container{
-			flex-direction: column;
+			.article-preview-container {
+				flex-wrap: wrap;
+			}
 		}
 
-		.article-preview-container {
-			flex-wrap: wrap;
-		}
 	}
 
-	@media (min-width: 769px) and (max-width: 1332px) {
+	@media (min-width: 769px) and (max-width: 1440px) {
 		h2 {
 			text-align: center;
 			font-size: 1.6em;
 			margin: 1em auto;
-		}
-
-		.container{
-			flex-direction: column;
 		}
 		
 		.article-preview-container {
 			flex-wrap: wrap;
 		}
 	}
-}
+
 
 /* ----------------------------------------------------------
 				  Article preview - Livres end

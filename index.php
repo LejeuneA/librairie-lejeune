@@ -551,25 +551,11 @@ if (!is_object($conn)) {
 	<!-- Font Awesome -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-	<!-- Include functions.js -->
-	<script src="./js/functions.js"></script>
-
 	<!-- Swiper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-	<!-- Initialize Swiper -->
-	<script>
-		var swiper = new Swiper(".mySwiper", {
-			slidesPerView: 6,
-			spaceBetween: 3,
-			// centeredSlides: true,
-			loop:true,
-			autoplay: {
-				delay: 2500,
-				disableOnInteraction: false,
-			},
-		});
-	</script>
+	
+	<!-- Include functions.js -->
+	<script src="./js/functions.js"></script>
 
 </body>
 

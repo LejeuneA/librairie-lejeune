@@ -27,7 +27,7 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
         return $conn;
     } catch (PDOException $e) {
         (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error : Database connexion";
-        return $st;
+        return $e;
     }
 }
 
@@ -104,7 +104,7 @@ function getAllArticlesDB($conn, $active = '%')
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllArticlesDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllArticlesDB() function";
         return $st;
     }
 }
@@ -151,11 +151,14 @@ function getAllLivresDB($conn, $limit = null, $active = '%')
         return $resultat;
     } catch (PDOException $e) {
         // Gestion des erreurs
-        if (DEBUG) {
-            return 'Error : ' . $e->getMessage();
-        } else {
-            return "Error in : getAllLivresDB() function";
-        }
+        // if (DEBUG) {
+        //     return 'Error : ' . $e->getMessage();
+        // } else {
+        //     return "Error in : getAllLivresDB() function";
+        // }
+
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllLivresDB() function";
+        return $st;
     }
 }
 
