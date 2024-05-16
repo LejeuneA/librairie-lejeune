@@ -169,12 +169,12 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form right -->
                     <div class="form-right">
-                        TODO:
+
                         <!-- URL of the image -->
-                        <div class="form-ctrl">
+                        <!-- <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
                             <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
-                        </div>
+                        </div> -->
 
                         <!-- File upload field -->
                         <div class="form-ctrl">
@@ -185,7 +185,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <p>URL de l'image: <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?></p>
+                                <p><span>URL de l'image:</span> <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?></p>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
