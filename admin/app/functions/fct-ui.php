@@ -514,7 +514,7 @@ function displayLivreByID($livre)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -585,7 +585,7 @@ function displayPapeterieByID($papeterie)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -622,7 +622,7 @@ function displayCadeauByID($cadeau)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '<img src="http://localhost/librairie-lejeune/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
