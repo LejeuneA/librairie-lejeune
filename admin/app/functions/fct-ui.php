@@ -20,28 +20,31 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
     // Si c'est le formulaire d'ajout d'article
     if ($typeForm == 'ADD') {
         $html .= '
-            <div class="form-check switch custom-checkbox">
-                <input class="form-check-input checkbox" type="checkbox" value="1" name="published_article">  
-                <span class="slider round"></span>        
-                <label class="form-check-label" for="published_article"></label>
-            </div>
+        <div class="checkbox-wrapper-22">
+            <label class="switch" for="checkbox">
+            <input type="checkbox" id="checkbox" value="1" name="published_article" />
+            <div class="slider round"></div>
+            </label>
+        </div>
         ';
     } elseif ($typeForm == 'EDIT') {
         // Si c'est le formulaire de modification d'article
         if ($published) {
             $html .= '
-                <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article" checked>    
-                    <span class="slider round"></span>      
-                    <label class="form-check-label" for="published_article">Publié</label>
+                <div class="checkbox-wrapper-22">
+                    <label class="switch" for="checkbox"> 
+                    <input type="checkbox" id="checkbox" value="1" name="published_article" checked>    
+                    <span class="slider round"></span> 
+                    </label>
                 </div>
             ';
         } else {
             $html .= '
-                <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article">  
-                    <span class="slider round"></span>      
-                    <label class="form-check-label" for="published_article">Non publié</label>
+                <div class="checkbox-wrapper-22">
+                    <label class="switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" value="1" name="published_article">  
+                    <span class="slider round"></span> 
+                    </label>   
                 </div>
             ';
         }

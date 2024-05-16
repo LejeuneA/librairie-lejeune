@@ -130,7 +130,7 @@ $addData = [
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'ADD'); ?>
                         </div>
 
                         <!-- Category -->
