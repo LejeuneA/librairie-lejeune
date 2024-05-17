@@ -173,7 +173,7 @@ $addData = [
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                            <p><span>URL de l'image:</span> <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?></p>
+                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="Url de l'image: <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
                             <div>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
                             </div>

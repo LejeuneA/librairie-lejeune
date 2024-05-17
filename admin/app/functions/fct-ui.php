@@ -28,7 +28,6 @@ function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
         </div>
         ';
     } elseif ($typeForm == 'EDIT') {
-        // Si c'est le formulaire de modification d'article
         if ($published) {
             $html .= '
                 <div class="checkbox-wrapper-22">
