@@ -11,13 +11,12 @@
  * 
  * @param boolean     $published
  * @param string      $typeForm  (ADD ou EDIT)
- * @return string
+ * @return void
  */
 function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
 {
     $html = '';
 
-    // Si c'est le formulaire d'ajout d'article
     if ($typeForm == 'ADD') {
         $html .= '
         <div class="checkbox-wrapper-22">
@@ -660,7 +659,7 @@ function displayCadeauByID($cadeau)
  * Affiche les articles pour la page du manager
  * 
  * @param array $articles 
- * @return string 
+ * @return void
  */
 
 function displayArticlesWithButtons($articles)
@@ -692,7 +691,7 @@ function displayArticlesWithButtons($articles)
  * Affiche les livres pour la page du manager
  * 
  * @param array $livres
- * @return string 
+ * @return void
  */
 
 function displayLivresWithButtons($livres)
@@ -723,7 +722,7 @@ function displayLivresWithButtons($livres)
  * Affiche les papeteries pour la page du manager
  * 
  * @param array $papeteries
- * @return string 
+ * @return void
  */
 
 function displayPapeteriesWithButtons($papeteries)
@@ -754,7 +753,7 @@ function displayPapeteriesWithButtons($papeteries)
  * Affiche les cadeaux pour la page du manager
  * 
  * @param array $cadeaux
- * @return string 
+ * @return void
  */
 
 function displayCadeauxWithButtons($cadeaux)
@@ -788,7 +787,7 @@ function displayCadeauxWithButtons($cadeaux)
  * Affiche les livres pour la page du manager sous forme de table
  * 
  * @param array $livres
- * @return string 
+ * @return void
  */
 function displayLivresAsTable($livres)
 {
@@ -833,7 +832,7 @@ function displayLivresAsTable($livres)
  * Affiche les papeteries pour la page du manager sous forme de table
  * 
  * @param array $papeteries
- * @return string 
+ * @return void
  */
 function displayPapeteriesAsTable($papeteries)
 {
@@ -876,7 +875,7 @@ function displayPapeteriesAsTable($papeteries)
  * Affiche les cadeaux pour la page du manager sous forme de table
  * 
  * @param array $cadeaux
- * @return string 
+ * @return void
  */
 function displayCadeauxAsTable($cadeaux)
 {
