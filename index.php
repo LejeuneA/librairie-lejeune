@@ -62,7 +62,7 @@ if (!is_object($conn)) {
 
 		<!-----------------------------------------------------------------
                                Navigation
-    ------------------------------------------------------------------>
+    	------------------------------------------------------------------>
 		<nav class="navbar">
 			<div class="navbar-container container">
 				<!-- Logo -->
@@ -95,9 +95,9 @@ if (!is_object($conn)) {
 					<!-- Social icons end -->
 
 					<!-- Search -->
-					<form class="search" role="search">
+					<form class="search" role="search" action="./admin/search.php" method="GET">
 						<div class="search-group">
-							<input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+							<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
 							<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 						</div>
 					</form>
@@ -553,7 +553,7 @@ if (!is_object($conn)) {
 
 	<!-- Swiper JS -->
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-	
+
 	<!-- Include functions.js -->
 	<script src="./js/functions.js"></script>
 
