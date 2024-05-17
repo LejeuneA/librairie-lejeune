@@ -70,16 +70,30 @@
             .form-right {
                 width: 100%;
 
+                
                 .form-ctrl {
                     @extend %form-ctrl;
-
+                    
                     div {
                         img {
                             margin-top: 0.5em;
                         }
+
+                        .image_url {
+                            color:$dark-blue;
+                            font-size: 1em; 
+                            font-weight: 400;
+                            border: 0;
+                            padding: 1em 0; 
+
+                            &:focus {
+                                outline: none;
+                                border: none;
+                                box-shadow: none;
+                            }
+                        }
                     }
                 }
-
                 
                 .image_preview {
                     width: 17em;
@@ -150,7 +164,6 @@
                          Statut box
  ----------------------------------------------------------------- */
 .checkbox-wrapper-22 {
-
     .switch {
         display: inline-block;
         height: 34px;
