@@ -7,7 +7,7 @@ $query = htmlspecialchars($query);
 
 if (!empty($query)) {
     try {
-        // Perform search on multiple tables separately
+
         $stmt1 = $conn->prepare("SELECT title FROM livres WHERE title LIKE :query");
         $stmt2 = $conn->prepare("SELECT title FROM papeteries WHERE title LIKE :query");
         $stmt3 = $conn->prepare("SELECT title FROM cadeaux WHERE title LIKE :query");
