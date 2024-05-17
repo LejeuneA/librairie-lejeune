@@ -79,7 +79,7 @@ var swiper = new Swiper(".mySwiper", {
 });
 
 /* -------------------------------------------------------
-                 mage preview
+                Image preview
 ---------------------------------------------------------*/
 function previewImage(input) {
     var preview = document.getElementById('image_preview');
