@@ -185,7 +185,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" readonly>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
@@ -222,18 +222,6 @@ if (isset($_SESSION['form_submitted'])) {
     <!-- Custom JS -->
     <script src="../js/functions.js"></script>
 
-    <script>
-        function previewImage(input) {
-            var preview = document.getElementById('image_preview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 
 </html>
