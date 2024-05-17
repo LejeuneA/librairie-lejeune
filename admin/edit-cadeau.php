@@ -178,7 +178,7 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
-                                <input type="text" class="form-ctrl" id="image_url" name="image_url" value="Url de l'image: <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
+                                <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($cadeau['image_url']) ? $cadeau['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
