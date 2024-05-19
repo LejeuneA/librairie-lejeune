@@ -39,7 +39,7 @@ if (!is_object($conn)) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!">
 
-	<!-- Custom Sass file -->
+	<!-- Custom Css -->
 	<link rel="stylesheet" href="./css/styles.css">
 
 	<!-- Swiper CSS -->
