@@ -71,23 +71,24 @@ if (!empty($query)) {
         foreach ($results as $row) {
             echo "<li>";
             if ($row['idCategory'] == 1) {
-                $type = "livre";
+                $type = "Livre";
                 echo "<a href='../public/product-livre.php?idLivre=" . $row['idLivre'] . "'>";
             }
             elseif ($row['idCategory'] == 2) {
-                $type = "papeterie";
+                $type = "Papeterie";
                 echo "<a href='../public/product-papeterie.php?idPapeterie=" . $row['idPapeterie'] . "'>";
             }
             elseif ($row['idCategory'] == 3) {
-                $type = "cadeau";
+                $type = "Cadeau";
                 echo "<a href='../public/product-cadeau.php?idCadeau=" . $row['idCadeau'] . "'>";
             }
             if (!empty($row['image_url'])) {
                 echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image for " . htmlspecialchars($row['title']) . "'>";
             }
             echo "</a>";
-            
-            echo "<h2>" . htmlspecialchars($row['title']) . "(" . $type . ")</h2>";
+
+            echo "<p class='type'>" . $type . "</p>";
+            echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
             if (isset($row['writer']) && !empty($row['writer'])) {
                 echo "<p class='writer'> " . htmlspecialchars($row['writer']) . "</p>";
             }
