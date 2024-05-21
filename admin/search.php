@@ -8,9 +8,9 @@ $query = htmlspecialchars($query);
 if (!empty($query)) {
     try {
         // Prepare the statements with additional fields
-        $stmt1 = $conn->prepare("SELECT title, writer, feature, image_url FROM livres WHERE title LIKE :query");
-        $stmt2 = $conn->prepare("SELECT title, feature, image_url FROM papeteries WHERE title LIKE :query");
-        $stmt3 = $conn->prepare("SELECT title, feature, image_url FROM cadeaux WHERE title LIKE :query");
+        $stmt1 = $conn->prepare("SELECT title, writer, feature, image_url, idCategory,idLivre FROM livres WHERE title LIKE :query");
+        $stmt2 = $conn->prepare("SELECT title, feature, image_url,idCategory,idPapeterie FROM papeteries WHERE title LIKE :query");
+        $stmt3 = $conn->prepare("SELECT title, feature, image_url,idCategory,idCadeau FROM cadeaux WHERE title LIKE :query");
 
         $stmt1->execute(['query' => '%' . $query . '%']);
         $stmt2->execute(['query' => '%' . $query . '%']);
@@ -39,7 +39,7 @@ if (!empty($query)) {
 <head>
     <?php
     // Include the head section
-    displayHeadSection('Gestion des papeteries');
+    displayHeadSection('Résultats de recherche');
     displayJSSection();
     ?>
 </head>
@@ -53,7 +53,7 @@ if (!empty($query)) {
         <!-----------------------------------------------------------------
                             Navigation
         ------------------------------------------------------------------>
-        <?php displayNavigation(); ?>
+        <div data-include="navigation"></div>
         <!-----------------------------------------------------------------
                             Navigation end
         ------------------------------------------------------------------>
@@ -64,23 +64,40 @@ if (!empty($query)) {
     <section class="search-container container">
     <?php
     if ($results) {
-        echo "<h1>Search Results</h1>";
+        echo "<h1>Résultats de recherche</h1>";
+        echo "<p class='search-results-count'>Résultats trouvés: " . count($results) . "</p>";
+        echo "<div class='search-results'>";
         echo "<ul>";
         foreach ($results as $row) {
             echo "<li>";
-            echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-            if (isset($row['writer']) && !empty($row['writer'])) {
-                echo "<p>Writer: " . htmlspecialchars($row['writer']) . "</p>";
+            if ($row['idCategory'] == 1) {
+                $type = "livre";
+                echo "<a href='../public/product-livre.php?idLivre=" . $row['idLivre'] . "'>";
             }
-            if (!empty($row['feature'])) {
-                echo "<p>" . htmlspecialchars($row['feature']) . "</p>";
+            elseif ($row['idCategory'] == 2) {
+                $type = "papeterie";
+                echo "<a href='../public/product-papeterie.php?idPapeterie=" . $row['idPapeterie'] . "'>";
+            }
+            elseif ($row['idCategory'] == 3) {
+                $type = "cadeau";
+                echo "<a href='../public/product-cadeau.php?idCadeau=" . $row['idCadeau'] . "'>";
             }
             if (!empty($row['image_url'])) {
                 echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image for " . htmlspecialchars($row['title']) . "'>";
             }
+            echo "</a>";
+            
+            echo "<h2>" . htmlspecialchars($row['title']) . "(" . $type . ")</h2>";
+            if (isset($row['writer']) && !empty($row['writer'])) {
+                echo "<p class='writer'> " . htmlspecialchars($row['writer']) . "</p>";
+            }
+            if (!empty($row['feature'])) {
+                echo "<p class='feature'>" . htmlspecialchars($row['feature']) . "</p>";
+            }
             echo "</li>";
         }
         echo "</ul>";
+        echo "</div>";
     } else {
         echo "No results found.";
     }
