@@ -139,14 +139,14 @@ if (!is_object($conn)) {
     ----------------------------------------------------------------->
 		<div id="mySidenav" class="sidenav">
 
-			<!-- Search bar -->
-			<form class="search" role="search">
+			<!-- Search -->
+			<form class="search" role="search" action="./admin/search.php" method="GET">
 				<div class="search-group">
-					<input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+					<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
 					<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 				</div>
 			</form>
-			<!-- Search bar end -->
+			<!-- Search end -->
 
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
