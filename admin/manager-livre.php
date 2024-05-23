@@ -26,17 +26,24 @@ if (!is_object($conn)) {
         if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
             $livreIdToDelete = $_GET['idLivre'];
 
-            // Delete the livre from the database
-            $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+            if ($_SESSION['user_permission'] == 1) {
 
-            // Check deletion result and display appropriate message
-            if ($deleteResult === true) {
-                $msg = getMessage('Livre supprimé avec succès.', 'success');
-                // Refresh the page to reflect the changes after deletion
-                header('Location: manager-livre.php');
-                exit();
+                // Delete the livre from the database
+                $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+                // Check deletion result and display appropriate message
+
+                if ($deleteResult === true) {
+
+                    $msg = getMessage('Livre supprimé avec succès.', 'success');
+
+                    // Refresh the page to reflect the changes after deletion
+                    // header('Location: manager-livre.php');
+                    // exit();
+                } else {
+                    $msg = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
+                }
             } else {
-                $msg = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
+                $msg = getMessage('Vous n\'avez pas le droit de supprimer le livre.', 'error');
             }
         }
     } else {
