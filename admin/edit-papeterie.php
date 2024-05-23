@@ -7,6 +7,11 @@ if (!$_SESSION['IDENTIFY']) {
     exit;
 }
 
+if ($_SESSION['user_permission'] ==2){
+    header('Location: assets/pages/edit-papeterie.html');
+    exit;
+}
+
 $msg = null;
 $tinyMCE = true;
 $papeterie = null;

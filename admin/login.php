@@ -42,6 +42,7 @@ if (!is_object($conn)) {
     if ($connexionSuccessfull === true) {
         $_SESSION['IDENTIFY'] = true;
         $_SESSION['user_email'] = $user['email'];
+        $_SESSION['user_permission'] = $user['permission'];
         header('Location: manager.php');
         // Dans le cas contraire on affiche un message d'erreur, il y a eu une erreur d'identification
     } elseif ($connexionSuccessfull === false) {

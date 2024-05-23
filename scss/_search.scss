@@ -38,15 +38,20 @@
             
             li{
 
+                a{
+                    display: block;
+                }
+
                 .type{
-                    font-size: 1.2em;
+                    font-size: 1em;
                     font-weight: 600;
                     color: $light-blue;
                     margin-bottom: 0.5em;
                     text-align: center;
                     background-color: $secondary-blue;
-                    padding: 0.2em;
+                    padding: 0.2em 0.5em;
                     border-radius: 5px;
+                    display:inline-block
                 }
 
                 h2{
