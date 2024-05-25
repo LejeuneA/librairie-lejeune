@@ -8,6 +8,9 @@
     // Constante d'activation/désactivation du mode DEBUG
     const DEBUG = false;
 
+    // Constante de l'URL du site
+    const DOMAIN = 'http://localhost/librairie-lejeune';
+
     // Charge les credentials de connexion à la DB
     require_once('conf/conf-db.php');
 
