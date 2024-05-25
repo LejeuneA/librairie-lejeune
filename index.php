@@ -229,10 +229,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultLivres as $livre) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-								echo '<img src="http://localhost/librairie-lejeune/' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
+								echo '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
 								echo '</a>';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 								echo '<div class="article-title">' . $livre['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-writer">' . $livre['writer'] . '</div>';
@@ -298,10 +298,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultPapeteries as $papeterie) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-								echo '<img src="http://localhost/librairie-lejeune/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
+								echo '<a href=" '.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<img src="' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
 								echo '</a>';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
 								echo '<div class="article-title">' . $papeterie['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-feature">' . $papeterie['feature'] . '</div>';
@@ -339,7 +339,7 @@ if (!is_object($conn)) {
 		<!-----------------------------------------------------------------
 								Article preview - Cadeaux
 		------------------------------------------------------------------>
-		<!-- Article preview - Papeteries -->
+		<!-- Article preview - Cadeaux -->
 		<section class="article-preview">
 			<div class="container">
 				<h2>Meilleures ventes <span>Cadeaux</span></h2>
@@ -352,10 +352,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultCadeaux as $cadeau) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-								echo '<img src="http://localhost/librairie-lejeune/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
+								echo '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<img src="' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
 								echo '</a>';
-								echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
 								echo '<div class="article-title">' . $cadeau['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-feature">' . $cadeau['feature'] . '</div>';
@@ -369,7 +369,7 @@ if (!is_object($conn)) {
 				<!-- Article preview container end -->
 			</div>
 		</section>
-		<!-- Article preview - Papeteries end -->
+		<!-- Article preview - Cadeaux end -->
 		<!-----------------------------------------------------------------
 							Article preview - Cadeaux end
 		------------------------------------------------------------------>
