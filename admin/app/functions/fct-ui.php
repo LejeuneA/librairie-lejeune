@@ -345,8 +345,8 @@ function generateLivreHTML($livre)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<img src="'.DOMAIN.'/'.$livre['image_url'] . '" alt="' . $livre['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -356,7 +356,7 @@ function generateLivreHTML($livre)
     $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
     $feature = isset($livre['feature']) ? $livre['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
@@ -372,7 +372,7 @@ function generateLivreHTML($livre)
 
     $html .= '<div class="more-info">';
     // Check if 'idLivre' key is set before creating the link
-    $link = isset($livre['idLivre']) ? 'http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
+    $link = isset($livre['idLivre']) ? ''.DOMAIN. '/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -400,8 +400,8 @@ function generatePapeterieHTML($papeterie)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -410,7 +410,7 @@ function generatePapeterieHTML($papeterie)
     $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
     $feature = isset($papeterie['feature']) ? $papeterie['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p><span>' . $feature . '</span></p>';
@@ -426,7 +426,7 @@ function generatePapeterieHTML($papeterie)
 
     $html .= '<div class="more-info">';
     // Check if 'idPapeterie' key is set before creating the link
-    $link = isset($papeterie['idPapeterie']) ? 'http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
+    $link = isset($papeterie['idPapeterie']) ? ''.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -454,8 +454,8 @@ function generateCadeauHTML($cadeau)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -464,7 +464,7 @@ function generateCadeauHTML($cadeau)
     $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
     $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p><span>' . $feature . '</span></p>';
@@ -480,7 +480,7 @@ function generateCadeauHTML($cadeau)
 
     $html .= '<div class="more-info">';
     // Check if 'idCadeau' key is set before creating the link
-    $link = isset($cadeau['idCadeau']) ? 'http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
+    $link = isset($cadeau['idCadeau']) ? ''.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -511,11 +511,10 @@ function generateCadeauHTML($cadeau)
  */
 function displayLivreByID($livre)
 {
-    echo '<main>';
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -586,7 +585,7 @@ function displayPapeterieByID($papeterie)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -623,7 +622,7 @@ function displayCadeauByID($cadeau)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -648,7 +647,6 @@ function displayCadeauByID($cadeau)
     echo '<p>' . htmlspecialchars_decode($cadeau['content']) . '</p>';
     echo '</div>';
 }
-
 
 
 /**-----------------------------------------------------------------
