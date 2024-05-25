@@ -82,7 +82,7 @@
   }
 
   // Responsive styles
-  @media (min-width: 320px) and (max-width: 768px) {
+  @media (min-width: 320px) and (max-width: 1199px) {
     .navbar-container {
       justify-content: center;
       align-items: center;
@@ -133,7 +133,7 @@
   }
 
   // Responsive styles for menu
-  @media (min-width: 320px) and (max-width: 768px) {
+  @media (min-width: 320px) and (max-width: 1199px) {
     display: none;
   }
 }
@@ -143,7 +143,7 @@
 ---------------------------------------------------------*/
 
 /* Media queries for xs, sm, and md screens */
-@media (min-width: 320px) and (max-width: 768px) {
+@media (min-width: 320px) and (max-width: 1199px) {
 /* -------------------------------------------------------
                    Offcanvas menu
 ---------------------------------------------------------*/
@@ -262,7 +262,7 @@
   /* -------------------------------------------------------
            Offcanvas styles for smaller screens
   ---------------------------------------------------------*/
-  @media (min-width: 320px) and (max-width: 768px) {
+  @media (min-width: 320px) and (max-width: 1199px) {
     #hamburger {
       display: block;
     }
@@ -276,7 +276,7 @@
 /* -------------------------------------------------------
            Offcanvas styles for larger screens
 ---------------------------------------------------------*/
-@media (min-width: 769px) {
+@media (min-width: 1200px) {
   #hamburger,
   .sidenav,
   .closebtn {
