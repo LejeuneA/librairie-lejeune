@@ -112,6 +112,20 @@
     @include d-flex(flex, center, center, column, center);
     .upper-footer {
       padding: 3em;
+      flex-direction: column;
+      align-items: stretch;
+
+      > div {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      //Follow us
+    .footer-follow-us {
+      p {
+        color: $light-blue;
+      }
+    }
     }
 
     .footer-brand {
@@ -119,16 +133,6 @@
 
       img {
         height: 3.5em;
-      }
-    }
-
-    .upper-footer {
-      flex-direction: column;
-      align-items: stretch;
-
-      > div {
-        width: 100%;
-        max-width: 100%;
       }
     }
   }
