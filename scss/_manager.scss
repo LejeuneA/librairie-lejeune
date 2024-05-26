@@ -141,6 +141,10 @@
     }
 
     @media (min-width: 769px) and (max-width: 1332px) {
+        @include d-flex(flex, center, center, column, center);
+        height: auto;
+        width: 100%; 
+
         .manager-content {
             .category-container {
                 flex-wrap: wrap;
