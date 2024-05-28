@@ -93,7 +93,7 @@ function displayHeadSection($title = APP_NAME)
     <meta name="description" content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd\'hui!">
 
     <!-- Custom Sass file -->
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="'.DOMAIN.'/css/styles.css">
 
     <!-- Favicon -->
 	<link rel="icon" type="image/png" href="assets/icons/favicon.png">
