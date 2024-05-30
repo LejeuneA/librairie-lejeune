@@ -7,22 +7,22 @@ $execute = false;
 
 // Check if the ID of the livre is passed in the URL
 if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
-    $idLivre = $_GET['idLivre'];
-    // Ensure that the database connection object is valid
-    if (!is_object($conn)) {
-        $msg = getMessage($conn, 'error');
-    } else {
-        // Fetch the livre from the database based on the ID
-        $result = getLivreByIDDB($conn, $idLivre);
-        // Check if the result is a valid array and not empty
-        if (isset($result) && is_array($result) && !empty($result)) {
-            $execute = true;
-        } else {
-            $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
-        }
-    }
+	$idLivre = $_GET['idLivre'];
+	// Ensure that the database connection object is valid
+	if (!is_object($conn)) {
+		$msg = getMessage($conn, 'error');
+	} else {
+		// Fetch the livre from the database based on the ID
+		$result = getLivreByIDDB($conn, $idLivre);
+		// Check if the result is a valid array and not empty
+		if (isset($result) && is_array($result) && !empty($result)) {
+			$execute = true;
+		} else {
+			$msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+		}
+	}
 } else {
-    $msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
+	$msg = getMessage('Il n\'y a pas du produit à afficher', 'error');
 }
 ?>
 
@@ -31,15 +31,15 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Livre'); ?>
+	<?php displayHeadSection('Livre'); ?>
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
+	<!-----------------------------------------------------------------
                                Header
     ------------------------------------------------------------------>
-    <header>
-       <!-----------------------------------------------------------------
+	<header>
+		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
 		<nav class="navbar">
@@ -83,8 +83,18 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 					<!-- Search end -->
 
 					<!-- Customer button -->
-					<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
-					<!-- Customer button -->
+					<?php
+					if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+						echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+					} elseif (isset($_SESSION['user_permission'])) {
+						if ($_SESSION['user_permission'] == 1) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						} elseif ($_SESSION['user_permission'] == 2) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						}
+					}
+					?>
+					<!-- Customer button end -->
 
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -146,8 +156,18 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 			<!-- Menu end -->
 
 			<!-- Customer button -->
-			<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
-			<!-- Customer button -->
+			<?php
+			if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+				echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+			} elseif (isset($_SESSION['user_permission'])) {
+				if ($_SESSION['user_permission'] == 1) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				} elseif ($_SESSION['user_permission'] == 2) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				}
+			}
+			?>
+			<!-- Customer button end -->
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -187,37 +207,37 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 		<!------------------------------------------------------------- 
                           Offcanvas menu end
     	--------------------------------------------------------------->
-    </header>
-    <!-----------------------------------------------------------------
+	</header>
+	<!-----------------------------------------------------------------
                                Header end
     ------------------------------------------------------------------>
-    <!-- Main -->
-    <main>
-        <div class="container">
-            <div id="message">
-                <?php if (isset($msg)) echo $msg; ?>
-            </div>
-            <div id="content">
-                <?php
-                // Peut-on exécuter l'affichage de l'article
-                if ($execute) {
-                    displayLivreByID($result);
-                }
-                ?>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer>
-        <div data-include="footer"></div>
-    </footer>
+	<!-- Main -->
+	<main>
+		<div class="container">
+			<div id="message">
+				<?php if (isset($msg)) echo $msg; ?>
+			</div>
+			<div id="content">
+				<?php
+				// Peut-on exécuter l'affichage de l'article
+				if ($execute) {
+					displayLivreByID($result);
+				}
+				?>
+			</div>
+		</div>
+	</main>
+	<!-- Footer -->
+	<footer>
+		<div data-include="footer"></div>
+	</footer>
 
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- Font Awesome -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
+	<!-- Include functions.js -->
+	<script src="../js/functions.js"></script>
 </body>
 
 </html>
