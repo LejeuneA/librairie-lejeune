@@ -96,6 +96,9 @@ function displayHeadSection($title = APP_NAME)
     <link rel="stylesheet" href="'.DOMAIN.'/css/styles.css">
 
     <!-- Favicon -->
+	<link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+
+    <!-- Favicon -->
 	<link rel="icon" type="image/png" href="assets/icons/favicon.png">
 
     <!-- Google Fonts Preconnect and Link -->
