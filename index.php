@@ -29,6 +29,7 @@ if (!is_object($conn)) {
 		$msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
 	}
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -104,8 +105,23 @@ if (!is_object($conn)) {
 					<!-- Search end -->
 
 					<!-- Customer button -->
-					<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
+					<!-- <a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a> -->
 					<!-- Customer button -->
+
+					<!-- Customer button -->
+					<?php
+					if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+						echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+					} elseif (isset($_SESSION['user_permission'])) {
+						if ($_SESSION['user_permission'] == 1) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						} elseif ($_SESSION['user_permission'] == 2) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						}
+					}
+					?>
+					<!-- Customer button end -->
+
 
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -167,8 +183,18 @@ if (!is_object($conn)) {
 			<!-- Menu end -->
 
 			<!-- Customer button -->
-			<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
-			<!-- Customer button -->
+			<?php
+			if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+				echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+			} elseif (isset($_SESSION['user_permission'])) {
+				if ($_SESSION['user_permission'] == 1) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				} elseif ($_SESSION['user_permission'] == 2) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				}
+			}
+			?>
+			<!-- Customer button end -->
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
