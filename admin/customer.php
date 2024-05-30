@@ -67,7 +67,7 @@ require_once('settings.php');
                             <!-- Telephone -->
                             <div class="form-ctrl">
                                 <label for="tel" class="form-ctrl">Numéro de téléphone</label>
-                                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Votre numéro de téléphone" required>
+                                <input type="tel" class="form-ctrl" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Votre numéro de téléphone" required>
                             </div>
 
                             <!-- Submit -->
@@ -386,53 +386,55 @@ require_once('settings.php');
                                         <input type="text" class="form-ctrl" id="nom" name="nom" placeholder="Votre prénom et nom de famille">
                                     </div>
 
-                                    <!-- Email -->
-                                    <div class="form-ctrl">
-                                        <label for="email" class="form-ctrl">Email</label>
-                                        <input type="email" class="form-ctrl" id="email" name="email" placeholder="Votre email">
-                                    </div>
-
                                     <!-- Telephone -->
                                     <div class="form-ctrl">
                                         <label for="tel" class="form-ctrl">Numéro de téléphone</label>
                                         <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Votre numéro de téléphone" required>
                                     </div>
+
+                                    <!-- Adresse postale -->
+                                    <div class="form-ctrl">
+                                        <label for="adresse" class="form-ctrl">Adresse postale</label>
+                                        <textarea type="text" class="form-ctrl" id="adresse" name="adresse" placeholder="Votre adresse postale"></textarea>
+                                    </div>
+
 
                                 </div>
                                 <!-- Form items end -->
 
                                 <!-- Form items -->
                                 <div class="form-items">
-                                    <!-- Prenom -->
+
+                                    <!-- Numéro de maison -->
                                     <div class="form-ctrl">
-                                        <label for="prenom" class="form-ctrl">Prénom</label>
-                                        <input type="text" class="form-ctrl" id="prenom" name="prenom" placeholder="Votre prénom">
+                                        <label for="number" class="form-ctrl">Numéro de maison</label>
+                                        <input type="text" class="form-ctrl" id="number" name="number" placeholder="Votre numéro de maison">
                                     </div>
 
-                                    <!-- Nom -->
+                                    <!-- Numéro de boîte aux lettres -->
                                     <div class="form-ctrl">
-                                        <label for="nom" class="form-ctrl">Nom</label>
-                                        <input type="text" class="form-ctrl" id="nom" name="nom" placeholder="Votre nom">
+                                        <label for="boxNumber" class="form-ctrl">Numéro de boîte aux lettres</label>
+                                        <input type="text" class="form-ctrl" id="boxNumber" name="boxNumber" placeholder="Votre numéro de boîte aux lettres">
                                     </div>
 
-                                    <!-- Email -->
+                                    <!-- Code postal -->
                                     <div class="form-ctrl">
-                                        <label for="email" class="form-ctrl">Email</label>
-                                        <input type="email" class="form-ctrl" id="email" name="email" placeholder="Votre email">
+                                        <label for="postCode" class="form-ctrl">Code postal</label>
+                                        <input type="text" class="form-ctrl" id="postCode" name="postCode" placeholder="Votre Code postal">
                                     </div>
 
-                                    <!-- Telephone -->
+                                    <!-- Ville -->
                                     <div class="form-ctrl">
-                                        <label for="tel" class="form-ctrl">Numéro de téléphone</label>
-                                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Votre numéro de téléphone" required>
+                                        <label for="city" class="form-ctrl">Ville</label>
+                                        <input type="text" class="form-ctrl" id="city" name="city" placeholder="Le nom de votre ville..." required>
                                     </div>
 
+                                    <!-- Submit -->
+                                    <button type="submit" class="btn-primary">Enregistrer les modifications</button>
                                 </div>
                                 <!-- Form items right end -->
                             </form>
 
-                            <!-- Submit -->
-                            <button type="submit" class="btn-primary">Enregistrer les modifications</button>
 
                             <!-- Form end -->
                         </div>
