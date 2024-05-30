@@ -188,7 +188,7 @@
                                     box-sizing: border-box;
                                     margin-top: 6px;
                                     margin-bottom: 1em;
-                                    resize: vertical;
+                                    resize: none;
                                 }
 
                                 input::placeholder,
@@ -211,9 +211,13 @@
                                     outline: 1px solid $secondary-blue;
                                 }
 
+                                textarea{
+                                    height: 10em;
+                                }
+
                                 /* -----------------------------------------------------------------
                                                         Buttons
-                            ----------------------------------------------------------------- */
+                                ----------------------------------------------------------------- */
 
                                 input[type="submit"],
                                 input[type="reset"] {
