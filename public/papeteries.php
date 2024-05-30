@@ -3,8 +3,8 @@ require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+	header('Location: login.php');
+	exit();
 }
 
 $msg = null;
@@ -13,17 +13,17 @@ $execute = false;
 
 // Check the database connection
 if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+	$msg = getMessage($conn, 'error');
 } else {
-    // Fetch all papeteries from the database
-    $result = getAllPapeteriesDB($conn);
+	// Fetch all papeteries from the database
+	$result = getAllPapeteriesDB($conn);
 
-    // Check if papeteries exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
-    } else {
-        $msg = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
-    }
+	// Check if papeteries exist
+	if (is_array($result) && !empty($result)) {
+		$execute = true;
+	} else {
+		$msg = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
+	}
 }
 ?>
 
@@ -31,15 +31,15 @@ if (!is_object($conn)) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Papeteries'); ?>
+	<?php displayHeadSection('Papeteries'); ?>
 </head>
 
 <body>
-    <!-----------------------------------------------------------------
+	<!-----------------------------------------------------------------
                                Header
     ------------------------------------------------------------------>
-    <header>
-       <!-----------------------------------------------------------------
+	<header>
+		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
 		<nav class="navbar">
@@ -83,8 +83,18 @@ if (!is_object($conn)) {
 					<!-- Search end -->
 
 					<!-- Customer button -->
-					<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
-					<!-- Customer button -->
+					<?php
+					if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+						echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+					} elseif (isset($_SESSION['user_permission'])) {
+						if ($_SESSION['user_permission'] == 1) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						} elseif ($_SESSION['user_permission'] == 2) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						}
+					}
+					?>
+					<!-- Customer button end -->
 
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -146,8 +156,18 @@ if (!is_object($conn)) {
 			<!-- Menu end -->
 
 			<!-- Customer button -->
-			<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
-			<!-- Customer button -->
+			<?php
+			if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+				echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+			} elseif (isset($_SESSION['user_permission'])) {
+				if ($_SESSION['user_permission'] == 1) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				} elseif ($_SESSION['user_permission'] == 2) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				}
+			}
+			?>
+			<!-- Customer button end -->
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -187,95 +207,95 @@ if (!is_object($conn)) {
 		<!------------------------------------------------------------- 
                           Offcanvas menu end
     	--------------------------------------------------------------->
-    </header>
-    <!-----------------------------------------------------------------
+	</header>
+	<!-----------------------------------------------------------------
                                Header end
     ------------------------------------------------------------------>
-        <div class="header-image--stationery">
-            <h1>Inspiration à l'encre de plume</h1>
-            <p>
-                Chaque trait devient une œuvre d'art avec nos outils inspirants.
-            </p>
-        </div>
-    </header>
-    <!-----------------------------------------------------------------
+	<div class="header-image--stationery">
+		<h1>Inspiration à l'encre de plume</h1>
+		<p>
+			Chaque trait devient une œuvre d'art avec nos outils inspirants.
+		</p>
+	</div>
+	</header>
+	<!-----------------------------------------------------------------
                             Header end
     ------------------------------------------------------------------>
-    <!-- Main -->
-    <main>
+	<!-- Main -->
+	<main>
 
-        <!-----------------------------------------------------------------
+		<!-----------------------------------------------------------------
                                Introduction
         ------------------------------------------------------------------>
-        <div class="square-right">
-            <img src="../assets/components/square-right.png" alt="square">
-        </div>
+		<div class="square-right">
+			<img src="../assets/components/square-right.png" alt="square">
+		</div>
 
-        <section class="introduction">
+		<section class="introduction">
 
-            <h1>Papeteries</h1>
-            <p>
-                Explorez notre section papeterie où chaque stylo, carnet et accessoire est choisi avec soin pour
-                inspirer votre créativité. Que vous écriviez, dessiniez ou planifiiez, nos articles de papeterie exquis
-                sont conçus pour donner vie à vos idées.
-            </p>
-        </section>
-        <div class="square-left">
-            <img src="../assets/components/square-left.png" alt="square">
-        </div>
-        <!-----------------------------------------------------------------
+			<h1>Papeteries</h1>
+			<p>
+				Explorez notre section papeterie où chaque stylo, carnet et accessoire est choisi avec soin pour
+				inspirer votre créativité. Que vous écriviez, dessiniez ou planifiiez, nos articles de papeterie exquis
+				sont conçus pour donner vie à vos idées.
+			</p>
+		</section>
+		<div class="square-left">
+			<img src="../assets/components/square-left.png" alt="square">
+		</div>
+		<!-----------------------------------------------------------------
                                Introduction end
         ------------------------------------------------------------------>
-        <!-----------------------------------------------------------------
+		<!-----------------------------------------------------------------
                                Papeteries
         ------------------------------------------------------------------>
-        <section class="books-container container">
-            <!-- Articles -->
-            <?php
-            // Check if there are papeteries to display
-            if ($execute) {
-                // Loop through each papeterie and generate HTML markup
-                foreach ($result as $papeterie) {
-                    echo generatePapeterieHTML($papeterie);
-                }
-            } else {
-                // Display a message if there are no papeteries to display
-                echo '<p>Il n\'y a pas de papeterie à afficher actuellement</p>';
-            }
-            ?>
-            <!-- Articles end -->
+		<section class="books-container container">
+			<!-- Articles -->
+			<?php
+			// Check if there are papeteries to display
+			if ($execute) {
+				// Loop through each papeterie and generate HTML markup
+				foreach ($result as $papeterie) {
+					echo generatePapeterieHTML($papeterie);
+				}
+			} else {
+				// Display a message if there are no papeteries to display
+				echo '<p>Il n\'y a pas de papeterie à afficher actuellement</p>';
+			}
+			?>
+			<!-- Articles end -->
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#">1</a>
-                <a href="#" class="active">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&raquo;</a>
-            </div>
-            <!-- Pagination end -->
-        </section>
-        <!-----------------------------------------------------------------
+			<!-- Pagination -->
+			<div class="pagination">
+				<a href="#">&laquo;</a>
+				<a href="#">1</a>
+				<a href="#" class="active">2</a>
+				<a href="#">3</a>
+				<a href="#">4</a>
+				<a href="#">5</a>
+				<a href="#">6</a>
+				<a href="#">&raquo;</a>
+			</div>
+			<!-- Pagination end -->
+		</section>
+		<!-----------------------------------------------------------------
                             Papeteries end
         ------------------------------------------------------------------>
 
-        <!-----------------------------------------------------------------
+		<!-----------------------------------------------------------------
                                 Footer
         ------------------------------------------------------------------>
-        <footer>
-            <div data-include="footer"></div>
-        </footer>
-        <!-----------------------------------------------------------------
+		<footer>
+			<div data-include="footer"></div>
+		</footer>
+		<!-----------------------------------------------------------------
                             Footer end
         ------------------------------------------------------------------>
-        <!-- Font Awesome -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<!-- Font Awesome -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <!-- Include functions.js -->
-        <script src="../js/functions.js"></script>
+		<!-- Include functions.js -->
+		<script src="../js/functions.js"></script>
 
 </body>
 
