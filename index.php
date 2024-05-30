@@ -104,7 +104,11 @@ if (!is_object($conn)) {
 					<!-- Search end -->
 
 					<!-- Login button -->
-					<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
+						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+					<?php else : ?>
+						<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+					<?php endif; ?>
 					<!-- Login button end -->
 				</div>
 				<!-- Right-side content end -->
@@ -157,7 +161,11 @@ if (!is_object($conn)) {
 			<!-- Menu end -->
 
 			<!-- Login button -->
-			<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
+			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
+				<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+			<?php else : ?>
+				<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+			<?php endif; ?>
 			<!-- Login button end -->
 
 			<!-- Social icons -->
@@ -229,10 +237,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultLivres as $livre) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<a href="' . DOMAIN . '/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 								echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
 								echo '</a>';
-								echo '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<a href="' . DOMAIN . '/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
 								echo '<div class="article-title">' . $livre['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-writer">' . $livre['writer'] . '</div>';
@@ -298,10 +306,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultPapeteries as $papeterie) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href=" '.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<a href=" ' . DOMAIN . '/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
 								echo '<img src="' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
 								echo '</a>';
-								echo '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<a href="' . DOMAIN . '/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
 								echo '<div class="article-title">' . $papeterie['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-feature">' . $papeterie['feature'] . '</div>';
@@ -352,10 +360,10 @@ if (!is_object($conn)) {
 							// Iterate over livres
 							foreach ($resultCadeaux as $cadeau) {
 								echo '<div class="article swiper-slide">';
-								echo '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<a href="' . DOMAIN . '/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
 								echo '<img src="' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
 								echo '</a>';
-								echo '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<a href="' . DOMAIN . '/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
 								echo '<div class="article-title">' . $cadeau['title'] . '</div>';
 								echo '</a>';
 								echo '<div class="article-feature">' . $cadeau['feature'] . '</div>';
@@ -447,7 +455,7 @@ if (!is_object($conn)) {
 					<h3>CONTACTEZ-NOUS</h3>
 					<ul>
 						<li>
-							<a href="./public/contact.html" class="">Contact</a>
+							<a href="./public/contact.php" class="">Contact</a>
 						</li>
 						<li>
 							<i class="fa-regular fa-envelope"></i>
@@ -471,13 +479,13 @@ if (!is_object($conn)) {
 					<h3>À PROPOS DE NOUS<h3>
 							<ul>
 								<li>
-									<a href="./public/about-us.html">Qui sommes-nous?</a>
+									<a href="./public/about-us.php">Qui sommes-nous?</a>
 								</li>
 								<li>
-									<a href="./public/work-with-us.html">Travailler chez nous</a>
+									<a href="./public/work-with-us.php">Travailler chez nous</a>
 								</li>
 								<li>
-									<a href="./public/conditions.html">Conditions générales</a>
+									<a href="./public/conditions.php">Conditions générales</a>
 								</li>
 							</ul>
 				</div>
