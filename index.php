@@ -103,6 +103,10 @@ if (!is_object($conn)) {
 					</form>
 					<!-- Search end -->
 
+					<!-- Customer button -->
+					<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
+					<!-- Customer button -->
+
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
 						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
@@ -110,6 +114,8 @@ if (!is_object($conn)) {
 						<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
 					<?php endif; ?>
 					<!-- Login button end -->
+
+
 				</div>
 				<!-- Right-side content end -->
 			</div>
@@ -160,11 +166,15 @@ if (!is_object($conn)) {
 			<a class="nav-link" href="./public/cadeaux.php">Cadeaux</a>
 			<!-- Menu end -->
 
+			<!-- Customer button -->
+			<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>
+			<!-- Customer button -->
+
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
-				<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+				<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
 			<?php else : ?>
-				<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+				<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-login">Déconnexion</a>
 			<?php endif; ?>
 			<!-- Login button end -->
 
@@ -197,9 +207,9 @@ if (!is_object($conn)) {
 		</div>
 		<!------------------------------------------------------------- 
                           Offcanvas menu end
-    --------------------------------------------------------------->
-
+    	--------------------------------------------------------------->
 		<!-- Navigation end -->
+
 		<div class="header-image--home">
 			<h1>
 				Explorez, découvrez, lisez.

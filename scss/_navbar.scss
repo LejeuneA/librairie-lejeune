@@ -79,6 +79,16 @@
     .btn-primary {
       @include hover("background-color", $secondary-blue, "color", $light-blue);
     }
+
+    // Login button
+    .btn-customer {
+      color: $primary-blue;
+      @include hover("background-color", transparent, "color", $primary-red);
+
+      a{
+        margin-left: 0.5em;
+      }
+    }
   }
 
   // Responsive styles
