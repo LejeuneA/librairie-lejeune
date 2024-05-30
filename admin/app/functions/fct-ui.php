@@ -265,7 +265,7 @@ function displayNavigation()
         <nav class="navbar">
         <div class="navbar-container container">
             <!-- Logo -->
-            <a href="../index.php">
+            <a href="login.php">
                 <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
             </a>
             <!-- Logo end -->
