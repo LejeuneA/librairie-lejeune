@@ -1,0 +1,93 @@
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
+
+/* -------------------------------------------------------
+                    Search bar section
+---------------------------------------------------------*/
+
+.search-container {
+    @include d-flex(flex, center, center, column, center);
+    width: 100%;
+    height: auto;
+    margin-bottom: 5em;
+    
+    h1{
+        margin-top: 2em;
+    }
+    
+    .search-results-count{
+        font-size: 1.2em;
+        font-weight: 600;
+        color: $primary-blue;
+        margin: 2em 0;
+        padding: 0;
+    }
+    
+    .search-results{
+        @include d-flex(flex, center, center, row, center);
+        width: 100%;
+        
+
+        ul{
+            @include d-flex(flex, center, center, row, center);
+            padding: 0;
+            flex-wrap: wrap;
+            gap: 2em;
+            
+            li{
+
+                a{
+                    display: block;
+                }
+
+                .type{
+                    font-size: 1em;
+                    font-weight: 600;
+                    color: $light-blue;
+                    margin-bottom: 0.5em;
+                    text-align: center;
+                    background-color: $secondary-blue;
+                    padding: 0.2em 0.5em;
+                    border-radius: 5px;
+                    display:inline-block
+                }
+
+                h2{
+                    font-size: 1.2em;
+                    font-weight: 600;
+                    color: $primary-blue;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .writer{
+                    font-size: 1.2em;
+                    font-weight: 400;
+                    color: $secondary-blue;
+                    margin-top: 0.5em;
+                    margin-bottom: 0;
+                    padding: 0;
+                    text-align: center;
+                }
+
+                .feature{
+                    font-size: 1em;
+                    font-weight: 200;
+                    color: $primary-blue;
+                    margin:0;
+                    padding: 0;
+                    text-align: center;
+                }
+
+                img{
+                    width: 15em;
+                    height: auto;
+                    margin-bottom: 0.5em;
+                }
+            }
+        }
+    }
+
+}

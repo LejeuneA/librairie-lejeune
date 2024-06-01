@@ -27,7 +27,7 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
         return $conn;
     } catch (PDOException $e) {
         (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error : Database connexion";
-        return $st;
+        return $e;
     }
 }
 
@@ -104,7 +104,7 @@ function getAllArticlesDB($conn, $active = '%')
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getAllArticlesDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllArticlesDB() function";
         return $st;
     }
 }
@@ -122,7 +122,7 @@ function getAllLivresDB($conn, $limit = null, $active = '%')
     try {
         // Préparation de la requête SQL
         $sql = "SELECT * FROM livres WHERE active LIKE :active ORDER BY idLivre DESC";
-        
+
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
@@ -151,11 +151,14 @@ function getAllLivresDB($conn, $limit = null, $active = '%')
         return $resultat;
     } catch (PDOException $e) {
         // Gestion des erreurs
-        if (DEBUG) {
-            return 'Error : ' . $e->getMessage();
-        } else {
-            return "Error in : getAllLivresDB() function";
-        }
+        // if (DEBUG) {
+        //     return 'Error : ' . $e->getMessage();
+        // } else {
+        //     return "Error in : getAllLivresDB() function";
+        // }
+
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllLivresDB() function";
+        return $st;
     }
 }
 
@@ -172,7 +175,7 @@ function getAllPapeteriesDB($conn, $limit = null, $active = '%')
     try {
         // Préparation de la requête SQL
         $sql = "SELECT * FROM papeteries WHERE active LIKE :active ORDER BY idPapeterie DESC";
-        
+
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
@@ -200,12 +203,8 @@ function getAllPapeteriesDB($conn, $limit = null, $active = '%')
         // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        // Gestion des erreurs
-        if (DEBUG) {
-            return 'Error : ' . $e->getMessage();
-        } else {
-            return "Error in : getAllPapeteriesDB() function";
-        }
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllPapeteriesDB() function";
+        return $st;
     }
 }
 
@@ -222,7 +221,7 @@ function getAllCadeauxDB($conn, $limit = null, $active = '%')
     try {
         // Préparation de la requête SQL
         $sql = "SELECT * FROM cadeaux WHERE active LIKE :active ORDER BY idCadeau DESC";
-        
+
         // Si un nombre limite est spécifié, ajoute une clause LIMIT à la requête
         if ($limit !== null) {
             $sql .= " LIMIT :limit";
@@ -250,12 +249,8 @@ function getAllCadeauxDB($conn, $limit = null, $active = '%')
         // Retourne les résultats
         return $resultat;
     } catch (PDOException $e) {
-        // Gestion des erreurs
-        if (DEBUG) {
-            return 'Error : ' . $e->getMessage();
-        } else {
-            return "Error in : getAllCadeauxDB() function";
-        }
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getAllCadeauxDB() function";
+        return $st;
     }
 }
 
@@ -286,7 +281,7 @@ function getArticleByIDDB($conn, $id)
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getArticleByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getArticleByIDDB() function";
         return $st;
     }
 }
@@ -314,7 +309,7 @@ function getLivreByIDDB($conn, $idLivre)
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getLivreByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getLivreByIDDB() function";
         return $st;
     }
 }
@@ -342,7 +337,7 @@ function getPapeterieByIDDB($conn, $idPapeterie)
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getPapeterieByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getPapeterieByIDDB() function";
         return $st;
     }
 }
@@ -370,7 +365,7 @@ function getCadeauByIDDB($conn, $idCadeau)
 
         return $resultat;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getCadeauByIDDB() function";
+        (DEBUG) ? $st['error'] = 'Error : ' . $e->getMessage() : $st['error'] = "Error in : getCadeauByIDDB() function";
         return $st;
     }
 }
@@ -411,8 +406,12 @@ function addArticleDB($conn, $datas)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addArticleDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: addArticleDB() function");
+        }
+        return false;
     }
 }
 
@@ -462,8 +461,12 @@ function addLivreDB($conn, $datas)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : addLivreDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: addLivreDB() function");
+        }
+        return false;
     }
 }
 
@@ -602,8 +605,12 @@ function updateArticleDB($conn, $datas)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateArticleDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: updateArticleDB() function");
+        }
+        return false;
     }
 }
 
@@ -658,8 +665,12 @@ function updateLivreDB($conn, $datas)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateLivreDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: updateLivreDB() function");
+        }
+        return false;
     }
 }
 
@@ -760,8 +771,12 @@ function updateCadeauDB($conn, $datas)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : updateCadeauDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: updateCadeauDB() function");
+        }
+        return false;
     }
 }
 
@@ -791,8 +806,12 @@ function deleteArticleDB($conn, $id)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deleteArticleDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deleteArticleDB() function");
+        }
+        return false;
     }
 }
 
@@ -819,8 +838,12 @@ function deleteLivreDB($conn, $idLivre)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deleteLivreDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deleteLivreDB() function");
+        }
+        return false;
     }
 }
 
@@ -828,7 +851,8 @@ function deleteLivreDB($conn, $idLivre)
  * Suppression d'un papeterie dans la base de données
  * 
  * @param mixed $conn 
- * @return true 
+ * @param int $idPapeterie
+ * @return bool 
  */
 function deletePapeterieDB($conn, $idPapeterie)
 {
@@ -838,7 +862,7 @@ function deletePapeterieDB($conn, $idPapeterie)
 
         // Insertion des données dans la table articles
         $req = $conn->prepare("DELETE FROM papeteries WHERE idPapeterie = :idPapeterie");
-        $req->bindParam(':id', $idPapeterie);
+        $req->bindParam(':idPapeterie', $idPapeterie, PDO::PARAM_INT);
         $req->execute();
 
         // Fermeture connexion
@@ -847,10 +871,15 @@ function deletePapeterieDB($conn, $idPapeterie)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deletePapeterieDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deletePapeterieDB() function");
+        }
+        return false;
     }
 }
+
 
 /**
  * Suppression d'un cadeau dans la base de données
@@ -875,8 +904,12 @@ function deleteCadeauDB($conn, $idCadeau)
 
         return true;
     } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : deleteCadeauDB() function";
-        return $st;
+        if (defined('DEBUG') && DEBUG) {
+            error_log('Error: ' . $e->getMessage());
+        } else {
+            error_log("Error in: deleteCadeauDB() function");
+        }
+        return false;
     }
 }
 
@@ -934,7 +967,8 @@ function userIdentificationWithHashPwdDB($conn, $datas)
         Function to fetch all categories from the database using PDO
  *------------------------------------------------------------------**/
 // Function to retrieve all categories from the database using PDO
-function getAllCategoriesDB($pdo) {
+function getAllCategoriesDB($pdo)
+{
     // Initialize an array to store the categories
     $categories = [];
 
@@ -962,24 +996,36 @@ function getAllCategoriesDB($pdo) {
 
 /**-----------------------------------------------------------------
         Function to retrieve category names from the database
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 // Function to retrieve category names from the database
-function getCategoryNamesFromDB($conn) {
+function getCategoryNamesFromDB($conn)
+{
     $categories = array();
 
-    // Assuming your SQL query to fetch category names
-    $query = "SELECT idCategory, nameOfCategory FROM product_category";
-    $stmt = $conn->query($query);
+    try {
+        // Assuming your SQL query to fetch category names
+        $query = "SELECT idCategory, nameOfCategory FROM product_category";
+        $stmt = $conn->query($query);
 
-    // Check if the query executed successfully
-    if ($stmt) {
-        // Fetch associative array of category names
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $categories[] = $row;
+        // Check if the query executed successfully
+        if ($stmt) {
+            // Fetch associative array of category names
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $categories[] = $row;
+            }
+        } else {
+            // Handle query failure
+            throw new Exception("Query failed: " . implode(", ", $conn->errorInfo()));
         }
+    } catch (Exception $e) {
+        // Handle exception
+        error_log($e->getMessage());
+        // Optionally, you can rethrow the exception if you want to handle it outside this function
+        // throw $e;
     }
 
     return $categories;
 }
+
 

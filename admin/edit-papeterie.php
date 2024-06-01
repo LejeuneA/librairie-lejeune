@@ -4,12 +4,17 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit; 
+    exit;
+}
+
+if ($_SESSION['user_permission'] ==2){
+    header('Location: assets/pages/edit-papeterie.html');
+    exit;
 }
 
 $msg = null;
 $tinyMCE = true;
-$papeterie = null; 
+$papeterie = null;
 
 // Check the database connection
 if (!is_object($conn)) {
@@ -18,10 +23,10 @@ if (!is_object($conn)) {
     // Check if article ID is provided in the URL
     if (isset($_GET['idPapeterie'])) {
         // Get the article ID from the URL
-        $idPapeterie = $_GET['idPapeterie']; 
+        $idPapeterie = $_GET['idPapeterie'];
 
         // Retrieve article details from the database
-        $papeterie = getPapeterieByIDDB($conn, $idPapeterie); 
+        $papeterie = getPapeterieByIDDB($conn, $idPapeterie);
 
         // Fetch category names from the database
         $categories = getCategoryNamesFromDB($conn);
@@ -33,10 +38,10 @@ if (!is_object($conn)) {
                 // Update the article in the database
                 $updateData = [
                     'idPapeterie' => $idPapeterie,
-                    'image_url' => $_POST['image_url'], 
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '', 
+                    'image_url' => $_POST['image_url'],
+                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
                     'writer' => isset($_POST['writer']) ? $_POST['writer'] : '',
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '', 
+                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
                     'price' => isset($_POST['price']) ? $_POST['price'] : '',
                     'content' => $_POST['content'],
                     'published_article' => isset($_POST['published_article']) ? 1 : 0,
@@ -49,7 +54,7 @@ if (!is_object($conn)) {
                 // Check the result of the update operation
                 if ($updateResult === true) {
                     $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true; 
+                    $_SESSION['form_submitted'] = true;
                 } else {
                     $msg = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
                 }
@@ -62,14 +67,14 @@ if (!is_object($conn)) {
 
                 // Check if the directory exists, if not, create it
                 if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true); 
+                    mkdir($target_dir, 0777, true);
                 }
 
                 // Move the uploaded file to the target directory
                 if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
                     // File upload successful, update the image URL in the database
                     $updateData['image_url'] = $target_file;
-                    updatePapeterieDB($conn, $updateData); 
+                    updatePapeterieDB($conn, $updateData);
                 } else {
                     $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
                 }
@@ -78,7 +83,7 @@ if (!is_object($conn)) {
     } else {
         // If article ID is not provided, redirect to manager.php
         header('Location: manager.php');
-        exit; 
+        exit;
     }
 }
 
@@ -123,7 +128,7 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form left -->
                     <div class="form-left">
-                        
+
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
@@ -158,7 +163,7 @@ if (isset($_SESSION['form_submitted'])) {
                             <label for="feature" class="form-ctrl">Caractèriques</label>
                             <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($papeterie['feature']) ? $papeterie['feature'] : ''; ?>">
                         </div>
-                        
+
                         <!-- Price -->
                         <div class="form-ctrl">
                             <label for="price" class="form-ctrl">Prix</label>
@@ -169,11 +174,12 @@ if (isset($_SESSION['form_submitted'])) {
 
                     <!-- Form right -->
                     <div class="form-right">
-                        <!-- URL of the image -->
+
+                        <!-- URL of the image
                         <div class="form-ctrl">
                             <label for="image_url" class="form-ctrl">URL de l'image</label>
                             <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" readonly>
-                        </div>
+                        </div> -->
 
                         <!-- File upload field -->
                         <div class="form-ctrl">
@@ -184,12 +190,13 @@ if (isset($_SESSION['form_submitted'])) {
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
+                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" readonly>
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Form bottom -->
                 <div class=" form-bottom">
                     <div class="form-ctrl">
@@ -198,7 +205,7 @@ if (isset($_SESSION['form_submitted'])) {
                     </div>
                 </div>
 
-                <input type="hidden" name="update_form" value="1"> 
+                <input type="hidden" name="update_form" value="1">
                 <button type="submit" class="btn-primary">Sauvegarder</button>
                 <button type="submit" class="btn-primary" formaction="article-papeterie.php?idPapeterie=<?php echo $papeterie['idPapeterie']; ?>">Afficher</button>
             </form>
@@ -220,18 +227,6 @@ if (isset($_SESSION['form_submitted'])) {
     <!-- Custom JS -->
     <script src="../js/functions.js"></script>
 
-    <script>
-        function previewImage(input) {
-            var preview = document.getElementById('image_preview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 
 </html>

@@ -8,7 +8,9 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 }
 
 $msg = null;
-$result = null;
+$resultLivres = null;
+$resultPapeteries = null;
+$resultCadeaux = null;
 $execute = false;
 
 // Check the database connection
@@ -16,15 +18,18 @@ if (!is_object($conn)) {
 	$msg = getMessage($conn, 'error');
 } else {
 	// Fetch all livres from the database
-	$result = getAllLivresDB($conn);
+	$resultLivres = getAllLivresDB($conn);
+	$resultPapeteries = getAllPapeteriesDB($conn);
+	$resultCadeaux = getAllCadeauxDB($conn);
 
 	// Check if livres exist
-	if (is_array($result) && !empty($result)) {
+	if (is_array($resultLivres) && !empty($resultLivres)) {
 		$execute = true;
 	} else {
 		$msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
 	}
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -35,9 +40,11 @@ if (!is_object($conn)) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!">
 
-	<!-- Custom Sass file -->
+	<!-- Custom Css -->
 	<link rel="stylesheet" href="./css/styles.css">
 
+	<!-- Swiper CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 	<!-- Google Fonts Preconnect and Link -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +52,7 @@ if (!is_object($conn)) {
 	<link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="assets/icons/favicon.png">
 
 	<!-- Title -->
 	<title>Librairie Lejeune</title>
@@ -55,7 +63,7 @@ if (!is_object($conn)) {
 
 		<!-----------------------------------------------------------------
                                Navigation
-    ------------------------------------------------------------------>
+    	------------------------------------------------------------------>
 		<nav class="navbar">
 			<div class="navbar-container container">
 				<!-- Logo -->
@@ -88,17 +96,42 @@ if (!is_object($conn)) {
 					<!-- Social icons end -->
 
 					<!-- Search -->
-					<form class="search" role="search">
+					<form class="search" role="search" action="./admin/search.php" method="GET">
 						<div class="search-group">
-							<input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+							<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
 							<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 						</div>
 					</form>
 					<!-- Search end -->
 
+					<!-- Customer button -->
+					<!-- <a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a> -->
+					<!-- Customer button -->
+
+					<!-- Customer button -->
+					<?php
+					if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+						echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+					} elseif (isset($_SESSION['user_permission'])) {
+						if ($_SESSION['user_permission'] == 1) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						} elseif ($_SESSION['user_permission'] == 2) {
+							echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+						}
+					}
+					?>
+					<!-- Customer button end -->
+
+
 					<!-- Login button -->
-					<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
+						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+					<?php else : ?>
+						<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+					<?php endif; ?>
 					<!-- Login button end -->
+
+
 				</div>
 				<!-- Right-side content end -->
 			</div>
@@ -132,14 +165,14 @@ if (!is_object($conn)) {
     ----------------------------------------------------------------->
 		<div id="mySidenav" class="sidenav">
 
-			<!-- Search bar -->
-			<form class="search" role="search">
+			<!-- Search -->
+			<form class="search" role="search" action="./admin/search.php" method="GET">
 				<div class="search-group">
-					<input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+					<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
 					<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 				</div>
 			</form>
-			<!-- Search bar end -->
+			<!-- Search end -->
 
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -149,8 +182,26 @@ if (!is_object($conn)) {
 			<a class="nav-link" href="./public/cadeaux.php">Cadeaux</a>
 			<!-- Menu end -->
 
+			<!-- Customer button -->
+			<?php
+			if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+				echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
+			} elseif (isset($_SESSION['user_permission'])) {
+				if ($_SESSION['user_permission'] == 1) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				} elseif ($_SESSION['user_permission'] == 2) {
+					echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+				}
+			}
+			?>
+			<!-- Customer button end -->
+
 			<!-- Login button -->
-			<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
+			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
+				<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
+			<?php else : ?>
+				<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-login">Déconnexion</a>
+			<?php endif; ?>
 			<!-- Login button end -->
 
 			<!-- Social icons -->
@@ -182,9 +233,9 @@ if (!is_object($conn)) {
 		</div>
 		<!------------------------------------------------------------- 
                           Offcanvas menu end
-    --------------------------------------------------------------->
-
+    	--------------------------------------------------------------->
 		<!-- Navigation end -->
+
 		<div class="header-image--home">
 			<h1>
 				Explorez, découvrez, lisez.
@@ -211,32 +262,33 @@ if (!is_object($conn)) {
 
 		<!-- Article preview - Livres -->
 		<section class="article-preview">
-			<div class="container slideshow-container">
+			<div class="container">
 				<h2>Meilleures ventes <span>Livres</span></h2>
-				<div class="article-preview-container">
+				<div class="article-preview-container swiper mySwiper">
 					<!-- Articles -->
-					<?php
-					// Check if livres exist
-					if ($execute) {
-						// Iterate over livres
-						foreach ($result as $livre) {
-							echo '<div class="mySlides fade">';
-							echo '<div class="article">';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
-							echo '</a>';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-							echo '<div class="article-title">' . $livre['title'] . '</div>';
-							echo '</a>';
-							echo '<div class="article-writer">' . $livre['writer'] . '</div>';
-							echo '<div class="article-feature">' . $livre['feature'] . '</div>';
-							echo '</div>';
-							echo '</div>';
+					<div class="swiper-wrapper">
+						<?php
+						// Check if livres exist
+						if ($execute) {
+							// Iterate over livres
+							foreach ($resultLivres as $livre) {
+								echo '<div class="article swiper-slide">';
+								echo '<a href="' . DOMAIN . '/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<img src="' . $livre['image_url'] . '" alt="' . $livre['title'] . '>';
+								echo '</a>';
+								echo '<a href="' . DOMAIN . '/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+								echo '<div class="article-title">' . $livre['title'] . '</div>';
+								echo '</a>';
+								echo '<div class="article-writer">' . $livre['writer'] . '</div>';
+								echo '<div class="article-feature">' . $livre['feature'] . '</div>';
+								echo '</div>';
+							}
 						}
-					}
-					?>
+						?>
+					</div>
 					<!-- Articles end -->
 				</div>
+				<!-- Article preview container end -->
 			</div>
 		</section>
 		<!-- Article preview - Livres end -->
@@ -277,42 +329,37 @@ if (!is_object($conn)) {
 		<!-----------------------------------------------------------------
 							  Article preview - Papeterie
 		------------------------------------------------------------------>
-		<!-- Article preview - Papeterie -->
+		<!-- Article preview - Papeteries -->
 		<section class="article-preview">
-			<div class="container slideshow-container">
+			<div class="container">
 				<h2>Meilleures ventes <span>Papeteries</span></h2>
-				<div class="article-preview-container">
+				<div class="article-preview-container swiper mySwiper">
 					<!-- Articles -->
-					<?php
-					// Fetch papeteries from the database
-					$papeteries = getAllPapeteriesDB($conn, 6);
-
-					// Check if papeteries exist
-					if (is_array($papeteries) && !empty($papeteries)) {
-						// Iterate over papeteries
-						foreach ($papeteries as $papeterie) {
-							echo '<div class="article">';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
-							echo '</a>';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-							echo '<div class="article-title">' . $papeterie['title'] . '</div>';
-							echo '</a>';
-							echo '<div class="article-feature">' . $papeterie['feature'] . '</div>';
-							echo '</div>';
+					<div class="swiper-wrapper">
+						<?php
+						// Check if livres exist
+						if ($execute) {
+							// Iterate over livres
+							foreach ($resultPapeteries as $papeterie) {
+								echo '<div class="article swiper-slide">';
+								echo '<a href=" ' . DOMAIN . '/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<img src="' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '>';
+								echo '</a>';
+								echo '<a href="' . DOMAIN . '/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+								echo '<div class="article-title">' . $papeterie['title'] . '</div>';
+								echo '</a>';
+								echo '<div class="article-feature">' . $papeterie['feature'] . '</div>';
+								echo '</div>';
+							}
 						}
-					} else {
-						// No papeteries found
-						echo '<p>Aucune papeterie disponible actuellement.</p>';
-					}
-					?>
+						?>
+					</div>
+					<!-- Articles end -->
 				</div>
-				<!-- Article-preview-container end -->
+				<!-- Article preview container end -->
 			</div>
-			<!-- Container end -->
 		</section>
-		<!-- Article preview - Papeterie end -->
-
+		<!-- Article preview - Papeteries end -->
 		<!-----------------------------------------------------------------
 							Article preview - Papeterie end
 		------------------------------------------------------------------>
@@ -338,39 +385,35 @@ if (!is_object($conn)) {
 		------------------------------------------------------------------>
 		<!-- Article preview - Cadeaux -->
 		<section class="article-preview">
-			<div class="container slideshow-container">
+			<div class="container">
 				<h2>Meilleures ventes <span>Cadeaux</span></h2>
-				<div class="article-preview-container">
+				<div class="article-preview-container swiper mySwiper">
 					<!-- Articles -->
-					<?php
-					// Fetch cadeaux from the database
-					$cadeaux = getAllCadeauxDB($conn, 6);
-
-					// Check if cadeaux exist
-					if (is_array($cadeaux) && !empty($cadeaux)) {
-						// Iterate over papeteries
-						foreach ($cadeaux as $cadeau) {
-							echo '<div class="article">';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-							echo '<img src="http://localhost/librairie-lejeune/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
-							echo '</a>';
-							echo '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-							echo '<div class="article-title">' . $cadeau['title'] . '</div>';
-							echo '</a>';
-							echo '<div class="article-feature">' . $cadeau['feature'] . '</div>';
-							echo '</div>';
+					<div class="swiper-wrapper">
+						<?php
+						// Check if livres exist
+						if ($execute) {
+							// Iterate over livres
+							foreach ($resultCadeaux as $cadeau) {
+								echo '<div class="article swiper-slide">';
+								echo '<a href="' . DOMAIN . '/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<img src="' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '>';
+								echo '</a>';
+								echo '<a href="' . DOMAIN . '/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+								echo '<div class="article-title">' . $cadeau['title'] . '</div>';
+								echo '</a>';
+								echo '<div class="article-feature">' . $cadeau['feature'] . '</div>';
+								echo '</div>';
+							}
 						}
-					} else {
-						// No papeteries found
-						echo '<p>Aucune cadeau disponible actuellement.</p>';
-					}
-					?>
+						?>
+					</div>
+					<!-- Articles end -->
 				</div>
-				<!-- Article-preview-container end -->
+				<!-- Article preview container end -->
 			</div>
-			<!-- Container end -->
 		</section>
-		<!-- Article preview - Papeterie end -->
+		<!-- Article preview - Cadeaux end -->
 		<!-----------------------------------------------------------------
 							Article preview - Cadeaux end
 		------------------------------------------------------------------>
@@ -379,42 +422,47 @@ if (!is_object($conn)) {
 		------------------------------------------------------------------>
 		<!-- Advantage icons -->
 		<section class="article-preview advantage-icons">
-			<!-- Article-preview-container -->
-			<div class="article-preview-container container">
-				<!-- Articles -->
-				<article>
-					<img src="./assets/icons/e-commerce-icons-01.png" alt="Paiements sécurisés">
-					<h3>Paiements sécurisés</h3>
-					<p><span> Vos transactions en toute confiance.</span></p>
-				</article>
 
-				<article>
-					<img src="./assets/icons/e-commerce-icons-02.png" alt="Le meilleur prix">
-					<h3>Le meilleur prix</h3>
-					<p><span>Le meilleur prix, tout simplement.</span></p>
-				</article>
+			<!-- Container -->
+			<div class="container">
+				<!-- Article-preview-container -->
+				<div class="article-preview-container">
+					<!-- Articles -->
+					<article>
+						<img src="./assets/icons/e-commerce-icons-01.png" alt="Paiements sécurisés">
+						<h3>Paiements sécurisés</h3>
+						<p><span> Vos transactions en toute confiance.</span></p>
+					</article>
 
-				<article>
-					<img src="./assets/icons/e-commerce-icons-03.png" alt="Livraison gratuite">
-					<h3>Livraison gratuite</h3>
-					<p><span>Profitez de la livraison gratuite sur toutes vos
-							commandes.</span></p>
-				</article>
+					<article>
+						<img src="./assets/icons/e-commerce-icons-02.png" alt="Le meilleur prix">
+						<h3>Le meilleur prix</h3>
+						<p><span>Le meilleur prix, tout simplement.</span></p>
+					</article>
 
-				<article>
-					<img src="./assets/icons/e-commerce-icons-04.png" alt="Retours faciles">
-					<h3>Retours faciles</h3>
-					<p><span>Retours faciles pour simplifier votre expérience d'achat.</span></p>
-				</article>
+					<article>
+						<img src="./assets/icons/e-commerce-icons-03.png" alt="Livraison gratuite">
+						<h3>Livraison gratuite</h3>
+						<p><span>Profitez de la livraison gratuite sur toutes vos
+								commandes.</span></p>
+					</article>
 
-				<article>
-					<img src="./assets/icons/e-commerce-icons-05.png" alt="Qualité première">
-					<h3>Qualité première</h3>
-					<p><span>Exigez l'excellence, optez pour la première qualité.</span></p>
-				</article>
-				<!-- Articles end -->
+					<article>
+						<img src="./assets/icons/e-commerce-icons-04.png" alt="Retours faciles">
+						<h3>Retours faciles</h3>
+						<p><span>Retours faciles pour simplifier votre expérience d'achat.</span></p>
+					</article>
+
+					<article>
+						<img src="./assets/icons/e-commerce-icons-05.png" alt="Qualité première">
+						<h3>Qualité première</h3>
+						<p><span>Exigez l'excellence, optez pour la première qualité.</span></p>
+					</article>
+					<!-- Articles end -->
+				</div>
+				<!-- Article-preview-container end -->
 			</div>
-			<!-- Article-preview-container end -->
+			<!-- Container end -->
 		</section>
 		<!-- Article-preview end -->
 		<!-- Advantage icons end -->
@@ -424,166 +472,134 @@ if (!is_object($conn)) {
 	</main>
 
 	<footer>
-    <!-----------------------------------------------------------------
+		<!-----------------------------------------------------------------
                         Footer upper section
     ------------------------------------------------------------------>
-        <div class="upper-footer-container">
-            <!-- Upper footer -->
-            <div class="upper-footer container">
-                <!-- Logo column -->
-                <div class="footer-brand">
-                    <a href="./index.php">
-                        <img src="./assets/logo/librairie-lejeune-white.png" alt="Librarie Lejeune Logo" />
-                    </a>
-                </div>
-                <!-- Logo column end-->
+		<div class="upper-footer-container">
+			<!-- Upper footer -->
+			<div class="upper-footer container">
+				<!-- Logo column -->
+				<div class="footer-brand">
+					<a href="./index.php">
+						<img src="./assets/logo/librairie-lejeune-white.png" alt="Librarie Lejeune Logo" />
+					</a>
+				</div>
+				<!-- Logo column end-->
 
-                <!-- Contact us column -->
-                <div class="footer-contact">
-                    <h3>CONTACTEZ-NOUS</h3>
-                    <ul>
-                        <li>
-                            <a href="./public/contact.html" class="">Contact</a>
-                        </li>
-                        <li>
-                            <i class="fa-regular fa-envelope"></i>
-                            <a href="mailto:contact@acelyalejeune.be">Envoyez-nous un message</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-phone"></i>
-                            Téléphonez-nous au <br>0493 38 77 29
-                        </li>
-                        <li>
-                            <b>Permanence téléphonique:</b><br>
-                            Lundi au vendredi 09:00 - 18:00 <br>
-                            Samedi 09:00 - 16:00
-                        </li>
-                    </ul>
-                </div>
-                <!-- Contact us column end -->
+				<!-- Contact us column -->
+				<div class="footer-contact">
+					<h3>CONTACTEZ-NOUS</h3>
+					<ul>
+						<li>
+							<a href="./public/contact.php" class="">Contact</a>
+						</li>
+						<li>
+							<i class="fa-regular fa-envelope"></i>
+							<a href="mailto:contact@acelyalejeune.be">Envoyez-nous un message</a>
+						</li>
+						<li>
+							<i class="fa fa-phone"></i>
+							Téléphonez-nous au <br>0493 38 77 29
+						</li>
+						<li>
+							<b>Permanence téléphonique:</b><br>
+							Lundi au vendredi 09:00 - 18:00 <br>
+							Samedi 09:00 - 16:00
+						</li>
+					</ul>
+				</div>
+				<!-- Contact us column end -->
 
-                <!-- About us column -->
-                <div class="footer-about-us">
-                    <h3>À PROPOS DE NOUS<h3>
-                            <ul>
-                                <li>
-                                    <a href="./public/about-us.html">Qui sommes-nous?</a>
-                                </li>
-                                <li>
-                                    <a href="./public/work-with-us.html">Travailler chez nous</a>
-                                </li>
-                                <li>
-                                    <a href="./public/conditions.html">Conditions générales</a>
-                                </li>
-                            </ul>
-                </div>
-                <!-- About us column end -->
+				<!-- About us column -->
+				<div class="footer-about-us">
+					<h3>À PROPOS DE NOUS<h3>
+							<ul>
+								<li>
+									<a href="./public/about-us.php">Qui sommes-nous?</a>
+								</li>
+								<li>
+									<a href="./public/work-with-us.php">Travailler chez nous</a>
+								</li>
+								<li>
+									<a href="./public/conditions.php">Conditions générales</a>
+								</li>
+							</ul>
+				</div>
+				<!-- About us column end -->
 
-                <!-- Follow us column -->
-                <div class="footer-follow-us">
-                    <h3>SUVEZ-NOUS SUR</h3>
-                    <div class="footer-social-icons">
-                        <p>
-                            Rejoignez-nous sur Facebook, Twitter et <br>
-                            Instagram pour être tenus au courant de <br>
-                            notre actualité.
-                        </p>
-                        <div class="social-icons">
-                            <!-- Facebook -->
-                            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-facebook"></i>
-                            </a>
-                            <!-- Twitter -->
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-x-twitter"></i>
-                            </a>
-                            <!-- Instagram -->
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                                <i class="fa-brands fa-instagram"></i>
-                            </a>
-                        </div>
+				<!-- Follow us column -->
+				<div class="footer-follow-us">
+					<h3>SUVEZ-NOUS SUR</h3>
+					<div class="footer-social-icons">
+						<p>
+							Rejoignez-nous sur Facebook, Twitter et <br>
+							Instagram pour être tenus au courant de <br>
+							notre actualité.
+						</p>
+						<div class="social-icons">
+							<!-- Facebook -->
+							<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+								<i class="fa-brands fa-facebook"></i>
+							</a>
+							<!-- Twitter -->
+							<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+								<i class="fa-brands fa-x-twitter"></i>
+							</a>
+							<!-- Instagram -->
+							<a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</div>
 
-                        <p>343 Rue Saint-Gilles <br> 4000 Liége - Belgique</p>
-                    </div>
-                </div>
-                <!-- Follow us column end -->
-            </div>
-        </div>
-    <!-----------------------------------------------------------------
+						<p>343 Rue Saint-Gilles <br> 4000 Liége - Belgique</p>
+					</div>
+				</div>
+				<!-- Follow us column end -->
+			</div>
+		</div>
+		<!-----------------------------------------------------------------
                         Footer upper section
     ------------------------------------------------------------------>
-    <!-----------------------------------------------------------------
+		<!-----------------------------------------------------------------
                         Footer bottom section
     ------------------------------------------------------------------>
-        <div class="bottom-footer-container">
-            <!-- Section: Copyright -->
-            <div class="bottom-footer container">
-                <!-- Copyright column -->
-                <div>
-                    © 2024 Copyright tous droits réservés
-                </div>
-                <!-- Copyright column end -->
+		<div class="bottom-footer-container">
+			<!-- Section: Copyright -->
+			<div class="bottom-footer container">
+				<!-- Copyright column -->
+				<div>
+					© 2024 Copyright tous droits réservés
+				</div>
+				<!-- Copyright column end -->
 
-                <!-- Conception and development column -->
-                <div>
-                    Conception et développement par
-                    <a href="https://github.com/lejeunea" class="github text-decoration-none">
-                        <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://github.com/lejeunea" class="text-decoration-none">Açelya Lejeune</a>.
-                </div>
-                <!-- Conception and development column end -->
-            </div>
-            <!-- Section: Copyright -->
-        </div>
-        <!-----------------------------------------------------------------
+				<!-- Conception and development column -->
+				<div>
+					Conception et développement par
+					<a href="https://github.com/lejeunea" class="github text-decoration-none">
+						<i class="fa-brands fa-github"></i>
+					</a>
+					<a href="https://github.com/lejeunea" class="text-decoration-none">Açelya Lejeune</a>.
+				</div>
+				<!-- Conception and development column end -->
+			</div>
+			<!-- Section: Copyright -->
+		</div>
+		<!-----------------------------------------------------------------
                         Footer bottom section end
         ------------------------------------------------------------------>
-    </footer>
-    <!-----------------------------------------------------------------
+	</footer>
+	<!-----------------------------------------------------------------
                                Footer
     ------------------------------------------------------------------>
 
 	<!-- Font Awesome -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+	<!-- Swiper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 	<!-- Include functions.js -->
 	<script src="./js/functions.js"></script>
-
-	<!-----------------------------------------------------------------
-				JavaScript for slideshow effect
-	------------------------------------------------------------------>
-	<script>
-		let currentIndex = 0;
-		const articles = document.querySelectorAll('.mySlides');
-		const totalArticles = articles.length;
-		const articlesPerPage = 6;
-		const totalPages = Math.ceil(totalArticles / articlesPerPage);
-
-		function showSlides() {
-			const start = currentIndex * articlesPerPage;
-			const end = Math.min(start + articlesPerPage, totalArticles);
-
-			// Hide all articles
-			articles.forEach(article => {
-				article.style.display = 'none';
-			});
-
-			// Show the current set of articles
-			for (let i = start; i < end; i++) {
-				articles[i].style.display = 'block';
-			}
-
-			// Increment index for next set of articles
-			currentIndex = (currentIndex + 1) % totalPages;
-		}
-
-		// Initially show the first set of articles
-		showSlides();
-
-		// Automatically switch to the next set of articles every 3 seconds
-		setInterval(showSlides, 3000);
-	</script>
 
 </body>
 

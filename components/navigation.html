@@ -10,13 +10,12 @@
     <!-- Custom Sass file -->
     <link rel="stylesheet" href="../css/styles.css">
 
-    
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-    href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <!-- Favicon -->
 
@@ -43,7 +42,8 @@
                 <ul class="social-nav">
                     <!-- Icons -->
                     <li class="social-item">
-                        <a class="social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                        <a class="social-link" href="https://www.facebook.com/" target="_blank"
+                            rel="noopener noreferrer">
                             <i class="fa-brands fa-square-facebook fa-lg"></i>
                         </a>
                     </li>
@@ -53,17 +53,19 @@
                         </a>
                     </li>
                     <li class="social-item">
-                        <a class="social-link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                        <a class="social-link" href="https://www.instagram.com" target="_blank"
+                            rel="noopener noreferrer">
                             <i class="fa-brands fa-instagram fa-lg"></i>
                         </a>
                     </li>
-                </ul>                
+                </ul>
                 <!-- Social icons end -->
 
                 <!-- Search -->
-                <form class="search" role="search">
+                <form class="search" role="search" action="../admin/search.php" method="GET">
                     <div class="search-group">
-                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                        <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?"
+                            aria-label="Search">
                         <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </form>
@@ -105,14 +107,15 @@
     ----------------------------------------------------------------->
     <div id="mySidenav" class="sidenav">
 
-        <!-- Search bar -->
-        <form class="search" role="search">
+        <!-- Search -->
+        <form class="search" role="search" action="../admin/search.php" method="GET">
             <div class="search-group">
-                <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?"
+                    aria-label="Search">
                 <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </form>
-        <!-- Search bar end -->
+        <!-- Search end -->
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -160,7 +163,9 @@
     <!-- Navigation end -->
 
     <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Include functions.js -->
     <script src="../js/functions.js"></script>

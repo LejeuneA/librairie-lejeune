@@ -141,6 +141,10 @@
     }
 
     @media (min-width: 769px) and (max-width: 1332px) {
+        @include d-flex(flex, center, center, column, center);
+        height: auto;
+        width: 100%; 
+
         .manager-content {
             .category-container {
                 flex-wrap: wrap;
@@ -177,11 +181,11 @@
                 }
 
                 &:nth-child(2) {
-                    width: 25%;
+                    width: 22%;
                 }
 
                 &:nth-child(3) {
-                    width: 10%;
+                    width: 8%;
                 }
 
                 &:nth-child(4) {
@@ -193,7 +197,7 @@
                 }
 
                 &:nth-child(6) {
-                    width: 35%;
+                    width: 40%;
                 }
             }
         }

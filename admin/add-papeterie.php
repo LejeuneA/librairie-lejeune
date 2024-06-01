@@ -5,7 +5,7 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit(); 
+    exit();
 }
 
 $msg = null;
@@ -126,11 +126,11 @@ $addData = [
 
                     <!-- Form left -->
                     <div class="form-left">
-                        
+
                         <!-- Statue of the article -->
                         <div class=" form-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($papeterie['active']) ? $papeterie['active'] : 0, 'ADD'); ?>
                         </div>
 
                         <!-- Category -->
@@ -175,14 +175,14 @@ $addData = [
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                            <p><span>URL de l'image:</span> <?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?></p>
                             <div>
+                                <!-- <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($papeterie['image_url']) ? $papeterie['image_url'] : ''; ?>" readonly> -->
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Form bottom -->
                 <div class="form-bottom">
                     <div class="form-ctrl">
@@ -213,20 +213,6 @@ $addData = [
     <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
 
-    <script>
-        function previewImage(input) {
-            var preview = document.getElementById('image_preview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
-
 </body>
 
 </html>
-

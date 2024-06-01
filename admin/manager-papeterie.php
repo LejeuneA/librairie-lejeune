@@ -26,17 +26,24 @@ if (!is_object($conn)) {
         if (isset($_GET['idPapeterie']) && is_numeric($_GET['idPapeterie'])) {
             $papeterieIdToDelete = $_GET['idPapeterie'];
 
-            // Delete the papeterie from the database
-            $deleteResult = deletePapeterieDB($conn, $papeterieIdToDelete);
+            if ($_SESSION['user_permission'] == 1) {
 
-            // Check deletion result and display appropriate message
-            if ($deleteResult === true) {
-                $msg = getMessage('Papeterie supprimé avec succès.', 'success');
-                // Refresh the page to reflect the changes after deletion
-                header('Location: manager-papeterie.php');
-                exit();
+                // Delete the livre from the database
+                $deleteResult = deletePapeterieDB($conn, $papeterieIdToDelete);
+                // Check deletion result and display appropriate message
+
+                if ($deleteResult === true) {
+
+                    $msg = getMessage('Papeterie supprimé avec succès.', 'success');
+
+                    // Refresh the page to reflect the changes after deletion
+                    // header('Location: manager-livre.php');
+                    // exit();
+                } else {
+                    $msg = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
+                }
             } else {
-                $msg = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
+                $msg = getMessage('Vous n\'avez pas le droit de supprimer de la papeterie.', 'error');
             }
         }
     } else {
@@ -87,7 +94,8 @@ if (!is_object($conn)) {
             }
             ?>
         </div>
-    </div><!-----------------------------------------------------------------
+    </div>
+    <!-----------------------------------------------------------------
 								Footer
 	------------------------------------------------------------------>
     <footer>

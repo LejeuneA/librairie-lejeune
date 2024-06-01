@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /* -------------------------------------------------------
-                 Offcanvas menu
+                    Offcanvas menu
 ---------------------------------------------------------*/
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
@@ -32,4 +32,62 @@ function closeNav() {
 }
 
 
+/* -------------------------------------------------------
+                 Initialize Swiper
+---------------------------------------------------------*/
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 6,
+    spaceBetween: 3,
+    // centeredSlides: true,
+    loop: true,
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+    },
+    // Responsive breakpoints
+    breakpoints: {
+        0: {
+            slidesPerView: 1,
+            spaceBetween: 20
+        },
+        // when window width is >= 320px
+        320: {
+            slidesPerView: 2,
+            spaceBetween: 20
+        },
+        // when window width is >= 480px
+        480: {
+            slidesPerView: 2,
+            spaceBetween: 30
+        },
+        // when window width is >= 640px
+        640: {
+            slidesPerView: 3,
+            spaceBetween: 40
+        },
+        // when window width is >= 768px
+        768: {
+            slidesPerView: 4,
+            spaceBetween: 40
+        },
+        // when window width is >= 1024px
+        1024: {
+            slidesPerView: 5,
+            spaceBetween: 50
+        }
+    }
+});
 
+/* -------------------------------------------------------
+                Image preview
+---------------------------------------------------------*/
+function previewImage(input) {
+    var preview = document.getElementById('image_preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}

@@ -2,8 +2,9 @@
 require_once('settings.php');
 
 // Redirection vers la page de gestion si l'utilisateur est connecté
-if ($_SESSION['IDENTIFY']) {
+if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY']) {
     header('Location: manager.php');
+    exit();
 }
 
 $user = null;
@@ -15,11 +16,11 @@ if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
 } else {
 
-    // Vérifie si on reçoit le formumaire d'identification
+    // Vérifie si on reçoit le formulaire d'identification
     if (isset($_POST['form']) && $_POST['form'] == 'login') {
 
         // Vérifie si les champs sont vides
-        if ($_POST['login'] == '' || $_POST['pwd'] == '') {
+        if (empty($_POST['login']) || empty($_POST['pwd'])) {
             $msg = getMessage('Veuillez remplir tous les champs', 'error');
         } else {
 
@@ -34,16 +35,24 @@ if (!is_object($conn)) {
             // $user = userIdentificationWithHashPwdDB($conn, $datas);            
 
             // On vérifie si on a une adresse email dans le tableau $user, si c'est le cas on est connecté
-            (!empty($user['email'])) ? $connexionSuccessfull = true : $connexionSuccessfull = false;
+            $connexionSuccessfull = !empty($user['email']);
         }
     }
 
-    // Si on est connecté, on initialise les variables de session et on redirige vers la page de gestion
+    // Si on est connecté, on initialise les variables de session et on redirige vers la page appropriée
     if ($connexionSuccessfull === true) {
         $_SESSION['IDENTIFY'] = true;
         $_SESSION['user_email'] = $user['email'];
-        header('Location: manager.php');
-        // Dans le cas contraire on affiche un message d'erreur, il y a eu une erreur d'identification
+        $_SESSION['user_permission'] = $user['permission'];
+
+        if ($user['permission'] == 1) {
+            header('Location: manager.php');
+        } elseif ($user['permission'] == 2) {
+            header('Location: customer.php');
+        } else {
+            $msg = getMessage('Permission inconnue', 'error');
+        }
+        exit();
     } elseif ($connexionSuccessfull === false) {
         $msg = getMessage('Votre email et/ou votre mot de passe sont erronés', 'error');
     }

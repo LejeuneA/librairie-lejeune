@@ -5,7 +5,7 @@ require_once('settings.php');
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit(); 
+    exit();
 }
 
 $msg = null;
@@ -22,7 +22,7 @@ if (!is_object($conn)) {
         $addData = [];
 
         // Gather data from the form
-        $addData['image_url'] = ''; 
+        $addData['image_url'] = '';
         $addData['title'] = isset($_POST['title']) ? $_POST['title'] : '';
         $addData['writer'] = isset($_POST['writer']) ? $_POST['writer'] : '';
         $addData['feature'] = isset($_POST['feature']) ? $_POST['feature'] : '';
@@ -33,7 +33,7 @@ if (!is_object($conn)) {
 
         // Handle image upload
         if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = 'uploads/'; 
+            $uploadDir = 'uploads/';
             $uploadFile = $uploadDir . basename($_FILES['image_upload']['name']);
 
             // Move uploaded file to designated directory
@@ -127,9 +127,9 @@ $addData = [
                     <!-- Form left -->
                     <div class="form-left">
                         <!-- Statue of the article -->
-                        <div class=" form-ctrl">
+                        <div class=" checkbox-ctrl">
                             <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'ADD'); ?>
                         </div>
                         <!-- Category -->
                         <div class="form-ctrl">
@@ -173,8 +173,8 @@ $addData = [
                         <!-- Preview of the image -->
                         <div class="form-ctrl">
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                            <p><span>URL de l'image:</span> <?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?></p>
                             <div>
+                                <!-- <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly> -->
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($addData['image_url']) ? $addData['image_url'] : ''; ?>">
                             </div>
                         </div>
@@ -210,19 +210,6 @@ $addData = [
 
     <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
-
-    <script>
-        function previewImage(input) {
-            var preview = document.getElementById('image_preview');
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 
 </body>
 

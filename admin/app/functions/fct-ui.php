@@ -11,37 +11,38 @@
  * 
  * @param boolean     $published
  * @param string      $typeForm  (ADD ou EDIT)
- * @return string
+ * @return void
  */
 function displayFormRadioBtnArticlePublished($published, $typeForm = 'ADD')
 {
     $html = '';
 
-    // Si c'est le formulaire d'ajout d'article
     if ($typeForm == 'ADD') {
         $html .= '
-            <div class="form-check switch custom-checkbox">
-                <input class="form-check-input checkbox" type="checkbox" value="1" name="published_article">  
-                <span class="slider round"></span>        
-                <label class="form-check-label" for="published_article"></label>
-            </div>
+        <div class="checkbox-wrapper-22">
+            <label class="switch" for="checkbox">
+            <input type="checkbox" id="checkbox" value="1" name="published_article" />
+            <div class="slider round"></div>
+            </label>
+        </div>
         ';
     } elseif ($typeForm == 'EDIT') {
-        // Si c'est le formulaire de modification d'article
         if ($published) {
             $html .= '
-                <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article" checked>    
-                    <span class="slider round"></span>      
-                    <label class="form-check-label" for="published_article">Publié</label>
+                <div class="checkbox-wrapper-22">
+                    <label class="switch" for="checkbox"> 
+                    <input type="checkbox" id="checkbox" value="1" name="published_article" checked>    
+                    <span class="slider round"></span> 
+                    </label>
                 </div>
             ';
         } else {
             $html .= '
-                <div class="form-check switch custom-checkbox">
-                    <input class="form-check-input checkbox" value="1" type="checkbox" name="published_article">  
-                    <span class="slider round"></span>      
-                    <label class="form-check-label" for="published_article">Non publié</label>
+                <div class="checkbox-wrapper-22">
+                    <label class="switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" value="1" name="published_article">  
+                    <span class="slider round"></span> 
+                    </label>   
                 </div>
             ';
         }
@@ -92,7 +93,13 @@ function displayHeadSection($title = APP_NAME)
     <meta name="description" content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd\'hui!">
 
     <!-- Custom Sass file -->
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="'.DOMAIN.'/css/styles.css">
+
+    <!-- Favicon -->
+	<link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+
+    <!-- Favicon -->
+	<link rel="icon" type="image/png" href="assets/icons/favicon.png">
 
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -107,8 +114,8 @@ function displayHeadSection($title = APP_NAME)
 
 
 /**-----------------------------------------------------------------
-                            Navigation
- *------------------------------------------------------------------**/
+                    Navigation admin
+*------------------------------------------------------------------**/
 
 /**
  * Affichage de la navigation
@@ -154,13 +161,13 @@ function displayNavigation()
                 <!-- Social icons end -->
 
                 <!-- Search -->
-                <form class="search" role="search">
-                    <div class="search-group">
-                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
-                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </form>
-                <!-- Search end -->
+					<form class="search" role="search" action="search.php" method="GET">
+						<div class="search-group">
+							<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
+							<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+						</div>
+					</form>
+				<!-- Search end -->
 
                 <!-- Login button -->
                 <a href="logoff.php" class="btn-primary">Déconnexion</a>
@@ -203,14 +210,14 @@ function displayNavigation()
     ----------------------------------------------------------------->
     <div id="mySidenav" class="sidenav">
 
-        <!-- Search bar -->
-        <form class="search" role="search">
-            <div class="search-group">
-                <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
-                <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-        </form>
-        <!-- Search bar end -->
+        <!-- Search -->
+            <form class="search" role="search" action="search.php" method="GET">
+                <div class="search-group">
+                 <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
+                 <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        <!-- Search end -->
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -222,6 +229,203 @@ function displayNavigation()
         <a class="nav-link" href="../admin/manager.php">Ajouter</a>
         <!-- Menu end -->
  
+        <!-- Login button -->
+        <a href="logoff.php" class="btn-login">Déconnexion</a>
+        <!-- Login button end -->
+
+        <!-- Social icons -->
+        <ul class="social-nav">
+            <!-- Icons -->
+            <li class="social-item">
+                <a class="social-link" href="https://www.facebook.com/">
+                    <i class="fa-brands fa-square-facebook fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://twitter.com/">
+                    <i class="fa-brands fa-x-twitter fa-lg"></i>
+                </a>
+            </li>
+            <li class="social-item">
+                <a class="social-link" href="https://www.instagram.com">
+                    <i class="fa-brands fa-instagram fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+        <!-- Social icons end -->
+    </div>
+
+    <!-- Hamburger icon for smaller screens -->
+    <div class="navbar-hamburger">
+        <div id="hamburger" onclick="openNav()"><i class="fa-solid fa-bars"></i></div>
+    </div>
+    <!------------------------------------------------------------- 
+                          Offcanvas menu end
+    --------------------------------------------------------------->
+        ';
+    } else {
+        $navigation .= '
+        <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Logo -->
+            <a href="login.php">
+                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
+            </a>
+            <!-- Logo end -->
+
+            <!-- Right-side content -->
+            <div class="d-flex">
+                <!-- Social icons -->
+                <ul class="social-nav">
+                    <!-- Icons -->
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.facebook.com/">
+                            <i class="fa-brands fa-square-facebook fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://twitter.com/">
+                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.instagram.com">
+                            <i class="fa-brands fa-instagram fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Social icons end -->
+
+                <!-- Search -->
+                <form class="search" role="search">
+                    <div class="search-group">
+                        <input class="form-control" type="search" placeholder="Que cherhez-vous?" aria-label="Search">
+                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+                <!-- Search end -->
+
+                <!-- Login button -->
+                <a href="login.php" class="btn-primary">Se connecter</a>
+                <!-- Login button end -->
+            </div>
+            <!-- Right-side content end -->
+        </div>
+    </nav>';
+    }
+
+    echo $navigation;
+}
+
+
+/**-----------------------------------------------------------------
+                    Navigation customer
+*------------------------------------------------------------------**/
+
+/**
+ * Affichage de la navigation
+ * 
+ * @return void 
+ */
+function displayNavigationCustomer()
+{
+
+    $navigation = '';
+
+    if ($_SESSION['IDENTIFY']) {
+        $navigation .= '
+        <nav class="navbar">
+        <div class="navbar-container container">
+            <!-- Logo -->
+            <a href="../index.php">
+                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
+            </a>
+            <!-- Logo end -->
+
+            <!-- Right-side content -->
+            <div class="d-flex">
+                <!-- Social icons -->
+                <ul class="social-nav">
+                    <!-- Icons -->
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.facebook.com/">
+                            <i class="fa-brands fa-square-facebook fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://twitter.com/">
+                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="social-item">
+                        <a class="social-link" href="https://www.instagram.com">
+                            <i class="fa-brands fa-instagram fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Social icons end -->
+
+                <!-- Search -->
+					<form class="search" role="search" action="search.php" method="GET">
+						<div class="search-group">
+							<input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
+							<button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+						</div>
+					</form>
+				<!-- Search end -->
+
+                <!-- Login button -->
+                <a href="logoff.php" class="btn-primary">Déconnexion</a>
+                <!-- Login button end -->
+            </div>
+            <!-- Right-side content end -->
+        </div>
+    </nav>
+    <!---------------------------------------------------------------
+                                     Menu
+    ----------------------------------------------------------------->
+    <div class="navbar-menu">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="../index.php">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/livres.php">Livres</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/papeteries.php">Papeterie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="../public/cadeaux.php">Cadeaux</a>
+            </li>
+        </ul>
+    </div>
+    <!---------------------------------------------------------------
+                                 Menu end
+    ---------------------------------------------------------------->
+
+    <!---------------------------------------------------------------
+                             Offcanvas menu
+    ----------------------------------------------------------------->
+    <div id="mySidenav" class="sidenav">
+
+        <!-- Search -->
+            <form class="search" role="search" action="search.php" method="GET">
+                <div class="search-group">
+                 <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
+                 <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        <!-- Search end -->
+
+        <!-- Menu -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="nav-link" href="../index.php">Accueil</a>
+        <a class="nav-link" href="../public/livres.php">Livres</a>
+        <a class="nav-link" href="../public/papeteries.php">Papeterie</a>
+        <a class="nav-link" href="../public/cadeaux.php">Cadeaux</a>
+        <!-- Menu end -->
+
         <!-- Login button -->
         <a href="logoff.php" class="btn-login">Déconnexion</a>
         <!-- Login button end -->
@@ -341,8 +545,8 @@ function generateLivreHTML($livre)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<img src="'.DOMAIN.'/'.$livre['image_url'] . '" alt="' . $livre['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -352,7 +556,7 @@ function generateLivreHTML($livre)
     $writer = isset($livre['writer']) ? $livre['writer'] : 'Auteur non disponible';
     $feature = isset($livre['feature']) ? $livre['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-livre.php?idLivre=' . $livre['idLivre'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p>' . $writer . ' <span>' . $feature . '</span></p>';
@@ -368,7 +572,7 @@ function generateLivreHTML($livre)
 
     $html .= '<div class="more-info">';
     // Check if 'idLivre' key is set before creating the link
-    $link = isset($livre['idLivre']) ? 'http://localhost/librairie-lejeune/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
+    $link = isset($livre['idLivre']) ? ''.DOMAIN. '/public/product-livre.php?idLivre=' . $livre['idLivre'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -396,8 +600,8 @@ function generatePapeterieHTML($papeterie)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -406,7 +610,7 @@ function generatePapeterieHTML($papeterie)
     $title = isset($papeterie['title']) ? $papeterie['title'] : 'Titre non disponible';
     $feature = isset($papeterie['feature']) ? $papeterie['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p><span>' . $feature . '</span></p>';
@@ -422,7 +626,7 @@ function generatePapeterieHTML($papeterie)
 
     $html .= '<div class="more-info">';
     // Check if 'idPapeterie' key is set before creating the link
-    $link = isset($papeterie['idPapeterie']) ? 'http://localhost/librairie-lejeune/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
+    $link = isset($papeterie['idPapeterie']) ? ''.DOMAIN.'/public/product-papeterie.php?idPapeterie=' . $papeterie['idPapeterie'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -450,8 +654,8 @@ function generateCadeauHTML($cadeau)
     // Start building the HTML markup
     $html = '<article class="article-container">';
     $html .= '<div class="product-img">';
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
-    $html .= '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     $html .= '</a>';
     $html .= '</div>';
 
@@ -460,7 +664,7 @@ function generateCadeauHTML($cadeau)
     $title = isset($cadeau['title']) ? $cadeau['title'] : 'Titre non disponible';
     $feature = isset($cadeau['feature']) ? $cadeau['feature'] : 'Feature non disponible';
 
-    $html .= '<a href="http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
+    $html .= '<a href="'.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] . '">';
     $html .= '<h2>' . $title . '</h2>';
     $html .= '</a>';
     $html .= '<p><span>' . $feature . '</span></p>';
@@ -476,7 +680,7 @@ function generateCadeauHTML($cadeau)
 
     $html .= '<div class="more-info">';
     // Check if 'idCadeau' key is set before creating the link
-    $link = isset($cadeau['idCadeau']) ? 'http://localhost/librairie-lejeune/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
+    $link = isset($cadeau['idCadeau']) ? ''.DOMAIN.'/public/product-cadeau.php?idCadeau=' . $cadeau['idCadeau'] : '#';
     $html .= '<a href="' . $link . '">Savoir plus</a>';
     $html .= '</div>';
     $html .= '</div>';
@@ -507,11 +711,10 @@ function generateCadeauHTML($cadeau)
  */
 function displayLivreByID($livre)
 {
-    echo '<main>';
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $livre['image_url'] . '" alt="' . $livre['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $livre['image_url'] . '" alt="' . $livre['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -582,7 +785,7 @@ function displayPapeterieByID($papeterie)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $papeterie['image_url'] . '" alt="' . $papeterie['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -619,7 +822,7 @@ function displayCadeauByID($cadeau)
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
-    echo '<img src="http://localhost/librairie-lejeune/admin/' . $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
+    echo '<img src="'.DOMAIN. '/'. $cadeau['image_url'] . '" alt="' . $cadeau['title'] . '">';
     echo '</div>';
     echo '<div class="product-info">';
     echo '<div>';
@@ -646,7 +849,6 @@ function displayCadeauByID($cadeau)
 }
 
 
-
 /**-----------------------------------------------------------------
             Affiche les articles pour la page du manager
  *------------------------------------------------------------------**/
@@ -655,7 +857,7 @@ function displayCadeauByID($cadeau)
  * Affiche les articles pour la page du manager
  * 
  * @param array $articles 
- * @return string 
+ * @return void
  */
 
 function displayArticlesWithButtons($articles)
@@ -687,7 +889,7 @@ function displayArticlesWithButtons($articles)
  * Affiche les livres pour la page du manager
  * 
  * @param array $livres
- * @return string 
+ * @return void
  */
 
 function displayLivresWithButtons($livres)
@@ -718,7 +920,7 @@ function displayLivresWithButtons($livres)
  * Affiche les papeteries pour la page du manager
  * 
  * @param array $papeteries
- * @return string 
+ * @return void
  */
 
 function displayPapeteriesWithButtons($papeteries)
@@ -749,7 +951,7 @@ function displayPapeteriesWithButtons($papeteries)
  * Affiche les cadeaux pour la page du manager
  * 
  * @param array $cadeaux
- * @return string 
+ * @return void
  */
 
 function displayCadeauxWithButtons($cadeaux)
@@ -783,7 +985,7 @@ function displayCadeauxWithButtons($cadeaux)
  * Affiche les livres pour la page du manager sous forme de table
  * 
  * @param array $livres
- * @return string 
+ * @return void
  */
 function displayLivresAsTable($livres)
 {
@@ -828,7 +1030,7 @@ function displayLivresAsTable($livres)
  * Affiche les papeteries pour la page du manager sous forme de table
  * 
  * @param array $papeteries
- * @return string 
+ * @return void
  */
 function displayPapeteriesAsTable($papeteries)
 {
@@ -871,7 +1073,7 @@ function displayPapeteriesAsTable($papeteries)
  * Affiche les cadeaux pour la page du manager sous forme de table
  * 
  * @param array $cadeaux
- * @return string 
+ * @return void
  */
 function displayCadeauxAsTable($cadeaux)
 {
