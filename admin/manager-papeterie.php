@@ -1,6 +1,11 @@
 <?php
 require_once('settings.php');
 
+// Start the session at the beginning of your script if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
@@ -24,31 +29,37 @@ if (!is_object($conn)) {
 
         // Check if papeterie ID is provided in the URL for deletion
         if (isset($_GET['idPapeterie']) && is_numeric($_GET['idPapeterie'])) {
+
             $papeterieIdToDelete = $_GET['idPapeterie'];
 
             if ($_SESSION['user_permission'] == 1) {
 
-                // Delete the livre from the database
+                // Delete the papeterie from the database
                 $deleteResult = deletePapeterieDB($conn, $papeterieIdToDelete);
+
                 // Check deletion result and display appropriate message
-
                 if ($deleteResult === true) {
-
-                    $msg = getMessage('Papeterie supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Papeterie supprimé avec succès.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    // header('Location: manager-livre.php');
-                    // exit();
+                    header('Location: manager-papeterie.php');
+                    exit();
                 } else {
-                    $msg = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
                 }
             } else {
-                $msg = getMessage('Vous n\'avez pas le droit de supprimer de la papeterie.', 'error');
+                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer la papeterie.', 'error');
             }
         }
     } else {
-        $msg = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
     }
+}
+
+// On the redirected page (manager-papeterie.php), add this code to display the message
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+    unset($_SESSION['message']); // Clear the message after displaying it
 }
 ?>
 
