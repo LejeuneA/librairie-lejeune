@@ -1,6 +1,11 @@
 <?php
 require_once('settings.php');
 
+// Start the session at the beginning of your script if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
@@ -18,37 +23,43 @@ if (!is_object($conn)) {
     // Fetch all cadeaux from the database
     $result = getAllCadeauxDB($conn);
 
-    // Check if cadeau exist
+    // Check if cadeaux exist
     if (is_array($result) && !empty($result)) {
         $execute = true;
 
         // Check if cadeau ID is provided in the URL for deletion
         if (isset($_GET['idCadeau']) && is_numeric($_GET['idCadeau'])) {
+
             $cadeauIdToDelete = $_GET['idCadeau'];
 
             if ($_SESSION['user_permission'] == 1) {
 
-                // Delete the livre from the database
+                // Delete the cadeau from the database
                 $deleteResult = deleteCadeauDB($conn, $cadeauIdToDelete);
+
                 // Check deletion result and display appropriate message
-
                 if ($deleteResult === true) {
-
-                    $msg = getMessage('Cadeau supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Cadeau supprimé avec succès.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    // header('Location: manager-livre.php');
-                    // exit();
+                    header('Location: manager-cadeau.php');
+                    exit();
                 } else {
-                    $msg = getMessage('Erreur lors de la suppression du cadeau. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du cadeau. ' . $deleteResult, 'error');
                 }
             } else {
-                $msg = getMessage('Vous n\'avez pas le droit de supprimer le cadeau.', 'error');
+                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le cadeau.', 'error');
             }
         }
     } else {
-        $msg = getMessage('Il n\'y a pas de cadeau à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('Il n\'y a pas de cadeau à afficher actuellement', 'error');
     }
+}
+
+// On the redirected page (manager-cadeau.php), add this code to display the message
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+    unset($_SESSION['message']); // Clear the message after displaying it
 }
 ?>
 
