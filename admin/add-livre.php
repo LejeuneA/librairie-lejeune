@@ -42,18 +42,25 @@ if (!is_object($conn)) {
             }
         }
 
-        // Add the livre to the database
-        $addResult = addLivreDB($conn, $addData);
+        if ($_SESSION['user_permission'] == 1) {
+            // Add the livre to the database
+            $addResult = addLivreDB($conn, $addData);
 
-        // Check the result and display appropriate message
-        if ($addResult === true) {
-            // Set session variable to indicate success
-            $_SESSION['livre_added'] = true;
-            // Redirect to the same page to refresh and clear the form
-            header('Location: add-livre.php');
-            exit();
+            // Check the result and display appropriate message
+            if ($addResult === true) {
+
+                $msg = getMessage('Livre ajouté avec succès.', 'success');
+
+                // Set session variable to indicate success
+                $_SESSION['livre_added'] = true;
+                // Redirect to the same page to refresh and clear the form
+                header('Location: add-livre.php');
+                exit();
+            } else {
+                $msg = getMessage('Erreur lors de l\'ajout du livre. Veuillez réessayer.', 'error');
+            }
         } else {
-            $msg = getMessage('Erreur lors de l\'ajout du livre. Veuillez réessayer.', 'error');
+            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter de livre.', 'error');
         }
     }
 
