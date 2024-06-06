@@ -42,19 +42,27 @@ if (!is_object($conn)) {
             }
         }
 
-        // Add the cadeau to the database
-        $addResult = addCadeauDB($conn, $addData);
+        if ($_SESSION['user_permission'] == 1) {
+            // Add the cadeau to the database
+            $addResult = addCadeauDB($conn, $addData);
 
-        // Check the result and display appropriate message
-        if ($addResult === true) {
-            // Set session variable to indicate success
-            $_SESSION['cadeau_added'] = true;
-            // Redirect to the same page to refresh and clear the form
-            header('Location: add-cadeau.php');
-            exit();
+            // Check the result and display appropriate message
+            if ($addResult === true) {
+
+                $msg = getMessage('Cadeau ajouté avec succès.', 'success');
+
+                // Set session variable to indicate success
+                $_SESSION['cadeau_added'] = true;
+                // Redirect to the same page to refresh and clear the form
+                header('Location: add-cadeau.php');
+                exit();
+            } else {
+                $msg = getMessage('Erreur lors de l\'ajout du cadeau. Veuillez réessayer.', 'error');
+            }
         } else {
-            $msg = getMessage('Erreur lors de l\'ajout de le cadeaue. Veuillez réessayer.', 'error');
+            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter un cadeau.', 'error');
         }
+
     }
 
     // Fetch categories for the form dropdown
