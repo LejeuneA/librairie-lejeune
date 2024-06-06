@@ -24,6 +24,7 @@ if (!is_object($conn)) {
 
         // Check if livre ID is provided in the URL for deletion
         if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
+
             $livreIdToDelete = $_GET['idLivre'];
 
             if ($_SESSION['user_permission'] == 1) {
