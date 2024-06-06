@@ -60,7 +60,7 @@ if (!is_object($conn)) {
                 $msg = getMessage('Erreur lors de l\'ajout du livre. Veuillez réessayer.', 'error');
             }
         } else {
-            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter de livre.', 'error');
+            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter un livre.', 'error');
         }
     }
 
