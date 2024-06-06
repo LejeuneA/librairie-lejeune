@@ -63,6 +63,18 @@ section {
   color: #66bb6a;
 }
 
+.msg-error{
+  color: $primary-red;
+}
+
+#message,
+.msg-success,
+.msg-error{
+  margin-bottom: 1em;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
 
 /* -------------------------------------------------------
                   Responsive styles
