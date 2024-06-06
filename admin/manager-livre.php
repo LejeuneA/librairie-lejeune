@@ -1,6 +1,11 @@
 <?php
 require_once('settings.php');
 
+// Start the session at the beginning of your script if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     header('Location: login.php');
@@ -31,27 +36,34 @@ if (!is_object($conn)) {
 
                 // Delete the livre from the database
                 $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+
                 // Check deletion result and display appropriate message
-
                 if ($deleteResult === true) {
-
-                    $msg = getMessage('Livre supprimé avec succès.', 'success');
+                    $_SESSION['message'] = getMessage('Livre supprimé avec succès.', 'success');
 
                     // Refresh the page to reflect the changes after deletion
-                    // header('Location: manager-livre.php');
-                    // exit();
+                    header('Location: manager-livre.php');
+                    exit();
                 } else {
-                    $msg = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
+                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
                 }
             } else {
-                $msg = getMessage('Vous n\'avez pas le droit de supprimer le livre.', 'error');
+                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le livre.', 'error');
             }
         }
     } else {
-        $msg = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+        $_SESSION['message'] = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
     }
 }
+
+// On the redirected page (manager-livre.php), add this code to display the message
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+    unset($_SESSION['message']); // Clear the message after displaying it
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -95,7 +107,8 @@ if (!is_object($conn)) {
             }
             ?>
         </div>
-    </div><!-----------------------------------------------------------------
+    </div>
+    <!-----------------------------------------------------------------
 								Footer
 	------------------------------------------------------------------>
     <footer>
