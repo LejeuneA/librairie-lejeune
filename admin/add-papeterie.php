@@ -42,18 +42,25 @@ if (!is_object($conn)) {
             }
         }
 
-        // Add the papeterie to the database
-        $addResult = addPapeterieDB($conn, $addData);
+        if ($_SESSION['user_permission'] == 1) {
+            // Add the papeterie to the database
+            $addResult = addPapeterieDB($conn, $addData);
 
-        // Check the result and display appropriate message
-        if ($addResult === true) {
-            // Set session variable to indicate success
-            $_SESSION['papeterie_added'] = true;
-            // Redirect to the same page to refresh and clear the form
-            header('Location: add-papeterie.php');
-            exit();
+            // Check the result and display appropriate message
+            if ($addResult === true) {
+
+                $msg = getMessage('Papeterie ajouté avec succès.', 'success');
+
+                // Set session variable to indicate success
+                $_SESSION['papeterie_added'] = true;
+                // Redirect to the same page to refresh and clear the form
+                header('Location: add-papeterie.php');
+                exit();
+            } else {
+                $msg = getMessage('Erreur lors de l\'ajout de la papeterie. Veuillez réessayer.', 'error');
+            }
         } else {
-            $msg = getMessage('Erreur lors de l\'ajout de la papeterie. Veuillez réessayer.', 'error');
+            $msg = getMessage('Vous n\'avez pas le droit d\'ajouter une papeterie.', 'error');
         }
     }
 
