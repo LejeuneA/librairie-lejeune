@@ -1,14 +1,14 @@
 <?php
 require_once('settings.php');
 
+// Start the session at the beginning of your script if it's not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Check if user is not identified, redirect to login page
 if (!$_SESSION['IDENTIFY']) {
     header('Location: login.php');
-    exit;
-}
-
-if ($_SESSION['user_permission'] ==2){
-    header('Location: assets/pages/edit-cadeau.html');
     exit;
 }
 
@@ -18,14 +18,16 @@ $cadeau = null;
 
 // Check the database connection
 if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
+    $_SESSION['message'] = getMessage($conn, 'error');
+    header('Location: manager-cadeau.php');
+    exit;
 } else {
-    // Check if article ID is provided in the URL
+    // Check if cadeau ID is provided in the URL
     if (isset($_GET['idCadeau'])) {
-        // Get the article ID from the URL
+        // Get the cadeau ID from the URL
         $idCadeau = $_GET['idCadeau'];
 
-        // Retrieve article details from the database
+        // Retrieve cadeau details from the database
         $cadeau = getCadeauByIDDB($conn, $idCadeau);
 
         // Fetch category names from the database
@@ -33,64 +35,77 @@ if (!is_object($conn)) {
 
         // Check if the form is submitted and the form type
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the form was submitted for update
-            if (isset($_POST['update_form'])) {
-                // Update the article in the database
-                $updateData = [
-                    'idCadeau' => $idCadeau,
-                    'image_url' => $_POST['image_url'],
-                    'title' => isset($_POST['title']) ? $_POST['title'] : '',
-                    'feature' => isset($_POST['feature']) ? $_POST['feature'] : '',
-                    'price' => isset($_POST['price']) ? $_POST['price'] : '',
-                    'content' => $_POST['content'],
-                    'published_article' => isset($_POST['published_article']) ? 1 : 0,
-                    'idCategory' => $_POST['idCategory']
-                ];
+            // Check if the user has permission to edit the book
+            if ($_SESSION['user_permission'] == 2) {
+                $msg = getMessage('Vous n\'avez pas le droit d\'ajouter ou de modifier un cadeau.', 'error');
+            } else {
+                // Check if the form was submitted for update
+                if (isset($_POST['update_form'])) {
+                    // Update the cadeau in the database
+                    $updateData = [
+                        'idCadeau' => $idCadeau,
+                        'image_url' => $_POST['image_url'],
+                        'title' => $_POST['title'] ?? '',
+                        'writer' => $_POST['writer'] ?? '',
+                        'feature' => $_POST['feature'] ?? '',
+                        'price' => $_POST['price'] ?? '',
+                        'content' => $_POST['content'],
+                        'published_article' => isset($_POST['published_article']) ? 1 : 0,
+                        'idCategory' => $_POST['idCategory']
+                    ];
 
-                // Perform the update operation in the database
-                $updateResult = updateCadeauDB($conn, $updateData);
+                    // Perform the update operation in the database
+                    $updateResult = updateCadeauDB($conn, $updateData);
 
-                // Check the result of the update operation
-                if ($updateResult === true) {
-                    $msg = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                    $_SESSION['form_submitted'] = true;
-                } else {
-                    $msg = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
+                    // Check the result of the update operation
+                    if ($updateResult === true) {
+                        $_SESSION['message'] = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
+                        $_SESSION['form_submitted'] = true;
+                    } else {
+                        $_SESSION['message'] = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
+                    }
+
+                    // Redirect to the same page to prevent form resubmission
+                    header('Location: edit-cadeau.php?idCadeau=' . $idCadeau);
+                    exit();
                 }
-            }
 
-            // Check if file is uploaded
-            if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                $target_dir = "uploads/";
-                $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
+                // Check if file is uploaded
+                if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
+                    $target_dir = "uploads/";
+                    $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
 
-                // Check if the directory exists, if not, create it
-                if (!file_exists($target_dir)) {
-                    mkdir($target_dir, 0777, true);
-                }
+                    // Check if the directory exists, if not, create it
+                    if (!file_exists($target_dir)) {
+                        mkdir($target_dir, 0777, true);
+                    }
 
-                // Move the uploaded file to the target directory
-                if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                    // File upload successful, update the image URL in the database
-                    $updateData['image_url'] = $target_file;
-                    updateCadeauDB($conn, $updateData);
-                } else {
-                    $msg = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
+                    // Move the uploaded file to the target directory
+                    if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
+                        // File upload successful, update the image URL in the database
+                        $updateData['image_url'] = $target_file;
+                        updateCadeauDB($conn, $updateData);
+                    } else {
+                        $_SESSION['message'] = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
+                    }
+
+                    // Redirect to the same page to prevent form resubmission
+                    header('Location: edit-cadeau.php?idCadeau=' . $idCadeau);
+                    exit();
                 }
             }
         }
     } else {
-        // If article ID is not provided, redirect to manager.php
+        // If cadeau ID is not provided, redirect to manager.php
         header('Location: manager.php');
         exit;
     }
 }
 
-// Check if form was submitted and unset the session variable
-if (isset($_SESSION['form_submitted'])) {
-    unset($_SESSION['form_submitted']);
-    // Refresh the page after form submission
-    header("Refresh: 1; URL=edit-cadeau.php?idCadeau=$idCadeau");
+// Retrieve the message from the session and unset it
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+    unset($_SESSION['message']);
 }
 ?>
 
