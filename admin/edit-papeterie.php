@@ -37,7 +37,7 @@ if (!is_object($conn)) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Check if the user has permission to edit the book
             if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('Vous n\'avez pas le droit d\'ajouter ou de modifier un papeterie.', 'error');
+                $msg = getMessage('Vous n\'avez pas le droit de modifier une papeterie.', 'error');
             } else {
                 // Check if the form was submitted for update
                 if (isset($_POST['update_form'])) {
