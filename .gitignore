@@ -28,3 +28,6 @@ file/
 
 #Ignore any settings.php files
 settings.php
+
+#Ignore any .psd files
+.psd
