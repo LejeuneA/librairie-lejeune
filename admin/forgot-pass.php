@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             ?>
             <div class="background-vector">
-                <img src="../assets/images/background-vector.png" alt="background-vector">
+                <img src="../assets/components/background-vector.png" alt="background-vector">
             </div>
         </div>
     </div>
