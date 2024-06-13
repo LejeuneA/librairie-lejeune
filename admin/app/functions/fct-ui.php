@@ -516,6 +516,143 @@ function displayNavigationCustomer()
 
 
 /**-----------------------------------------------------------------
+                    Affichage du footer
+*------------------------------------------------------------------**/
+
+/**
+ * Affichage du footer
+ * 
+ * @return void 
+ */
+function displayFooter()
+{
+
+    $footer = '';
+
+    if ($_SESSION['IDENTIFY']) {
+        $footer .= '
+        <!-----------------------------------------------------------------
+                            Footer upper section
+        ------------------------------------------------------------------>
+        <div class="upper-footer-container">
+            <!-- Upper footer -->
+            <div class="upper-footer container">
+                <!-- Logo column -->
+                <div class="footer-brand">
+                    <a href="../index.php">
+                        <img src="../assets/logo/librairie-lejeune-white.png" alt="Librarie Lejeune Logo" />
+                    </a>
+                </div>
+                <!-- Logo column end-->
+
+                <!-- Contact us column -->
+                <div class="footer-contact">
+                    <h3>CONTACTEZ-NOUS</h3>
+                    <ul>
+                        <li>
+                            <a href="../public/contact.php" class="">Contact</a>
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-envelope"></i>
+                            <a href="mailto:contact@acelyalejeune.be">Envoyez-nous un message</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            Téléphonez-nous au <br>0493 38 77 29
+                        </li>
+                        <li>
+                            <b>Permanence téléphonique:</b><br>
+                            Lundi au vendredi 09:00 - 18:00 <br>
+                            Samedi 09:00 - 16:00
+                        </li>
+                    </ul>
+                </div>
+                <!-- Contact us column end -->
+
+                <!-- About us column -->
+                <div class="footer-about-us">
+                    <h3>À PROPOS DE NOUS<h3>
+                            <ul>
+                                <li>
+                                    <a href="../public/about-us.php">Qui sommes-nous?</a>
+                                </li>
+                                <li>
+                                    <a href="../public/work-with-us.php">Travailler chez nous</a>
+                                </li>
+                                <li>
+                                    <a href="../public/conditions.php">Conditions générales</a>
+                                </li>
+                            </ul>
+                </div>
+                <!-- About us column end -->
+
+                <!-- Follow us column -->
+                <div class="footer-follow-us">
+                    <h3>SUVEZ-NOUS SUR</h3>
+                    <div class="footer-social-icons">
+                        <p>
+                            Rejoignez-nous sur Facebook, Twitter et <br>
+                            Instagram pour être tenus au courant de <br>
+                            notre actualité.
+                        </p>
+                        <div class="social-icons">
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
+                            <!-- Twitter -->
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <!-- Instagram -->
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </div>
+
+                        <p>343 Rue Saint-Gilles <br> 4000 Liége - Belgique</p>
+                    </div>
+                </div>
+                <!-- Follow us column end -->
+            </div>
+        </div>
+    <!-----------------------------------------------------------------
+                        Footer upper section
+    ------------------------------------------------------------------>
+    <!-----------------------------------------------------------------
+                        Footer bottom section
+    ------------------------------------------------------------------>
+        <div class="bottom-footer-container">
+            <!-- Section: Copyright -->
+            <div class="bottom-footer container">
+                <!-- Copyright column -->
+                <div>
+                    © 2024 Copyright tous droits réservés
+                </div>
+                <!-- Copyright column end -->
+
+                <!-- Conception and development column -->
+                <div>
+                    Conception et développement par
+                    <a href="https://github.com/lejeunea" class="github text-decoration-none">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://github.com/lejeunea" class="text-decoration-none">Açelya Lejeune</a>.
+                </div>
+                <!-- Conception and development column end -->
+            </div>
+            <!-- Section: Copyright -->
+        </div>
+        <!-----------------------------------------------------------------
+                        Footer bottom section end
+        ------------------------------------------------------------------>
+        ';
+    } 
+    echo $footer;
+}
+
+
+/**-----------------------------------------------------------------
                   Retour d'un message au format HTML
  *------------------------------------------------------------------**/
 
