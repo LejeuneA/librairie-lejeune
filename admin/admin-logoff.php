@@ -92,7 +92,7 @@ if (!is_object($conn)) {
                     <label for="pwd" class="form-ctrl">Mot de passe</label>
                     <input type="password" class="form-ctrl" id="pwd" name="pwd" value="" required>
                 </div>
-                <p>Oublié le mot de passe ?</p>
+                <a href="forgot-pass.php"><p>Oublié le mot de passe ?</p></a>
                 <input type="hidden" id="form" name="form" value="login">
                 <button type="submit" class="btn-primary">Se connecter</button>
             </form>
