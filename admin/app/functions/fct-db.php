@@ -78,6 +78,39 @@ function userIdentificationDB($conn, $datas)
 }
 
 /**-----------------------------------------------------------------
+                   Retrieve user password by email
+*------------------------------------------------------------------**/
+/**
+ * Retrieve user password by email
+ * 
+ * @param mixed $conn 
+ * @param string $email 
+ * @return mixed 
+ */
+function getUserPasswordByEmail($conn, $email)
+{
+    try {
+        // Sanitize email input
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+        // Prepare SQL query
+        $stmt = $conn->prepare("SELECT passwd FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        // Fetch the result
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Return the password if found, otherwise return false
+        return $user ? $user['passwd'] : false;
+
+    } catch (PDOException $e) {
+        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getUserPasswordByEmail() function";
+        return $st;
+    }
+}
+
+/**-----------------------------------------------------------------
             Récupérer tous les articles de la table articles
  *------------------------------------------------------------------**/
 /**
