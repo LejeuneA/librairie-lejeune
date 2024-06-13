@@ -91,7 +91,6 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 				<!-- Right-side content end -->
 			</div>
 		</nav>
-
 		<!---------------------------------------------------------------
                                 Menu
     	----------------------------------------------------------------->
@@ -114,7 +113,6 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 		<!---------------------------------------------------------------
                          Menu end
     	---------------------------------------------------------------->
-
 		<!---------------------------------------------------------------
                              Offcanvas menu
     	----------------------------------------------------------------->
@@ -194,9 +192,8 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
                                Header end
     ------------------------------------------------------------------>
 	<div class="header-image--gifts">
-		<h1>Des cadeaux qui racontent des histoires</h1>
+		<h1></h1>
 		<p>
-			Chaque emballage raconte une histoire d'amour.
 		</p>
 	</div>
 	</header>
@@ -207,49 +204,28 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 	<main>
 
 		<!-----------------------------------------------------------------
-                               Introduction
+                                Livres
         ------------------------------------------------------------------>
-		<div class="square-right">
-			<img src="../assets/components/square-right.png" alt="square">
-		</div>
-
-		<section class="introduction">
-
-			<h1>Cadeaux</h1>
-			<p>
-				Trouvez des cadeaux qui transcendent les mots avec notre sélection soigneusement choisie. Des éditions
-				spéciales aux coffrets cadeaux, chaque article raconte une histoire unique. Offrez plus qu'un simple
-				présent – offrez une expérience mémorable.
-			</p>
-		</section>
-		<div class="square-left">
-			<img src="../assets/components/square-left.png" alt="square">
-		</div>
-		<!-----------------------------------------------------------------
-                               Introduction end
-        ------------------------------------------------------------------>
-		<!-----------------------------------------------------------------
-                                Cadeaux
-        ------------------------------------------------------------------>
-		<section class="gifts-container container">
+		<section class="books-container container">
 			<!-- Articles -->
 			<?php
-			// Check if there are cadeaux to display
+			// Check if there are livres to display
 			if ($execute) {
-				// Loop through each cadeau and generate HTML markup
-				foreach ($result as $cadeau) {
-					echo generateCadeauHTML($cadeau);
+				// Loop through each livre and generate HTML markup
+				foreach ($result as $livre) {
+					echo generateLivreHTML($livre);
 				}
 			} else {
-				// Display a message if there are no cadeaux to display
-				echo '<p>Il n\'y a pas de cadeau à afficher actuellement</p>';
+				// Display a message if there are no livres to display
+				echo '<p>Il n\'y a pas de livre à afficher actuellement</p>';
 			}
 			?>
 			<!-- Articles end -->
 
+
 		</section>
 		<!-----------------------------------------------------------------
-                             Cadeaux end
+                             Livres end
         ------------------------------------------------------------------>
 
 		<!-----------------------------------------------------------------
