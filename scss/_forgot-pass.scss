@@ -14,23 +14,37 @@
 
     .login-content {
         p {
-            color: $light-blue;
-            margin-top: 2em;
+            color: $primary-blue;
+            margin-top: 1em;
             font-size: 1.2em;
-            font-weight: 300;
+            font-weight: 500;
             font-size: 1em;
         }
 
         .login-form{
 
             label{
-                color: $light-blue;
-                font-weight: 300;
+                color: $primary-blue;
+                font-weight: 500;
+                margin-bottom: 1em;
             }
 
-            input{
-                padding: 0.5em;
-            }
+            input {
+                width: 100%;
+                padding: 0.6em;
+                border: 1px solid $secondary-blue;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 1em;
+                resize: vertical;
+                outline: none;
+              }
+
+              .btn-primary {
+                margin-top: 1em;
+        
+                @include hover("background-color", $primary-blue, "color", $light-blue);
+              }
         }
     }
 }
