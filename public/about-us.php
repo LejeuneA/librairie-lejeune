@@ -339,7 +339,7 @@ require_once('../admin/settings.php');
                                 Footer
     ------------------------------------------------------------------>
     <footer>
-        <?php displayFooter(); ?>
+    <div data-include="footer"></div>
     </footer>
     <!-----------------------------------------------------------------
                               Footer end
