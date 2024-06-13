@@ -12,14 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($password) {
             // Display the password
-            $message = "Your password is: " . htmlspecialchars($password);
+            $message = "Votre mot de passe est: " . htmlspecialchars($password);
         } else {
             // Email not found in the database
-            $message = "Error: Email address not found.";
+            $message = "Erreur : L'adresse électronique n'a pas été trouvée.";
         }
     } else {
         // Invalid email format
-        $message = "Error: Invalid email address.";
+        $message = "Erreur : L'adresse email n'est pas valide.";
     }
 }
 ?>
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Forgot Password'); ?>
+    <?php displayHeadSection('Mot de passe oublié'); ?>
 </head>
 
 <body>
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <!-----------------------------------------------------------------
 							   Navigation
 	    ------------------------------------------------------------------>
-        <?php displayNavigationAdmin(); ?>
+        <?php displayNavigation(); ?>
         <!-----------------------------------------------------------------
 							Navigation end
 	    ------------------------------------------------------------------>
@@ -51,13 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	------------------------------------------------------------------>
     <div class="login-container">
         <div class="login-title">
-            <h1>Forgot Password</h1>
+            <h1>Mot de passe oublié</h1>
         </div>
         <div class="login-content container">
             <form class="login-form" method="post" action="">
-                <label for="email" class="form-ctrl">Enter your email dddress</label>
+                <label for="email" class="form-ctrl">Entrez votre adresse e-mail</label>
                 <input type="email" class="form-ctrl" name="email" id="email" required>
-                <button type="submit" class="btn-primary">Submit</button>
+                <button type="submit" class="btn-primary">Envoyer</button>
             </form>
             <?php
             if (isset($message)) {
