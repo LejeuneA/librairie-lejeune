@@ -195,7 +195,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 	<!-----------------------------------------------------------------
                                Header end
     ------------------------------------------------------------------>
-	<div class="header-image--gifts">
+	<div class="header-image--shopping-cart">
 		<h1></h1>
 		<p>
 		</p>
