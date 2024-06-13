@@ -78,6 +78,10 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 					?>
 					<!-- Customer button end -->
 
+					<!-- Shopping cart -->
+					<a href="<?php echo DOMAIN; ?>/public/shopping-cart.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					<!-- Shopping cart end -->
+
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
 						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
@@ -232,7 +236,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
                                 Footer
         ------------------------------------------------------------------>
 		<footer>
-			<?php displayFooter(); ?>
+			<div data-include="footer"></div>
 		</footer>
 		<!-----------------------------------------------------------------
                             Footer end
