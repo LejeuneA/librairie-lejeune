@@ -1,8 +1,13 @@
-@use 'custom';
-@use 'mixins';
-@use 'extends';
-@use 'global';
+@use "custom";
+@use "mixins";
+@use "extends";
+@use "global";
 
 /* -----------------------------------------------------------------
                         Shopping cart page
  ----------------------------------------------------------------- */
+
+.header-image--shopping-cart {
+    @extend %header-image;
+    background-image: url(../assets/images/shopping-cart.jpg);
+}
