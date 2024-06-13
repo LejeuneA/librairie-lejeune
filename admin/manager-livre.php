@@ -112,7 +112,7 @@ if (isset($_SESSION['message'])) {
 								Footer
 	------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
 							  Footer end

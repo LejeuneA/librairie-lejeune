@@ -207,7 +207,7 @@ if (isset($_SESSION['message'])) {
                             <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
                             <div>
                                 <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
-                                
+
                                 <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image">
                             </div>
                         </div>
@@ -231,7 +231,7 @@ if (isset($_SESSION['message'])) {
 
     <!-- Footer -->
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
 
     <!-- Font Awesome -->

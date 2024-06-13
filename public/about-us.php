@@ -15,7 +15,7 @@ require_once('../admin/settings.php');
     <link rel="stylesheet" href="../css/styles.css">
 
     <!-- Favicon -->
-	<link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
 
     <!-- Google Fonts Preconnect and Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -335,7 +335,7 @@ require_once('../admin/settings.php');
                                 Footer
     ------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
                               Footer end

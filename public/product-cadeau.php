@@ -229,7 +229,7 @@ if (isset($_GET['idCadeau']) && !empty($_GET['idCadeau'])) {
 	</main>
 	<!-- Footer -->
 	<footer>
-		<div data-include="footer"></div>
+		<?php displayFooter(); ?>
 	</footer>
 
 	<!-- Font Awesome -->

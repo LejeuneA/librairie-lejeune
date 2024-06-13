@@ -93,23 +93,23 @@ if (isset($_SESSION['message'])) {
 	------------------------------------------------------------------>
     <div class="table-cadeaux container">
         <h1 class="title">Gérer les cadeaux</h2>
-        <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
-        </div>
+            <div id="message">
+                <?= isset($msg) ? $msg : ''; ?>
+            </div>
 
-        <div id="content">
-            <?php
-            // If cadeaux exist, display them in a table
-            if ($execute) {
-                displayCadeauxAsTable($result);
-            }
-            ?>
-        </div>
+            <div id="content">
+                <?php
+                // If cadeaux exist, display them in a table
+                if ($execute) {
+                    displayCadeauxAsTable($result);
+                }
+                ?>
+            </div>
     </div><!-----------------------------------------------------------------
 								Footer
 	------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
 							  Footer end

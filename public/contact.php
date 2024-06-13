@@ -310,7 +310,7 @@ require_once('../admin/settings.php');
 
 	<!-- Footer -->
 	<footer>
-		<div data-include="footer"></div>
+		<?php displayFooter(); ?>
 	</footer>
 
 

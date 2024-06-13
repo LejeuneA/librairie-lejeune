@@ -456,7 +456,7 @@ require_once('settings.php');
                                 Footer
         ------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
                             Footer end

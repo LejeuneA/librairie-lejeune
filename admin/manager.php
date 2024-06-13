@@ -89,7 +89,7 @@ if (!is_object($conn)) {
                 </div>
 
                 <!-- Cadeaux -->
-                <div class="category-card"> 
+                <div class="category-card">
                     <a class="btn-primary" href="./manager-cadeau.php">Gérer les cadeaux</a>
                     <a class="btn-primary" href="./add-cadeau.php">Ajouter un cadeau</a>
                 </div>
@@ -108,7 +108,7 @@ if (!is_object($conn)) {
 								Footer
 	------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
 							  Footer end

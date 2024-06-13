@@ -33,97 +33,95 @@ if (!empty($query)) {
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
+    <!DOCTYPE html>
+    <html lang="fr">
 
-<head>
-    <?php
-    // Include the head section
-    displayHeadSection('Résultats de recherche');
-    displayJSSection();
-    ?>
-</head>
+    <head>
+        <?php
+        // Include the head section
+        displayHeadSection('Résultats de recherche');
+        displayJSSection();
+        ?>
+    </head>
 
-<body>
+    <body>
 
-    <!-----------------------------------------------------------------
+        <!-----------------------------------------------------------------
                                 Header
     ------------------------------------------------------------------>
-    <header>
-        <!-----------------------------------------------------------------
+        <header>
+            <!-----------------------------------------------------------------
                             Navigation
         ------------------------------------------------------------------>
-        <div data-include="navigation"></div>
-        <!-----------------------------------------------------------------
+            <div data-include="navigation"></div>
+            <!-----------------------------------------------------------------
                             Navigation end
         ------------------------------------------------------------------>
-    </header>
-    <!-----------------------------------------------------------------
+        </header>
+        <!-----------------------------------------------------------------
                            Header end
     ------------------------------------------------------------------>
-    <section class="search-container container">
-    <?php
-    if ($results) {
-        echo "<h1>Résultats de recherche</h1>";
-        echo "<p class='search-results-count'>Résultats trouvés: " . count($results) . "</p>";
-        echo "<div class='search-results'>";
-        echo "<ul>";
-        foreach ($results as $row) {
-            echo "<li>";
-            if ($row['idCategory'] == 1) {
-                $type = "Livre";
-                echo "<a href='../public/product-livre.php?idLivre=" . $row['idLivre'] . "'>";
-            }
-            elseif ($row['idCategory'] == 2) {
-                $type = "Papeterie";
-                echo "<a href='../public/product-papeterie.php?idPapeterie=" . $row['idPapeterie'] . "'>";
-            }
-            elseif ($row['idCategory'] == 3) {
-                $type = "Cadeau";
-                echo "<a href='../public/product-cadeau.php?idCadeau=" . $row['idCadeau'] . "'>";
-            }
-            if (!empty($row['image_url'])) {
-                echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image for " . htmlspecialchars($row['title']) . "'>";
-            }
-            echo "</a>";
+        <section class="search-container container">
+        <?php
+        if ($results) {
+            echo "<h1>Résultats de recherche</h1>";
+            echo "<p class='search-results-count'>Résultats trouvés: " . count($results) . "</p>";
+            echo "<div class='search-results'>";
+            echo "<ul>";
+            foreach ($results as $row) {
+                echo "<li>";
+                if ($row['idCategory'] == 1) {
+                    $type = "Livre";
+                    echo "<a href='../public/product-livre.php?idLivre=" . $row['idLivre'] . "'>";
+                } elseif ($row['idCategory'] == 2) {
+                    $type = "Papeterie";
+                    echo "<a href='../public/product-papeterie.php?idPapeterie=" . $row['idPapeterie'] . "'>";
+                } elseif ($row['idCategory'] == 3) {
+                    $type = "Cadeau";
+                    echo "<a href='../public/product-cadeau.php?idCadeau=" . $row['idCadeau'] . "'>";
+                }
+                if (!empty($row['image_url'])) {
+                    echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image for " . htmlspecialchars($row['title']) . "'>";
+                }
+                echo "</a>";
 
-            echo "<p class='type'>" . $type . "</p>";
-            echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-            if (isset($row['writer']) && !empty($row['writer'])) {
-                echo "<p class='writer'> " . htmlspecialchars($row['writer']) . "</p>";
+                echo "<p class='type'>" . $type . "</p>";
+                echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
+                if (isset($row['writer']) && !empty($row['writer'])) {
+                    echo "<p class='writer'> " . htmlspecialchars($row['writer']) . "</p>";
+                }
+                if (!empty($row['feature'])) {
+                    echo "<p class='feature'>" . htmlspecialchars($row['feature']) . "</p>";
+                }
+                echo "</li>";
             }
-            if (!empty($row['feature'])) {
-                echo "<p class='feature'>" . htmlspecialchars($row['feature']) . "</p>";
-            }
-            echo "</li>";
+            echo "</ul>";
+            echo "</div>";
+        } else {
+            echo "No results found.";
         }
-        echo "</ul>";
-        echo "</div>";
     } else {
-        echo "No results found.";
+        echo "Please enter a search query.";
     }
-} else {
-    echo "Please enter a search query.";
-}
-    ?>
-    </section>
+        ?>
+        </section>
 
 
-    <!-----------------------------------------------------------------
+        <!-----------------------------------------------------------------
                             Footer
-    ------------------------------------------------------------------>
-    <footer>
-        <div data-include="footer"></div>
-    </footer>
-    <!-----------------------------------------------------------------
+        ------------------------------------------------------------------>
+        <footer>
+            <?php displayFooter(); ?>
+        </footer>
+        <!-----------------------------------------------------------------
                           Footer end
-    ------------------------------------------------------------------>
+        ------------------------------------------------------------------>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Font Awesome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Include functions.js -->
-    <script src="../js/functions.js"></script>
-</body>
+        <!-- Include functions.js -->
+        <script src="../js/functions.js"></script>
+    </body>
 
-</html>
+    </html>

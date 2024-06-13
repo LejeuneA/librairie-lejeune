@@ -62,7 +62,6 @@ if (!is_object($conn)) {
         } else {
             $msg = getMessage('Vous n\'avez pas le droit d\'ajouter un cadeau.', 'error');
         }
-
     }
 
     // Fetch categories for the form dropdown
@@ -206,7 +205,7 @@ $addData = [
                                 Footer
     ------------------------------------------------------------------>
     <footer>
-        <div data-include="footer"></div>
+        <?php displayFooter(); ?>
     </footer>
     <!-----------------------------------------------------------------
                               Footer end

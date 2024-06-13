@@ -265,18 +265,6 @@ if (!is_object($conn)) {
 			?>
 			<!-- Articles end -->
 
-			<!-- Pagination -->
-			<div class="pagination">
-				<a href="#">&laquo;</a>
-				<a href="#">1</a>
-				<a href="#" class="active">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-				<a href="#">6</a>
-				<a href="#">&raquo;</a>
-			</div>
-			<!-- Pagination end -->
 		</section>
 		<!-----------------------------------------------------------------
                             Papeteries end
@@ -286,7 +274,7 @@ if (!is_object($conn)) {
                                 Footer
         ------------------------------------------------------------------>
 		<footer>
-			<div data-include="footer"></div>
+			<?php displayFooter(); ?>
 		</footer>
 		<!-----------------------------------------------------------------
                             Footer end
