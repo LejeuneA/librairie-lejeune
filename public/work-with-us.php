@@ -90,6 +90,10 @@ require_once('../admin/settings.php');
                     ?>
                     <!-- Customer button end -->
 
+                    <!-- Shopping cart -->
+                    <a href="<?php echo DOMAIN; ?>/public/shopping-cart.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <!-- Shopping cart end -->
+
                     <!-- Login button -->
                     <?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
                         <a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
@@ -318,7 +322,7 @@ require_once('../admin/settings.php');
                                 Footer
     ------------------------------------------------------------------>
     <footer>
-        <?php displayFooter(); ?>
+        <div data-include="footer"></div>
     </footer>
     <!-----------------------------------------------------------------
                               Footer end
