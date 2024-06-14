@@ -73,6 +73,11 @@ section {
   margin-bottom: 1em;
   font-size: 1.2em;
   font-weight: 400;
+
+  @media (min-width: 320px) and (max-width: 768px) {
+		margin: 0;
+		font-size: 1em;
+	}
 }
 
 
