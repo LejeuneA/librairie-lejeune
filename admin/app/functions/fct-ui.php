@@ -860,7 +860,10 @@ function displayLivreByID($livre)
     echo '</div>';
     echo '<div class="product-price">';
     echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    echo '<input type="hidden" name="idLivre" value="' . $livre['idLivre'] . '">';
+    echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    echo '</form>';
     echo '</div>';
     echo '<div class="product-advantages">';
     echo '<ul>';
@@ -876,38 +879,9 @@ function displayLivreByID($livre)
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($livre['content']) . '</p>';
     echo '</div>';
-    // echo '<div class="product-specification">';
-    // echo '<h2>Spécifications</h2>';
-    // echo '<div class="product-specification-container">';
-    // echo '<div class="product-specification-left">';
-    // echo '<h3>Parties prenantes</h3>';
-    // echo '<ul>';
-    // echo '<li>Auteur(s): <span>' . $livre['writer'] . '</span></li>';
-    // echo '<li>Editeur: <span>' . $livre['feature'] . '</span></li>';
-    // echo '</ul>';
-    // echo '<h3>Contenu</h3>';
-    // echo '<ul>';
-
-    // echo '<li>Nombre de pages: <span>' . $livre['pages'] . '</span></li>';
-    // echo '<li>Langue: <span>Français</span></li>';
-    // echo '</ul>';
-    // echo '</div>';
-    // echo '<div class="product-specification-right">';
-    // echo '<h3>Caractéristiques</h3>';
-    // echo '<ul>';
-
-    // echo '<li>EAN: <span>' . $livre['ean'] . '</span></li>';
-    // echo '<li>Date de parution: <span>' . $livre['publication_date'] . '</span></li>';
-    // echo '<li>Format: <span>' . $livre['feature'] . '</span></li>'; 
-    // echo '<li>Dimensions: <span>' . $livre['dimensions'] . '</span></li>';
-    // echo '<li>Poids: <span>' . $livre['weight'] . '</span></li>';
-    // echo '</ul>';
-    // echo '</div>';
-    // echo '</div>';
-    // echo '</div>';
-    // echo '</section>';
-    // echo '</main>';
+    echo '</section>';
 }
+
 
 
 /**
@@ -930,7 +904,10 @@ function displayPapeterieByID($papeterie)
     echo '</div>';
     echo '<div class="product-price">';
     echo '<p>' . $papeterie['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    echo '<input type="hidden" name="idPapeterie" value="' . $papeterie['idPapeterie'] . '">';
+    echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    echo '</form>';
     echo '</div>';
     echo '<div class="product-advantages">';
     echo '<ul>';
@@ -947,6 +924,7 @@ function displayPapeterieByID($papeterie)
     echo '<p>' . htmlspecialchars_decode($papeterie['content']) . '</p>';
     echo '</div>';
 }
+
 
 /**
  * Affiche le cadeau reçu en paramètre
@@ -967,7 +945,10 @@ function displayCadeauByID($cadeau)
     echo '</div>';
     echo '<div class="product-price">';
     echo '<p>' . $cadeau['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    echo '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    echo '<input type="hidden" name="idCadeau" value="' . $cadeau['idCadeau'] . '">';
+    echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    echo '</form>';
     echo '</div>';
     echo '<div class="product-advantages">';
     echo '<ul>';
@@ -984,6 +965,7 @@ function displayCadeauByID($cadeau)
     echo '<p>' . htmlspecialchars_decode($cadeau['content']) . '</p>';
     echo '</div>';
 }
+
 
 
 /**-----------------------------------------------------------------

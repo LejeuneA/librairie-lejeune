@@ -3,24 +3,30 @@ require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-	header('Location: login.php');
-	exit();
+    header('Location: login.php');
+    exit();
 }
 
+// Get the cart from the session
+$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+
+// Ensure each cart item has a quantity
+foreach ($cart as $productId => $item) {
+    if (!isset($cart[$productId]['quantity'])) {
+        $cart[$productId]['quantity'] = 1; // Default quantity if not set
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
-	<?php displayHeadSection('Panier d\'achat'); ?>
+    <?php displayHeadSection('Panier d\'achat'); ?>
 </head>
 
 <body>
-	<!-----------------------------------------------------------------
-                               Header
-    ------------------------------------------------------------------>
-	<header>
+<header>
 		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
@@ -79,7 +85,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 					<!-- Customer button end -->
 
 					<!-- Shopping cart -->
-					<a href="<?php echo DOMAIN; ?>/public/shopping-cart.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
 					<!-- Shopping cart end -->
 
 					<!-- Login button -->
@@ -95,6 +101,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 				<!-- Right-side content end -->
 			</div>
 		</nav>
+
 		<!---------------------------------------------------------------
                                 Menu
     	----------------------------------------------------------------->
@@ -117,6 +124,7 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 		<!---------------------------------------------------------------
                          Menu end
     	---------------------------------------------------------------->
+
 		<!---------------------------------------------------------------
                              Offcanvas menu
     	----------------------------------------------------------------->
@@ -192,47 +200,58 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
                           Offcanvas menu end
     	--------------------------------------------------------------->
 	</header>
-	<!-----------------------------------------------------------------
-                               Header end
-    ------------------------------------------------------------------>
-	<div class="header-image--shopping-cart">
-		<h1></h1>
-		<p>
-		</p>
-	</div>
-	</header>
-	<!-----------------------------------------------------------------
-                            Header end
-    ------------------------------------------------------------------>
-	<!-- Main -->
-	<main>
 
-		<!-----------------------------------------------------------------
-                                Livres
-        ------------------------------------------------------------------>
-		<section class="books-container container">
-			<!-- Articles -->
-			<?php
-			// Check if there are livres to display
-			if ($execute) {
-				// Loop through each livre and generate HTML markup
-				foreach ($result as $livre) {
-					echo generateLivreHTML($livre);
-				}
-			} else {
-				// Display a message if there are no livres to display
-				echo '<p>Il n\'y a pas de livre à afficher actuellement</p>';
-			}
-			?>
-			<!-- Articles end -->
+    <main class="cart-container">
+        <h1>Votre Panier</h1>
+        <?php if (empty($cart)): ?>
+            <p>Votre panier est vide.</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cart as $productId => $item): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($item['title']) ?></td>
+                            <td><?= htmlspecialchars($item['price']) ?> €</td>
+                            <td><?= htmlspecialchars($item['quantity']) ?></td>
+                            <td><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
+                            <td>
+                                <form method="post" action="cart.php">
+                                    <input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
+                                    <button type="submit" name="action" value="increase">+</button>
+                                    <button type="submit" name="action" value="decrease">-</button>
+                                    <button type="submit" name="action" value="remove">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Total</td>
+                        <td>
+                            <?php
+                            $total = array_sum(array_map(function($item) {
+                                return $item['price'] * $item['quantity'];
+                            }, $cart));
+                            echo htmlspecialchars($total) . ' €';
+                            ?>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        <?php endif; ?>
+    </main>
 
-
-		</section>
-		<!-----------------------------------------------------------------
-                             Livres end
-        ------------------------------------------------------------------>
-
-		<!-----------------------------------------------------------------
+    <!-----------------------------------------------------------------
                                 Footer
         ------------------------------------------------------------------>
 		<footer>
@@ -247,7 +266,5 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
 
 		<!-- Include functions.js -->
 		<script src="../js/functions.js"></script>
-
 </body>
-
 </html>

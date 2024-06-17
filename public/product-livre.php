@@ -97,7 +97,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 					<!-- Customer button end -->
 
 					<!-- Shopping cart -->
-					<a href="<?php echo DOMAIN; ?>/public/shopping-cart.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
 					<!-- Shopping cart end -->
 
 					<!-- Login button -->

@@ -1029,7 +1029,7 @@ function getAllCategoriesDB($pdo)
 
 /**-----------------------------------------------------------------
         Function to retrieve category names from the database
- *------------------------------------------------------------------**/
+*------------------------------------------------------------------**/
 
 // Function to retrieve category names from the database
 function getCategoryNamesFromDB($conn)
@@ -1061,4 +1061,37 @@ function getCategoryNamesFromDB($conn)
     return $categories;
 }
 
-
+/**-----------------------------------------------------------------
+                    Fetch product details by ID and type
+*------------------------------------------------------------------**/
+/**
+ * Fetch product details by ID and type
+ * 
+ * @param int $id
+ * @param string $type
+ * @param PDO $conn
+ * 
+ * @return array|null
+ */
+function getProductById($id, $type, $conn)
+{
+    try {
+        if ($type == 'livre') {
+            $stmt = $conn->prepare("SELECT idLivre as id, title, price FROM livres WHERE idLivre = :id");
+        } elseif ($type == 'papeterie') {
+            $stmt = $conn->prepare("SELECT idPapeterie as id, title, price FROM papeterie WHERE idPapeterie = :id");
+        } elseif ($type == 'cadeau') {
+            $stmt = $conn->prepare("SELECT idCadeau as id, title, price FROM cadeaux WHERE idCadeau = :id");
+        } else {
+            return null;
+        }
+        
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        if (DEBUG) {
+            echo 'Error: ' . $e->getMessage();
+        }
+        return null;
+    }
+}
