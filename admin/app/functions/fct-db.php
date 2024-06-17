@@ -1071,27 +1071,72 @@ function getCategoryNamesFromDB($conn)
  * @param string $type
  * @param PDO $conn
  * 
- * @return array|null
+ * @return array|null Returns an associative array with product details or null if not found/error.
+ */
+/**
+ * Fetch product details by ID and type
+ * 
+ * @param int $id
+ * @param string $type
+ * @param PDO $conn
+ * 
+ * @return array|null Returns an associative array with product details or null if not found/error.
  */
 function getProductById($id, $type, $conn)
 {
     try {
-        if ($type == 'livre') {
-            $stmt = $conn->prepare("SELECT idLivre as id, title, price FROM livres WHERE idLivre = :id");
-        } elseif ($type == 'papeterie') {
-            $stmt = $conn->prepare("SELECT idPapeterie as id, title, price FROM papeterie WHERE idPapeterie = :id");
-        } elseif ($type == 'cadeau') {
-            $stmt = $conn->prepare("SELECT idCadeau as id, title, price FROM cadeaux WHERE idCadeau = :id");
-        } else {
-            return null;
+        $table = ''; // Initialize table variable to store the table name based on $type
+        $idColumn = ''; // Initialize column name for the ID
+
+        // Determine table and ID column based on $type
+        switch ($type) {
+            case 'livre':
+                $table = 'livres';
+                $idColumn = 'idLivre';
+                break;
+            case 'papeterie':
+                $table = 'papeteries';
+                $idColumn = 'idPapeterie';
+                break;
+            case 'cadeau':
+                $table = 'cadeaux';
+                $idColumn = 'idCadeau';
+                break;
+            default:
+                return null; // Invalid $type, return null
         }
-        
+
+        // Prepare SQL statement to fetch product details
+        $stmt = $conn->prepare("SELECT $idColumn as id, title, price, image_url, feature FROM $table WHERE $idColumn = :id");
         $stmt->execute(['id' => $id]);
+
+        // Fetch the product details as an associative array
         return $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         if (DEBUG) {
             echo 'Error: ' . $e->getMessage();
         }
-        return null;
+        return null; // Return null on database error
     }
 }
+
+
+
+function displayProductByID($productType, $product)
+{
+    switch ($productType) {
+        case 'livre':
+            displayLivreByID($product);
+            break;
+        case 'papeterie':
+            displayPapeterieByID($product);
+            break;
+        case 'cadeau':
+            displayCadeauByID($product);
+            break;
+        default:
+            // Handle if needed
+            break;
+    }
+}
+
