@@ -255,7 +255,7 @@ foreach ($cart as $productId => $item) {
 							<td><?= htmlspecialchars($item['quantity']) ?></td>
 							<td><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
 							<td>
-								<form method="post" action="cart.php">
+								<form method="post" action="cart-view.php">
 									<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
 									<button type="submit" name="action" value="increase">+</button>
 									<button type="submit" name="action" value="decrease">-</button>
