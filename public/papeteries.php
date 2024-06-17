@@ -96,6 +96,10 @@ if (!is_object($conn)) {
 					?>
 					<!-- Customer button end -->
 
+					<!-- Shopping cart -->
+					<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					<!-- Shopping cart end -->
+
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
 						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
@@ -147,6 +151,11 @@ if (!is_object($conn)) {
 			</form>
 			<!-- Search end -->
 
+			<!-- Shopping cart -->
+			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+			<!-- Shopping cart end -->
+
+
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a class="nav-link" href="../index.php">Accueil</a>
@@ -168,10 +177,6 @@ if (!is_object($conn)) {
 			}
 			?>
 			<!-- Customer button end -->
-
-			<!-- Shopping cart -->
-			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
-			<!-- Shopping cart end -->
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
@@ -211,16 +216,13 @@ if (!is_object($conn)) {
 		<!------------------------------------------------------------- 
                           Offcanvas menu end
     	--------------------------------------------------------------->
-	</header>
-	<!-----------------------------------------------------------------
-                               Header end
-    ------------------------------------------------------------------>
-	<div class="header-image--stationery">
-		<h1>Inspiration à l'encre de plume</h1>
-		<p>
-			Chaque trait devient une œuvre d'art avec nos outils inspirants.
-		</p>
-	</div>
+
+		<div class="header-image--stationery">
+			<h1>Inspiration à l'encre de plume</h1>
+			<p>
+				Chaque trait devient une œuvre d'art avec nos outils inspirants.
+			</p>
+		</div>
 	</header>
 	<!-----------------------------------------------------------------
                             Header end
