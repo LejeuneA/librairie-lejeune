@@ -63,21 +63,21 @@ section {
   color: #66bb6a;
 }
 
-.msg-error{
+.msg-error {
   color: $primary-red;
 }
 
 #message,
 .msg-success,
-.msg-error{
+.msg-error {
   margin-bottom: 1em;
   font-size: 1.2em;
   font-weight: 400;
 
   @media (min-width: 320px) and (max-width: 768px) {
-		margin: 0;
-		font-size: 1em;
-	}
+    margin: 0;
+    font-size: 1em;
+  }
 }
 
 .btn-cart {
@@ -88,15 +88,27 @@ section {
   border: none;
   border-radius: 0.25rem;
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 
   i.fa-cart-shopping {
-    font-size: 1.5em; 
+    font-size: 1.5em;
     margin-right: 0.5em;
   }
+
+  @media (min-width: 320px) and (max-width: 1200px) {
+    @include button-style($secondary-blue, $primary-blue, $primary-red, $light-blue);
+    margin: 1em;
+    text-align: center;
+    padding: 0;
+    border-radius: 5px;
+
+    a{
+      padding: 0;
+    }
+  }
 }
-
-
 
 /* -------------------------------------------------------
                   Responsive styles
