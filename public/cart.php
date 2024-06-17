@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Ensure the product exists in the cart and has a quantity
         if (!isset($cart[$productId])) {
-            $cart[$productId] = ['quantity' => 0]; // Initialize with default values
+            $cart[$productId] = ['quantity' => 0]; 
         }
         if (!isset($cart[$productId]['quantity'])) {
             $cart[$productId]['quantity'] = 1;
