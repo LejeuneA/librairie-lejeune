@@ -114,9 +114,8 @@
   }
 
   // Responsive styles for login page
-  @media (min-width: 320px) and (max-width: 768px) {
+  @media (min-width: 320px) and (max-width: 1199px) {
     padding: 2em;
-    height: auto;
 
     .login-title {
       h1 {
