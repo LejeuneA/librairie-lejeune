@@ -719,8 +719,10 @@ function generateLivreHTML($livre)
     $price = isset($livre['price']) ? $livre['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    $html .= '<input type="hidden" name="idLivre" value="' . $livre['idLivre'] . '">';
-    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '<input type="hidden" name="productId" value="' . $livre['idLivre'] . '">';
+    $html .= '<input type="hidden" name="productType" value="livre">';
+    $html .= '<input type="hidden" name="action" value="add">';
+    $html .='<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     $html .= '</form>';
     $html .= '</div>';
 
@@ -776,8 +778,10 @@ function generatePapeterieHTML($papeterie)
     $price = isset($papeterie['price']) ? $papeterie['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    $html .= '<input type="hidden" name="idPapeterie" value="' . $papeterie['idPapeterie'] . '">';
-    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '<input type="hidden" name="productId" value="' . $papeterie['idPapeterie'] . '">';
+    $html .= '<input type="hidden" name="productType" value="papeterie">';
+    $html .= '<input type="hidden" name="action" value="add">';
+    $html .='<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     $html .= '</form>';
     $html .= '</div>';
 
@@ -833,8 +837,10 @@ function generateCadeauHTML($cadeau)
     $price = isset($cadeau['price']) ? $cadeau['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    $html .= '<input type="hidden" name="idCadeau" value="' . $cadeau['idCadeau'] . '">';
-    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '<input type="hidden" name="productId" value="' . $cadeau['idCadeau'] . '">';
+    $html .= '<input type="hidden" name="productType" value="cadeau">';
+    $html .= '<input type="hidden" name="action" value="add">';
+    $html .='<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     $html .= '</form>';
     $html .= '</div>';
 
