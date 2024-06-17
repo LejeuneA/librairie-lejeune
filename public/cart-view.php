@@ -13,7 +13,7 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 // Ensure each cart item has a quantity
 foreach ($cart as $productId => $item) {
     if (!isset($cart[$productId]['quantity'])) {
-        $cart[$productId]['quantity'] = 1; // Default quantity if not set
+        $cart[$productId]['quantity'] = 1; 
     }
 }
 ?>
