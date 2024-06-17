@@ -718,7 +718,10 @@ function generateLivreHTML($livre)
     // Check if 'price' key is set before accessing it
     $price = isset($livre['price']) ? $livre['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    $html .= '<input type="hidden" name="idLivre" value="' . $livre['idLivre'] . '">';
+    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '</form>';
     $html .= '</div>';
 
     $html .= '</article>';
@@ -772,7 +775,10 @@ function generatePapeterieHTML($papeterie)
     // Check if 'price' key is set before accessing it
     $price = isset($papeterie['price']) ? $papeterie['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    $html .= '<input type="hidden" name="idPapeterie" value="' . $papeterie['idPapeterie'] . '">';
+    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '</form>';
     $html .= '</div>';
 
     $html .= '</article>';
@@ -826,7 +832,10 @@ function generateCadeauHTML($cadeau)
     // Check if 'price' key is set before accessing it
     $price = isset($cadeau['price']) ? $cadeau['price'] . ' €' : 'Prix non disponible';
     $html .= '<p>' . $price . ' <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
-    $html .= '<a href="#" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>';
+    $html .= '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
+    $html .= '<input type="hidden" name="idCadeau" value="' . $cadeau['idCadeau'] . '">';
+    $html .= '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
+    $html .= '</form>';
     $html .= '</div>';
 
     $html .= '</article>';
