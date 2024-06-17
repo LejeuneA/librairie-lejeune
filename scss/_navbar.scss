@@ -225,6 +225,10 @@
 
         @include hover("background-color", $primary-red, "color", $light-blue);
       }
+
+      a{
+        padding: 0.5em 1em;
+      }
     }
 
     a {
