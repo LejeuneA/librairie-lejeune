@@ -848,14 +848,13 @@ function generateCadeauHTML($cadeau)
 /**-----------------------------------------------------------------
              Affiche le livre reçu en paramètre
  *------------------------------------------------------------------**/
-
 /**
  * Affiche le livre reçu en paramètre
  * 
  * @param mixed $livre 
  * @return void 
  */
-function displayLivreByID($livre)
+ function displayLivreByID($livre)
 {
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
@@ -870,7 +869,9 @@ function displayLivreByID($livre)
     echo '<div class="product-price">';
     echo '<p>' . $livre['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    echo '<input type="hidden" name="idLivre" value="' . $livre['idLivre'] . '">';
+    echo '<input type="hidden" name="productId" value="' . $livre['idLivre'] . '">';
+    echo '<input type="hidden" name="productType" value="livre">';
+    echo '<input type="hidden" name="action" value="add">';
     echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     echo '</form>';
     echo '</div>';
@@ -892,16 +893,15 @@ function displayLivreByID($livre)
 }
 
 
-
 /**
- * Affiche la papeterie reçu en paramètre
+ * Affiche le papeterie reçu en paramètre
  * 
  * @param mixed $papeterie
  * @return void 
  */
 function displayPapeterieByID($papeterie)
 {
-    echo '<main>';
+
     echo '<section class="product-container container">';
     echo '<div class="product-info-container">';
     echo '<div class="product-img">';
@@ -910,11 +910,14 @@ function displayPapeterieByID($papeterie)
     echo '<div class="product-info">';
     echo '<div>';
     echo '<h2>' . $papeterie['title'] . '</h2>';
+    echo '<p>'  . $papeterie['feature'] . '</p>';
     echo '</div>';
     echo '<div class="product-price">';
     echo '<p>' . $papeterie['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    echo '<input type="hidden" name="idPapeterie" value="' . $papeterie['idPapeterie'] . '">';
+    echo '<input type="hidden" name="productId" value="' . $papeterie['idPapeterie'] . '">';
+    echo '<input type="hidden" name="productType" value="papeterie">';
+    echo '<input type="hidden" name="action" value="add">';
     echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     echo '</form>';
     echo '</div>';
@@ -932,13 +935,14 @@ function displayPapeterieByID($papeterie)
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($papeterie['content']) . '</p>';
     echo '</div>';
+    echo '</section>';
 }
 
 
 /**
  * Affiche le cadeau reçu en paramètre
  * 
- * @param mixed $papeterie
+ * @param mixed $cadeau
  * @return void 
  */
 function displayCadeauByID($cadeau)
@@ -955,7 +959,9 @@ function displayCadeauByID($cadeau)
     echo '<div class="product-price">';
     echo '<p>' . $cadeau['price'] . ' € <span><i class="fas fa-truck"></i> Livraison 1 à 2 semaines</span><span><i class="fas fa-receipt"></i> Retrait en magasin dans 2 h.</span></p>';
     echo '<form action="'.DOMAIN. '/public/cart.php" method="POST">';
-    echo '<input type="hidden" name="idCadeau" value="' . $cadeau['idCadeau'] . '">';
+    echo '<input type="hidden" name="productId" value="' . $cadeau['idCadeau'] . '">';
+    echo '<input type="hidden" name="productType" value="cadeau">';
+    echo '<input type="hidden" name="action" value="add">';
     echo '<button type="submit" class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>';
     echo '</form>';
     echo '</div>';
@@ -973,8 +979,8 @@ function displayCadeauByID($cadeau)
     echo '<h2>Description</h2>';
     echo '<p>' . htmlspecialchars_decode($cadeau['content']) . '</p>';
     echo '</div>';
+    echo '</section>';
 }
-
 
 
 /**-----------------------------------------------------------------
