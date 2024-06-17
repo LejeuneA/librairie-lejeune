@@ -216,14 +216,14 @@
       }
 
       .btn-search {
-        background-color: $primary-blue;
+        background-color: $secondary-blue;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
         color: $light-blue;
         padding: 0.3rem 0.5rem;
         cursor: pointer;
 
-        @include hover("background-color", $secondary-blue, "color", $light-blue);
+        @include hover("background-color", $primary-red, "color", $light-blue);
       }
     }
 
