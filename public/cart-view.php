@@ -3,18 +3,49 @@ require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+	header('Location: login.php');
+	exit();
 }
 
 // Get the cart from the session
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
+// Handle cart actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$productId = $_POST['productId'];
+	$action = $_POST['action'];
+
+	if (isset($cart[$productId])) {
+		switch ($action) {
+			case 'increase':
+				$cart[$productId]['quantity']++;
+				break;
+			case 'decrease':
+				if ($cart[$productId]['quantity'] > 1) {
+					$cart[$productId]['quantity']--;
+				} else {
+					unset($cart[$productId]);
+				}
+				break;
+			case 'remove':
+				unset($cart[$productId]);
+				break;
+		}
+	}
+
+	// Update the cart in the session
+	$_SESSION['cart'] = $cart;
+
+	// Redirect back to the cart view to avoid form resubmission
+	header('Location: cart-view.php');
+	exit();
+}
+
 // Ensure each cart item has a quantity
 foreach ($cart as $productId => $item) {
-    if (!isset($cart[$productId]['quantity'])) {
-        $cart[$productId]['quantity'] = 1; 
-    }
+	if (!isset($cart[$productId]['quantity'])) {
+		$cart[$productId]['quantity'] = 1;
+	}
 }
 ?>
 
@@ -22,11 +53,11 @@ foreach ($cart as $productId => $item) {
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('Panier d\'achat'); ?>
+	<?php displayHeadSection('Panier d\'achat'); ?>
 </head>
 
 <body>
-<header>
+	<header>
 		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
@@ -201,70 +232,71 @@ foreach ($cart as $productId => $item) {
     	--------------------------------------------------------------->
 	</header>
 
-    <main class="cart-container">
-        <h1>Votre Panier</h1>
-        <?php if (empty($cart)): ?>
-            <p>Votre panier est vide.</p>
-        <?php else: ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Prix</th>
-                        <th>Quantité</th>
-                        <th>Total</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($cart as $productId => $item): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($item['title']) ?></td>
-                            <td><?= htmlspecialchars($item['price']) ?> €</td>
-                            <td><?= htmlspecialchars($item['quantity']) ?></td>
-                            <td><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
-                            <td>
-                                <form method="post" action="cart.php">
-                                    <input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
-                                    <button type="submit" name="action" value="increase">+</button>
-                                    <button type="submit" name="action" value="decrease">-</button>
-                                    <button type="submit" name="action" value="remove">Supprimer</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">Total</td>
-                        <td>
-                            <?php
-                            $total = array_sum(array_map(function($item) {
-                                return $item['price'] * $item['quantity'];
-                            }, $cart));
-                            echo htmlspecialchars($total) . ' €';
-                            ?>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        <?php endif; ?>
-    </main>
+	<main class="cart-container">
+		<h1>Votre Panier</h1>
+		<?php if (empty($cart)) : ?>
+			<p>Votre panier est vide.</p>
+		<?php else : ?>
+			<table>
+				<thead>
+					<tr>
+						<th>Produit</th>
+						<th>Prix</th>
+						<th>Quantité</th>
+						<th>Total</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($cart as $productId => $item) : ?>
+						<tr>
+							<td><?= htmlspecialchars($item['title']) ?></td>
+							<td><?= htmlspecialchars($item['price']) ?> €</td>
+							<td><?= htmlspecialchars($item['quantity']) ?></td>
+							<td><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
+							<td>
+								<form method="post" action="cart.php">
+									<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
+									<button type="submit" name="action" value="increase">+</button>
+									<button type="submit" name="action" value="decrease">-</button>
+									<button type="submit" name="action" value="remove">Supprimer</button>
+								</form>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3">Total</td>
+						<td>
+							<?php
+							$total = array_sum(array_map(function ($item) {
+								return $item['price'] * $item['quantity'];
+							}, $cart));
+							echo htmlspecialchars($total) . ' €';
+							?>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		<?php endif; ?>
+	</main>
 
-    <!-----------------------------------------------------------------
+	<!-----------------------------------------------------------------
                                 Footer
         ------------------------------------------------------------------>
-		<footer>
-			<div data-include="footer"></div>
-		</footer>
-		<!-----------------------------------------------------------------
+	<footer>
+		<div data-include="footer"></div>
+	</footer>
+	<!-----------------------------------------------------------------
                             Footer end
         ------------------------------------------------------------------>
 
-		<!-- Font Awesome -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- Font Awesome -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-		<!-- Include functions.js -->
-		<script src="../js/functions.js"></script>
+	<!-- Include functions.js -->
+	<script src="../js/functions.js"></script>
 </body>
+
 </html>
