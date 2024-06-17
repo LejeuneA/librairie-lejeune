@@ -7,41 +7,66 @@ if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
     exit();
 }
 
+// Initialize the cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
 // Get the cart from the session
-$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+$cart = &$_SESSION['cart']; // Use reference to directly modify session cart
 
 // Handle cart actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action']) && isset($_POST['productId'])) {
+    if (isset($_POST['action'])) {
         $action = $_POST['action'];
-        $productId = $_POST['productId'];
-        
-        // Ensure the product exists in the cart and has a quantity
-        if (!isset($cart[$productId])) {
-            $cart[$productId] = ['quantity' => 0]; 
-        }
-        if (!isset($cart[$productId]['quantity'])) {
-            $cart[$productId]['quantity'] = 1;
-        }
-        
-        switch ($action) {
-            case 'increase':
-                $cart[$productId]['quantity']++;
-                break;
-            case 'decrease':
-                if ($cart[$productId]['quantity'] > 1) {
-                    $cart[$productId]['quantity']--;
-                }
-                break;
-            case 'remove':
-                unset($cart[$productId]);
-                break;
-        }
-    }
-    // Update the cart in the session
-    $_SESSION['cart'] = $cart;
+        $productId = $_POST['productId'] ?? null;
+        $productType = $_POST['productType'] ?? null;
 
-    // Redirect to avoid form resubmission
-    header('Location: cart-view.php');
-    exit();
+        if ($productId && $productType) {
+            switch ($action) {
+                case 'add':
+                    $product = getProductById($productId, $productType, $conn);
+                    if ($product) {
+                        if (isset($cart[$productId])) {
+                            $cart[$productId]['quantity']++;
+                        } else {
+                            $cart[$productId] = [
+                                'id' => $product['id'],
+                                'title' => $product['title'],
+                                'price' => $product['price'],
+                                'quantity' => 1,
+                                'type' => $productType
+                            ];
+                        }
+                    }
+                    break;
+                case 'increase':
+                    if (isset($cart[$productId])) {
+                        $cart[$productId]['quantity']++;
+                    }
+                    break;
+                case 'decrease':
+                    if (isset($cart[$productId])) {
+                        if ($cart[$productId]['quantity'] > 1) {
+                            $cart[$productId]['quantity']--;
+                        } else {
+                            unset($cart[$productId]);
+                        }
+                    }
+                    break;
+                case 'delete':
+                    if (isset($cart[$productId])) {
+                        unset($cart[$productId]);
+                    }
+                    break;
+            }
+        }
+
+        // Update the cart in the session
+        $_SESSION['cart'] = $cart;
+
+        // Redirect to avoid form resubmission
+        header('Location: cart-view.php');
+        exit();
+    }
 }
