@@ -80,30 +80,6 @@ section {
   }
 }
 
-.btn-cart {
-  @include d-flex(inline-flex, center, center, row, center);
-  @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
-  padding: 0.5em 1em;
-  color: $light-blue;
-  border: none;
-  border-radius: 0.25rem;
-  text-decoration: none;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-
-  i.fa-cart-shopping {
-    font-size: 1.5em;
-    margin-right: 0.5em;
-  }
-
-  @media (min-width: 320px) and (max-width: 1999px) {
-    @include button-style($secondary-blue, $primary-blue, $primary-red, $light-blue);
-    margin: 1em;
-    text-align: center;
-    border-radius: 5px;
-  }
-}
 
 /* -------------------------------------------------------
                   Responsive styles
