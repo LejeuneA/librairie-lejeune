@@ -156,7 +156,6 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
 			<!-- Shopping cart end -->
 
-
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a class="nav-link" href="../index.php">Accueil</a>
