@@ -39,6 +39,7 @@ if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
                                Header
     ------------------------------------------------------------------>
 	<header>
+
 		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
@@ -96,6 +97,10 @@ if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
 					?>
 					<!-- Customer button end -->
 
+					<!-- Shopping cart -->
+					<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+					<!-- Shopping cart end -->
+
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
 						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
@@ -147,6 +152,11 @@ if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
 			</form>
 			<!-- Search end -->
 
+			<!-- Shopping cart -->
+			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+			<!-- Shopping cart end -->
+
+
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 			<a class="nav-link" href="../index.php">Accueil</a>
@@ -168,10 +178,6 @@ if (isset($_GET['idPapeterie']) && !empty($_GET['idPapeterie'])) {
 			}
 			?>
 			<!-- Customer button end -->
-
-			<!-- Shopping cart -->
-			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
-			<!-- Shopping cart end -->
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
