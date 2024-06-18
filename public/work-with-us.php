@@ -33,6 +33,7 @@ require_once('../admin/settings.php');
                                Header
     ------------------------------------------------------------------>
     <header>
+
         <!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
@@ -144,6 +145,11 @@ require_once('../admin/settings.php');
                 </div>
             </form>
             <!-- Search end -->
+
+            <!-- Shopping cart -->
+            <a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            <!-- Shopping cart end -->
+
 
             <!-- Menu -->
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
