@@ -232,54 +232,57 @@ foreach ($cart as $productId => $item) {
     	--------------------------------------------------------------->
 	</header>
 
-	<main class="cart-container">
-		<h1>Votre Panier</h1>
-		<?php if (empty($cart)) : ?>
-			<p>Votre panier est vide.</p>
-		<?php else : ?>
-			<table>
-				<thead>
-					<tr>
-						<th>Produit</th>
-						<th>Prix</th>
-						<th>Quantité</th>
-						<th>Total</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($cart as $productId => $item) : ?>
+	<main>
+		<div class="table-cart container">
+			<h1>Votre Panier</h1>
+			<?php if (empty($cart)) : ?>
+				<p>Votre panier est vide.</p>
+			<?php else : ?>
+
+				<table>
+					<thead>
 						<tr>
-							<td><?= htmlspecialchars($item['title']) ?></td>
-							<td><?= htmlspecialchars($item['price']) ?> €</td>
-							<td><?= htmlspecialchars($item['quantity']) ?></td>
-							<td><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
+							<th>Produit</th>
+							<th>Prix</th>
+							<th>Quantité</th>
+							<th>Total</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($cart as $productId => $item) : ?>
+							<tr>
+								<td data-cell="produit"><?= htmlspecialchars($item['title']) ?></td>
+								<td data-cell="prix"><?= htmlspecialchars($item['price']) ?> €</td>
+								<td data-cell="quantité"><?= htmlspecialchars($item['quantity']) ?></td>
+								<td data-cell="total"><?= htmlspecialchars($item['price'] * $item['quantity']) ?> €</td>
+								<td data-cell="actions">
+									<form method="post" action="cart-view.php">
+										<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
+										<button type="submit" name="action" value="increase">+</button>
+										<button type="submit" name="action" value="decrease">-</button>
+										<button type="submit" name="action" value="remove">Supprimer</button>
+									</form>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3">Total</td>
 							<td>
-								<form method="post" action="cart-view.php">
-									<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
-									<button type="submit" name="action" value="increase">+</button>
-									<button type="submit" name="action" value="decrease">-</button>
-									<button type="submit" name="action" value="remove">Supprimer</button>
-								</form>
+								<?php
+								$total = array_sum(array_map(function ($item) {
+									return $item['price'] * $item['quantity'];
+								}, $cart));
+								echo htmlspecialchars($total) . ' €';
+								?>
 							</td>
 						</tr>
-					<?php endforeach; ?>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="3">Total</td>
-						<td>
-							<?php
-							$total = array_sum(array_map(function ($item) {
-								return $item['price'] * $item['quantity'];
-							}, $cart));
-							echo htmlspecialchars($total) . ' €';
-							?>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		<?php endif; ?>
+					</tfoot>
+				</table>
+		</div>
+	<?php endif; ?>
 	</main>
 
 	<!-----------------------------------------------------------------
