@@ -75,6 +75,24 @@
       }
     }
 
+    .btn-cart {
+      @include d-flex(flex, center, center, row, center);
+      @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
+      padding: 0.5em 1em;
+      color: $light-blue;
+      border: none;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+
+      i {
+        font-size: 1.5em;
+        margin-right: 0.5em;
+      }
+    }
+
     // Login button
     .btn-primary {
       @include hover("background-color", $secondary-blue, "color", $light-blue);
@@ -85,7 +103,7 @@
       color: $primary-blue;
       @include hover("background-color", transparent, "color", $primary-red);
 
-      a{
+      a {
         margin-left: 0.5em;
       }
     }
@@ -154,7 +172,7 @@
 
 /* Media queries for xs, sm, and md screens */
 @media (min-width: 320px) and (max-width: 1199px) {
-/* -------------------------------------------------------
+  /* -------------------------------------------------------
                    Offcanvas menu
 ---------------------------------------------------------*/
   .navbar-hamburger {
@@ -172,6 +190,8 @@
   }
 
   .sidenav {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 0;
     position: fixed;
@@ -225,10 +245,14 @@
 
         @include hover("background-color", $primary-red, "color", $light-blue);
       }
+    }
 
-      a{
-        padding: 0.5em 1em;
-      }
+    .btn-cart {
+      @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
+      text-align: center;
+      border-radius: 5px;
+      padding: 0.5em 1em;
+      margin: 1em 1em 2em;
     }
 
     a {
