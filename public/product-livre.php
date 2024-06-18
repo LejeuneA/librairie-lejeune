@@ -39,6 +39,7 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
                                Header
     ------------------------------------------------------------------>
 	<header>
+
 		<!-----------------------------------------------------------------
                                Navigation
     	------------------------------------------------------------------>
@@ -150,6 +151,11 @@ if (isset($_GET['idLivre']) && !empty($_GET['idLivre'])) {
 				</div>
 			</form>
 			<!-- Search end -->
+
+			<!-- Shopping cart -->
+			<a href="<?php echo DOMAIN; ?>/public/cart-view.php" class="btn-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+			<!-- Shopping cart end -->
+
 
 			<!-- Menu -->
 			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
