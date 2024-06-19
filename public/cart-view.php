@@ -259,9 +259,9 @@ foreach ($cart as $productId => $item) {
 								<td data-cell="actions">
 									<form method="post" action="cart-view.php">
 										<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
-										<button type="submit" name="action" value="increase">+</button>
-										<button type="submit" name="action" value="decrease">-</button>
-										<button type="submit" name="action" value="remove">Supprimer</button>
+										<button class="btn-secondary" type="submit" name="action" value="increase">+</button>
+										<button class="btn-secondary" type="submit" name="action" value="decrease">-</button>
+										<button class="btn-primary" type="submit" name="action" value="remove">Supprimer</button>
 									</form>
 								</td>
 							</tr>
