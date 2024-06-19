@@ -329,7 +329,7 @@ require_once('../admin/settings.php');
 				<!-- Button -->
 				<div class="contact-button">
 					<div class="form-group">
-						<input type="submit" value="Make a contact" class="btn-secondary">
+						<input type="submit" value="Prendre contact" class="btn-secondary">
 					</div>
 				</div>
 				<!-- Button end -->
