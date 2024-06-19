@@ -75,6 +75,10 @@
       }
     }
 
+    .nav-message{
+      @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
+    }
+
     .btn-cart {
       @include d-flex(flex, center, center, row, center);
       @include button-style($primary-blue, $light-blue, $primary-red, $light-blue);
@@ -144,11 +148,7 @@
 
   // Navbar Nav
   .navbar-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
+    @include d-flex(flex, center, center, row, center);
     .nav-item {
       margin-right: 2em;
 
@@ -247,7 +247,8 @@
       }
     }
 
-    .btn-cart {
+    .btn-cart,
+    .nav-message{
       @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
       text-align: center;
       border-radius: 5px;
