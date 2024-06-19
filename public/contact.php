@@ -275,35 +275,65 @@ require_once('../admin/settings.php');
 			<div class="contact-title">
 				<h1>Contactez-nous</h1>
 			</div>
-			<!-- Contact form -->
-			<form action="/action_page.php">
-				<label for="fname">Prénom</label>
-				<input type="text" id="fname" name="firstname" placeholder="Votre prénom...">
 
-				<label for="lname">Nom</label>
-				<input type="text" id="lname" name="lastname" placeholder="Votre nom...">
-
-				<label for="country">Pay</label>
-				<select id="country" name="country">
-					<option value="australia">Belgique</option>
-					<option value="canada">France</option>
-					<option value="usa">Angleterre</option>
-				</select>
-
-				<label for="subject">Message</label>
-				<textarea id="subject" name="subject" placeholder="Rédiger votre message..." style="height:200px"></textarea>
-				<!-- Checkbox -->
-				<div class="checkbox">
-					<input type="checkbox" id="cgu" name="cgu" required>
-					<label for="cgu">J'accepte les condition générales d'utilisation</label>
+			<?php if (isset($_GET['success'])) : ?>
+				<div class="msg-success">
+					<p>Message sent!</p>
 				</div>
-				<!-- Checkbox end -->
+			<?php endif; ?>
+
+
+			<!-- Contact form -->
+			<form action="../datas/contact.php" method="post">
+				<div class="contact-form-container">
+					<div class="contact-form-items">
+						<div class="contact-form-item">
+							<div class="form-group">
+								<label for="firstName">Prénom</label>
+								<input type="text" class="form-control" name="firstName" placeholder="Entrez votre prénom">
+							</div>
+						</div>
+						<div class="contact-form-item">
+							<div class="form-group">
+								<label for="lastName">Nom</label>
+								<input type="text" class="form-control" name="lastName" placeholder="Entrez votre nom">
+							</div>
+						</div>
+						<div class="contact-form-item">
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="text" class="form-control" name="email" placeholder="Entrez votre email">
+							</div>
+						</div>
+						<!-- Contact form item end -->
+					</div>
+					<!-- Contact form items end -->
+					<div class="contact-form-items">
+						<div class="contact-form-item">
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								<input type="text" class="form-control" name="phone" placeholder="Entrez votre numéro de téléphone">
+							</div>
+						</div>
+						<div class="contact-form-item">
+							<div class="form-group">
+								<label for="message">Message</label>
+								<textarea type="text" id="form-message" name="message" placeholder="Entrez votre message"></textarea>
+							</div>
+						</div>
+						<!-- Contact form item end -->
+					</div>
+					<!--Contact form items end-->
+				</div>
+				<!-- Contact form container end -->
 				<!-- Button -->
-				<input type="reset" value="Réinitialiser">
-				<input type="submit" value="Envoyer">
+				<div class="contact-button">
+					<div class="form-group">
+						<input type="submit" value="Make a contact" class="btn-secondary">
+					</div>
+				</div>
 				<!-- Button end -->
 			</form>
-
 			<!-- Contact form end -->
 		</section>
 		<!-- Contact section end -->
