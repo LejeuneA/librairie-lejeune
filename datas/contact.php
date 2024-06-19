@@ -1,6 +1,6 @@
 <?php
 
-const DOMAIN = 'http://localhost/restaurant-pistache/';
+const DOMAIN = 'http://localhost/librairie-lejeune/';
 
 $firstName = isset($_POST['firstName']) ? $_POST['firstName'] : null;
 $lastName = isset($_POST['lastName']) ? $_POST['lastName'] : null;
@@ -14,7 +14,7 @@ if (!$firstName || !$lastName || !$email || !$phone || !$message) {
 }
 
 // Database connection
-$conn = new mysqli('localhost', 'root', '@NtLYa130580', 'restaurant-pistache');
+$conn = new mysqli('localhost', 'root', '@NtLYa130580', 'librairie_lejeune');
 if ($conn->connect_error) {
     die('Connection Failed: ' . $conn->connect_error);
 } else {
