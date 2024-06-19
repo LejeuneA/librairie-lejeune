@@ -169,6 +169,11 @@ function displayNavigation()
 					</form>
 				<!-- Search end -->
 
+                <!-- My messages --> 
+                <a class="nav-message" href="../admin/manager-messages.php"><i class="fa-solid fa-envelope"></i>
+                <span> Mes messages</span></a>
+                <!-- My messages end --> 
+
                 <!-- Login button -->
                 <a href="logoff.php" class="btn-primary">Déconnexion</a>
                 <!-- Login button end -->
@@ -218,6 +223,11 @@ function displayNavigation()
                 </div>
             </form>
         <!-- Search end -->
+
+        <!-- My messages --> 
+        <a class="nav-message" href="../admin/manager-messages.php"><i class="fa-solid fa-envelope"></i>
+        <span> Mes messages</span></a>
+        <!-- My messages end --> 
 
         <!-- Menu -->
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -1242,6 +1252,50 @@ function displayCadeauxAsTable($cadeaux)
         echo '<button class="btn-secondary" onclick="modifierCadeau(' . $cadeau['idCadeau'] . ')">Modifier</button>';
         echo '<button class="btn-secondary" onclick="afficherCadeau(' . $cadeau['idCadeau'] . ')">Afficher</button>';
         echo '<button class="btn-primary" onclick="supprimerCadeau(' . $cadeau['idCadeau'] . ')">Supprimer</button>';
+        echo '</td>';
+        echo '</tr>';
+    }
+
+    // End the table
+    echo '</table>';
+}
+
+
+
+/**-----------------------------------------------------------------
+    Displays the messages for the manager's page in table form
+ *------------------------------------------------------------------**/
+/**
+ * Displays the messages for the manager's page in table form
+ * 
+ * @param array $messages
+ * @return void
+ */
+function displayMessagesAsTable($messages)
+{
+    // Start the table
+    echo '<table>';
+
+    // Table headers
+    echo '<tr>';
+    echo '<th>Nom</th>';
+    echo '<th>Prénom</th>';
+    echo '<th>Email</th>';
+    echo '<th>Phone</th>';
+    echo '<th>Message</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+
+    // Table data
+    foreach ($messages as $message) {
+        echo '<tr>';
+        echo '<td data-cell="nom">' . htmlspecialchars($message['lastname']) . '</td>';
+        echo '<td data-cell="prenom">' . htmlspecialchars($message['firstname']) . '</td>';
+        echo '<td data-cell="email">' . htmlspecialchars($message['email']) . '</td>';
+        echo '<td data-cell="phone">' . htmlspecialchars($message['phone']) . '</td>';
+        echo '<td data-cell="message">' . htmlspecialchars($message['message']) . '</td>';
+        echo '<td>';
+        echo '<button class="btn-primary" onclick="deleteMessage(' . htmlspecialchars($message['idContact']) . ')">Supprimer</button>';
         echo '</td>';
         echo '</tr>';
     }
