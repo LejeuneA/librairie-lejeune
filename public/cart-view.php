@@ -259,8 +259,10 @@ foreach ($cart as $productId => $item) {
 								<td data-cell="actions">
 									<form method="post" action="cart-view.php">
 										<input type="hidden" name="productId" value="<?= htmlspecialchars($productId) ?>">
-										<button class="btn-secondary" type="submit" name="action" value="increase">+</button>
-										<button class="btn-secondary" type="submit" name="action" value="decrease">-</button>
+										<div class="btn-ctrl">
+											<button class="btn-secondary" type="submit" name="action" value="increase">+</button>
+											<button class="btn-secondary" type="submit" name="action" value="decrease">-</button>
+										</div>
 										<button class="btn-primary" type="submit" name="action" value="remove">Supprimer</button>
 									</form>
 								</td>
@@ -278,6 +280,7 @@ foreach ($cart as $productId => $item) {
 								echo htmlspecialchars($total) . ' €';
 								?>
 							</td>
+							<td></td>
 						</tr>
 					</tfoot>
 				</table>
