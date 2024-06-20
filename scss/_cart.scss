@@ -26,6 +26,10 @@
 
             &:nth-child(even) {
                 background-color: $light-blue;
+
+                &:hover {
+                    background-color: $light-blue;
+                }
             }
 
             &:first-child {
@@ -42,7 +46,7 @@
             }
 
             &:hover {
-                background-color: $tertiary-blue;
+                background-color: transparent;
             }
 
             th {
@@ -70,11 +74,11 @@
                 }
 
                 &:nth-child(3) {
-                    width: 10%;
+                    width: 5%;
                 }
 
                 &:nth-child(4) {
-                    width: 10%;
+                    width: 20%;
                 }
 
                 &:nth-child(5) {
@@ -91,34 +95,156 @@
                     font-size: 1em;
                 }
 
-                .btn-primary {
-                    @include button-style($primary-red, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.3em;
-                    width: 7em;
-                }
+                form {
+                    @include d-flex(flex, center, center, row, center);
+                    .btn-primary {
+                        @include button-style($primary-red, $light-blue, $secondary-blue, $light-blue);
+                        margin: 0.3em;
+                        width: 7em;
+                    }
 
-                .btn-secondary {
-                    @include button-style($primary-blue, $light-blue, $secondary-blue, $light-blue);
-                    margin: 0.3em;
-                    width: 4em;
+                    .btn-ctrl {
+                        .btn-secondary {
+                            @include button-style($primary-blue, $light-blue, $secondary-blue, $light-blue);
+                            margin: 0.3em;
+                            width: 4em;
+                        }
+                    }
                 }
             }
         }
 
-        tfoot{
-            padding: 2em;
-            tr{
+        tfoot {
+            &:hover {
+                background-color: $primary-blue;
+            }
+
+            td {
+                padding: 1em;
+            }
+
+            tr {
                 font-size: 1.2em;
                 font-weight: 600;
-                background-color: $secondary-blue;
-                padding: 2em;
+                background-color: $primary-blue;
                 margin-top: 1em;
+                color: $light-blue;
             }
         }
     }
 
     // Responsive styles for table
     @media (min-width: 320px) and (max-width: 768px) {
+        @include d-flex(flex, center, center, column, center);
+        height: auto;
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        table {
+            border: 0;
+
+            tr {
+                border: 0;
+                display: block;
+                padding: 1em;
+
+                &:nth-child(even) {
+                    background-color: transparent;
+                }
+
+                &:hover {
+                    background-color: transparent;
+                }
+
+                th {
+                    display: none;
+                }
+
+                td {
+                    display: block;
+                    font-size: 1em;
+                    text-align: right;
+                    background-color: $light-blue;
+                    padding: 1em;
+
+                    &:before {
+                        content: attr(data-cell);
+                        float: left;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+
+                    &:nth-child(even) {
+                        background-color: $tertiary-blue;
+                    }
+
+                    &:nth-child(1) {
+                        background-color: $primary-blue;
+                        color: $light-blue;
+                    }
+
+                    &:nth-child(4) {
+                        font-size: 1em;
+                    }
+
+                    &:first-child {
+                        border-top-left-radius: 1em;
+                        border-top-right-radius: 1em;
+                    }
+
+                    &:last-child {
+                        background-color: $primary-blue;
+                        text-align: center;
+                        border-bottom-left-radius: 1em;
+                        border-bottom-right-radius: 1em;
+                    }
+
+                    form {
+                        @include d-flex(flex, center, center, column, center);
+                        width: 100%;
+
+                        .btn-primary {
+                            width: 15em;
+                        }
+
+                        .btn-ctrl {
+                            @include d-flex(flex, center, center, row, center);
+                            width: 100%;
+
+                            .btn-secondary {
+                                @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
+                                margin: 0.3em;
+                                width: 7em;
+                            }
+                        }
+                    }
+                }
+            }
+
+            tfoot {
+                &:hover {
+                    background-color: transparent;
+                }
+
+                td {
+                    padding: 0.5em 2em;
+                }
+
+                tr {
+                    font-size: 1.2em;
+                    font-weight: 600;
+                    background-color: transparent;
+                    margin-top: 1em;
+                    color: $primary-blue;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1245px) {
         @include d-flex(flex, center, center, column, center);
         height: auto;
         h1 {
@@ -184,41 +310,41 @@
                         border-bottom-right-radius: 1em;
                     }
 
-                    form{
-                        @include d-flex(flex, center, center, column, center);
+                    form {
+                        @include d-flex(flex, center, center, row, center);
                         width: 100%;
 
                         .btn-primary {
                             width: 15em;
                         }
-    
-                        .btn-secondary {
-                            @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
-                            margin: 0.3em;
-                            width: 15em;
+
+                        .btn-ctrl {
+                            .btn-secondary {
+                                @include button-style($secondary-blue, $light-blue, $primary-red, $light-blue);
+                                margin: 0.3em;
+                                width: 7em;
+                            }
                         }
                     }
-
                 }
             }
 
-            tfoot{
-
-                td{
-                    display: block;
-                    font-size: 1em;
-                    text-align: center;
-                    background-color: $light-blue;
-                    padding: 0;
+            tfoot {
+                &:hover {
+                    background-color: transparent;
                 }
-                
-                tr{
+
+                td {
+                    padding: 0.5em 2em;
+                }
+
+                tr {
                     font-size: 1.2em;
                     font-weight: 600;
                     background-color: transparent;
-                    padding: 0.7em;
-                    margin-top: 0;
-                    color: $light-blue;
+                    margin-top: 1em;
+                    color: $primary-blue;
+                    margin: 0;
                 }
             }
         }
