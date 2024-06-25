@@ -79,9 +79,7 @@ require_once('../admin/settings.php');
 
                     <!-- Customer button -->
                     <?php
-                    if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-                        echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
-                    } elseif (isset($_SESSION['user_permission'])) {
+                    if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY'] && isset($_SESSION['user_permission'])) {
                         if ($_SESSION['user_permission'] == 1) {
                             echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
                         } elseif ($_SESSION['user_permission'] == 2) {
@@ -97,9 +95,9 @@ require_once('../admin/settings.php');
 
                     <!-- Login button -->
                     <?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
-                        <a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+                        <a href="<?php echo DOMAIN; ?>/admin/login.php" class="btn-primary">Se connecter</a>
                     <?php else : ?>
-                        <a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+                        <a href="<?php echo DOMAIN; ?>/admin/logoff.php" class="btn-primary">Déconnexion</a>
                     <?php endif; ?>
                     <!-- Login button end -->
 
@@ -161,9 +159,7 @@ require_once('../admin/settings.php');
 
             <!-- Customer button -->
             <?php
-            if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-                echo '<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>';
-            } elseif (isset($_SESSION['user_permission'])) {
+            if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY'] && isset($_SESSION['user_permission'])) {
                 if ($_SESSION['user_permission'] == 1) {
                     echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
                 } elseif ($_SESSION['user_permission'] == 2) {

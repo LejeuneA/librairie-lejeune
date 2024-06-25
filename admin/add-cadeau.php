@@ -12,7 +12,7 @@ $msg = null;
 $tinyMCE = true;
 $execute = false;
 
-// Check the database connection
+
 // Check the database connection
 if (!is_object($conn)) {
     $msg = getMessage($conn, 'error');
