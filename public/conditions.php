@@ -69,7 +69,7 @@ require_once('../admin/settings.php');
                     <!-- Social icons end -->
 
                     <!-- Search -->
-                    <form class="search" role="search" action="./admin/search.php" method="GET">
+                    <form class="search" role="search" action="../admin/search.php" method="GET">
                         <div class="search-group">
                             <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?" aria-label="Search">
                             <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
