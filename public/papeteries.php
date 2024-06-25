@@ -2,10 +2,10 @@
 require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
 
 // Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-	header('Location: login.php');
-	exit();
-}
+// if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
+// 	header('Location: login.php');
+// 	exit();
+// }
 
 $msg = null;
 $result = null;
