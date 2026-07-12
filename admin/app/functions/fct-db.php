@@ -27,7 +27,7 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
         return $conn;
     } catch (PDOException $e) {
         (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error : Database connexion";
-        return $e;
+        return $st;
     }
 }
 

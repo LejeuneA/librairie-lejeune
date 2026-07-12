@@ -1,9 +1,9 @@
 <?php
 
-// Définition des constantes de connexion sur le serveur local (xampp)
-const SERVER_NAME = 'localhost';
-const USER_NAME = 'root';
-const USER_PWD = '@NtLYa130580';
-const DB_NAME = 'librairie_lejeune';
-
+// Production can provide these values as environment variables.
+// The fallback values preserve the existing local XAMPP configuration.
+define('SERVER_NAME', getenv('DB_HOST') ?: 'localhost');
+define('USER_NAME', getenv('DB_USER') ?: 'root');
+define('USER_PWD', getenv('DB_PASSWORD') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'librairie_lejeune');
 

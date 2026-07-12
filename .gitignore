@@ -28,6 +28,7 @@ files/
 
 #Ignore any settings.php files
 settings.php
+!admin/settings.php
 
 #Ignore any .psd files
 .psd

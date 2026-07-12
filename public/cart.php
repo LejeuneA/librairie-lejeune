@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
+require_once __DIR__ . '/../admin/settings.php';
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
@@ -46,4 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: cart-view.php');
     exit();
 }
-

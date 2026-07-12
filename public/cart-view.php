@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\librairie-lejeune\admin\settings.php');
+require_once __DIR__ . '/../admin/settings.php';
 
 // Check if user is not identified, redirect to login page
 if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
@@ -105,9 +105,9 @@ foreach ($cart as $productId => $item) {
 					<?php
 					if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY'] && isset($_SESSION['user_permission'])) {
 						if ($_SESSION['user_permission'] == 1) {
-							echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+							echo '<a href="../admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
 						} elseif ($_SESSION['user_permission'] == 2) {
-							echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+							echo '<a href="../admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
 						}
 					}
 					?>
@@ -119,9 +119,9 @@ foreach ($cart as $productId => $item) {
 
 					<!-- Login button -->
 					<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
-						<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+						<a href="../admin/login.php" class="btn-primary">Se connecter</a>
 					<?php else : ?>
-						<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-primary">Déconnexion</a>
+						<a href="../admin/logoff.php" class="btn-primary">Déconnexion</a>
 					<?php endif; ?>
 					<!-- Login button end -->
 
@@ -180,9 +180,9 @@ foreach ($cart as $productId => $item) {
 			<?php
 			if (isset($_SESSION['IDENTIFY']) && $_SESSION['IDENTIFY'] && isset($_SESSION['user_permission'])) {
 				if ($_SESSION['user_permission'] == 1) {
-					echo '<a href="http://localhost/librairie-lejeune/admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+					echo '<a href="../admin/manager.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
 				} elseif ($_SESSION['user_permission'] == 2) {
-					echo '<a href="http://localhost/librairie-lejeune/admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
+					echo '<a href="../admin/customer.php" class="btn-customer"><i class="fa-solid fa-user"></i> Mon compte</a>';
 				}
 			}
 			?>
@@ -190,9 +190,9 @@ foreach ($cart as $productId => $item) {
 
 			<!-- Login button -->
 			<?php if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) : ?>
-				<a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
+				<a href="../admin/login.php" class="btn-login">Se connecter</a>
 			<?php else : ?>
-				<a href="http://localhost/librairie-lejeune/admin/logoff.php" class="btn-login">Déconnexion</a>
+				<a href="../admin/logoff.php" class="btn-login">Déconnexion</a>
 			<?php endif; ?>
 			<!-- Login button end -->
 
