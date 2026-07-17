@@ -1,246 +1,780 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/settings.php';
 
-// Check if user is not identified, redirect to login page
-if (!$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit;
-}
+requireLogin();
 
 $msg = null;
 $tinyMCE = true;
 $livre = null;
+$categories = [];
 
-// Check the database connection
-if (!is_object($conn)) {
-    $_SESSION['message'] = getMessage($conn, 'error');
+/*
+|--------------------------------------------------------------------------
+| CSRF token
+|--------------------------------------------------------------------------
+*/
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(
+        random_bytes(32)
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| Flash message
+|--------------------------------------------------------------------------
+*/
+
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
+
+    unset($_SESSION['message']);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Validate book ID
+|--------------------------------------------------------------------------
+*/
+
+$idLivre = filter_input(
+    INPUT_GET,
+    'idLivre',
+    FILTER_VALIDATE_INT,
+    [
+        'options' => [
+            'min_range' => 1,
+        ],
+    ]
+);
+
+if ($idLivre === false || $idLivre === null) {
+    $_SESSION['message'] = getMessage(
+        'Le livre sélectionné est invalide.',
+        'error'
+    );
+
     header('Location: manager-livre.php');
-    exit;
-} else {
-    // Check if livre ID is provided in the URL
-    if (isset($_GET['idLivre'])) {
-        // Get the livre ID from the URL
-        $idLivre = $_GET['idLivre'];
+    exit();
+}
 
-        // Retrieve livre details from the database
-        $livre = getLivreByIDDB($conn, $idLivre);
+/*
+|--------------------------------------------------------------------------
+| Database connection
+|--------------------------------------------------------------------------
+*/
 
-        // Fetch category names from the database
-        $categories = getCategoryNamesFromDB($conn);
+if (!$conn instanceof PDO) {
+    $_SESSION['message'] = getMessage(
+        'La connexion à la base de données est indisponible.',
+        'error'
+    );
 
-        // Check if the form is submitted and the form type
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if the user has permission to edit the book
-            if ($_SESSION['user_permission'] == 2) {
-                $msg = getMessage('Vous n\'avez pas le droit de modifier un livre.', 'error');
+    header('Location: manager-livre.php');
+    exit();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Retrieve book and categories
+|--------------------------------------------------------------------------
+*/
+
+$livre = getLivreByIDDB(
+    $conn,
+    $idLivre
+);
+
+if (
+    !is_array($livre)
+    || isset($livre['error'])
+    || empty($livre)
+) {
+    $_SESSION['message'] = getMessage(
+        'Le livre demandé est introuvable.',
+        'error'
+    );
+
+    header('Location: manager-livre.php');
+    exit();
+}
+
+$categories = getCategoryNamesFromDB($conn);
+
+if (!is_array($categories)) {
+    $categories = [];
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form data
+|--------------------------------------------------------------------------
+*/
+
+$formData = [
+    'idLivre' => $idLivre,
+    'image_url' => (string) (
+        $livre['image_url'] ?? ''
+    ),
+    'title' => (string) (
+        $livre['title'] ?? ''
+    ),
+    'writer' => (string) (
+        $livre['writer'] ?? ''
+    ),
+    'feature' => (string) (
+        $livre['feature'] ?? ''
+    ),
+    'price' => (string) (
+        $livre['price'] ?? ''
+    ),
+    'content' => html_entity_decode(
+        (string) ($livre['content'] ?? ''),
+        ENT_QUOTES | ENT_HTML5,
+        'UTF-8'
+    ),
+    'published_article' => (int) (
+        $livre['active'] ?? 0
+    ),
+    'idCategory' => (int) (
+        $livre['idCategory'] ?? 0
+    ),
+];
+
+/*
+|--------------------------------------------------------------------------
+| Update request
+|--------------------------------------------------------------------------
+*/
+
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['update_form'] ?? '') === '1'
+) {
+    /*
+     * Formu hata durumunda yeniden doldurabilmek için
+     * gönderilen değerleri alıyoruz.
+     */
+
+    $formData['title'] = trim(
+        (string) ($_POST['title'] ?? '')
+    );
+
+    $formData['writer'] = trim(
+        (string) ($_POST['writer'] ?? '')
+    );
+
+    $formData['feature'] = trim(
+        (string) ($_POST['feature'] ?? '')
+    );
+
+    $formData['price'] = trim(
+        (string) ($_POST['price'] ?? '')
+    );
+
+    $formData['content'] = trim(
+        (string) ($_POST['content'] ?? '')
+    );
+
+    $formData['published_article'] =
+        isset($_POST['published_article'])
+        ? 1
+        : 0;
+
+    $formData['idCategory'] = (int) (
+        $_POST['idCategory'] ?? 0
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSRF validation
+    |--------------------------------------------------------------------------
+    */
+
+    $submittedToken = (string) (
+        $_POST['csrf_token'] ?? ''
+    );
+
+    $sessionToken = (string) (
+        $_SESSION['csrf_token'] ?? ''
+    );
+
+    if (
+        $submittedToken === ''
+        || $sessionToken === ''
+        || !hash_equals(
+            $sessionToken,
+            $submittedToken
+        )
+    ) {
+        $msg = getMessage(
+            'Votre session a expiré. Veuillez réessayer.',
+            'error'
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Guest protection
+    |--------------------------------------------------------------------------
+    */ elseif (!isAdmin()) {
+        $msg = getMessage(
+            'Compte de démonstration : la modification des livres est désactivée.',
+            'error'
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Form validation
+    |--------------------------------------------------------------------------
+    */ elseif ($formData['title'] === '') {
+        $msg = getMessage(
+            'Veuillez saisir le titre du livre.',
+            'error'
+        );
+    } elseif (
+        mb_strlen($formData['title']) > 255
+    ) {
+        $msg = getMessage(
+            'Le titre du livre est trop long.',
+            'error'
+        );
+    } elseif (
+        $formData['idCategory'] < 1
+    ) {
+        $msg = getMessage(
+            'Veuillez sélectionner une catégorie.',
+            'error'
+        );
+    } elseif (
+        mb_strlen($formData['writer']) > 255
+        || mb_strlen($formData['feature']) > 255
+        || mb_strlen($formData['price']) > 50
+    ) {
+        $msg = getMessage(
+            'Une ou plusieurs informations saisies sont trop longues.',
+            'error'
+        );
+    } else {
+        $oldImagePath = (string) (
+            $livre['image_url'] ?? ''
+        );
+
+        $newUploadedFilePath = null;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Optional image upload
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            isset($_FILES['image_upload'])
+            && (
+                $_FILES['image_upload']['error']
+                ?? UPLOAD_ERR_NO_FILE
+            ) !== UPLOAD_ERR_NO_FILE
+        ) {
+            $uploadedFile = $_FILES['image_upload'];
+
+            if (
+                $uploadedFile['error']
+                !== UPLOAD_ERR_OK
+            ) {
+                $msg = getMessage(
+                    'Une erreur est survenue pendant le téléchargement de l’image.',
+                    'error'
+                );
+            } elseif (
+                (int) $uploadedFile['size']
+                > 5 * 1024 * 1024
+            ) {
+                $msg = getMessage(
+                    'L’image ne peut pas dépasser 5 Mo.',
+                    'error'
+                );
             } else {
-                // Check if the form was submitted for update
-                if (isset($_POST['update_form'])) {
-                    // Update the livre in the database
-                    $updateData = [
-                        'idLivre' => $idLivre,
-                        'image_url' => $_POST['image_url'],
-                        'title' => $_POST['title'] ?? '',
-                        'writer' => $_POST['writer'] ?? '',
-                        'feature' => $_POST['feature'] ?? '',
-                        'price' => $_POST['price'] ?? '',
-                        'content' => $_POST['content'],
-                        'published_article' => isset($_POST['published_article']) ? 1 : 0,
-                        'idCategory' => $_POST['idCategory']
-                    ];
+                $fileInfo = new finfo(
+                    FILEINFO_MIME_TYPE
+                );
 
-                    // Perform the update operation in the database
-                    $updateResult = updateLivreDB($conn, $updateData);
+                $mimeType = $fileInfo->file(
+                    $uploadedFile['tmp_name']
+                );
 
-                    // Check the result of the update operation
-                    if ($updateResult === true) {
-                        $_SESSION['message'] = getMessage('Les modifications ont été enregistrées sur la page.', 'success');
-                        $_SESSION['form_submitted'] = true;
+                $allowedMimeTypes = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/webp' => 'webp',
+                    'image/gif' => 'gif',
+                ];
+
+                if (
+                    !isset(
+                        $allowedMimeTypes[$mimeType]
+                    )
+                ) {
+                    $msg = getMessage(
+                        'Le format de l’image est invalide. Utilisez JPG, PNG, WebP ou GIF.',
+                        'error'
+                    );
+                } else {
+                    $uploadDirectory =
+                        __DIR__ . '/uploads';
+
+                    if (
+                        !is_dir($uploadDirectory)
+                        && !mkdir(
+                            $uploadDirectory,
+                            0755,
+                            true
+                        )
+                    ) {
+                        $msg = getMessage(
+                            'Le dossier de téléchargement est indisponible.',
+                            'error'
+                        );
                     } else {
-                        $_SESSION['message'] = getMessage('Erreur lors de la modification du produit. Veuillez réessayer.', 'error');
+                        $extension =
+                            $allowedMimeTypes[$mimeType];
+
+                        $fileName =
+                            'livre-'
+                            . bin2hex(
+                                random_bytes(12)
+                            )
+                            . '.'
+                            . $extension;
+
+                        $newUploadedFilePath =
+                            $uploadDirectory
+                            . DIRECTORY_SEPARATOR
+                            . $fileName;
+
+                        if (
+                            !move_uploaded_file(
+                                $uploadedFile['tmp_name'],
+                                $newUploadedFilePath
+                            )
+                        ) {
+                            $newUploadedFilePath = null;
+
+                            $msg = getMessage(
+                                'L’image n’a pas pu être enregistrée.',
+                                'error'
+                            );
+                        } else {
+                            $formData['image_url'] =
+                                'uploads/'
+                                . $fileName;
+                        }
                     }
-
-                    // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-livre.php?idLivre=' . $idLivre);
-                    exit();
-                }
-
-                // Check if file is uploaded
-                if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] === UPLOAD_ERR_OK) {
-                    $target_dir = "uploads/";
-                    $target_file = $target_dir . basename($_FILES["image_upload"]["name"]);
-
-                    // Check if the directory exists, if not, create it
-                    if (!file_exists($target_dir)) {
-                        mkdir($target_dir, 0777, true);
-                    }
-
-                    // Move the uploaded file to the target directory
-                    if (move_uploaded_file($_FILES["image_upload"]["tmp_name"], $target_file)) {
-                        // File upload successful, update the image URL in the database
-                        $updateData['image_url'] = $target_file;
-                        updateLivreDB($conn, $updateData);
-                    } else {
-                        $_SESSION['message'] = getMessage('Erreur lors de l\'enregistrement de l\'image. Veuillez réessayer.', 'error');
-                    }
-
-                    // Redirect to the same page to prevent form resubmission
-                    header('Location: edit-livre.php?idLivre=' . $idLivre);
-                    exit();
                 }
             }
         }
-    } else {
-        // If livre ID is not provided, redirect to manager.php
-        header('Location: manager.php');
-        exit;
+
+        /*
+        |--------------------------------------------------------------------------
+        | Database update
+        |--------------------------------------------------------------------------
+        */
+
+        if ($msg === null) {
+            $updateResult = updateLivreDB(
+                $conn,
+                [
+                    'idLivre' =>
+                    $idLivre,
+
+                    'image_url' =>
+                    $formData['image_url'],
+
+                    'title' =>
+                    $formData['title'],
+
+                    'writer' =>
+                    $formData['writer'],
+
+                    'feature' =>
+                    $formData['feature'],
+
+                    'price' =>
+                    $formData['price'],
+
+                    'content' =>
+                    $formData['content'],
+
+                    'published_article' =>
+                    $formData['published_article'],
+
+                    'idCategory' =>
+                    $formData['idCategory'],
+                ]
+            );
+
+            if ($updateResult === true) {
+                /*
+                 * Yeni görsel başarıyla kaydedildiyse
+                 * eski upload dosyasını temizliyoruz.
+                 */
+
+                if (
+                    $newUploadedFilePath !== null
+                    && str_starts_with(
+                        $oldImagePath,
+                        'uploads/'
+                    )
+                ) {
+                    $oldImageFullPath =
+                        __DIR__
+                        . DIRECTORY_SEPARATOR
+                        . str_replace(
+                            '/',
+                            DIRECTORY_SEPARATOR,
+                            $oldImagePath
+                        );
+
+                    if (
+                        is_file($oldImageFullPath)
+                        && realpath($oldImageFullPath)
+                        !== realpath(
+                            $newUploadedFilePath
+                        )
+                    ) {
+                        unlink($oldImageFullPath);
+                    }
+                }
+
+                $_SESSION['message'] = getMessage(
+                    'Les modifications ont été enregistrées.',
+                    'success'
+                );
+
+                $_SESSION['csrf_token'] =
+                    bin2hex(random_bytes(32));
+
+                header(
+                    'Location: edit-livre.php?idLivre='
+                        . $idLivre
+                );
+
+                exit();
+            }
+
+            /*
+             * Veritabanı güncellenmediyse yeni
+             * yüklenen görseli sunucuda bırakmıyoruz.
+             */
+
+            if (
+                $newUploadedFilePath !== null
+                && is_file($newUploadedFilePath)
+            ) {
+                unlink($newUploadedFilePath);
+            }
+
+            $msg = getMessage(
+                'Erreur lors de la modification du produit. Veuillez réessayer.',
+                'error'
+            );
+        }
     }
 }
 
-// Retrieve the message from the session and unset it
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']);
-}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <?php
-    // Include the head section
-    displayHeadSection('Editer un livre');
-    displayJSSection($tinyMCE);
+    displayHeadSection('Éditer un livre');
     ?>
 </head>
 
 <body>
+
     <header>
         <?php displayNavigation(); ?>
     </header>
 
-    <div class="edit-content">
+    <main class="edit-content">
+
         <div class="edit-title">
-            <h1>Editer un livre</h1>
+            <h1>Éditer un livre</h1>
+
+            <?php if (isGuest()): ?>
+                <div class="message">
+                    <?= getMessage(
+                        'Compte de démonstration : vous pouvez consulter et remplir ce formulaire, mais les modifications sont désactivées.',
+                        'success'
+                    ) ?>
+                </div>
+            <?php endif; ?>
+
             <div class="message">
-                <?php if (isset($msg)) echo $msg; ?>
+                <?= $msg ?? '' ?>
             </div>
         </div>
 
         <div class="edit-form container">
-            <form action="edit-livre.php?idLivre=<?php echo $livre['idLivre']; ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="idLivre" value="<?php echo $livre['idLivre']; ?>">
 
-                <!-- Form top -->
+            <form
+                action="edit-livre.php?idLivre=<?= $idLivre ?>"
+                method="post"
+                enctype="multipart/form-data">
+                <input
+                    type="hidden"
+                    name="update_form"
+                    value="1">
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?= escapeHtml(
+                                $_SESSION['csrf_token']
+                            ) ?>">
+
                 <div class="form-top">
 
-                    <!-- Form left -->
                     <div class="form-left">
 
-                        <!-- Statue of the article -->
-                        <div class=" checkbox-ctrl">
-                            <label for="published_article" class="published_article">Status du produit <span>(publication)</span></label>
-                            <?php displayFormRadioBtnArticlePublished(isset($livre['active']) ? $livre['active'] : 0, 'EDIT'); ?>
+                        <div class="checkbox-ctrl">
+                            <label
+                                for="published_article"
+                                class="published_article">
+                                Status du produit
+                                <span>(publication)</span>
+                            </label>
+
+                            <?php
+                            displayFormRadioBtnArticlePublished(
+                                $formData['published_article'],
+                                'EDIT'
+                            );
+                            ?>
                         </div>
 
-                        <!-- Category -->
                         <div class="form-ctrl">
-                            <label for="idCategory" class="form-ctrl">Catégorie</label>
-                            <select id="idCategory" name="idCategory" class="form-ctrl" required>
-                                <option value="">Sélectionner une catégorie</option>
-                                <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['idCategory']; ?>" <?php echo ($category['idCategory'] == $livre['idCategory']) ? 'selected' : ''; ?>><?php echo $category['nameOfCategory']; ?></option>
+                            <label
+                                for="idCategory"
+                                class="form-ctrl">
+                                Catégorie
+                            </label>
+
+                            <select
+                                id="idCategory"
+                                name="idCategory"
+                                class="form-ctrl"
+                                required>
+                                <option value="">
+                                    Sélectionner une catégorie
+                                </option>
+
+                                <?php
+                                foreach (
+                                    $categories as $category
+                                ):
+                                    $categoryId = (int) (
+                                        $category['idCategory'] ?? 0
+                                    );
+
+                                    $categoryName =
+                                        $category['nameOfCategory'] ?? '';
+                                ?>
+
+                                    <option
+                                        value="<?= $categoryId ?>"
+                                        <?= (
+                                            $categoryId
+                                            === $formData['idCategory']
+                                        )
+                                            ? 'selected'
+                                            : '' ?>>
+                                        <?= escapeHtml(
+                                            $categoryName
+                                        ) ?>
+                                    </option>
+
                                 <?php endforeach; ?>
                             </select>
                         </div>
 
-                        <!-- Title -->
                         <div class="form-ctrl">
-                            <label for="title" class="form-ctrl">Titre</label>
-                            <input type="text" class="form-ctrl" id="title" name="title" value="<?php echo isset($livre['title']) ? $livre['title'] : ''; ?>" required>
+                            <label
+                                for="title"
+                                class="form-ctrl">
+                                Titre
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="title"
+                                name="title"
+                                value="<?= escapeHtml(
+                                            $formData['title']
+                                        ) ?>"
+                                maxlength="255"
+                                required>
                         </div>
 
-                        <!-- Writer -->
                         <div class="form-ctrl">
-                            <label for="writer" class="form-ctrl">Auteur</label>
-                            <input type="text" class="form-ctrl" id="writer" name="writer" value="<?php echo isset($livre['writer']) ? $livre['writer'] : ''; ?>">
+                            <label
+                                for="writer"
+                                class="form-ctrl">
+                                Auteur
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="writer"
+                                name="writer"
+                                value="<?= escapeHtml(
+                                            $formData['writer']
+                                        ) ?>"
+                                maxlength="255">
                         </div>
 
-                        <!-- Feature -->
                         <div class="form-ctrl">
-                            <label for="feature" class="form-ctrl">Caractèriques</label>
-                            <input type="text" class="form-ctrl" id="feature" name="feature" value="<?php echo isset($livre['feature']) ? $livre['feature'] : ''; ?>">
+                            <label
+                                for="feature"
+                                class="form-ctrl">
+                                Caractéristiques
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="feature"
+                                name="feature"
+                                value="<?= escapeHtml(
+                                            $formData['feature']
+                                        ) ?>"
+                                maxlength="255">
                         </div>
 
-                        <!-- Price -->
                         <div class="form-ctrl">
-                            <label for="price" class="form-ctrl">Prix</label>
-                            <input type="text" class="form-ctrl" id="price" name="price" value="<?php echo isset($livre['price']) ? $livre['price'] : ''; ?>">
+                            <label
+                                for="price"
+                                class="form-ctrl">
+                                Prix
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-ctrl"
+                                id="price"
+                                name="price"
+                                value="<?= escapeHtml(
+                                            $formData['price']
+                                        ) ?>"
+                                maxlength="50">
                         </div>
 
                     </div>
 
-                    <!-- Form right -->
                     <div class="form-right">
 
-                        <!-- URL of the image -->
-                        <!-- <div class="form-ctrl">
-                            <label for="image_url" class="form-ctrl">URL de l'image</label>
-                            <input type="text" class="form-ctrl" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
-                        </div> -->
-
-                        <!-- File upload field -->
                         <div class="form-ctrl">
-                            <label for="image_upload" class="form-ctrl">Uploader l'image</label>
-                            <input type="file" class="form-ctrl" id="image_upload" name="image_upload" onchange="previewImage(this)">
+                            <label
+                                for="image_upload"
+                                class="form-ctrl">
+                                Uploader l’image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-ctrl"
+                                id="image_upload"
+                                name="image_upload"
+                                accept="image/jpeg,image/png,image/webp,image/gif"
+                                onchange="previewImage(this)">
                         </div>
-                        <!-- Preview of the image -->
-                        <div class="form-ctrl">
-                            <label for="image_preview" class="form-ctrl">Aperçu de l'image</label>
-                            <div>
-                                <input type="text" class="form-ctrl image_url" id="image_url" name="image_url" value="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" readonly>
 
-                                <img id="image_preview" class="image_preview" src="<?php echo isset($livre['image_url']) ? $livre['image_url'] : ''; ?>" alt="Aperçu de l'image">
+                        <div class="form-ctrl">
+                            <label
+                                for="image_preview"
+                                class="form-ctrl">
+                                Aperçu de l’image
+                            </label>
+
+                            <div>
+                                <input
+                                    type="text"
+                                    class="form-ctrl image_url"
+                                    id="image_url"
+                                    value="<?= escapeHtml(
+                                                $formData['image_url']
+                                            ) ?>"
+                                    readonly>
+
+                                <img
+                                    id="image_preview"
+                                    class="image_preview"
+                                    src="<?= escapeHtml(
+                                                $formData['image_url']
+                                            ) ?>"
+                                    alt="Aperçu du livre">
                             </div>
                         </div>
+
                     </div>
+
                 </div>
 
-                <!-- Form bottom -->
-                <div class=" form-bottom">
+                <div class="form-bottom">
                     <div class="form-ctrl">
-                        <label for="content" class="form-ctrl">Contenu</label>
-                        <textarea class="content" id="content" name="content" rows="5"><?php echo isset($livre['content']) ? $livre['content'] : ''; ?></textarea>
+                        <label
+                            for="content"
+                            class="form-ctrl">
+                            Contenu
+                        </label>
+
+                        <textarea
+                            class="content"
+                            id="content"
+                            name="content"
+                            rows="5"><?= escapeHtml(
+                                            $formData['content']
+                                        ) ?></textarea>
                     </div>
                 </div>
 
-                <input type="hidden" name="update_form" value="1">
-                <button type="submit" class="btn-primary">Sauvegarder</button>
-                <button type="submit" class="btn-primary" formaction="article-livre.php?idLivre=<?php echo $livre['idLivre']; ?>">Afficher</button>
-            </form>
-        </div>
-    </div>
+                <button
+                    type="submit"
+                    class="btn-primary">
+                    Sauvegarder
+                </button>
 
-    <!-- Footer -->
+                <a
+                    class="btn-primary"
+                    href="article-livre.php?idLivre=<?= $idLivre ?>">
+                    Afficher
+                </a>
+
+            </form>
+
+        </div>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <?php displayJSSection($tinyMCE); ?>
 
-    <?php
-    displayJSSection($tinyMCE);
-    ?>
-    <!-- Functions -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
     <script src="../js/functions.js"></script>
 
 </body>

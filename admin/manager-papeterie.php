@@ -1,66 +1,145 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/settings.php';
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+requireLogin();
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(
+        random_bytes(32)
+    );
 }
 
 $msg = null;
-$result = null;
+$result = [];
 $execute = false;
 
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
-} else {
-    // Fetch all papeteries from the database
-    $result = getAllPapeteriesDB($conn);
+/*
+|--------------------------------------------------------------------------
+| Flash message
+|--------------------------------------------------------------------------
+*/
 
-    // Check if papeteries exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
 
-        // Check if papeterie ID is provided in the URL for deletion
-        if (isset($_GET['idPapeterie']) && is_numeric($_GET['idPapeterie'])) {
+    unset($_SESSION['message']);
+}
 
-            $papeterieIdToDelete = $_GET['idPapeterie'];
+/*
+|--------------------------------------------------------------------------
+| Delete request
+|--------------------------------------------------------------------------
+*/
 
-            if ($_SESSION['user_permission'] == 1) {
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-papeterie'
+) {
+    $submittedToken = (string) (
+        $_POST['csrf_token'] ?? ''
+    );
 
-                // Delete the papeterie from the database
-                $deleteResult = deletePapeterieDB($conn, $papeterieIdToDelete);
+    $sessionToken = (string) (
+        $_SESSION['csrf_token'] ?? ''
+    );
 
-                // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Papeterie supprimé avec succès.', 'success');
+    if (
+        $submittedToken === ''
+        || $sessionToken === ''
+        || !hash_equals(
+            $sessionToken,
+            $submittedToken
+        )
+    ) {
+        $_SESSION['message'] = getMessage(
+            'Votre session a expiré. Veuillez réessayer.',
+            'error'
+        );
+    } else {
+        $papeterieId = filter_input(
+            INPUT_POST,
+            'idPapeterie',
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
 
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-papeterie.php');
-                    exit();
-                } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression de la papeterie. ' . $deleteResult, 'error');
-                }
+        if (
+            $papeterieId === false
+            || $papeterieId === null
+        ) {
+            $_SESSION['message'] = getMessage(
+                'La papeterie sélectionnée est invalide.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            $_SESSION['message'] = getMessage(
+                'Compte de démonstration : la suppression des articles de papeterie est désactivée.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            $_SESSION['message'] = getMessage(
+                'La connexion à la base de données est indisponible.',
+                'error'
+            );
+        } else {
+            $deleteResult = deletePapeterieDB(
+                $conn,
+                $papeterieId
+            );
+
+            if ($deleteResult === true) {
+                $_SESSION['message'] = getMessage(
+                    'Papeterie supprimée avec succès.',
+                    'success'
+                );
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer la papeterie.', 'error');
+                $_SESSION['message'] = getMessage(
+                    'Erreur lors de la suppression de la papeterie.',
+                    'error'
+                );
             }
         }
-    } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de papeterie à afficher actuellement', 'error');
+    }
+
+    header('Location: manager-papeterie.php');
+    exit();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Retrieve stationery products
+|--------------------------------------------------------------------------
+*/
+
+if (!$conn instanceof PDO) {
+    if ($msg === null) {
+        $msg = getMessage(
+            'La connexion à la base de données est indisponible.',
+            'error'
+        );
+    }
+} else {
+    $result = getAllPapeteriesDB($conn);
+
+    if (
+        is_array($result)
+        && !isset($result['error'])
+        && !empty($result)
+    ) {
+        $execute = true;
+    } elseif ($msg === null) {
+        $msg = getMessage(
+            'Il n’y a pas de papeterie à afficher actuellement.',
+            'error'
+        );
     }
 }
 
-// On the redirected page (manager-papeterie.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']); // Clear the message after displaying it
-}
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +147,6 @@ if (isset($_SESSION['message'])) {
 
 <head>
     <?php
-    // Include the head section
     displayHeadSection('Gestion des papeteries');
     displayJSSection();
     ?>
@@ -76,72 +154,112 @@ if (isset($_SESSION['message'])) {
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-papeteries container">
-        <h1 class="title">Gérer les papeteries</h1>
+
+    <main class="table-papeteries container">
+
+        <h1 class="title">
+            Gérer les papeteries
+        </h1>
+
+        <?php if (isGuest()): ?>
+            <div class="message">
+                <?= getMessage(
+                    'Compte de démonstration : vous pouvez consulter les articles et parcourir les pages de gestion, mais l’ajout, la modification et la suppression sont désactivés.',
+                    'success'
+                ) ?>
+            </div>
+        <?php endif; ?>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $msg ?? '' ?>
         </div>
 
         <div id="content">
-            <?php
-            // If papeteries exist, display them in a table
-            if ($execute) {
+            <?php if ($execute): ?>
+                <?php
                 displayPapeteriesAsTable($result);
-            }
-            ?>
+                ?>
+            <?php endif; ?>
         </div>
-    </div>
-    <!-----------------------------------------------------------------
-								Footer
-	------------------------------------------------------------------>
+
+        <form
+            id="delete-papeterie-form"
+            action="manager-papeterie.php"
+            method="post"
+            hidden>
+            <input
+                type="hidden"
+                name="action"
+                value="delete-papeterie">
+
+            <input
+                type="hidden"
+                name="idPapeterie"
+                id="delete-papeterie-id"
+                value="">
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                            $_SESSION['csrf_token']
+                        ) ?>">
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-							  Footer end
-	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling papeterie actions
         function modifierPapeterie(papeterieId) {
-            // Redirect to the edit page with the specified papeterie ID
-            window.location.href = 'edit-papeterie.php?idPapeterie=' + papeterieId;
+            window.location.href =
+                'edit-papeterie.php?idPapeterie=' +
+                encodeURIComponent(papeterieId);
         }
 
         function afficherPapeterie(papeterieId) {
-            // Redirect to the papeterie page with the specified papeterie ID
-            window.location.href = 'article-papeterie.php?idPapeterie=' + papeterieId;
+            window.location.href =
+                'article-papeterie.php?idPapeterie=' +
+                encodeURIComponent(papeterieId);
         }
 
         function supprimerPapeterie(papeterieId) {
-            // Confirm papeterie deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer la papeterie ci-dessous ?')) {
-                // Redirect to manager-papeterie.php with the papeterie ID for deletion
-                window.location.href = 'manager-papeterie.php?idPapeterie=' + papeterieId;
+            const confirmed = window.confirm(
+                'Êtes-vous certain de vouloir supprimer la papeterie ci-dessous ?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            const papeterieIdInput =
+                document.getElementById(
+                    'delete-papeterie-id'
+                );
+
+            const deleteForm =
+                document.getElementById(
+                    'delete-papeterie-form'
+                );
+
+            papeterieIdInput.value = papeterieId;
+            deleteForm.submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 
-    <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
+
 </body>
 
 </html>

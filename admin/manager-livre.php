@@ -1,76 +1,155 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/settings.php';
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+requireLogin();
+
+/*
+|--------------------------------------------------------------------------
+| CSRF token
+|--------------------------------------------------------------------------
+*/
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(
+        random_bytes(32)
+    );
 }
 
 $msg = null;
-$result = null;
+$result = [];
 $execute = false;
 
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
-} else {
-    // Fetch all livres from the database
-    $result = getAllLivresDB($conn);
+/*
+|--------------------------------------------------------------------------
+| Flash message
+|--------------------------------------------------------------------------
+*/
 
-    // Check if livres exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
 
-        // Check if livre ID is provided in the URL for deletion
-        if (isset($_GET['idLivre']) && is_numeric($_GET['idLivre'])) {
+    unset($_SESSION['message']);
+}
 
-            $livreIdToDelete = $_GET['idLivre'];
+/*
+|--------------------------------------------------------------------------
+| Delete request
+|--------------------------------------------------------------------------
+*/
 
-            if ($_SESSION['user_permission'] == 1) {
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-livre'
+) {
+    $submittedToken = (string) (
+        $_POST['csrf_token'] ?? ''
+    );
 
-                // Delete the livre from the database
-                $deleteResult = deleteLivreDB($conn, $livreIdToDelete);
+    $sessionToken = (string) (
+        $_SESSION['csrf_token'] ?? ''
+    );
 
-                // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Livre supprimé avec succès.', 'success');
+    if (
+        $submittedToken === ''
+        || $sessionToken === ''
+        || !hash_equals(
+            $sessionToken,
+            $submittedToken
+        )
+    ) {
+        $_SESSION['message'] = getMessage(
+            'Votre session a expiré. Veuillez réessayer.',
+            'error'
+        );
+    } else {
+        $livreId = filter_input(
+            INPUT_POST,
+            'idLivre',
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
 
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-livre.php');
-                    exit();
-                } else {
-                    $_SESSION['message'] = getMessage('Erreur lors de la suppression du livre. ' . $deleteResult, 'error');
-                }
+        if ($livreId === false || $livreId === null) {
+            $_SESSION['message'] = getMessage(
+                'Le livre sélectionné est invalide.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            $_SESSION['message'] = getMessage(
+                'Compte de démonstration : la suppression des livres est désactivée.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            $_SESSION['message'] = getMessage(
+                'La connexion à la base de données est indisponible.',
+                'error'
+            );
+        } else {
+            $deleteResult = deleteLivreDB(
+                $conn,
+                $livreId
+            );
+
+            if ($deleteResult === true) {
+                $_SESSION['message'] = getMessage(
+                    'Livre supprimé avec succès.',
+                    'success'
+                );
             } else {
-                $_SESSION['message'] = getMessage('Vous n\'avez pas le droit de supprimer le livre.', 'error');
+                $_SESSION['message'] = getMessage(
+                    'Erreur lors de la suppression du livre.',
+                    'error'
+                );
             }
         }
-    } else {
-        $_SESSION['message'] = getMessage('Il n\'y a pas de livre à afficher actuellement', 'error');
+    }
+
+    header('Location: manager-livre.php');
+    exit();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Retrieve books
+|--------------------------------------------------------------------------
+*/
+
+if (!$conn instanceof PDO) {
+    if ($msg === null) {
+        $msg = getMessage(
+            'La connexion à la base de données est indisponible.',
+            'error'
+        );
+    }
+} else {
+    $result = getAllLivresDB($conn);
+
+    if (
+        is_array($result)
+        && !isset($result['error'])
+        && !empty($result)
+    ) {
+        $execute = true;
+    } elseif ($msg === null) {
+        $msg = getMessage(
+            'Il n’y a pas de livre à afficher actuellement.',
+            'error'
+        );
     }
 }
 
-// On the redirected page (manager-livre.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']); // Clear the message after displaying it
-}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <?php
-    // Include the head section
     displayHeadSection('Gestion des livres');
     displayJSSection();
     ?>
@@ -78,72 +157,110 @@ if (isset($_SESSION['message'])) {
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-livres container">
-        <h1 class="title">Gérer les livres</h1>
+
+    <main class="table-livres container">
+
+        <h1 class="title">
+            Gérer les livres
+        </h1>
+
+        <?php if (isGuest()): ?>
+            <div class="message">
+                <?= getMessage(
+                    'Compte de démonstration : vous pouvez consulter les livres et parcourir les pages de gestion, mais l’ajout, la modification et la suppression sont désactivés.',
+                    'success'
+                ) ?>
+            </div>
+        <?php endif; ?>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $msg ?? '' ?>
         </div>
 
-        <div id="content" class="container">
-            <?php
-            // If livres exist, display them in a table
-            if ($execute) {
-                displayLivresAsTable($result);
-            }
-            ?>
+        <div
+            id="content"
+            class="container">
+            <?php if ($execute): ?>
+                <?php displayLivresAsTable($result); ?>
+            <?php endif; ?>
         </div>
-    </div>
-    <!-----------------------------------------------------------------
-								Footer
-	------------------------------------------------------------------>
+
+        <form
+            id="delete-livre-form"
+            action="manager-livre.php"
+            method="post"
+            hidden>
+            <input
+                type="hidden"
+                name="action"
+                value="delete-livre">
+
+            <input
+                type="hidden"
+                name="idLivre"
+                id="delete-livre-id"
+                value="">
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                            $_SESSION['csrf_token']
+                        ) ?>">
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-							  Footer end
-	------------------------------------------------------------------>
 
     <script>
-        // JavaScript functions for handling livre actions
         function modifierLivre(livreId) {
-            // Redirect to the edit page with the specified livre ID
-            window.location.href = 'edit-livre.php?idLivre=' + livreId;
+            window.location.href =
+                'edit-livre.php?idLivre=' +
+                encodeURIComponent(livreId);
         }
 
         function afficherLivre(livreId) {
-            // Redirect to the livre page with the specified livre ID
-            window.location.href = 'article-livre.php?idLivre=' + livreId;
+            window.location.href =
+                'article-livre.php?idLivre=' +
+                encodeURIComponent(livreId);
         }
 
         function supprimerLivre(livreId) {
-            // Confirm livre deletion
-            if (confirm('Êtes-vous certain de vouloir supprimer le livre ci-dessous ?')) {
-                // Redirect to manager-livre.php with the livre ID for deletion
-                window.location.href = 'manager-livre.php?idLivre=' + livreId;
+            const confirmed = window.confirm(
+                'Êtes-vous certain de vouloir supprimer le livre ci-dessous ?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            const livreIdInput = document.getElementById(
+                'delete-livre-id'
+            );
+
+            const deleteForm = document.getElementById(
+                'delete-livre-form'
+            );
+
+            livreIdInput.value = livreId;
+            deleteForm.submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 
-    <!-- Include functions.js -->
     <script src="../js/functions.js"></script>
+
 </body>
 
 </html>
