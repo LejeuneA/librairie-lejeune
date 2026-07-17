@@ -962,43 +962,57 @@ function deleteCadeauDB($conn, $idCadeau)
  */
 function userIdentificationWithHashPwdDB($conn, $datas)
 {
+    if (!$conn instanceof PDO) {
+        return false;
+    }
+
+    $login = trim((string) ($datas['login'] ?? ''));
+    $password = (string) ($datas['pwd'] ?? '');
+
+    if (
+        !filter_var($login, FILTER_VALIDATE_EMAIL)
+        || $password === ''
+    ) {
+        return false;
+    }
+
     try {
-        $user = null;
-        $isConnected = false;
+        $statement = $conn->prepare(
+            'SELECT *
+             FROM users
+             WHERE email = :login
+             LIMIT 1'
+        );
 
-        // Préparation des données avant insertion dans la base de données
-        $login = filterInputs($datas['login']);
-        $pwd = filterInputs($datas['pwd']);
+        $statement->execute([
+            'login' => $login,
+        ]);
 
-        // Sélection des données dans la table users
-        $req = $conn->prepare("SELECT * FROM users WHERE email = :login");
-        $req->bindParam(':login', $login);
-        $req->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        // Génère un résultat avec les données de l'utilisateur
-        $user = $req->fetch(PDO::FETCH_ASSOC);
-        //DEBUG// disp_ar($user, 'USER', 'VD');     
-        if (!empty($user['email']))
-            $isConnected = password_verify($pwd, $user['passwd']);
-
-        //DEBUG// echo 'PWD : '.$pwd.'<br>';disp_ar($isConnected, 'IS CONNECTED', 'VD'); 
-
-        // Fermeture connexion
-        $req = null;
-        $conn = null;
-
-        if ($isConnected) {
-            // On supprime le mot de passe de l'objet $user
-            $user['passwd'] = null;
-            return $user;
-        } else
+        if (
+            !$user
+            || empty($user['passwd'])
+            || !password_verify(
+                $password,
+                $user['passwd'],
+            )
+        ) {
             return false;
-    } catch (PDOException $e) {
-        (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : userIdentificationDB() function";
-        return $st;
+        }
+
+        unset($user['passwd']);
+
+        return $user;
+    } catch (PDOException $exception) {
+        error_log(
+            'Librairie login error: '
+                . $exception->getMessage()
+        );
+
+        return false;
     }
 }
-
 /**-----------------------------------------------------------------
         Function to fetch all categories from the database using PDO
  *------------------------------------------------------------------**/

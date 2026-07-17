@@ -3,23 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Découvrez Librairie Lejeune pour des livres, fournitures de papeterie et cadeaux uniques. Parcourez notre sélection dès aujourd'hui!"
+    >
 
     <!-- Custom Sass file -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link
+        rel="stylesheet"
+        href="../css/styles.css"
+    >
 
-    <!-- Google Fonts Preconnect and Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
     <link
         href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Great+Vibes&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
-    <!-- Favicon -->
-
-    <!-- Title -->
     <title>Librairie Lejeune</title>
 </head>
 
@@ -30,52 +47,107 @@
     ------------------------------------------------------------------>
     <nav class="navbar">
         <div class="navbar-container container">
+
             <!-- Logo -->
             <a href="../index.php">
-                <img src="../assets/logo/librairie-lejeune.png" class="navbar-brand-img" alt="Librairie Lejeune Logo">
+                <img
+                    src="../assets/logo/librairie-lejeune.png"
+                    class="navbar-brand-img"
+                    alt="Librairie Lejeune Logo"
+                >
             </a>
             <!-- Logo end -->
 
             <!-- Right-side content -->
             <div class="d-flex">
+
                 <!-- Social icons -->
                 <ul class="social-nav">
-                    <!-- Icons -->
                     <li class="social-item">
-                        <a class="social-link" href="https://www.facebook.com/" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-brands fa-square-facebook fa-lg"></i>
+                        <a
+                            class="social-link"
+                            href="https://www.facebook.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Facebook"
+                        >
+                            <i
+                                class="fa-brands fa-square-facebook fa-lg"
+                            ></i>
                         </a>
                     </li>
+
                     <li class="social-item">
-                        <a class="social-link" href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-x-twitter fa-lg"></i>
+                        <a
+                            class="social-link"
+                            href="https://twitter.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="X"
+                        >
+                            <i
+                                class="fa-brands fa-x-twitter fa-lg"
+                            ></i>
                         </a>
                     </li>
+
                     <li class="social-item">
-                        <a class="social-link" href="https://www.instagram.com" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa-brands fa-instagram fa-lg"></i>
+                        <a
+                            class="social-link"
+                            href="https://www.instagram.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Instagram"
+                        >
+                            <i
+                                class="fa-brands fa-instagram fa-lg"
+                            ></i>
                         </a>
                     </li>
                 </ul>
                 <!-- Social icons end -->
 
                 <!-- Search -->
-                <form class="search" role="search" action="../admin/search.php" method="GET">
+                <form
+                    class="search"
+                    role="search"
+                    action="../admin/search.php"
+                    method="GET"
+                >
                     <div class="search-group">
-                        <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?"
-                            aria-label="Search">
-                        <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input
+                            class="form-control"
+                            type="search"
+                            name="query"
+                            placeholder="Que cherchez-vous?"
+                            aria-label="Search"
+                        >
+
+                        <button
+                            class="btn-search"
+                            type="submit"
+                            aria-label="Rechercher"
+                        >
+                            <i
+                                class="fa-solid fa-magnifying-glass"
+                            ></i>
+                        </button>
                     </div>
                 </form>
                 <!-- Search end -->
 
                 <!-- Login button -->
-                <a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-primary">Se connecter</a>
+                <a
+                    href="../admin/login.php"
+                    class="btn-primary"
+                >
+                    Se connecter
+                </a>
                 <!-- Login button end -->
+
             </div>
             <!-- Right-side content end -->
+
         </div>
     </nav>
 
@@ -85,66 +157,169 @@
     <div class="navbar-menu">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../index.php">Accueil</a>
+                <a
+                    class="nav-link"
+                    href="../index.php"
+                >
+                    Accueil
+                </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="../public/livres.php">Livres</a>
+                <a
+                    class="nav-link"
+                    href="../public/livres.php"
+                >
+                    Livres
+                </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="../public/papeteries.php">Papeterie</a>
+                <a
+                    class="nav-link"
+                    href="../public/papeteries.php"
+                >
+                    Papeterie
+                </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="../public/cadeaux.php">Cadeaux</a>
+                <a
+                    class="nav-link"
+                    href="../public/cadeaux.php"
+                >
+                    Cadeaux
+                </a>
             </li>
         </ul>
     </div>
-    <!---------------------------------------------------------------
-                         Menu end
-    ---------------------------------------------------------------->
 
     <!---------------------------------------------------------------
                              Offcanvas menu
     ----------------------------------------------------------------->
-    <div id="mySidenav" class="sidenav">
+    <div
+        id="mySidenav"
+        class="sidenav"
+    >
 
         <!-- Search -->
-        <form class="search" role="search" action="../admin/search.php" method="GET">
+        <form
+            class="search"
+            role="search"
+            action="../admin/search.php"
+            method="GET"
+        >
             <div class="search-group">
-                <input class="form-control" type="search" name="query" placeholder="Que cherchez-vous?"
-                    aria-label="Search">
-                <button class="btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input
+                    class="form-control"
+                    type="search"
+                    name="query"
+                    placeholder="Que cherchez-vous?"
+                    aria-label="Search"
+                >
+
+                <button
+                    class="btn-search"
+                    type="submit"
+                    aria-label="Rechercher"
+                >
+                    <i
+                        class="fa-solid fa-magnifying-glass"
+                    ></i>
+                </button>
             </div>
         </form>
         <!-- Search end -->
 
         <!-- Menu -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="nav-link" href="../index.php">Accueil</a>
-        <a class="nav-link" href="../public/livres.php">Livres</a>
-        <a class="nav-link" href="../public/papeteries.php">Papeterie</a>
-        <a class="nav-link" href="../public/cadeaux.php">Cadeaux</a>
+        <a
+            href="javascript:void(0)"
+            class="closebtn"
+            onclick="closeNav()"
+            aria-label="Fermer le menu"
+        >
+            &times;
+        </a>
+
+        <a
+            class="nav-link"
+            href="../index.php"
+        >
+            Accueil
+        </a>
+
+        <a
+            class="nav-link"
+            href="../public/livres.php"
+        >
+            Livres
+        </a>
+
+        <a
+            class="nav-link"
+            href="../public/papeteries.php"
+        >
+            Papeterie
+        </a>
+
+        <a
+            class="nav-link"
+            href="../public/cadeaux.php"
+        >
+            Cadeaux
+        </a>
         <!-- Menu end -->
 
         <!-- Login button -->
-        <a href="http://localhost/librairie-lejeune/admin/login.php" class="btn-login">Se connecter</a>
+        <a
+            href="../admin/login.php"
+            class="btn-login"
+        >
+            Se connecter
+        </a>
         <!-- Login button end -->
 
         <!-- Social icons -->
         <ul class="social-nav">
-            <!-- Icons -->
             <li class="social-item">
-                <a class="social-link" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-square-facebook fa-lg"></i>
+                <a
+                    class="social-link"
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                >
+                    <i
+                        class="fa-brands fa-square-facebook fa-lg"
+                    ></i>
                 </a>
             </li>
+
             <li class="social-item">
-                <a class="social-link" href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-x-twitter fa-lg"></i>
+                <a
+                    class="social-link"
+                    href="https://twitter.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X"
+                >
+                    <i
+                        class="fa-brands fa-x-twitter fa-lg"
+                    ></i>
                 </a>
             </li>
+
             <li class="social-item">
-                <a class="social-link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                    <i class="fa-brands fa-instagram fa-lg"></i>
+                <a
+                    class="social-link"
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                >
+                    <i
+                        class="fa-brands fa-instagram fa-lg"
+                    ></i>
                 </a>
             </li>
         </ul>
@@ -154,21 +329,26 @@
 
     <!-- Hamburger icon for smaller screens -->
     <div class="navbar-hamburger">
-        <div id="hamburger" onclick="openNav()"><i class="fa-solid fa-bars"></i></div>
+        <div
+            id="hamburger"
+            onclick="openNav()"
+            aria-label="Ouvrir le menu"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </div>
     </div>
-    <!------------------------------------------------------------- 
-                          Offcanvas menu end
-    --------------------------------------------------------------->
-
-    <!-- Navigation end -->
 
     <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
         integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
 
-    <!-- Include functions.js -->
+    <!-- Functions -->
     <script src="../js/functions.js"></script>
+
 </body>
 
 </html>
