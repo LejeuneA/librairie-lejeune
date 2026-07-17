@@ -1,127 +1,306 @@
 <?php
-require_once('settings.php');
 
-$query = isset($_GET['query']) ? $_GET['query'] : '';
+require_once __DIR__ . '/settings.php';
 
-$query = htmlspecialchars($query);
+$query = trim(
+    (string) ($_GET['query'] ?? '')
+);
 
-if (!empty($query)) {
+$results = [];
+$msg = null;
+$searchExecuted = false;
+
+/*
+|--------------------------------------------------------------------------
+| Validate search query
+|--------------------------------------------------------------------------
+*/
+
+if ($query === '') {
+    $msg = getMessage(
+        'Veuillez saisir un terme de recherche.',
+        'error'
+    );
+} elseif (mb_strlen($query) > 100) {
+    $msg = getMessage(
+        'Le terme de recherche est trop long.',
+        'error'
+    );
+} elseif (!$conn instanceof PDO) {
+    http_response_code(500);
+
+    $msg = getMessage(
+        'La recherche est temporairement indisponible.',
+        'error'
+    );
+} else {
+    $searchExecuted = true;
+
     try {
-        // Prepare the statements with additional fields
-        $stmt1 = $conn->prepare("SELECT title, writer, feature, image_url, idCategory,idLivre FROM livres WHERE title LIKE :query");
-        $stmt2 = $conn->prepare("SELECT title, feature, image_url,idCategory,idPapeterie FROM papeteries WHERE title LIKE :query");
-        $stmt3 = $conn->prepare("SELECT title, feature, image_url,idCategory,idCadeau FROM cadeaux WHERE title LIKE :query");
+        /*
+         * Her tablo için ayrı placeholder kullanıyoruz.
+         * Yalnızca yayında olan ürünler gösterilir.
+         */
 
-        $stmt1->execute(['query' => '%' . $query . '%']);
-        $stmt2->execute(['query' => '%' . $query . '%']);
-        $stmt3->execute(['query' => '%' . $query . '%']);
+        $sql = '
+            SELECT
+                "Livre" AS product_type,
+                idLivre AS product_id,
+                title,
+                writer,
+                feature,
+                image_url
+            FROM livres
+            WHERE active = 1
+                AND title LIKE :query_livre
 
-        // Fetch results from all tables
-        $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-        $results2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-        $results3 = $stmt3->fetchAll(PDO::FETCH_ASSOC);
+            UNION ALL
 
-        // Combine results
-        $results = array_merge($results1, $results2, $results3);
-    } catch (PDOException $e) {
-        if (DEBUG) {
-            echo 'Error: ' . $e->getMessage();
-        } else {
-            echo 'Error: Database query';
-        }
-        exit();
+            SELECT
+                "Papeterie" AS product_type,
+                idPapeterie AS product_id,
+                title,
+                NULL AS writer,
+                feature,
+                image_url
+            FROM papeteries
+            WHERE active = 1
+                AND title LIKE :query_papeterie
+
+            UNION ALL
+
+            SELECT
+                "Cadeau" AS product_type,
+                idCadeau AS product_id,
+                title,
+                NULL AS writer,
+                feature,
+                image_url
+            FROM cadeaux
+            WHERE active = 1
+                AND title LIKE :query_cadeau
+
+            ORDER BY title ASC
+            LIMIT 60
+        ';
+
+        $statement = $conn->prepare($sql);
+
+        $searchValue = '%' . $query . '%';
+
+        $statement->execute([
+            'query_livre' => $searchValue,
+            'query_papeterie' => $searchValue,
+            'query_cadeau' => $searchValue,
+        ]);
+
+        $results = $statement->fetchAll(
+            PDO::FETCH_ASSOC
+        );
+    } catch (PDOException $exception) {
+        error_log(
+            'Library search error: '
+                . $exception->getMessage()
+        );
+
+        http_response_code(500);
+
+        $results = [];
+
+        $msg = getMessage(
+            'Une erreur est survenue pendant la recherche.',
+            'error'
+        );
     }
+}
+
 ?>
 
-    <!DOCTYPE html>
-    <html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 
-    <head>
-        <?php
-        // Include the head section
-        displayHeadSection('Résultats de recherche');
-        displayJSSection();
-        ?>
-    </head>
+<head>
+    <?php
+    displayHeadSection('Résultats de recherche');
+    displayJSSection();
+    ?>
+</head>
 
-    <body>
+<body>
 
-        <!-----------------------------------------------------------------
-                                Header
-    ------------------------------------------------------------------>
-        <header>
-            <!-----------------------------------------------------------------
-                            Navigation
-        ------------------------------------------------------------------>
-            <div data-include="navigation"></div>
-            <!-----------------------------------------------------------------
-                            Navigation end
-        ------------------------------------------------------------------>
-        </header>
-        <!-----------------------------------------------------------------
-                           Header end
-    ------------------------------------------------------------------>
-        <section class="search-container container">
-        <?php
-        if ($results) {
-            echo "<h1>Résultats de recherche</h1>";
-            echo "<p class='search-results-count'>Résultats trouvés: " . count($results) . "</p>";
-            echo "<div class='search-results'>";
-            echo "<ul>";
-            foreach ($results as $row) {
-                echo "<li>";
-                if ($row['idCategory'] == 1) {
-                    $type = "Livre";
-                    echo "<a href='../public/product-livre.php?idLivre=" . $row['idLivre'] . "'>";
-                } elseif ($row['idCategory'] == 2) {
-                    $type = "Papeterie";
-                    echo "<a href='../public/product-papeterie.php?idPapeterie=" . $row['idPapeterie'] . "'>";
-                } elseif ($row['idCategory'] == 3) {
-                    $type = "Cadeau";
-                    echo "<a href='../public/product-cadeau.php?idCadeau=" . $row['idCadeau'] . "'>";
-                }
-                if (!empty($row['image_url'])) {
-                    echo "<img src='" . htmlspecialchars($row['image_url']) . "' alt='Image for " . htmlspecialchars($row['title']) . "'>";
-                }
-                echo "</a>";
+    <header>
+        <div data-include="navigation"></div>
+    </header>
 
-                echo "<p class='type'>" . $type . "</p>";
-                echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-                if (isset($row['writer']) && !empty($row['writer'])) {
-                    echo "<p class='writer'> " . htmlspecialchars($row['writer']) . "</p>";
-                }
-                if (!empty($row['feature'])) {
-                    echo "<p class='feature'>" . htmlspecialchars($row['feature']) . "</p>";
-                }
-                echo "</li>";
-            }
-            echo "</ul>";
-            echo "</div>";
-        } else {
-            echo "No results found.";
-        }
-    } else {
-        echo "Please enter a search query.";
-    }
-        ?>
-        </section>
+    <main class="search-container container">
 
+        <h1>Résultats de recherche</h1>
 
-        <!-----------------------------------------------------------------
-                            Footer
-        ------------------------------------------------------------------>
-        <footer>
-            <?php displayFooter(); ?>
-        </footer>
-        <!-----------------------------------------------------------------
-                          Footer end
-        ------------------------------------------------------------------>
+        <?php if ($msg !== null): ?>
+            <div id="message">
+                <?= $msg ?>
+            </div>
+        <?php endif; ?>
 
-        <!-- Font Awesome -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <?php if (
+            $searchExecuted
+            && $msg === null
+        ): ?>
+            <p class="search-results-count">
+                Résultats trouvés :
+                <?= count($results) ?>
+            </p>
 
-        <!-- Include functions.js -->
-        <script src="../js/functions.js"></script>
-    </body>
+            <?php if (!empty($results)): ?>
 
-    </html>
+                <div class="search-results">
+                    <ul>
+
+                        <?php foreach ($results as $row): ?>
+                            <?php
+                            $productType = (string) (
+                                $row['product_type'] ?? ''
+                            );
+
+                            $productId = (int) (
+                                $row['product_id'] ?? 0
+                            );
+
+                            $productUrl = '';
+
+                            if ($productType === 'Livre') {
+                                $productUrl =
+                                    '../public/product-livre.php?idLivre='
+                                    . $productId;
+                            } elseif (
+                                $productType === 'Papeterie'
+                            ) {
+                                $productUrl =
+                                    '../public/product-papeterie.php?idPapeterie='
+                                    . $productId;
+                            } elseif (
+                                $productType === 'Cadeau'
+                            ) {
+                                $productUrl =
+                                    '../public/product-cadeau.php?idCadeau='
+                                    . $productId;
+                            }
+
+                            $title = (string) (
+                                $row['title'] ?? ''
+                            );
+
+                            $writer = (string) (
+                                $row['writer'] ?? ''
+                            );
+
+                            $feature = (string) (
+                                $row['feature'] ?? ''
+                            );
+
+                            $imageUrl = trim(
+                                (string) (
+                                    $row['image_url'] ?? ''
+                                )
+                            );
+
+                            if (
+                                preg_match(
+                                    '#^\s*(javascript|data):#i',
+                                    $imageUrl
+                                )
+                            ) {
+                                $imageUrl = '';
+                            }
+                            ?>
+
+                            <li>
+
+                                <?php if (
+                                    $productUrl !== ''
+                                ): ?>
+                                    <a
+                                        href="<?= escapeHtml(
+                                                    $productUrl
+                                                ) ?>">
+                                        <?php if (
+                                            $imageUrl !== ''
+                                        ): ?>
+                                            <img
+                                                src="<?= escapeHtml(
+                                                            $imageUrl
+                                                        ) ?>"
+                                                alt="<?= escapeHtml(
+                                                            'Image de '
+                                                                . $title
+                                                        ) ?>">
+                                        <?php endif; ?>
+                                    </a>
+                                <?php endif; ?>
+
+                                <p class="type">
+                                    <?= escapeHtml(
+                                        $productType
+                                    ) ?>
+                                </p>
+
+                                <h2>
+                                    <?= escapeHtml(
+                                        $title
+                                    ) ?>
+                                </h2>
+
+                                <?php if (
+                                    $writer !== ''
+                                ): ?>
+                                    <p class="writer">
+                                        <?= escapeHtml(
+                                            $writer
+                                        ) ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if (
+                                    $feature !== ''
+                                ): ?>
+                                    <p class="feature">
+                                        <?= escapeHtml(
+                                            $feature
+                                        ) ?>
+                                    </p>
+                                <?php endif; ?>
+
+                            </li>
+
+                        <?php endforeach; ?>
+
+                    </ul>
+                </div>
+
+            <?php else: ?>
+
+                <p>
+                    Aucun résultat trouvé pour
+                    « <?= escapeHtml($query) ?> ».
+                </p>
+
+            <?php endif; ?>
+        <?php endif; ?>
+
+    </main>
+
+    <footer>
+        <?php displayFooter(); ?>
+    </footer>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+    <script src="../js/functions.js"></script>
+
+</body>
+
+</html>

@@ -1,139 +1,261 @@
 <?php
-require_once('settings.php');
 
-// Start the session at the beginning of your script if it's not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/settings.php';
 
-// Check if user is not identified, redirect to login page
-if (!isset($_SESSION['IDENTIFY']) || !$_SESSION['IDENTIFY']) {
-    header('Location: login.php');
-    exit();
+requireLogin();
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(
+        random_bytes(32)
+    );
 }
 
 $msg = null;
-$result = null;
+$result = [];
 $execute = false;
 
-// Check the database connection
-if (!is_object($conn)) {
-    $msg = getMessage($conn, 'error');
-} else {
-    // Fetch all messages from the database
-    $result = getAllMessagesDB($conn);
+/*
+|--------------------------------------------------------------------------
+| Flash message
+|--------------------------------------------------------------------------
+*/
 
-    // Check if messages exist
-    if (is_array($result) && !empty($result)) {
-        $execute = true;
+if (isset($_SESSION['message'])) {
+    $msg = $_SESSION['message'];
 
-        // Check if message ID is provided in the URL for deletion
-        if (isset($_GET['idContact']) && is_numeric($_GET['idContact'])) {
+    unset($_SESSION['message']);
+}
 
-            $messageIdToDelete = $_GET['idContact'];
+/*
+|--------------------------------------------------------------------------
+| Delete message request
+|--------------------------------------------------------------------------
+*/
 
-            if ($_SESSION['user_permission'] == 1) {
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+    && ($_POST['action'] ?? '') === 'delete-message'
+) {
+    $submittedToken = (string) (
+        $_POST['csrf_token'] ?? ''
+    );
 
-                // Delete the message from the database
-                $deleteResult = deleteMessageDB($conn, $messageIdToDelete);
+    $sessionToken = (string) (
+        $_SESSION['csrf_token'] ?? ''
+    );
 
-                // Check deletion result and display appropriate message
-                if ($deleteResult === true) {
-                    $_SESSION['message'] = getMessage('Message successfully deleted.', 'success');
+    if (
+        $submittedToken === ''
+        || $sessionToken === ''
+        || !hash_equals(
+            $sessionToken,
+            $submittedToken
+        )
+    ) {
+        $_SESSION['message'] = getMessage(
+            'Votre session a expiré. Veuillez réessayer.',
+            'error'
+        );
+    } else {
+        $messageId = filter_input(
+            INPUT_POST,
+            'idContact',
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 1,
+                ],
+            ]
+        );
 
-                    // Refresh the page to reflect the changes after deletion
-                    header('Location: manager-messages.php');
-                    exit();
-                } else {
-                    $_SESSION['message'] = getMessage('Error when deleting message.' . $deleteResult, 'error');
-                }
+        if (
+            $messageId === false
+            || $messageId === null
+        ) {
+            $_SESSION['message'] = getMessage(
+                'Le message sélectionné est invalide.',
+                'error'
+            );
+        } elseif (!isAdmin()) {
+            $_SESSION['message'] = getMessage(
+                'Compte de démonstration : la suppression des messages est désactivée.',
+                'error'
+            );
+        } elseif (!$conn instanceof PDO) {
+            $_SESSION['message'] = getMessage(
+                'La connexion à la base de données est indisponible.',
+                'error'
+            );
+        } else {
+            $deleteResult = deleteMessageDB(
+                $conn,
+                $messageId
+            );
+
+            if ($deleteResult === true) {
+                $_SESSION['message'] = getMessage(
+                    'Le message a été supprimé avec succès.',
+                    'success'
+                );
             } else {
-                $_SESSION['message'] = getMessage('You are not allowed to delete the message.', 'error');
+                $_SESSION['message'] = getMessage(
+                    'Une erreur est survenue pendant la suppression du message.',
+                    'error'
+                );
             }
         }
-    } else {
-        $_SESSION['message'] = getMessage('There is no message to display at the moment.', 'error');
+    }
+
+    header('Location: manager-messages.php');
+    exit();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Retrieve messages
+|--------------------------------------------------------------------------
+*/
+
+if (isGuest()) {
+    /*
+     * Guest gerçek ziyaretçi mesajlarını görmez.
+     * İsimler, e-posta adresleri ve mesaj içerikleri
+     * kişisel veri olarak korunur.
+     */
+
+    $execute = false;
+} elseif (!$conn instanceof PDO) {
+    $msg = getMessage(
+        'La connexion à la base de données est indisponible.',
+        'error'
+    );
+} else {
+    $result = getAllMessagesDB($conn);
+
+    if (
+        is_array($result)
+        && !isset($result['error'])
+        && !empty($result)
+    ) {
+        $execute = true;
+    } elseif ($msg === null) {
+        $msg = getMessage(
+            'Il n’y a aucun message à afficher actuellement.',
+            'error'
+        );
     }
 }
 
-// Refresh the redirected page (manager-messages.php), add this code to display the message
-if (isset($_SESSION['message'])) {
-    $msg = $_SESSION['message'];
-    unset($_SESSION['message']); 
-}
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <?php
-    // Include the head section
-    displayHeadSection('My messages');
+    displayHeadSection('Mes messages');
     displayJSSection();
     ?>
 </head>
 
 <body>
 
-    <!-----------------------------------------------------------------
-							   Header
-	------------------------------------------------------------------>
     <header>
-        <!-----------------------------------------------------------------
-							   Navigation
-	    ------------------------------------------------------------------>
         <?php displayNavigation(); ?>
-        <!-----------------------------------------------------------------
-							Navigation end
-	    ------------------------------------------------------------------>
     </header>
-    <!-----------------------------------------------------------------
-							   Header end
-	------------------------------------------------------------------>
-    <div class="table-messages container">
-        <h1 class="title">Mes messages</h1>
+
+    <main class="table-messages container">
+
+        <h1 class="title">
+            Mes messages
+        </h1>
+
+        <?php if (isGuest()): ?>
+            <div class="message">
+                <?= getMessage(
+                    'Compte de démonstration : les messages des visiteurs sont masqués afin de protéger leurs données personnelles.',
+                    'success'
+                ) ?>
+            </div>
+        <?php endif; ?>
+
         <div id="message">
-            <?= isset($msg) ? $msg : ''; ?>
+            <?= $msg ?? '' ?>
         </div>
 
-        <div id="content" class="container">
-            <?php
-            // If messages exist, display them in a table
-            if ($execute) {
+        <div
+            id="content"
+            class="container">
+            <?php if ($execute): ?>
+                <?php
                 displayMessagesAsTable($result);
-            }
-            ?>
+                ?>
+            <?php endif; ?>
         </div>
-    </div>
 
-    <!-----------------------------------------------------------------
-                               Footer
-    ------------------------------------------------------------------>
+        <form
+            id="delete-message-form"
+            action="manager-messages.php"
+            method="post"
+            hidden>
+            <input
+                type="hidden"
+                name="action"
+                value="delete-message">
+
+            <input
+                type="hidden"
+                name="idContact"
+                id="delete-message-id"
+                value="">
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= escapeHtml(
+                            $_SESSION['csrf_token']
+                        ) ?>">
+        </form>
+
+    </main>
+
     <footer>
         <?php displayFooter(); ?>
     </footer>
-    <!-----------------------------------------------------------------
-                                   Footer end
-    ------------------------------------------------------------------>
 
     <script>
         function deleteMessage(messageId) {
-            // Confirm message deletion
-            if (confirm('Are you sure you want to delete the message below?')) {
-                // Redirect to manager-message.php with the message ID for deletion
-                window.location.href = 'manager-messages.php?idContact=' + messageId;
+            const confirmed = window.confirm(
+                'Êtes-vous certain de vouloir supprimer ce message ?'
+            );
+
+            if (!confirmed) {
+                return;
             }
+
+            const messageIdInput =
+                document.getElementById(
+                    'delete-message-id'
+                );
+
+            const deleteForm =
+                document.getElementById(
+                    'delete-message-form'
+                );
+
+            messageIdInput.value = messageId;
+            deleteForm.submit();
         }
     </script>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 
-    <!-- Main Js -->
     <script src="../js/functions.js"></script>
+
 </body>
 
 </html>
