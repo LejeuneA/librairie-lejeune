@@ -1028,7 +1028,14 @@ function renderUiProductCardHTML(
                         name="action"
                         value="add"
                     >
-
+                    
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="' . uiEscape(
+        $_SESSION['csrf_token'] ?? ''
+    ) . '"
+                    >
                     <button
                         type="submit"
                         class="btn-primary"
@@ -1206,6 +1213,14 @@ function renderUiProductByID(
                                 type="hidden"
                                 name="action"
                                 value="add"
+                            >
+                            
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                value="' . uiEscape(
+        $_SESSION['csrf_token'] ?? ''
+    ) . '"
                             >
 
                             <button

@@ -1,30 +1,68 @@
 <?php
-    require_once('settings.php');
-    
-    // Script de déconnexion
-    unset($_SESSION);
-    setcookie(session_name(), '', time()-3600);
-    session_destroy();
 
-    // Configuration de la session / du cookie de session
-    $name = session_name(str_replace(' ', '', APP_NAME).'_session');
-    $domain = $_SERVER['HTTP_HOST'];
-    $time = time() + 3600; // 3600 sec = 1 heure
+require_once __DIR__ . '/settings.php';
 
-    setcookie($name, APP_NAME, [
-        'expires' => $time,
-        'path' => '/',
-        'domain' => $domain,
-        'secure' => false,
-        'httponly' => true,
-        'samesite' => 'strict',
-    ]);
+/*
+|--------------------------------------------------------------------------
+| Preserve cart before logout
+|--------------------------------------------------------------------------
+*/
 
-    // Lancement de la session
-    session_start();
+$cart = [];
 
-    // Initialisation de la variable $_SESSION['IDENTIFY'] à false (pas d'utilisateur connecté)
-    $_SESSION['IDENTIFY'] = false;
+if (
+    isset($_SESSION['cart'])
+    && is_array($_SESSION['cart'])
+) {
+    $cart = $_SESSION['cart'];
+}
 
-    // Redirection vers la page d'accueil
-    header('Location: admin-logoff.php');
+/*
+|--------------------------------------------------------------------------
+| Clear authenticated session data
+|--------------------------------------------------------------------------
+|
+| Oturumu tamamen yok etmiyoruz çünkü sepeti aynı tarayıcı
+| oturumunda korumak istiyoruz.
+|
+*/
+
+session_unset();
+
+/*
+|--------------------------------------------------------------------------
+| Generate a fresh session ID
+|--------------------------------------------------------------------------
+|
+| Eski oturum kimliğini geçersiz kılar ve session fixation
+| riskini önler.
+|
+*/
+
+session_regenerate_id(true);
+
+/*
+|--------------------------------------------------------------------------
+| Restore public session data
+|--------------------------------------------------------------------------
+*/
+
+$_SESSION['IDENTIFY'] = false;
+$_SESSION['cart'] = $cart;
+$_SESSION['csrf_token'] = bin2hex(
+    random_bytes(32)
+);
+
+/*
+|--------------------------------------------------------------------------
+| Redirect to login
+|--------------------------------------------------------------------------
+*/
+
+header(
+    'Location: '
+        . rtrim(DOMAIN, '/')
+        . '/admin/login.php'
+);
+
+exit();
