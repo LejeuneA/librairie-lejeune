@@ -19,7 +19,11 @@ function connectDB($serverName, $userName, $userPwd, $dbName)
 {
     try {
         // Création d'une connexion à la base de données
-        $conn = new PDO("mysql:host=$serverName;dbname=$dbName;charset=utf8", $userName, $userPwd);
+        $conn = new PDO(
+            "mysql:host=$serverName;dbname=$dbName;charset=utf8mb4",
+            $userName,
+            $userPwd,
+        );
 
         // Définition du mode d'erreur de PDO sur Exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -79,7 +83,7 @@ function userIdentificationDB($conn, $datas)
 
 /**-----------------------------------------------------------------
                    Retrieve user password by email
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Retrieve user password by email
  * 
@@ -103,7 +107,6 @@ function getUserPasswordByEmail($conn, $email)
 
         // Return the password if found, otherwise return false
         return $user ? $user['passwd'] : false;
-
     } catch (PDOException $e) {
         (DEBUG) ? $st = 'Error : ' . $e->getMessage() : $st = "Error in : getUserPasswordByEmail() function";
         return $st;
@@ -1029,7 +1032,7 @@ function getAllCategoriesDB($pdo)
 
 /**-----------------------------------------------------------------
         Function to retrieve category names from the database
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 
 // Function to retrieve category names from the database
 function getCategoryNamesFromDB($conn)
@@ -1063,7 +1066,7 @@ function getCategoryNamesFromDB($conn)
 
 /**-----------------------------------------------------------------
                     Fetch product details by ID and type
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Fetch product details by ID and type
  * 
@@ -1144,7 +1147,7 @@ function displayProductByID($productType, $product)
 
 /**-----------------------------------------------------------------
         Retrieve all messages from the contact table
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Retrieve all messages from the contact table
  * 
@@ -1194,7 +1197,7 @@ function getAllMessagesDB($conn, $limit = null)
 
 /**-----------------------------------------------------------------
                 Deleting a message from the database
-*------------------------------------------------------------------**/
+ *------------------------------------------------------------------**/
 /**
  * Deletes a message from the database by its ID
  * 

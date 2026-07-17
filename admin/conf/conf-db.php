@@ -1,10 +1,45 @@
 <?php
 
-// Production can provide these values as environment variables.
-// The fallback values preserve the existing local XAMPP configuration.
-define('SERVER_NAME', getenv('DB_HOST') ?: 'localhost');
-define('USER_NAME', getenv('DB_USER') ?: 'root');
-$dbPassword = getenv('DB_PASSWORD');
-define('USER_PWD', $dbPassword !== false ? $dbPassword : '@NtLYa130580');
-define('DB_NAME', getenv('DB_NAME') ?: 'librairie_lejeune');
+$localConfigPath = __DIR__ . '/conf-db.local.php';
 
+$productionConfigPath =
+    '/home/acelyalejeune/private/librairie-lejeune-db.php';
+
+if (is_file($localConfigPath)) {
+    $configPath = $localConfigPath;
+} elseif (is_file($productionConfigPath)) {
+    $configPath = $productionConfigPath;
+} else {
+    error_log('Librairie Lejeune database configuration was not found.');
+
+    http_response_code(500);
+    exit('Database configuration is unavailable.');
+}
+
+$config = require $configPath;
+
+$requiredKeys = [
+    'host',
+    'user',
+    'password',
+    'database',
+];
+
+foreach ($requiredKeys as $requiredKey) {
+    if (
+        !array_key_exists($requiredKey, $config)
+        || !is_string($config[$requiredKey])
+    ) {
+        error_log(
+            'Invalid Librairie Lejeune database configuration.'
+        );
+
+        http_response_code(500);
+        exit('Database configuration is invalid.');
+    }
+}
+
+define('SERVER_NAME', $config['host']);
+define('USER_NAME', $config['user']);
+define('USER_PWD', $config['password']);
+define('DB_NAME', $config['database']);

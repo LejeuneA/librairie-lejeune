@@ -32,3 +32,6 @@ settings.php
 
 #Ignore any .psd files
 .psd
+
+#Ignore local conf file
+/admin/conf/conf-db.local.php
