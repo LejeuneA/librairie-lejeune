@@ -245,8 +245,7 @@ if (
                         'error'
                     );
                 } else {
-                    $uploadDirectory =
-                        __DIR__ . '/uploads';
+                    $uploadDirectory = dirname(__DIR__) . '/uploads';
 
                     if (
                         !is_dir($uploadDirectory)

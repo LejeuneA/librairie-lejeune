@@ -270,8 +270,7 @@ if (
                         'error'
                     );
                 } else {
-                    $uploadDirectory =
-                        __DIR__ . '/uploads';
+                    $uploadDirectory = dirname(__DIR__) . '/uploads';
 
                     if (
                         !is_dir($uploadDirectory)
@@ -369,7 +368,7 @@ if (
                     )
                 ) {
                     $oldImageFullPath =
-                        __DIR__
+                        dirname(__DIR__)
                         . DIRECTORY_SEPARATOR
                         . str_replace(
                             '/',
