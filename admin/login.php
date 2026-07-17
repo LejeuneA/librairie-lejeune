@@ -2,35 +2,52 @@
 
 require_once __DIR__ . '/settings.php';
 
-if (
-    isset($_SESSION['IDENTIFY'])
-    && $_SESSION['IDENTIFY'] === true
-) {
+if (isAuthenticated()) {
     header('Location: manager.php');
     exit();
 }
 
+/*
+|--------------------------------------------------------------------------
+| CSRF token
+|--------------------------------------------------------------------------
+*/
+
 if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(
-        random_bytes(32)
-    );
+    $_SESSION['csrf_token'] =
+        bin2hex(random_bytes(32));
 }
+
+/*
+|--------------------------------------------------------------------------
+| Login rate limiting
+|--------------------------------------------------------------------------
+*/
 
 $_SESSION['login_attempts'] =
     (int) ($_SESSION['login_attempts'] ?? 0);
 
 $_SESSION['login_locked_until'] =
-    (int) ($_SESSION['login_locked_until'] ?? 0);
+    (int) (
+        $_SESSION['login_locked_until'] ?? 0
+    );
 
-$user = null;
 $msg = null;
+
+/*
+|--------------------------------------------------------------------------
+| Login request
+|--------------------------------------------------------------------------
+*/
 
 if (!is_object($conn)) {
     $msg = getMessage(
         'La connexion à la base de données est indisponible.',
         'error',
     );
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif (
+    $_SERVER['REQUEST_METHOD'] === 'POST'
+) {
     $currentTime = time();
 
     if (
@@ -42,13 +59,19 @@ if (!is_object($conn)) {
             'error',
         );
     } else {
-        $submittedToken =
-            (string) ($_POST['csrf_token'] ?? '');
+        $submittedToken = (string) (
+            $_POST['csrf_token'] ?? ''
+        );
+
+        $sessionToken = (string) (
+            $_SESSION['csrf_token'] ?? ''
+        );
 
         if (
             $submittedToken === ''
+            || $sessionToken === ''
             || !hash_equals(
-                $_SESSION['csrf_token'],
+                $sessionToken,
                 $submittedToken,
             )
         ) {
@@ -68,8 +91,9 @@ if (!is_object($conn)) {
                 (string) ($_POST['login'] ?? '')
             );
 
-            $password =
-                (string) ($_POST['pwd'] ?? '');
+            $password = (string) (
+                $_POST['pwd'] ?? ''
+            );
 
             if (
                 $login === ''
@@ -107,7 +131,10 @@ if (!is_object($conn)) {
                         ],
                     );
 
-                if ($user !== false) {
+                if (
+                    is_array($user)
+                    && !empty($user['email'])
+                ) {
                     $permission = (int) (
                         $user['permission'] ?? 0
                     );
@@ -126,25 +153,33 @@ if (!is_object($conn)) {
                     } else {
                         session_regenerate_id(true);
 
-                        $_SESSION['IDENTIFY'] = true;
+                        $_SESSION['IDENTIFY'] =
+                            true;
+
                         $_SESSION['user_email'] =
                             $user['email'];
 
                         $_SESSION['user_permission'] =
                             $permission;
 
-                        $_SESSION['login_attempts'] = 0;
-                        $_SESSION['login_locked_until'] = 0;
+                        $_SESSION['login_attempts'] =
+                            0;
 
-                        if ($permission === 1) {
-                            header(
-                                'Location: manager.php'
+                        $_SESSION['login_locked_until'] =
+                            0;
+
+                        $_SESSION['csrf_token'] =
+                            bin2hex(
+                                random_bytes(32)
                             );
-                        } else {
-                            header(
-                                'Location: customer.php'
-                            );
-                        }
+
+                        /*
+                         * Admin ve guest aynı yönetim
+                         * paneline yönlendirilir.
+                         */
+                        header(
+                            'Location: manager.php'
+                        );
 
                         exit();
                     }
@@ -152,12 +187,13 @@ if (!is_object($conn)) {
                     $_SESSION['login_attempts']++;
 
                     if (
-                        $_SESSION['login_attempts'] >= 5
+                        $_SESSION['login_attempts']
+                        >= 5
                     ) {
-                        $_SESSION['login_attempts'] = 0;
+                        $_SESSION['login_attempts'] =
+                            0;
 
-                        $_SESSION['login_locked_until'] =
-                            time() + 300;
+                        $_SESSION['login_locked_until'] = time() + 300;
 
                         $msg = getMessage(
                             'Trop de tentatives. Veuillez patienter cinq minutes.',
@@ -175,10 +211,8 @@ if (!is_object($conn)) {
     }
 }
 
-$loginValue = htmlspecialchars(
-    (string) ($_POST['login'] ?? ''),
-    ENT_QUOTES,
-    'UTF-8',
+$loginValue = escapeHtml(
+    $_POST['login'] ?? '',
 );
 
 ?>
@@ -187,7 +221,9 @@ $loginValue = htmlspecialchars(
 <html lang="fr">
 
 <head>
-    <?php displayHeadSection('S\'identifier'); ?>
+    <?php
+    displayHeadSection('S\'identifier');
+    ?>
 </head>
 
 <body>
@@ -196,12 +232,14 @@ $loginValue = htmlspecialchars(
         <?php displayNavigation(); ?>
     </header>
 
-    <div class="login-container">
+    <main class="login-container">
+
         <div class="login-title">
             <h1>Se connecter</h1>
 
             <p>
-                Connectez-vous pour gérer votre page
+                Connectez-vous pour découvrir
+                l’espace de gestion
             </p>
 
             <div class="message">
@@ -212,6 +250,7 @@ $loginValue = htmlspecialchars(
         </div>
 
         <div class="login-content container">
+
             <form
                 class="login-form"
                 action="login.php"
@@ -252,7 +291,9 @@ $loginValue = htmlspecialchars(
                 </div>
 
                 <a href="forgot-pass.php">
-                    <p>Mot de passe oublié ?</p>
+                    <p>
+                        Mot de passe oublié ?
+                    </p>
                 </a>
 
                 <input
@@ -263,10 +304,8 @@ $loginValue = htmlspecialchars(
                 <input
                     type="hidden"
                     name="csrf_token"
-                    value="<?= htmlspecialchars(
-                                $_SESSION['csrf_token'],
-                                ENT_QUOTES,
-                                'UTF-8',
+                    value="<?= escapeHtml(
+                                $_SESSION['csrf_token']
                             ) ?>">
 
                 <button
@@ -281,8 +320,10 @@ $loginValue = htmlspecialchars(
                     src="../assets/components/background-vector.png"
                     alt="">
             </div>
+
         </div>
-    </div>
+
+    </main>
 
     <footer>
         <?php displayFooter(); ?>
