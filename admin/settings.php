@@ -10,43 +10,111 @@ const DEBUG = false;
 |--------------------------------------------------------------------------
 */
 
+$forwardedProtoHeader = strtolower(
+    trim(
+        (string) (
+            $_SERVER['HTTP_X_FORWARDED_PROTO']
+            ?? ''
+        )
+    )
+);
+
+$forwardedProtoParts = explode(
+    ',',
+    $forwardedProtoHeader
+);
+
+$forwardedProto = trim(
+    $forwardedProtoParts[0] ?? ''
+);
+
 $isForwardedHttps =
-    strtolower(
-        (string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')
-    ) === 'https';
+    $forwardedProto === 'https';
 
 $isDirectHttps =
     !empty($_SERVER['HTTPS'])
-    && $_SERVER['HTTPS'] !== 'off';
+    && strtolower(
+        (string) $_SERVER['HTTPS']
+    ) !== 'off';
 
-$isHttps = $isDirectHttps || $isForwardedHttps;
+$isHttps =
+    $isDirectHttps
+    || $isForwardedHttps;
 
-$scheme = $isHttps ? 'https' : 'http';
+$scheme = $isHttps
+    ? 'https'
+    : 'http';
 
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+/*
+|--------------------------------------------------------------------------
+| Host validation
+|--------------------------------------------------------------------------
+*/
+
+$rawHost = trim(
+    (string) (
+        $_SERVER['HTTP_HOST']
+        ?? 'localhost'
+    )
+);
+
+$host = preg_replace(
+    '/[^a-zA-Z0-9.\-:\[\]]/',
+    '',
+    $rawHost
+);
+
+if (
+    !is_string($host)
+    || $host === ''
+) {
+    $host = 'localhost';
+}
+
+/*
+|--------------------------------------------------------------------------
+| Project base path
+|--------------------------------------------------------------------------
+*/
 
 $scriptName = str_replace(
     '\\',
     '/',
-    (string) ($_SERVER['SCRIPT_NAME'] ?? ''),
+    (string) (
+        $_SERVER['SCRIPT_NAME']
+        ?? ''
+    )
 );
 
-$directoryName = dirname($scriptName);
+$directoryName = dirname(
+    $scriptName
+);
 
-$basePath = preg_replace(
+$detectedBasePath = preg_replace(
     '#/(admin|public|datas)(/.*)?$#',
     '',
-    $directoryName,
+    $directoryName
 );
 
+if (!is_string($detectedBasePath)) {
+    $detectedBasePath = '';
+}
+
 $basePath = rtrim(
-    str_replace('\\', '/', (string) $basePath),
-    '/.',
+    str_replace(
+        '\\',
+        '/',
+        $detectedBasePath
+    ),
+    '/.'
 );
 
 define(
     'DOMAIN',
-    $scheme . '://' . $host . $basePath,
+    $scheme
+        . '://'
+        . $host
+        . $basePath
 );
 
 /*
@@ -55,7 +123,11 @@ define(
 |--------------------------------------------------------------------------
 */
 
-require_once __DIR__ . '/conf/conf-db.php';
+require_once __DIR__
+    . '/conf/conf-db.php';
+
+require_once __DIR__
+    . '/app/functions/fct-tools.php';
 
 require_once __DIR__
     . '/app/functions/fct-db.php';
@@ -63,21 +135,33 @@ require_once __DIR__
 require_once __DIR__
     . '/app/functions/fct-ui.php';
 
-require_once __DIR__
-    . '/app/functions/fct-tools.php';
-
 /*
 |--------------------------------------------------------------------------
 | Session
 |--------------------------------------------------------------------------
 */
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    ini_set('session.use_strict_mode', '1');
+if (
+    session_status()
+    !== PHP_SESSION_ACTIVE
+) {
+    ini_set(
+        'session.use_strict_mode',
+        '1'
+    );
+
+    ini_set(
+        'session.use_only_cookies',
+        '1'
+    );
 
     session_name(
-        str_replace(' ', '', APP_NAME)
-            . '_session',
+        str_replace(
+            ' ',
+            '',
+            APP_NAME
+        )
+            . '_session'
     );
 
     session_set_cookie_params([
@@ -89,6 +173,22 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     ]);
 
     session_start();
+}
+
+/*
+|--------------------------------------------------------------------------
+| Global session values
+|--------------------------------------------------------------------------
+|
+| Bu kontroller session_start() bloğunun dışında olmalı.
+| Settings dosyası çağrıldığında session daha önce açılmış olabilir.
+|
+*/
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(
+        random_bytes(32)
+    );
 }
 
 if (!isset($_SESSION['IDENTIFY'])) {
@@ -105,8 +205,8 @@ function escapeHtml($value): string
 {
     return htmlspecialchars(
         (string) $value,
-        ENT_QUOTES,
-        'UTF-8',
+        ENT_QUOTES | ENT_SUBSTITUTE,
+        'UTF-8'
     );
 }
 
@@ -116,14 +216,17 @@ function isAuthenticated(): bool
         isset($_SESSION['IDENTIFY'])
         && $_SESSION['IDENTIFY'] === true
         && !empty($_SESSION['user_email'])
-        && isset($_SESSION['user_permission'])
+        && isset(
+            $_SESSION['user_permission']
+        )
     );
 }
 
 function currentUserPermission(): int
 {
     return (int) (
-        $_SESSION['user_permission'] ?? 0
+        $_SESSION['user_permission']
+        ?? 0
     );
 }
 
@@ -147,7 +250,9 @@ function destroyUserSession(): void
 {
     $_SESSION = [];
 
-    if (ini_get('session.use_cookies')) {
+    if (
+        ini_get('session.use_cookies')
+    ) {
         $cookieParameters =
             session_get_cookie_params();
 
@@ -155,27 +260,48 @@ function destroyUserSession(): void
             session_name(),
             '',
             [
-                'expires' => time() - 42000,
+                'expires' =>
+                time() - 42000,
+
                 'path' =>
-                $cookieParameters['path'],
+                $cookieParameters['path'] ?? '/',
+
                 'domain' =>
-                $cookieParameters['domain'],
+                $cookieParameters['domain'] ?? '',
+
                 'secure' =>
-                $cookieParameters['secure'],
+                (bool) (
+                    $cookieParameters['secure'] ?? false
+                ),
+
                 'httponly' =>
-                $cookieParameters['httponly'],
-                'samesite' => 'Strict',
-            ],
+                (bool) (
+                    $cookieParameters['httponly'] ?? true
+                ),
+
+                'samesite' =>
+                $cookieParameters['samesite'] ?? 'Strict',
+            ]
         );
     }
 
-    session_destroy();
+    if (
+        session_status()
+        === PHP_SESSION_ACTIVE
+    ) {
+        session_destroy();
+    }
 }
 
 function requireLogin(): void
 {
     if (!isAuthenticated()) {
-        header('Location: login.php');
+        header(
+            'Location: '
+                . rtrim(DOMAIN, '/')
+                . '/admin/login.php'
+        );
+
         exit();
     }
 
@@ -183,12 +309,17 @@ function requireLogin(): void
         !in_array(
             currentUserPermission(),
             [1, 2],
-            true,
+            true
         )
     ) {
         destroyUserSession();
 
-        header('Location: login.php');
+        header(
+            'Location: '
+                . rtrim(DOMAIN, '/')
+                . '/admin/login.php'
+        );
+
         exit();
     }
 }
@@ -199,7 +330,9 @@ function requireAdminAction(): void
 
     if (!isAdmin()) {
         header(
-            'Location: manager.php?readonly=1'
+            'Location: '
+                . rtrim(DOMAIN, '/')
+                . '/admin/manager.php?readonly=1'
         );
 
         exit();
@@ -216,5 +349,5 @@ $conn = connectDB(
     SERVER_NAME,
     USER_NAME,
     USER_PWD,
-    DB_NAME,
+    DB_NAME
 );
