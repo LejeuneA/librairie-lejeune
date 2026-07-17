@@ -2,12 +2,18 @@
 
 require_once __DIR__ . '/settings.php';
 
+/*
+|--------------------------------------------------------------------------
+| Search state
+|--------------------------------------------------------------------------
+*/
+
 $query = trim(
     (string) ($_GET['query'] ?? '')
 );
 
 $results = [];
-$msg = null;
+$message = null;
 $searchExecuted = false;
 
 /*
@@ -17,34 +23,35 @@ $searchExecuted = false;
 */
 
 if ($query === '') {
-    $msg = getMessage(
+    $message = getMessage(
         'Veuillez saisir un terme de recherche.',
         'error'
     );
 } elseif (mb_strlen($query) > 100) {
-    $msg = getMessage(
+    $message = getMessage(
         'Le terme de recherche est trop long.',
         'error'
     );
 } elseif (!$conn instanceof PDO) {
     http_response_code(500);
 
-    $msg = getMessage(
+    $message = getMessage(
         'La recherche est temporairement indisponible.',
         'error'
     );
 } else {
     $searchExecuted = true;
 
-    try {
-        /*
-         * Her tablo için ayrı placeholder kullanıyoruz.
-         * Yalnızca yayında olan ürünler gösterilir.
-         */
+    /*
+    |--------------------------------------------------------------------------
+    | Search published products
+    |--------------------------------------------------------------------------
+    */
 
-        $sql = '
+    try {
+        $sql = "
             SELECT
-                "Livre" AS product_type,
+                'Livre' AS product_type,
                 idLivre AS product_id,
                 title,
                 writer,
@@ -52,12 +59,16 @@ if ($query === '') {
                 image_url
             FROM livres
             WHERE active = 1
-                AND title LIKE :query_livre
+                AND (
+                    title LIKE :livre_title
+                    OR writer LIKE :livre_writer
+                    OR feature LIKE :livre_feature
+                )
 
             UNION ALL
 
             SELECT
-                "Papeterie" AS product_type,
+                'Papeterie' AS product_type,
                 idPapeterie AS product_id,
                 title,
                 NULL AS writer,
@@ -65,12 +76,15 @@ if ($query === '') {
                 image_url
             FROM papeteries
             WHERE active = 1
-                AND title LIKE :query_papeterie
+                AND (
+                    title LIKE :papeterie_title
+                    OR feature LIKE :papeterie_feature
+                )
 
             UNION ALL
 
             SELECT
-                "Cadeau" AS product_type,
+                'Cadeau' AS product_type,
                 idCadeau AS product_id,
                 title,
                 NULL AS writer,
@@ -78,26 +92,35 @@ if ($query === '') {
                 image_url
             FROM cadeaux
             WHERE active = 1
-                AND title LIKE :query_cadeau
+                AND (
+                    title LIKE :cadeau_title
+                    OR feature LIKE :cadeau_feature
+                )
 
             ORDER BY title ASC
             LIMIT 60
-        ';
+        ";
 
         $statement = $conn->prepare($sql);
 
         $searchValue = '%' . $query . '%';
 
         $statement->execute([
-            'query_livre' => $searchValue,
-            'query_papeterie' => $searchValue,
-            'query_cadeau' => $searchValue,
+            'livre_title' => $searchValue,
+            'livre_writer' => $searchValue,
+            'livre_feature' => $searchValue,
+
+            'papeterie_title' => $searchValue,
+            'papeterie_feature' => $searchValue,
+
+            'cadeau_title' => $searchValue,
+            'cadeau_feature' => $searchValue,
         ]);
 
         $results = $statement->fetchAll(
             PDO::FETCH_ASSOC
         );
-    } catch (PDOException $exception) {
+    } catch (Throwable $exception) {
         error_log(
             'Library search error: '
                 . $exception->getMessage()
@@ -107,7 +130,7 @@ if ($query === '') {
 
         $results = [];
 
-        $msg = getMessage(
+        $message = getMessage(
             'Une erreur est survenue pendant la recherche.',
             'error'
         );
@@ -121,8 +144,9 @@ if ($query === '') {
 
 <head>
     <?php
-    displayHeadSection('Résultats de recherche');
-    displayJSSection();
+    displayHeadSection(
+        'Résultats de recherche'
+    );
     ?>
 </head>
 
@@ -136,16 +160,14 @@ if ($query === '') {
 
         <h1>Résultats de recherche</h1>
 
-        <?php if ($msg !== null): ?>
-            <div id="message">
-                <?= $msg ?>
-            </div>
-        <?php endif; ?>
+        <?php if ($message !== null): ?>
 
-        <?php if (
-            $searchExecuted
-            && $msg === null
-        ): ?>
+            <div id="message">
+                <?= $message ?>
+            </div>
+
+        <?php elseif ($searchExecuted): ?>
+
             <p class="search-results-count">
                 Résultats trouvés :
                 <?= count($results) ?>
@@ -157,7 +179,9 @@ if ($query === '') {
                     <ul>
 
                         <?php foreach ($results as $row): ?>
+
                             <?php
+
                             $productType = (string) (
                                 $row['product_type'] ?? ''
                             );
@@ -166,66 +190,110 @@ if ($query === '') {
                                 $row['product_id'] ?? 0
                             );
 
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Decode stored HTML entities
+                            |--------------------------------------------------------------------------
+                            */
+
+                            $title = html_entity_decode(
+                                (string) (
+                                    $row['title'] ?? ''
+                                ),
+                                ENT_QUOTES | ENT_HTML5,
+                                'UTF-8'
+                            );
+
+                            $writer = html_entity_decode(
+                                (string) (
+                                    $row['writer'] ?? ''
+                                ),
+                                ENT_QUOTES | ENT_HTML5,
+                                'UTF-8'
+                            );
+
+                            $feature = html_entity_decode(
+                                (string) (
+                                    $row['feature'] ?? ''
+                                ),
+                                ENT_QUOTES | ENT_HTML5,
+                                'UTF-8'
+                            );
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Build safe public product URL
+                            |--------------------------------------------------------------------------
+                            */
+
                             $productUrl = '';
 
-                            if ($productType === 'Livre') {
-                                $productUrl =
-                                    '../public/product-livre.php?idLivre='
-                                    . $productId;
-                            } elseif (
-                                $productType === 'Papeterie'
-                            ) {
-                                $productUrl =
-                                    '../public/product-papeterie.php?idPapeterie='
-                                    . $productId;
-                            } elseif (
-                                $productType === 'Cadeau'
-                            ) {
-                                $productUrl =
-                                    '../public/product-cadeau.php?idCadeau='
-                                    . $productId;
+                            switch ($productType) {
+                                case 'Livre':
+                                    $productUrl =
+                                        rtrim(DOMAIN, '/')
+                                        . '/public/product-livre.php?idLivre='
+                                        . $productId;
+
+                                    break;
+
+                                case 'Papeterie':
+                                    $productUrl =
+                                        rtrim(DOMAIN, '/')
+                                        . '/public/product-papeterie.php?idPapeterie='
+                                        . $productId;
+
+                                    break;
+
+                                case 'Cadeau':
+                                    $productUrl =
+                                        rtrim(DOMAIN, '/')
+                                        . '/public/product-cadeau.php?idCadeau='
+                                        . $productId;
+
+                                    break;
                             }
 
-                            $title = (string) (
-                                $row['title'] ?? ''
+                            /*
+                            |--------------------------------------------------------------------------
+                            | Build absolute image URL
+                            |--------------------------------------------------------------------------
+                            |
+                            | Veritabanındaki "uploads/image.jpg" yolu:
+                            |
+                            | Local:
+                            | http://localhost/.../uploads/image.jpg
+                            |
+                            | Production:
+                            | https://library.acelyalejeune.com/uploads/image.jpg
+                            |
+                            */
+
+                            $imageUrl = safeAssetUrl(
+                                $row['image_url'] ?? ''
                             );
 
-                            $writer = (string) (
-                                $row['writer'] ?? ''
-                            );
-
-                            $feature = (string) (
-                                $row['feature'] ?? ''
-                            );
-
-                            $imageUrl = trim(
-                                (string) (
-                                    $row['image_url'] ?? ''
-                                )
-                            );
-
-                            if (
-                                preg_match(
-                                    '#^\s*(javascript|data):#i',
-                                    $imageUrl
-                                )
-                            ) {
-                                $imageUrl = '';
-                            }
                             ?>
 
-                            <li>
+                            <?php if (
+                                $productId > 0
+                                && $productUrl !== ''
+                            ): ?>
 
-                                <?php if (
-                                    $productUrl !== ''
-                                ): ?>
+                                <li>
+
                                     <a
                                         href="<?= escapeHtml(
                                                     $productUrl
-                                                ) ?>">
+                                                ) ?>"
+                                        aria-label="<?= escapeHtml(
+                                                        'Voir '
+                                                            . $title
+                                                    ) ?>">
                                         <?php if (
                                             $imageUrl !== ''
                                         ): ?>
+
                                             <img
                                                 src="<?= escapeHtml(
                                                             $imageUrl
@@ -233,44 +301,56 @@ if ($query === '') {
                                                 alt="<?= escapeHtml(
                                                             'Image de '
                                                                 . $title
-                                                        ) ?>">
+                                                        ) ?>"
+                                                loading="lazy">
+
                                         <?php endif; ?>
                                     </a>
-                                <?php endif; ?>
 
-                                <p class="type">
-                                    <?= escapeHtml(
-                                        $productType
-                                    ) ?>
-                                </p>
-
-                                <h2>
-                                    <?= escapeHtml(
-                                        $title
-                                    ) ?>
-                                </h2>
-
-                                <?php if (
-                                    $writer !== ''
-                                ): ?>
-                                    <p class="writer">
+                                    <p class="type">
                                         <?= escapeHtml(
-                                            $writer
+                                            $productType
                                         ) ?>
                                     </p>
-                                <?php endif; ?>
 
-                                <?php if (
-                                    $feature !== ''
-                                ): ?>
-                                    <p class="feature">
-                                        <?= escapeHtml(
-                                            $feature
-                                        ) ?>
-                                    </p>
-                                <?php endif; ?>
+                                    <h2>
+                                        <a
+                                            href="<?= escapeHtml(
+                                                        $productUrl
+                                                    ) ?>">
+                                            <?= escapeHtml(
+                                                $title
+                                            ) ?>
+                                        </a>
+                                    </h2>
 
-                            </li>
+                                    <?php if (
+                                        $writer !== ''
+                                    ): ?>
+
+                                        <p class="writer">
+                                            <?= escapeHtml(
+                                                $writer
+                                            ) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                    <?php if (
+                                        $feature !== ''
+                                    ): ?>
+
+                                        <p class="feature">
+                                            <?= escapeHtml(
+                                                $feature
+                                            ) ?>
+                                        </p>
+
+                                    <?php endif; ?>
+
+                                </li>
+
+                            <?php endif; ?>
 
                         <?php endforeach; ?>
 
@@ -285,6 +365,7 @@ if ($query === '') {
                 </p>
 
             <?php endif; ?>
+
         <?php endif; ?>
 
     </main>
