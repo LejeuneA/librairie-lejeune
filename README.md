@@ -1,111 +1,112 @@
 # Librairie Lejeune
 
-Librairie Lejeune is a full-stack bookstore web application developed as a personal portfolio project using PHP, MySQL, JavaScript and SCSS.
+**Librairie Lejeune** is a responsive bookstore eCommerce website built with **PHP**, **MySQL**, **JavaScript** and **SCSS**.
 
-The project combines a searchable book catalogue, shopping cart functionality, customer communication features and a protected administration area.
+This project is part of the personal portfolio of **Açelya Lejeune**. It is published publicly for portfolio review, recruitment evaluation and professional presentation purposes only.
 
-## Live Website
+Librairie Lejeune is not an open-source project, starter template, tutorial project or reusable eCommerce website product.
 
-[Visit Librairie Lejeune](https://library.acelyalejeune.com)
+## Portfolio Review Notice
+
+This repository is made public so that recruiters, hiring teams and collaborators can review the project structure, interface design, frontend implementation and backend functionality behind Librairie Lejeune.
+
+You may view the code and review the live preview or portfolio case study provided by the author.
+
+You may not copy, reuse, modify, distribute, publish, deploy, self-host or use this project or any part of it in your own work, portfolio, product, tutorial, template or commercial project.
+
+Installation, setup, deployment and self-hosting instructions are intentionally not provided.
 
 ## Project Overview
 
-Librairie Lejeune was created to demonstrate my approach to responsive interface design, database-driven development and full-stack PHP integration.
+Librairie Lejeune is a responsive eCommerce bookstore project created to present and manage a catalog of books, stationery and gift items.
 
-Visitors can browse and search the catalogue, view book information, add books to a shopping cart and contact the bookstore.
+The project combines visual direction, UI layout, frontend integration and basic backend functionality.
 
-The protected administration area supports book catalogue management, image uploads and customer message management.
+It includes public-facing pages for visitors and an admin panel for managing products, categories and catalog content.
 
-## Main Features
+## Current Features
 
-### Public Website
+The current version includes:
 
-- Dynamic book catalogue
-- Book search functionality
-- Book detail information
-- Shopping cart
-- Responsive interface
-- Contact form
-- Database-backed customer messages
-- Managed book cover images
-- Mobile-friendly navigation
+- responsive bookstore website
+- eCommerce-style product catalog
+- product category structure
+- public visitor pages
+- search and filtering logic
+- admin panel
+- product management
+- category management
+- catalog content management
+- PHP and MySQL backend functionality
+- SCSS-based styling
+- JavaScript interface interactions
+- Figma-based interface planning
 
-### Administration Area
+## Tech Stack
 
-- Secure administrator authentication
-- Guest access with read-only permissions
-- Book catalogue management
-- Create, edit and delete operations
-- Book image upload management
-- Customer message management
-- Protected administrative actions
-- Separate administrator and guest permissions
+Frontend:
 
-## Technologies
+- HTML
+- CSS
+- SCSS
+- JavaScript
+
+Backend:
 
 - PHP
 - MySQL
-- HTML5
-- SCSS / CSS3
-- JavaScript
-- Responsive Web Design
-- Git and GitHub
-- alwaysdata production hosting
 
-## Security and Production Configuration
+Development workflow:
 
-The production version includes:
+- Git
+- GitHub
+- responsive web design
+- database-driven content
+- admin panel structure
+- eCommerce-style interface planning
 
-- Separate local and production configurations
-- Database credentials stored outside the public web directory
-- Sensitive configuration files excluded from Git
-- Authentication for administrative functionality
-- Read-only restrictions for guest users
-- Protected create, update and delete operations
-- Controlled image upload handling
-- Server-side validation
-- Production error handling without exposing credentials
+## Project Purpose
 
-No passwords, API keys or production database credentials are included in this repository.
+Librairie Lejeune was created to demonstrate my ability to design and build a structured eCommerce-style website with both frontend and backend functionality.
 
-## What I Practised
+The project shows how I approach:
 
-Through this project, I worked on:
+- designing a clear online catalog experience
+- organizing products and categories
+- creating a responsive user interface
+- building PHP and MySQL functionality
+- creating an admin panel for product management
+- structuring a small eCommerce-style project
+- combining visual design, frontend integration and backend logic
 
-- Full-stack PHP and MySQL development
-- Database-driven catalogue design
-- Search functionality
-- Shopping cart development
-- Responsive interface implementation
-- Secure CRUD operations
-- Authentication and role-based permissions
-- Image upload management
-- Local-to-production deployment
-- Secure configuration management
+## Live Preview and Review
 
-## Project Status
+The project may be reviewed through the portfolio case study and any live preview provided by the author.
 
-The project is complete and available online as a portfolio demonstration.
+Live preview access is provided only for testing and professional review.
 
-It is not an active commercial bookstore and does not process real orders or payments.
+It does not grant permission to copy, reuse, modify, distribute, self-host or recreate the project.
 
-## Copyright and Usage
+## Portfolio Case Study
 
-Copyright © 2026 Açelya Lejeune. All rights reserved.
-
-This repository is publicly available for portfolio review and professional evaluation only.
-
-No permission is granted to copy, reproduce, modify, redistribute, publish, sell, sublicense or use this project, its source code, design, content, structure or visual assets in another project.
-
-The availability of this source code on GitHub does not make it open source.
-
-For permission requests, please contact the author through the portfolio website.
+https://acelyalejeune.com/public/librairie-lejeune.html
 
 ## Author
 
-**Açelya Lejeune**
+**Açelya Lejeune**  
+Senior UX/UI Designer · Frontend Developer · AI Application Development
 
-Senior UX/UI Designer and Frontend Developer  
-React, TypeScript, PHP, Python and AI Application Development
+GitHub: [LejeuneA](https://github.com/LejeuneA)  
+Portfolio: https://acelyalejeune.com
 
-[Portfolio](https://acelyalejeune.com)
+## License
+
+Copyright © 2026 Açelya Lejeune. All rights reserved.
+
+This project is provided publicly for portfolio review purposes only.
+
+No permission is granted to copy, reuse, modify, publish, distribute, sublicense, sell, deploy, self-host or use this project or any part of it without prior written permission from the author.
+
+The source code, design, structure, interface, visual assets, text content and project concept remain the property of Açelya Lejeune.
+
+Third-party libraries, frameworks and dependencies used in this project remain subject to their own licenses.
